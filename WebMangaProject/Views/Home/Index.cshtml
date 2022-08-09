@@ -1,0 +1,23 @@
+﻿@model IEnumerable<MvcPresentationLayer.Models.Manga.MangaSelectCatalogViewModel>
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @{
+   foreach (var item in Model)
+   {            
+    <div class="card-item">
+     <img src=@item.PosterImageLink alt="Anime" />
+     <div class="card-content">
+      <h3>@item.Name</h3>
+      </div>                               
+    </div>
+   }            
+}
+</div>
