@@ -10,7 +10,7 @@ namespace BusinessLogicalLayer.Validators.Manga
     {
         public MangaInsertValidator()
         {
-            base.ValidateImages();
+            //base.ValidateImages();
             //Nome, desc...
         }
     }

@@ -82,7 +82,7 @@ namespace DataAccessLayer.Implementations
 
             try
             {
-                db.Database.ExecuteSqlRaw($"DELETE FROM RatingFrequencies; DELETE FROM MANGAS; DELETE FROM MangaTitles");
+                db.Database.ExecuteSqlRaw($"DELETE FROM MangasRatingFrequencies; DELETE FROM MANGAS; DELETE FROM MangaTitles");
                 return new Response()
                 {
                     HasSuccess = true,

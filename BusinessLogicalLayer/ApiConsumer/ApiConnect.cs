@@ -52,7 +52,7 @@ namespace ApiConsumer
                             //BLL
                             responseManga = await _mangaService.Insert(item);
                             responseManga.Message = $"{i} :{item.Name}, {responseManga.Message}";
-                            responseList.Data.Add(responseManga);
+                            responseList.Data?.Add(responseManga);
                         }
 
                     }
