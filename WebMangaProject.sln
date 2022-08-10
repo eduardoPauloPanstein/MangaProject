@@ -13,6 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{77DAD20A-D37E-4E20-B4CC-F63CF8D7530E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataBase", "DataBase", "{0D0B642C-5197-4A5A-AD5D-436804D42C90}"
+	ProjectSection(SolutionItems) = preProject
+		Database\MangaProjectDB.mdf = Database\MangaProjectDB.mdf
+		Database\MangaProjectDB_log.ldf = Database\MangaProjectDB_log.ldf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
