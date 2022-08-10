@@ -73,7 +73,6 @@ namespace DataAccessLayer.Implementations
 
         public async Task<Response> DeleteAllDatas()
         {
-            MangaProjectDbContext db = new();
 
             //var tableNames = db.Model.GetEntityTypes()
             //                         .Select(t => t.GetTableName())
@@ -82,7 +81,7 @@ namespace DataAccessLayer.Implementations
 
             try
             {
-                db.Database.ExecuteSqlRaw($"DELETE FROM MangasRatingFrequencies; DELETE FROM MANGAS; DELETE FROM MangaTitles");
+                _db.Database.ExecuteSqlRaw($"DELETE FROM MangasRatingFrequencies; DELETE FROM MANGAS; DELETE FROM MangaTitles");
                 return new Response()
                 {
                     HasSuccess = true,

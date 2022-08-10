@@ -20,9 +20,9 @@ namespace BusinessLogicalLayer.Implementations
         {
             this.mangaDAL = mangaDAL;
         }
-        public Task<Response> DeleteAllDatas()
+        public async Task<Response> DeleteAllDatas()
         {
-            throw new NotImplementedException();
+            return await mangaDAL.DeleteAllDatas();
         }
 
         public async Task<DataResponse<Manga>> GetAll()

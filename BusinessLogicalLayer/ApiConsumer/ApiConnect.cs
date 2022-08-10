@@ -26,11 +26,12 @@ namespace ApiConsumer
         }
 
 
-        public async Task<DataResponse<Response>> Consume(int qtdMangas)
+        public async Task<DataResponse<Manga>> Consume(int qtdMangas)
         {
             //int qtdMangasCadastrados = 0;
             Response responseManga = new();
-            DataResponse<Response> responseList = new();
+            List<Manga> mangasTotal = new ();
+            DataResponse<Manga> dataResponseConsumeMangas = new();
 
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
@@ -45,6 +46,7 @@ namespace ApiConsumer
 
                         Root? mangaRootDTO = JsonConvert.DeserializeObject<Root>(jsonString);
 
+                        //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
                         List<Manga> mangas = Converter.ConvertDTOToManga(mangaRootDTO);
 
                         foreach (var item in mangas)
@@ -52,13 +54,26 @@ namespace ApiConsumer
                             //BLL
                             responseManga = await _mangaService.Insert(item);
                             responseManga.Message = $"{i} :{item.Name}, {responseManga.Message}";
-                            responseList.Data?.Add(responseManga);
+                            if (responseManga.HasSuccess)
+                            {
+                                mangasTotal.Add(item);
+                            }
                         }
 
                     }
                 }
             }
-            return responseList;
+            if (mangasTotal.Count > 0)
+            {
+                dataResponseConsumeMangas.HasSuccess = true;
+                dataResponseConsumeMangas.Data = mangasTotal;
+            }
+            else
+            {
+                dataResponseConsumeMangas.Message = "Houve algum erro ao consumir a API.";
+            }
+            return dataResponseConsumeMangas;
+
         }
         public async Task<Response> DeleteAllDatas()
         {

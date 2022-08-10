@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using Entities.Manga;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace ApiConsumer
         /// </summary>
         /// <param name="qtdMangas"></param>
         /// <returns></returns>
-        Task<DataResponse<Response>> Consume(int qtdMangas);
+        Task<DataResponse<Manga>> Consume(int qtdMangas);
         Task<Response> DeleteAllDatas();
 
     }

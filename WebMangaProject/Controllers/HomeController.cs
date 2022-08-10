@@ -15,21 +15,17 @@ namespace WebMangaProject.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IMangaService _mangaService;
         private readonly IMapper _mapper;
-        private readonly IApiConnect _apiService;
 
 
-        public HomeController(ILogger<HomeController> logger, IMangaService svc, IMapper mapper, IApiConnect apiConnect)
+        public HomeController(ILogger<HomeController> logger, IMangaService svc, IMapper mapper)
         {
             this._logger = logger;
             this._mapper = mapper;
             this._mangaService = svc;
-            this._apiService = apiConnect;
         }
 
         public async Task<IActionResult> Index()
         {
-            await _apiService.Consume(5);
-
             DataResponse<Manga> responseMangas = await _mangaService.GetSix();
 
             if (!responseMangas.HasSuccess)
@@ -38,8 +34,6 @@ namespace WebMangaProject.Controllers
                 ViewBag.Errors = responseMangas.Message;
                 return View();
             }
-            //Se chegou aqui, o select funcionou, bora transformar a List<Pet> em uma List<PetSelectViewModel>
-
 
             List<MangaSelectCatalogViewModel> mangas =
                 _mapper.Map<List<MangaSelectCatalogViewModel>>(responseMangas.Data);
