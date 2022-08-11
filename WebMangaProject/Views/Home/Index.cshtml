@@ -6,18 +6,32 @@
 }
 
 
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    @{
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/homeStyles.css" />
+  </head>
+  <body>
+   
+      <section class="catalog" id="catalog">
+       <h3>Mangas populares</h3>
+        <div class="card-wrapper">
+            @{
    foreach (var item in Model)
    {            
     <div class="card-item">
-     <img src=@item.PosterImageLink alt="Anime" height="284" width="402" />
+     <img src=@item.PosterImageLink alt="Manga" />
      <div class="card-content">
-      <h3>@item.Name</h3>
+      <h5>@item.Name</h5>
       </div>                               
     </div>
    }            
-}
-</div>
+    }
+    </div>
+    </section>
+
+  </body>
+</html>

@@ -1,0 +1,42 @@
+﻿section .catalog {
+    width: 100vw;
+    padding: 100px;
+}
+
+section .card-wrapper {
+    display: grid;
+    grid-gap: 28px 30px;
+    grid-template-columns: repeat(auto-fill,185px);
+    justify-content: space-between;
+}
+
+section .card-item {
+    animation: in-data-v-4d8937d6 .3s linear;
+    display: grid;
+    grid-template-rows: -webkit-min-content auto;
+    grid-template-rows: min-content auto;
+    position: relative;
+    width: 185px;
+}
+
+.card-content {
+    color: rgb(var(--color-gray-700));
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 21px;
+    margin-top: 10px;
+    overflow: hidden;
+    transition: color .2s ease;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.card-item img {
+    width: 100%;
+}
+
+
+
+
+

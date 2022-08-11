@@ -105,7 +105,7 @@ namespace DataAccessLayer.Implementations
 
             try
             {
-                List<Manga> mangas = await _db.Mangas.Where(m => m.Id < 118).ToListAsync();
+                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(5).ToListAsync();
                 response.HasSuccess = true;
                 response.Message = "Mangas selecionados com sucesso!";
                 response.Data = mangas;
