@@ -21,6 +21,7 @@ namespace DataAccessLayer.Implementations
         public async Task<Response> Insert(Manga manga)
         {
             _db.Mangas.Add(manga);
+            //_db.Mangas.AddAsync(manga); //WHY?
             try
             {
                 await _db.SaveChangesAsync();
@@ -43,22 +44,26 @@ namespace DataAccessLayer.Implementations
         }
         public async Task<DataResponse<Manga>> GetAll()
         {
-            DataResponse<Manga> response = new();
-
             try
             {
                 List<Manga> mangas = await _db.Mangas.ToListAsync();
-                response.HasSuccess = true;
-                response.Message = "Mangas selecionados com sucesso!";
-                response.Data = mangas;
-                return response;
+                return new DataResponse<Manga>()
+                {
+                    HasSuccess = true,
+                    Message = "Mangas selecionados com sucesso!",
+                    Data = mangas
+                };
+
             }
             catch (Exception ex)
             {
-                response.HasSuccess = false;
-                response.Message = "Erro no banco, contate o administrador.";
-                response.Exception = ex;
-                return response;
+                return new DataResponse<Manga>()
+                {
+                    HasSuccess = false,
+                    Message = "Erro no banco, contate o administrador.",
+                    Exception = ex
+                };
+
             }
         }
         public async Task<DataResponse<Manga>> GetMorePopular()
@@ -106,17 +111,23 @@ namespace DataAccessLayer.Implementations
             try
             {
                 List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(5).ToListAsync();
-                response.HasSuccess = true;
-                response.Message = "Mangas selecionados com sucesso!";
-                response.Data = mangas;
-                return response;
+                return new DataResponse<Manga>()
+                {
+                    HasSuccess = true,
+                    Message = "Mangas selecionados com sucesso!",
+                    Data = mangas
+                };
+
             }
             catch (Exception ex)
             {
-                response.HasSuccess = false;
-                response.Message = "Erro no banco, contate o administrador.";
-                response.Exception = ex;
-                return response;
+                return new DataResponse<Manga>()
+                {
+                    HasSuccess = false,
+                    Message = "Erro no banco, contate o administrador.",
+                    Exception = ex
+                };
+
             }
         }
     }

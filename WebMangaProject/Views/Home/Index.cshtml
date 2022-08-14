@@ -23,9 +23,9 @@
    foreach (var item in Model)
    {            
     <div class="card-item">
-     <img src=@item.PosterImageLink alt="Manga" />
+     <img src=@item.PosterImageLink alt="@item.Titles?.Ja_jp" />
      <div class="card-content">
-      <h5>@item.Name</h5>
+      <h5>@item.CanonicalTitle</h5>
       </div>                               
     </div>
    }            

@@ -12,9 +12,9 @@ namespace DataAccessLayer
 {
     public class MangaProjectDbContext : DbContext
     {
-        //DbSets funcionam como se fossem o DAO do Pet, permitindo realizar todas as operações
-        //SQL para a tabela PET mexendo nessa propriedade.
+        //SQL para a tabela a partir dessa propriedade.
         public DbSet<Manga> Mangas { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public MangaProjectDbContext(DbContextOptions options) : base(options) { }
         public MangaProjectDbContext()
@@ -32,7 +32,7 @@ namespace DataAccessLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Assembly no contexto do .NET
-            //Carrega os map config que tão criado dentro do projeto (assembly) DAO 
+            //Carrega os map config que tão criado dentro do projeto (assembly) DAL
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }

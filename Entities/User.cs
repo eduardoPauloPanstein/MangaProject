@@ -13,9 +13,17 @@ namespace Entities
         public string Nickname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+
         public bool EmailConfirmed { get; set; }
-        public DateOnly CreatedAt { get; set; }
-        public DateOnly LastLogin { get; set; } 
+        public DateOnly CreatedAt
+        {
+            get
+            {
+                return DateOnly.FromDateTime(DateTime.Now);
+            }
+        }
+        public DateOnly LastLogin { get; set; }
         public UserRoles Role { get; set; } = UserRoles.User;
         public string? About { get; set; }
         //public CivicAddress Address { get; set; }
