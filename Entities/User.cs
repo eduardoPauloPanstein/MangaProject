@@ -16,14 +16,8 @@ namespace Entities
         public string ConfirmPassword { get; set; }
 
         public bool EmailConfirmed { get; set; }
-        public DateOnly CreatedAt
-        {
-            get
-            {
-                return DateOnly.FromDateTime(DateTime.Now);
-            }
-        }
-        public DateOnly LastLogin { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime LastLogin { get; set; }
         public UserRoles Role { get; set; } = UserRoles.User;
         public string? About { get; set; }
         //public CivicAddress Address { get; set; }

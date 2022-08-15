@@ -14,21 +14,21 @@ namespace BusinessLogicalLayer.Implementations
 {
     public class MangaService : IMangaService
     {
-        private readonly IMangaDAL mangaDAL;
+        private readonly IMangaDAL _mangaDAL;
 
         public MangaService(IMangaDAL mangaDAL)
         {
-            this.mangaDAL = mangaDAL;
+            this._mangaDAL = mangaDAL;
         }
         public async Task<Response> DeleteAllDatas()
         {
-            return await mangaDAL.DeleteAllDatas();
+            return await _mangaDAL.DeleteAllDatas();
         }
 
         public async Task<DataResponse<Manga>> GetAll()
         {
             //politica de cache!
-            return await mangaDAL.GetAll();
+            return await _mangaDAL.GetAll();
         }
 
         public Task<DataResponse<Manga>> GetMorePopular()
@@ -43,7 +43,7 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<DataResponse<Manga>> GetSix()
         {
-            return await mangaDAL.GetSix();
+            return await _mangaDAL.GetSix();
         }
 
         public async Task<Response> Insert(Manga manga)
@@ -51,7 +51,7 @@ namespace BusinessLogicalLayer.Implementations
             Response response = new MangaInsertValidator().Validate(manga).ConvertToResponse();
             if (!response.HasSuccess)
                 return response;
-            response = await mangaDAL.Insert(manga);
+            response = await _mangaDAL.Insert(manga);
             return response;
         }
     }

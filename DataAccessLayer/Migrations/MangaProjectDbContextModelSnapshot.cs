@@ -17,7 +17,7 @@ namespace DataAccessLayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -96,7 +96,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("TitlesId");
 
-                    b.ToTable("MANGAS", (string)null);
+                    b.ToTable("Mangas", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Manga.MangaTitles", b =>
@@ -165,6 +165,69 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MangasRatingFrequencies", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("About")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AvatarImageLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoverImageLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("FavoritesCount")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("KeepLogged")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReviewsCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Manga.Manga", b =>

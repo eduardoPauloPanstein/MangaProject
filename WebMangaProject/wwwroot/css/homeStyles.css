@@ -1,4 +1,4 @@
-﻿section .catalog {
+﻿﻿section .catalog {
     width: 100vw;
     padding: 100px;
 }
@@ -11,14 +11,13 @@ section .card-wrapper {
 }
 
 section .card-item {
-    box-sizing: border-box;
+    animation: in-data-v-4d8937d6 .3s linear;
     display: grid;
-    grid-gap: $o;
-    grid-template-columns: repeat(auto-fit, minmax($d, 1fr));
-    overflow-x: hidden;
-    padding: $p;
-    min-height: 100vh;
-    background: linear-gradient(var(--ang, 185deg), #000 calc(50% - .5px), #fff calc(50% + .5px));
+    grid-template-rows: -webkit-min-content auto;
+    grid-template-rows: min-content auto;
+    position: relative;
+    width: 185px;
+    background: border-box;
 }
 
 .card-content {
@@ -37,8 +36,3 @@ section .card-item {
 .card-item img {
     width: 100%;
 }
-
-
-
-
-

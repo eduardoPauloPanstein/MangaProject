@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    public static class LocationConstants
+    public class LocationConstants
     {
         public static readonly string IdNotNullMessage = "ID deve ser informado.";
-        public static NicknameConstants Nickname; //nickname?
-        public static PasswordConstants Password; //password?
+        public static NicknameConstants Nickname = new NicknameConstants(); //nickname?
+        public static PasswordConstants Password = new PasswordConstants(); //password?
 
         public const int EmailMaxLength = 256; // RFC 5321
-
-        //Password?
 
     }
     public class NicknameConstants
@@ -62,4 +60,5 @@ namespace Shared
             ConfirmPasswordMessage = "As senhas devem corresponder.";
         }
     }
+
 }
