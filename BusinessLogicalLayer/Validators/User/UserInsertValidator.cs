@@ -16,4 +16,13 @@ namespace BusinessLogicalLayer.Validators.User
             base.ValidateConfirmPassword();
         }
     }
+
+    internal class UsesUpdateValidator : UserValidator
+    {
+        public UsesUpdateValidator()
+        {
+            base.ValidateNickname();
+            //validate about?
+        }
+    }
 }

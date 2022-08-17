@@ -1,4 +1,4 @@
-﻿namespace MvcPresentationLayer.Models
+﻿namespace MvcPresentationLayer.Models.User
 {
     public class UserSelectViewModel
     {

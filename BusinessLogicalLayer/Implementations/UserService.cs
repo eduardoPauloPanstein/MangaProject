@@ -22,9 +22,14 @@ namespace BusinessLogicalLayer.Implementations
             this._userDAL = userDAL;
         }
 
-        public async Task<Response> Delete(int id)
+        public async Task<Response> Delete(int? id)
         {
-            return await _userDAL.Delete(id);
+            if (id == null)
+            {
+                return new SingleResponse<User>() { HasSuccess = false, Message = "Id nulo." };
+            }
+
+            return await _userDAL.Delete((int)id);
         }
 
         public async Task<Response> Insert(User user)
@@ -38,9 +43,14 @@ namespace BusinessLogicalLayer.Implementations
             return response;
         }
 
-        public async Task<SingleResponse<User>> Select(int id)
+        public async Task<SingleResponse<User>> Select(int? id)
         {
-            return await _userDAL.Select(id);
+            if (id == null)
+            {
+                return new SingleResponse<User>() { HasSuccess = false, Message = "Id nulo." };
+            }
+
+            return await _userDAL.Select((int)id);
         }
 
         public async Task<DataResponse<User>> SelectAll()
@@ -50,7 +60,15 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<Response> Update(User user)
         {
+
+
             return await _userDAL.Update(user);
+        }
+
+        public async Task<Response> Login(User user)
+        {
+            user.Password = HashGenerator.ComputeSha256Hash(user.Password);
+            return await _userDAL.Login(user);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
-using MvcPresentationLayer.Models;
+using MvcPresentationLayer.Models.User;
 
 namespace MvcPresentationLayer.Profiles
 {
@@ -13,7 +13,14 @@ namespace MvcPresentationLayer.Profiles
 
             CreateMap<UserInsertViewModel, User>();
             CreateMap<User, UserInsertViewModel>();
-            
+
+
+            CreateMap<UserUpdateViewModel, User>();
+            CreateMap<User, UserUpdateViewModel>();
+
+            CreateMap<UserLoginViewModel, User>();
+            CreateMap<User, UserLoginViewModel>();
+
         }
     }
 }

@@ -18,6 +18,32 @@ namespace DataAccessLayer.Implementations
             this._db = db;
         }
 
+
+        public async Task<Response> Login(User user)
+        {
+            try
+            {
+                await _db.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+                return new SingleResponse<User>()
+                {
+                    HasSuccess = true,
+                    Message = "Usuario deletado com sucesso!",
+                    Data = user
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new SingleResponse<User>()
+                {
+                    HasSuccess = false,
+                    Message = "Erro no banco, contate o administrador.",
+                    Exception = ex
+                };
+
+            }
+        }
+
         public async Task<Response> Delete(int id)
         {
             User? user = await _db.Users.FindAsync(id);
@@ -149,6 +175,11 @@ namespace DataAccessLayer.Implementations
             }
             catch (Exception ex)
             {
+                if (ex.Message.Contains("2601")) //UQ_
+                {
+                    // Duplicate Key Exception
+                }
+
                 return new Response()
                 {
                     HasSuccess = false,
@@ -157,5 +188,6 @@ namespace DataAccessLayer.Implementations
                 };
             }
         }
+
     }
 }
