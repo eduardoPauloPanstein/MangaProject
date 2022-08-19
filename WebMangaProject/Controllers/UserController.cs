@@ -39,8 +39,9 @@ namespace MvcPresentationLayer.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginView)
-        {
+         {
             User user = _mapper.Map<User>(userLoginView);
             var response = await _userService.Login(user);
 

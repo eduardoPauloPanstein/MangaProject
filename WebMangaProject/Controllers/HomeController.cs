@@ -26,6 +26,8 @@ namespace WebMangaProject.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
+
             DataResponse<Manga> responseMangas = await _mangaService.GetSix();
 
             if (!responseMangas.HasSuccess)

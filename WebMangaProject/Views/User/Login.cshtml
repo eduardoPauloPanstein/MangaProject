@@ -1,4 +1,6 @@
-﻿<form>
+﻿@model MvcPresentationLayer.Models.User.UserLoginViewModel;
+
+<form asp-action="Login">
   <!-- Email input -->
   <div class="form-outline mb-4">
     <input type="email" id="form2Example1" class="form-control" />
@@ -28,7 +30,10 @@
   </div>
 
   <!-- Submit button -->
-  <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+                                 <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+
 
   <!-- Register buttons -->
   <div class="text-center">

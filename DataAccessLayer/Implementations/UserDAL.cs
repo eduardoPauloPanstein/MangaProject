@@ -23,12 +23,23 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                await _db.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+                var userReturn = await _db.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+
+                if (userReturn is null)
+                {
+                    return new SingleResponse<User>()
+                    {
+                        HasSuccess = false,
+                        Message = "Credenciais de usuario invalidas!",
+                        Data = userReturn
+                    };
+                }
+
                 return new SingleResponse<User>()
                 {
                     HasSuccess = true,
-                    Message = "Usuario deletado com sucesso!",
-                    Data = user
+                    Message = "Credenciais de usuario validas!",
+                    Data = userReturn
                 };
 
             }
