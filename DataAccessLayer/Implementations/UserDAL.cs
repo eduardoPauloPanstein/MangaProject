@@ -18,76 +18,27 @@ namespace DataAccessLayer.Implementations
             this._db = db;
         }
 
-
-        public async Task<Response> Login(User user)
-        {
-            try
-            {
-                var userReturn = await _db.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
-
-                if (userReturn is null)
-                {
-                    return new SingleResponse<User>()
-                    {
-                        HasSuccess = false,
-                        Message = "Credenciais de usuario invalidas!",
-                        Data = userReturn
-                    };
-                }
-
-                return new SingleResponse<User>()
-                {
-                    HasSuccess = true,
-                    Message = "Credenciais de usuario validas!",
-                    Data = userReturn
-                };
-
-            }
-            catch (Exception ex)
-            {
-                return new SingleResponse<User>()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco, contate o administrador.",
-                    Exception = ex
-                };
-
-            }
-        }
-
         public async Task<Response> Delete(int id)
         {
             User? user = await _db.Users.FindAsync(id);
             if (user == null)
             {
-                return new SingleResponse<User>()
-                {
-                    HasSuccess = false,
-                    Message = "Usuario não encontrado no banco de dados.",
-                };
+                return new Response("Usuario não encontrado no banco de dados.", false,null);
+                //{
+                //    HasSuccess = false,
+                //    Message = "Usuario não encontrado no banco de dados.",
+                //};
             }
 
             _db.Users.Remove(user);
             try
             {
                 await _db.SaveChangesAsync();
-                return new SingleResponse<User>()
-                {
-                    HasSuccess = true,
-                    Message = "Usuario deletado com sucesso!",
-                    Data = user
-                };
-
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(user);
             }
             catch (Exception ex)
             {
-                return new SingleResponse<User>()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco, contate o administrador.",
-                    Exception = ex
-                };
-
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
         }
 
@@ -97,21 +48,17 @@ namespace DataAccessLayer.Implementations
             try
             {
                 await _db.SaveChangesAsync();
-                return new Response()
-                {
-                    HasSuccess = true,
-                    Message = "Usuario cadastrado com sucesso."
-                };
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
             {
-                return new Response()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco de dados, contate o administrador.",
-                    Exception = ex
-                };
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
+        }
+
+        public Task<Response> Login(User user)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<SingleResponse<User>> Select(int id)
@@ -121,29 +68,13 @@ namespace DataAccessLayer.Implementations
                 User? user = await _db.Users.FindAsync(id);
                 if (user == null)
                 {
-                    return new SingleResponse<User>()
-                    {
-                        HasSuccess = false,
-                        Message = "Usuario não encontrado no banco de dados.",
-                    };
+                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null,null);
                 }
-                return new SingleResponse<User>()
-                {
-                    HasSuccess = true,
-                    Message = "Usuario selecionado com sucesso!",
-                    Data = user
-                };
-
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(user);
             }
             catch (Exception ex)
             {
-                return new SingleResponse<User>()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco, contate o administrador.",
-                    Exception = ex
-                };
-
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex,null);
             }
         }
 
@@ -152,23 +83,12 @@ namespace DataAccessLayer.Implementations
             try
             {
                 List<User> users = await _db.Users.ToListAsync();
-                return new DataResponse<User>()
-                {
-                    HasSuccess = true,
-                    Message = "Usuarios selecionados com sucesso!",
-                    Data = users
-                };
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(users);
 
             }
             catch (Exception ex)
             {
-                return new DataResponse<User>()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco, contate o administrador.",
-                    Exception = ex
-                };
-
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(ex);
             }
         }
 
@@ -178,27 +98,12 @@ namespace DataAccessLayer.Implementations
             try
             {
                 await _db.SaveChangesAsync();
-                return new Response()
-                {
-                    HasSuccess = true,
-                    Message = "Usuario atualizado com sucesso."
-                };
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("2601")) //UQ_
-                {
-                    // Duplicate Key Exception
-                }
-
-                return new Response()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco de dados, contate o administrador.",
-                    Exception = ex
-                };
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
     }
 }

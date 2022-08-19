@@ -25,44 +25,24 @@ namespace DataAccessLayer.Implementations
             try
             {
                 await _db.SaveChangesAsync();
-                return new Response()
-                {
-                    HasSuccess = true,
-                    Message = "Manga cadastrado com sucesso."
-                };
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
             {
-                return new Response()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco de dados, contate o administrador.",
-                    Exception = ex
-                };
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
-
         }
         public async Task<DataResponse<Manga>> GetAll()
         {
             try
             {
                 List<Manga> mangas = await _db.Mangas.ToListAsync();
-                return new DataResponse<Manga>()
-                {
-                    HasSuccess = true,
-                    Message = "Mangas selecionados com sucesso!",
-                    Data = mangas
-                };
-
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
             }
             catch (Exception ex)
             {
-                return new DataResponse<Manga>()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco, contate o administrador.",
-                    Exception = ex
-                };
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                
 
             }
         }
@@ -87,46 +67,25 @@ namespace DataAccessLayer.Implementations
             try
             {
                 _db.Database.ExecuteSqlRaw($"DELETE FROM MangasRatingFrequencies; DELETE FROM MANGAS; DELETE FROM MangaTitles");
-                return new Response()
-                {
-                    HasSuccess = true,
-                    Message = "Dados deletados com sucesso."
-                };
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
             {
-                return new Response()
-                {
-                    HasSuccess = false,
-                    Message = "Erro.",
-                    Exception = ex
-                };
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
 
         public async Task<DataResponse<Manga>> GetSix()
         {
-            DataResponse<Manga> response = new();
-
             try
             {
                 List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(5).ToListAsync();
-                return new DataResponse<Manga>()
-                {
-                    HasSuccess = true,
-                    Message = "Mangas selecionados com sucesso!",
-                    Data = mangas
-                };
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
 
             }
             catch (Exception ex)
             {
-                return new DataResponse<Manga>()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco, contate o administrador.",
-                    Exception = ex
-                };
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
 
             }
         }
