@@ -18,7 +18,7 @@ namespace BLL.Extensions
     {
         public static Response ConvertToResponse(this ValidationResult result)
         {
-            Response response = new Response();
+            Response response = ResponseFactory.CreateInstance().CreateSuccessResponse();
             if (result.IsValid)
             {
                 response.HasSuccess = true;

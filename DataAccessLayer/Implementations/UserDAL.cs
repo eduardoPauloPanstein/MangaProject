@@ -2,11 +2,6 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Implementations
 {
@@ -24,10 +19,6 @@ namespace DataAccessLayer.Implementations
             if (user == null)
             {
                 return new Response("Usuario não encontrado no banco de dados.", false,null);
-                //{
-                //    HasSuccess = false,
-                //    Message = "Usuario não encontrado no banco de dados.",
-                //};
             }
 
             _db.Users.Remove(user);
