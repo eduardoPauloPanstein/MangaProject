@@ -31,6 +31,11 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.GetAll();
         }
 
+        public async Task<DataResponse<Manga>> GetAllByFavorites()
+        {
+            return await _mangaDAL.GetAllByFavorites();
+        }
+
         public Task<DataResponse<Manga>> GetMorePopular()
         {
             throw new NotImplementedException();
@@ -41,9 +46,10 @@ namespace BusinessLogicalLayer.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task<DataResponse<Manga>> GetSix()
+
+        public async Task<DataResponse<Manga>> GetTopSixFavorites()
         {
-            return await _mangaDAL.GetSix();
+            return await _mangaDAL.GetTopSixFavorites();
         }
 
         public async Task<Response> Insert(Manga manga)
