@@ -72,7 +72,7 @@ namespace MvcPresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             var userSelectResponse = await _userService.Select(id);
 

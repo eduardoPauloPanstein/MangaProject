@@ -5,11 +5,6 @@ using BusinessLogicalLayer.Validators.User;
 using DataAccessLayer.Interfaces;
 using Entities;
 using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Implementations
 {
@@ -43,11 +38,12 @@ namespace BusinessLogicalLayer.Implementations
             return response;
         }
 
-        public async Task<SingleResponse<User>> Select(int? id)
+        public async Task<SingleResponse<User>> Select(int id)
         {
-            
-            Response response = new UserSelectValidator().Validate(id).ConvertToResponse();
-            if (id == null)
+            User user = new();
+            user.Id = id;
+            Response response = new UserSelectValidator().Validate(user).ConvertToResponse();
+            if (!response.HasSuccess)
             {
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null,null);
             }
