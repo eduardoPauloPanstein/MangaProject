@@ -13,8 +13,8 @@ namespace BusinessLogicalLayer.Interfaces
         Task<Response> Insert(Manga manga);
 
         Task<DataResponse<Manga>> GetAll();
-
-        Task<DataResponse<Manga>> GetSix();
+        Task<DataResponse<Manga>> GetTopSixFavorites();
+        Task<DataResponse<Manga>> GetAllByFavorites();
 
         Task<DataResponse<Manga>> GetPerPage(int page);
 

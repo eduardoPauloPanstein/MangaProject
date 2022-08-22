@@ -43,7 +43,7 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> ConsumirApi()
         {
             await _apiService.DeleteAllDatas();
-            DataResponse<Manga> responseMangas = await _apiService.Consume(20);
+            DataResponse<Manga> responseMangas = await _apiService.Consume(200);
 
             if (!responseMangas.HasSuccess)
             {

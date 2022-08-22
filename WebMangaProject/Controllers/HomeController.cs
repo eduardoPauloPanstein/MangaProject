@@ -28,7 +28,7 @@ namespace WebMangaProject.Controllers
         {
             
 
-            DataResponse<Manga> responseMangas = await _mangaService.GetSix();
+            DataResponse<Manga> responseMangas = await _mangaService.GetTopSixFavorites();
 
             if (!responseMangas.HasSuccess)
             {

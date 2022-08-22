@@ -18,8 +18,8 @@ namespace DataAccessLayer.Mappings
 
             builder.Property(u => u.Nickname).IsRequired().HasMaxLength(LocationConstants.Nickname.MaxLength).IsUnicode(true);
             builder.Property(u => u.Email).IsRequired().HasMaxLength(LocationConstants.EmailMaxLength).IsUnicode(true);
-            builder.Property(u => u.Password).IsRequired().HasMaxLength(LocationConstants.Password.MaxLength);
-            builder.Property(u => u.ConfirmPassword).IsRequired().HasMaxLength(LocationConstants.Password.MaxLength);
+            builder.Property(u => u.Password).IsRequired();
+            builder.Property(u => u.ConfirmPassword).IsRequired();
             builder.Property(u => u.CreatedAt).IsRequired().HasColumnType("date");
             builder.Property(u => u.LastLogin).HasColumnType("date");
 

@@ -10,6 +10,9 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <h1>Profile</h1>
+    </div>
+    <div class="col-md-8">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -18,12 +21,23 @@
                 <input asp-for="Nickname" class="form-control" />
                 <span asp-validation-for="Nickname" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group py-3">
                 <label asp-for="About" class="control-label"></label>
-                <input asp-for="About" class="form-control" />
+                <textarea asp-for="About" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="About" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input type="file" accept="image/png" class="custom-file-input" id="inputGroupFile01">
+                    <label class="custom-file-label" for="inputGroupFile01"></label>
+                </div>
+                <div class="col-md-6">
+                    <img src="" class="img-thumbnail" />
+                </div>
+            </div>
+
+            <div class="form-group py-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -35,5 +49,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
