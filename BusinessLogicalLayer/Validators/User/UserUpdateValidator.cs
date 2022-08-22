@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Validators.User
 {
-    internal class UserInsertValidator : UserValidator
-    {
-        public UserInsertValidator()
+    internal class UserUpdateValidator : UserValidator
+    { 
+        public UserUpdateValidator()
         {
             base.ValidateNickname();
-            base.ValidateEmail();
-            base.ValidatePassword();
-            base.ValidateConfirmPassword();
+            base.ValidateID();
+            //validate about?
         }
     }
-
-    
 }

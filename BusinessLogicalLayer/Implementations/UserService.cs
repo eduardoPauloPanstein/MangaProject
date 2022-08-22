@@ -45,6 +45,8 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<SingleResponse<User>> Select(int? id)
         {
+            
+            Response response = new UserSelectValidator().Validate(id).ConvertToResponse();
             if (id == null)
             {
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null,null);
