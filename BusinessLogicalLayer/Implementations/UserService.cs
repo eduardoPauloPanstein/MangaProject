@@ -26,7 +26,7 @@ namespace BusinessLogicalLayer.Implementations
         {
             if (id == null)
             {
-                return new SingleResponse<User>() { HasSuccess = false, Message = "Id nulo." };
+                return ResponseFactory.CreateInstance().CreateFailedResponse(null);
             }
 
             return await _userDAL.Delete((int)id);
@@ -47,7 +47,7 @@ namespace BusinessLogicalLayer.Implementations
         {
             if (id == null)
             {
-                return new SingleResponse<User>() { HasSuccess = false, Message = "Id nulo." };
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null,null);
             }
 
             return await _userDAL.Select((int)id);

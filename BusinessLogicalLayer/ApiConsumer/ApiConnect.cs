@@ -29,9 +29,8 @@ namespace ApiConsumer
         public async Task<DataResponse<Manga>> Consume(int qtdMangas)
         {
             //int qtdMangasCadastrados = 0;
-            Response responseManga = new();
             List<Manga> mangasTotal = new ();
-            DataResponse<Manga> dataResponseConsumeMangas = new();
+            
 
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
@@ -52,7 +51,7 @@ namespace ApiConsumer
                         foreach (var item in mangas)
                         {
                             //BLL
-                            responseManga = await _mangaService.Insert(item);
+                            Response responseManga = await _mangaService.Insert(item);
                             responseManga.Message = $"{i} :{item.Name}, {responseManga.Message}";
                             if (responseManga.HasSuccess)
                             {
@@ -65,14 +64,15 @@ namespace ApiConsumer
             }
             if (mangasTotal.Count > 0)
             {
-                dataResponseConsumeMangas.HasSuccess = true;
-                dataResponseConsumeMangas.Data = mangasTotal;
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangasTotal);
+                //dataResponseConsumeMangas.HasSuccess = true;
+                //dataResponseConsumeMangas.Data = mangasTotal;
             }
             else
             {
-                dataResponseConsumeMangas.Message = "Houve algum erro ao consumir a API.";
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
             }
-            return dataResponseConsumeMangas;
+            //return dataResponseConsumeMangas;
 
         }
         public async Task<Response> DeleteAllDatas()
