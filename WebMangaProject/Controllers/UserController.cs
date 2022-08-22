@@ -12,11 +12,30 @@ namespace MvcPresentationLayer.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly string _filePath; 
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IUserService userService, IMapper mapper, IWebHostEnvironment env)
         {
+            this._filePath = env.WebRootPath;
             this._userService = userService;
             this._mapper = mapper;
+        }
+
+        public string SaveFile(IFormFile file)
+        {
+            var name = Guid.NewGuid().ToString() + file.FileName;
+
+            var filePath = _filePath + "//pics";
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            using (var stream = System.IO.File.Create(filePath + "//" + name))
+            {
+                file.CopyToAsync(stream);
+            }
+            return name;
         }
 
         public async Task<IActionResult> Index()
@@ -90,7 +109,7 @@ namespace MvcPresentationLayer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,About,CoverImageLink,AvatarImageLink")] UserUpdateViewModel userUpdate)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,About,AvatarImage,CoverImage")] UserUpdateViewModel userUpdate, IFormFile fileF)
         {
             if (id != userUpdate.Id)
             {
@@ -98,10 +117,23 @@ namespace MvcPresentationLayer.Controllers
             }
 
             var userSelectResponse = await _userService.Select(id);
+
+
             User user = userSelectResponse.Data;
             user.Nickname = userUpdate.Nickname;
             user.About = userUpdate.About;
 
+
+            string name = _filePath + @"\pics\" + SaveFile(fileF);
+            byte[] image;
+            using (var stream = new FileStream(name, FileMode.Open, FileAccess.Read))
+            {
+                using(var reader = new BinaryReader(stream))
+                {
+                    image = reader.ReadBytes((int)stream.Length);
+                }
+            }
+            user.AvatarImage = image;
 
             var response = await _userService.Update(user);
 
@@ -112,7 +144,7 @@ namespace MvcPresentationLayer.Controllers
             return View(userUpdate);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {

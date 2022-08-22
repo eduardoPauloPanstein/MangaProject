@@ -62,12 +62,9 @@
                 @Html.DisplayFor(modelItem => item.LastLogin)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new {  id=item.Id  }) |                
-                <form asp-action="Delete">
-                    <input type="hidden" asp-for="@item.Id" />
-                     <input type="submit" value="Deletar" class="btn btn-link" /> 
-                 </form>
-
+                @Html.ActionLink("Editar", "Edit", new {  id=item.Id  }) |
+                @Html.ActionLink("Deletar", "Delete", new {  id=item.Id  })                 
+                
             </td>
         </tr>
 }

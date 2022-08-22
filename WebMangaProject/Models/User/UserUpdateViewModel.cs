@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string? Nickname { get; set; }
         public string? About { get; set; }
-        public string? CoverImageLink { get; set; }
-        public string? AvatarImageLink { get; set; }
+        public byte[]? CoverImage { get; set; }
+        public byte[]? AvatarImage { get; set; }
     }
 }

@@ -22,6 +22,8 @@ namespace DataAccessLayer.Mappings
             builder.Property(u => u.ConfirmPassword).IsRequired();
             builder.Property(u => u.CreatedAt).IsRequired().HasColumnType("date");
             builder.Property(u => u.LastLogin).HasColumnType("date");
+            builder.Property(u => u.AvatarImage).HasColumnType("image");
+            builder.Property(u => u.CoverImage).HasColumnType("image");
 
         }
     }

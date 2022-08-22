@@ -23,8 +23,8 @@ namespace Entities
         //public CivicAddress Address { get; set; }
         public int FavoritesCount { get; set; }
         public int ReviewsCount { get; set; }
-        public string? CoverImageLink { get; set; }
-        public string? AvatarImageLink { get; set; }
+        public byte[]? AvatarImage { get; set; }
+        public byte[]? CoverImage { get; set; }
         public bool KeepLogged { get; set; }
     }
     //Se não confirmar email não acessa, e fica registrado na DB?

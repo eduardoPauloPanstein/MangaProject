@@ -80,42 +80,24 @@ namespace DataAccessLayer.Implementations
             try
             {
 
-                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(5).ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-=======
                 List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(6).ToListAsync();
-                return new DataResponse<Manga>()
-                {   
-                    HasSuccess = true,
-                    Message = "Mangas selecionados com sucesso!",
-                    Data = mangas
-                };
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+
 
             }
             catch (Exception ex)
             {
-                return new DataResponse<Manga>()
-                {
-                    HasSuccess = false,
-                    Message = "Erro no banco, contate o administrador.",
-                    Exception = ex
-                };
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
 
             }
         }
         public async Task<DataResponse<Manga>> GetAllByFavorites()
         {
-            DataResponse<Manga> response = new();
 
             try
             {
                 List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).ToListAsync();
-                return new DataResponse<Manga>()
-                {
-                    HasSuccess = true,
-                    Message = "Mangas selecionados com sucesso!",
-                    Data = mangas
-                };
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
 
             }
             catch (Exception ex)
