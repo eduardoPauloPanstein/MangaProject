@@ -116,31 +116,16 @@ namespace MvcPresentationLayer.Controllers
                 return NotFound();
             }
 
-            var userSelectResponse = await _userService.Select(id);
 
+            User user = _mapper.Map<User>(userUpdate);
+            var userUpdateResponse = await _userService.Update(user);
 
-            User user = userSelectResponse.Data;
-            user.Nickname = userUpdate.Nickname;
-            user.About = userUpdate.About;
+            SaveFile(fileF);
 
-
-            string name = _filePath + @"\pics\" + SaveFile(fileF);
-            byte[] image;
-            using (var stream = new FileStream(name, FileMode.Open, FileAccess.Read))
-            {
-                using(var reader = new BinaryReader(stream))
-                {
-                    image = reader.ReadBytes((int)stream.Length);
-                }
-            }
-            user.AvatarImage = image;
-
-            var response = await _userService.Update(user);
-
-            if (response.HasSuccess)
+            if (userUpdateResponse.HasSuccess)
                 return RedirectToAction("Index");
 
-            ViewBag.Errors = response.Message;
+            ViewBag.Errors = userUpdateResponse.Message;
             return View(userUpdate);
         }
 

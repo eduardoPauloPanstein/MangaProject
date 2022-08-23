@@ -33,6 +33,10 @@
         {
             return new Response("Erro no banco de dados, contate o administrador.", false,ex);
         }
+        public Response CreateNotFoundIdResponse()
+        {
+            return new Response("Not found ID.", false, null);
+        }
         public SingleResponse<T> CreateSingleFailedResponse<T>(Exception ex,T item)
         {
             return new SingleResponse<T>("Erro no banco, contate o administrador.", false,item,ex);
