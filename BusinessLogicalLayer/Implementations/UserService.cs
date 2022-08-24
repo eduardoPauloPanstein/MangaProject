@@ -47,7 +47,7 @@ namespace BusinessLogicalLayer.Implementations
         {
             if (id == null)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null,null);
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>("Id is null.", null);
             }
 
             return await _userDAL.Select((int)id);

@@ -5,15 +5,16 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h3>Settings</h3>
 
-<h4>UserViewModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <h3>Profile</h3>
+    <div class="col-md-2">
+        <input class="btn" value="Profile"/>
+        <input class="btn" value="Account"/>
+
     </div>
-    <div class="col-md-8">
+    <div class="col-md-10">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -30,13 +31,13 @@
 
             <div class="row">
                 <div class="form-group col-md-6">
-                    <input asp-for="AvatarImage" type="file" name="fileF" accept="image/png" class="custom-file-input" id="inputGroupFile01">
+                    <input asp-for="AvatarImageFileLocation" type="file" name="fileF" accept="image/png" class="custom-file-input" id="inputGroupFile01">
                     <label class="custom-file-label" for="inputGroupFile01"></label>
-                    <span asp-validation-for="AvatarImage" class="text-danger"></span>
+                    <span asp-validation-for="AvatarImageFileLocation" class="text-danger"></span>
 
                 </div>
                 <div class="col-md-6">
-                          <img src="\pics\ebd162aa-b7d9-4f69-9917-d55348dce38cKillua_-.jpg" class="img-thumbnail" />                
+                          <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="img-thumbnail" width="230" />
                 </div>
             </div>
 

@@ -12,7 +12,7 @@ namespace MvcPresentationLayer.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        private readonly string _filePath; 
+        private string _filePath;
 
         public UserController(IUserService userService, IMapper mapper, IWebHostEnvironment env)
         {
@@ -21,21 +21,54 @@ namespace MvcPresentationLayer.Controllers
             this._mapper = mapper;
         }
 
-        public string SaveFile(IFormFile file)
+        public Response SaveAvatarFile(IFormFile file, User user)
         {
-            var name = Guid.NewGuid().ToString() + file.FileName;
+            var response = ImageFileValidator(file);
+            if (!response.HasSuccess)
+                return response;
 
-            var filePath = _filePath + "//pics";
-            if (!Directory.Exists(filePath))
+            //var name = Guid.NewGuid().ToString() + file.FileName;
+            string folder = "/avatars";
+            string filePath = _filePath + folder;
+            string end = file.FileName.Trim('.');
+
+            if (!Directory.Exists(filePath)) 
             {
-                Directory.CreateDirectory(filePath);
+                Directory.CreateDirectory(filePath); //folder
             }
 
-            using (var stream = System.IO.File.Create(filePath + "//" + name))
+            string name = $"{user.Nickname}Avatar{file.FileName}";
+
+            //DeleteAvatarImage(user, folder);
+            using (var stream = System.IO.File.Create(filePath + "/" + name)) 
             {
                 file.CopyToAsync(stream);
             }
-            return name;
+
+            user.AvatarImageFileLocation = name;
+
+            return ResponseFactory.CreateInstance().CreateSuccessResponse();
+        }
+        public Response ImageFileValidator(IFormFile file)
+        {
+            switch (file.ContentType)
+            {
+                case "image/jpeg": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/bmp": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/gif": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/png": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+
+                default:
+                    return ResponseFactory.CreateInstance().CreateFailedResponse(null);
+            }
+        }
+        public void DeleteAvatarImage(User user, string folder)
+        {
+            string filePath = $"{_filePath}{folder}/{user.AvatarImageFileLocation}";
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
         }
 
         public async Task<IActionResult> Index()
@@ -111,23 +144,32 @@ namespace MvcPresentationLayer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,About,AvatarImage,CoverImage")] UserUpdateViewModel userUpdate, IFormFile fileF)
         {
+            Response response;
+
             if (id != userUpdate.Id)
             {
                 return NotFound();
             }
 
-
             User user = _mapper.Map<User>(userUpdate);
-            var userUpdateResponse = await _userService.Update(user);
+            
+            if (fileF != null)
+            {
+                response = SaveAvatarFile(fileF, user);
+            }
 
-            SaveFile(fileF);
+            response = await _userService.Update(user);
 
-            if (userUpdateResponse.HasSuccess)
-                return RedirectToAction("Index");
-
-            ViewBag.Errors = userUpdateResponse.Message;
-            return View(userUpdate);
+            if (!response.HasSuccess)
+            {
+                ViewBag.Errors = response.Message;
+                return View(userUpdate);
+            }
+            
+            return RedirectToAction("Edit");
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

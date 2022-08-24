@@ -14,7 +14,6 @@ namespace Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-
         public bool EmailConfirmed { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime LastLogin { get; set; }
@@ -23,8 +22,8 @@ namespace Entities
         //public CivicAddress Address { get; set; }
         public int FavoritesCount { get; set; }
         public int ReviewsCount { get; set; }
-        public string? AvatarImage { get; set; }
-        public string? CoverImage { get; set; }
+        public string? AvatarImageFileLocation { get; set; }
+        public string? CoverImageFileLocation { get; set; }
         public bool KeepLogged { get; set; }
     }
     //Se não confirmar email não acessa, e fica registrado na DB?

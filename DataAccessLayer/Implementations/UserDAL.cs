@@ -59,7 +59,7 @@ namespace DataAccessLayer.Implementations
                 User? user = await _db.Users.FindAsync(id);
                 if (user == null)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null,null);
+                    return ResponseFactory.CreateInstance().CreateSingleNotFoundIdResponse<User>(user);
                 }
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(user);
             }
@@ -92,7 +92,9 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateNotFoundIdResponse();
             userDb.Nickname = user.Nickname;
             userDb.About = user.About;
-            userDb.AvatarImage = user.AvatarImage;
+
+            if (user.AvatarImageFileLocation != null)
+                userDb.AvatarImageFileLocation = user.AvatarImageFileLocation;
 
             try
             {
