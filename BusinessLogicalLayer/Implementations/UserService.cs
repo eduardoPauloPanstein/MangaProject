@@ -60,8 +60,7 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<Response> Update(User user)
         {
-
-
+            //validar
             return await _userDAL.Update(user);
         }
 

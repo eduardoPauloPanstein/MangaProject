@@ -87,7 +87,7 @@ namespace DataAccessLayer.Implementations
         {
             //_db.Users.Update(user);
 
-            User userDb = await _db.Users.FindAsync(user.Id);
+            User? userDb = await _db.Users.FindAsync(user.Id);
             if (userDb == null)
                 return ResponseFactory.CreateInstance().CreateNotFoundIdResponse();
             userDb.Nickname = user.Nickname;

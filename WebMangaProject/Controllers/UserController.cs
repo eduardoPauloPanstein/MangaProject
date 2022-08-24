@@ -21,28 +21,28 @@ namespace MvcPresentationLayer.Controllers
             this._mapper = mapper;
         }
 
-        public Response SaveAvatarFile(IFormFile file, User user)
+        public async Task<Response> SaveAvatarFileAsync(IFormFile file, User user)
         {
             var response = ImageFileValidator(file);
             if (!response.HasSuccess)
                 return response;
 
             //var name = Guid.NewGuid().ToString() + file.FileName;
-            string folder = "/avatars";
+            string folder = "\\avatars";
             string filePath = _filePath + folder;
-            string end = file.FileName.Trim('.');
+            string extension = Path.GetExtension(file.FileName);
 
             if (!Directory.Exists(filePath)) 
             {
                 Directory.CreateDirectory(filePath); //folder
             }
 
-            string name = $"{user.Nickname}Avatar{file.FileName}";
+            string name = $"{user.Nickname}Avatar{extension}";
 
-            //DeleteAvatarImage(user, folder);
-            using (var stream = System.IO.File.Create(filePath + "/" + name)) 
+            DeleteAvatarImage(folder, name);
+            using (var stream = System.IO.File.Create(filePath + "\\" + name)) 
             {
-                file.CopyToAsync(stream);
+                await file.CopyToAsync(stream);
             }
 
             user.AvatarImageFileLocation = name;
@@ -62,9 +62,9 @@ namespace MvcPresentationLayer.Controllers
                     return ResponseFactory.CreateInstance().CreateFailedResponse(null);
             }
         }
-        public void DeleteAvatarImage(User user, string folder)
+        public void DeleteAvatarImage(string folder, string fileName)
         {
-            string filePath = $"{_filePath}{folder}/{user.AvatarImageFileLocation}";
+            string filePath = $"{_filePath}{folder}\\{fileName}";
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
@@ -155,7 +155,7 @@ namespace MvcPresentationLayer.Controllers
             
             if (fileF != null)
             {
-                response = SaveAvatarFile(fileF, user);
+                await SaveAvatarFileAsync(fileF, user);
             }
 
             response = await _userService.Update(user);
@@ -181,6 +181,7 @@ namespace MvcPresentationLayer.Controllers
             }
 
             await _userService.Delete(id);
+            //Delete avatar
 
             return RedirectToAction(nameof(Index));
         }

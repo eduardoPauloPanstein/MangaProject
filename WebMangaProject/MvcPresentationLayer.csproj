@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\avatars\Edu123Avatar11.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\css\homeStyles.css" />
   </ItemGroup>
 
@@ -25,6 +29,10 @@
     <ProjectReference Include="..\BusinessLogicalLayer\BusinessLogicalLayer.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\avatars\" />
   </ItemGroup>
 
 </Project>
