@@ -105,5 +105,19 @@ namespace DataAccessLayer.Implementations
 
             }
         }
+
+        public async Task<SingleResponse<Manga>> GetByID(int id)
+        {
+            try
+            {
+                Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

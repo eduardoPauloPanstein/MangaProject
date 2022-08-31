@@ -34,5 +34,15 @@ namespace MvcPresentationLayer.Controllers
 
             return View(mangas);
         }
+        
+        public async Task<IActionResult> MangaOnPage(int id)
+        {
+            SingleResponse<Manga> response = await _mangaService.GetByID(id);
+            if (response.HasSuccess)
+            {
+                return View(response.Data);
+            }
+            return NotFound();
+        }
     }
 }

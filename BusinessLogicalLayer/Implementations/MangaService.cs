@@ -36,17 +36,20 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.GetAllByFavorites();
         }
 
-        public Task<DataResponse<Manga>> GetMorePopular()
+        public async Task<SingleResponse<Manga>> GetByID(int id)
         {
-            throw new NotImplementedException();
+            return await _mangaDAL.GetByID(id);
         }
 
-        public Task<DataResponse<Manga>> GetPerPage(int page)
+        public async Task<DataResponse<Manga>> GetMorePopular()
         {
-            throw new NotImplementedException();
+            return await _mangaDAL.GetMorePopular();
         }
 
-
+        public async Task<DataResponse<Manga>> GetPerPage(int page)
+        {
+            return await _mangaDAL.GetPerPage(page);
+        }
         public async Task<DataResponse<Manga>> GetTopSixFavorites()
         {
             return await _mangaDAL.GetTopSixFavorites();
