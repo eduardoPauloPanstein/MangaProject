@@ -52,7 +52,10 @@ namespace DataAccessLayer.Implementations
 
         public async Task<DataResponse<Manga>> GetPerPage(int page)
         {
-            throw new NotImplementedException();
+            int pageSize = 10;
+            List<Manga> mangas = await _db.Mangas.Skip(page * pageSize).Take(pageSize).ToListAsync();
+            return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+            
         }
 
         public async Task<Response> DeleteAllDatas()
