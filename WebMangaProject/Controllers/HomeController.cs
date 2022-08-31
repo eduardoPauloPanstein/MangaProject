@@ -26,13 +26,10 @@ namespace WebMangaProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            
-
             DataResponse<Manga> responseMangas = await _mangaService.GetTopSixFavorites();
 
             if (!responseMangas.HasSuccess)
             {
-                //Se o select falhou, retorne a mensagem de erro para o cliente
                 ViewBag.Errors = responseMangas.Message;
                 return View();
             }
@@ -53,5 +50,6 @@ namespace WebMangaProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

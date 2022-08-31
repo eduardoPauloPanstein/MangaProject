@@ -43,17 +43,13 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> ConsumirApi()
         {
             await _apiService.DeleteAllDatas();
-            DataResponse<Manga> responseMangas = await _apiService.Consume(200);
+            DataResponse<Manga> responseMangas = await _apiService.Consume();
 
             if (!responseMangas.HasSuccess)
             {
-                //Se o select falhou, retorne a mensagem de erro para o cliente
                 ViewBag.Errors = responseMangas.Message;
                 return View();
             }
-
-            //List<MangaSelectCatalogViewModel> mangasCatalogView =
-            //    _mapper.Map<List<MangaSelectCatalogViewModel>>(responseMangas.Data);
             return RedirectToAction("Index");
         }
 

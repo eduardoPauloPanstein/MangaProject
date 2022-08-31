@@ -21,7 +21,6 @@ namespace DataAccessLayer.Implementations
         public async Task<Response> Insert(Manga manga)
         {
             _db.Mangas.Add(manga);
-            //_db.Mangas.AddAsync(manga); //WHY?
             try
             {
                 await _db.SaveChangesAsync();

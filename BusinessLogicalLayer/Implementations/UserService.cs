@@ -64,7 +64,7 @@ namespace BusinessLogicalLayer.Implementations
             return await _userDAL.Update(user);
         }
 
-        public async Task<Response> Login(User user)
+        public async Task<SingleResponse<User>> Login(User user)
         {
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
             return await _userDAL.Login(user);

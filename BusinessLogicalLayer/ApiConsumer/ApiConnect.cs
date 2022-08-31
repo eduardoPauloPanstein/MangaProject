@@ -17,7 +17,7 @@ namespace ApiConsumer
         // pageLimit Max=20
 
         Uri baseAddress = new Uri("https://kitsu.io/api/edge/");
-        String requestString = $"manga?page[limit]=1&page[offset]=";
+        String requestString = $"manga?page[limit]=20&page[offset]=";
 
         private readonly IMangaService _mangaService;
         public ApiConnect(IMangaService mangaService)
@@ -26,16 +26,17 @@ namespace ApiConsumer
         }
 
 
-        public async Task<DataResponse<Manga>> Consume(int qtdMangas)
+        public async Task<DataResponse<Manga>> Consume()
         {
-            //int qtdMangasCadastrados = 0;
+            //1 page get 20 mangas
+            int qtdPages = 10;
+            int qtdMangas = qtdPages * 20;
             List<Manga> mangasTotal = new ();
             
-
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
 
-                for (int i = 1; i <= qtdMangas; i++)
+                for (int i = 1; i <= qtdMangas; i+=20)
                 {
                     using (var response = await httpClient.GetAsync(requestString + i))
                     {
@@ -65,15 +66,9 @@ namespace ApiConsumer
             if (mangasTotal.Count > 0)
             {
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangasTotal);
-                //dataResponseConsumeMangas.HasSuccess = true;
-                //dataResponseConsumeMangas.Data = mangasTotal;
             }
-            else
-            {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
-            }
-            //return dataResponseConsumeMangas;
 
+            return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
         }
         public async Task<Response> DeleteAllDatas()
         {

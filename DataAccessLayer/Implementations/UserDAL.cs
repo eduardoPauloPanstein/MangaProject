@@ -47,9 +47,21 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public Task<Response> Login(User user)
+        public async Task<SingleResponse<User>> Login(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User? userLogged = await _db.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+                if (userLogged == null)
+                {
+                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>("User not found", null);
+                }
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(userLogged);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+            }
         }
 
         public async Task<SingleResponse<User>> Select(int id)

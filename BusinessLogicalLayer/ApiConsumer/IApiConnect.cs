@@ -13,9 +13,9 @@ namespace ApiConsumer
         /// <summary>
         /// Consome mangas da API exerna kitsu, e insere na DB(DAL)
         /// </summary>
-        /// <param name="qtdMangas"></param>
+        /// <param></param>
         /// <returns></returns>
-        Task<DataResponse<Manga>> Consume(int qtdMangas);
+        Task<DataResponse<Manga>> Consume();
         Task<Response> DeleteAllDatas();
 
     }

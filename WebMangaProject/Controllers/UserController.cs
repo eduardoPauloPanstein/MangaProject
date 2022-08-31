@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces;
 using Entities;
+using Entities.Enums;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Models.User;
 using Shared;
+using System.Security.Claims;
 
 namespace MvcPresentationLayer.Controllers
 {
@@ -98,12 +102,27 @@ namespace MvcPresentationLayer.Controllers
             var response = await _userService.Login(user);
 
             if (response.HasSuccess)
-                return RedirectToPage("Home");
+                _ = AuthenticationAsync(response.Data);
 
             ViewBag.Errors = response.Message;
             return View();
         }
+        [Authorize(Policy = "User")]
+        public IActionResult TesteAuth() => Ok(User.Claims.Select(x => new { Type = x.Type, Value = x.Value }));
 
+        public async Task AuthenticationAsync(User user)
+        {
+            ClaimsIdentity identity = new ("CookieSerieAuth");
+
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.Nickname));
+            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            identity.AddClaim(new Claim(ClaimTypes.Role, Enum.GetName(typeof(UserRoles), user.Role)));
+
+
+            ClaimsPrincipal principal = new (identity);
+
+            await HttpContext.SignInAsync("CookieSerieAuth", principal);
+        }
 
         [HttpGet]
         public IActionResult Create()

@@ -6,32 +6,19 @@
 }
 
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/homeStyles.css" />
-  </head>
-  <body>
-   
-      <section class="catalog" id="catalog">
-       <h3>Favorites mangas</h3>
-        <div class="card-wrapper">
-            @{
-   foreach (var item in Model)
-   {            
-    <div class="card-item">
-     <img src=@item.PosterImageLink alt="@item.Titles?.Ja_jp" />
-     <div class="card-content">
-      <h5>@item.CanonicalTitle</h5>
-      </div>                               
-    </div>
-   }            
-    }
-    </div>
-    </section>
 
-  </body>
-</html>
+
+      <h3>Favorites mangas</h3>
+      <div class="row row-cols-1 row-cols-md-6 g-4">
+      @{foreach (var item in Model){
+        <div class="col">
+            <div class="card border-dark mb-3 h-100" style="width: 12rem;"> 
+                <div class="card-header">@item.CanonicalTitle</div>
+                <img class="card-img-top" src="@item.PosterImageLink" alt="Card image cap">
+            </div>
+        </div>
+      }}
+      </div>
+    @Html.ActionLink("View All", "AllFavorites", "Manga")
+
+

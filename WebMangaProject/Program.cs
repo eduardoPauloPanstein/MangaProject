@@ -3,6 +3,7 @@ using BusinessLogicalLayer.Interfaces;
 using DataAccessLayer;
 using DataAccessLayer.Implementations;
 using DataAccessLayer.Interfaces;
+using Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -17,6 +18,18 @@ builder.Services.AddTransient<IUserDAL, UserDAL>();
 builder.Services.AddTransient<ApiConsumer.IApiConnect, ApiConsumer.ApiConnect>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));
+
+builder.Services.AddAuthentication("CookieSerieAuth")
+    .AddCookie("CookieSerieAuth", opt =>
+    {
+        opt.Cookie.Name = "SeriesAuthCookie";
+    });
+
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy("User", p => p.RequireRole(UserRoles.User.ToString()));
+    opt.AddPolicy(UserRoles.Admin.ToString(), p => p.RequireRole(UserRoles.Admin.ToString()));
+});
 
 var app = builder.Build();
 
@@ -33,6 +46,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
