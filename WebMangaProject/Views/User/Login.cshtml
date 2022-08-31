@@ -1,14 +1,17 @@
 ﻿@model MvcPresentationLayer.Models.User.UserLoginViewModel;
 
-<form asp-action="Login">
-  <!-- Email input -->
+<div class="row">
+    <div class="col d-flex align-items-center justify-content-center">
+
+        <form asp-action="Login">
+            <!-- Email input -->
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-  <!-- Password input -->
+             <!-- Password input -->
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
@@ -37,24 +40,11 @@
             </div>
 
 
-  <!-- Register buttons -->
+  <!-- Register -->
   <div class="text-center">
     <p>Not a member? <a href="#!">Register</a></p>
-    <p>or sign up with:</p>
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-facebook-f"></i>
-    </button>
 
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-google"></i>
-    </button>
-
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-twitter"></i>
-    </button>
-
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-github"></i>
-    </button>
   </div>
 </form>
+</div>
+</div>
