@@ -6,15 +6,17 @@
 }
 
 
-
-
       <h3>Favorites mangas</h3>
       <div class="row row-cols-1 row-cols-md-6 g-4">
       @{foreach (var item in Model){
         <div class="col">
             <div class="card border-dark mb-3 h-100" style="width: 12rem;"> 
                 <div class="card-header">@item.CanonicalTitle</div>
+
+                <a href= "/Manga/MangaOnPage/@item.Id">  
                 <img class="card-img-top" src="@item.PosterImageLink">
+                </a>
+
             </div>
         </div>
       }}
