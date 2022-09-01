@@ -23,6 +23,7 @@
    foreach (var item in Model)
    {            
     <div class="card-item">
+    <a href= "/Manga/MangaOnPage/@item.Id">  
      <img src=@item.PosterImageLink alt="@item.Titles?.Ja_jp" />
      <div class="card-content">
       <h5>@item.CanonicalTitle</h5>
