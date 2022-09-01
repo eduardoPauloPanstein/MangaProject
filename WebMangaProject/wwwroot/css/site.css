@@ -20,3 +20,8 @@ body {
     margin-bottom: 60px;
     background-color: #212D40;
 }
+
+a {
+  color: #0d6efd;
+  text-decoration: none;
+}

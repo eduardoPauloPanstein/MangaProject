@@ -12,7 +12,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/homeStyles.css" />
+    <link rel="stylesheet" href="/css/homeStyles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+
 </head>
 <body>
 
@@ -27,7 +29,8 @@
                             <img height="300em" src=@item.PosterImageLink alt="@item.Titles?.Ja_jp" />
                             <div class="card-content">
                                 <h5>@item.CanonicalTitle</h5>
-                            </div></a>
+                            </div>
+                        </a>
                     </div>
                 }
             }
