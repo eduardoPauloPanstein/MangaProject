@@ -2,11 +2,6 @@
 using Entities.Manga;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Implementations
 {
@@ -47,7 +42,6 @@ namespace DataAccessLayer.Implementations
         {
             throw new NotImplementedException();
         }
-
         public async Task<DataResponse<Manga>> GetPerPage(int page)
         {
             int pageSize = 10;

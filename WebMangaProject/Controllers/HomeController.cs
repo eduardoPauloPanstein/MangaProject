@@ -27,7 +27,6 @@ namespace WebMangaProject.Controllers
         public async Task<IActionResult> Index()
         {
             DataResponse<Manga> responseMangas = await _mangaService.GetTopSixFavorites();
-
             if (!responseMangas.HasSuccess)
             {
                 ViewBag.Errors = responseMangas.Message;
