@@ -20,6 +20,7 @@ namespace DataAccessLayer.Interfaces
         Task<DataResponse<Manga>> GetPerPage(int page);
         Task<SingleResponse<Manga>> GetByID(int id);
         Task<DataResponse<Manga>> GetMorePopular();
+        Task<DataResponse<Manga>> GetByName(string name);
         Task<Response> DeleteAllDatas();
         //etc todo
     }

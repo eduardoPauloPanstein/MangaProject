@@ -41,8 +41,6 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
-                
-
             }
         }
         public async Task<DataResponse<Manga>> GetMorePopular()
@@ -81,34 +79,26 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-
-                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(6).ToListAsync();
+                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(20).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-
-
             }
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
-
             }
         }
         public async Task<DataResponse<Manga>> GetAllByFavorites()
         {
-
             try
             {
                 List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-
             }
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
-
             }
         }
-
         public async Task<SingleResponse<Manga>> GetByID(int id)
         {
             try
@@ -116,10 +106,22 @@ namespace DataAccessLayer.Implementations
                 Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex,null);
+            }
+        }
 
-                throw;
+        public async Task<DataResponse<Manga>> GetByName(string name)
+        {
+            try
+            {
+                List<Manga> mangas = _db.Mangas.Where(M => M.Name.StartsWith(name)).ToList();
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(mangas);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
     }

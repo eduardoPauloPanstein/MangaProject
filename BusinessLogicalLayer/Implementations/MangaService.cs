@@ -41,11 +41,14 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.GetByID(id);
         }
 
+        public async Task<DataResponse<Manga>> GetByName(string name)
+        {
+            return await _mangaDAL.GetByName(name);
+        }
         public async Task<DataResponse<Manga>> GetMorePopular()
         {
             return await _mangaDAL.GetMorePopular();
         }
-
         public async Task<DataResponse<Manga>> GetPerPage(int page)
         {
             return await _mangaDAL.GetPerPage(page);
@@ -54,7 +57,6 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.GetTopSixFavorites();
         }
-
         public async Task<Response> Insert(Manga manga)
         {
             Response response = new MangaInsertValidator().Validate(manga).ConvertToResponse();
