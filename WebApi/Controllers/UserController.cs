@@ -63,8 +63,17 @@ namespace WebApi.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] string value)
         {
+            var user = JsonConvert.DeserializeObject<User>(value);
+
+            var response = await _userService.Insert(user);
+            if (!response.HasSuccess)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
         }
 
         // DELETE api/<UserController>/5

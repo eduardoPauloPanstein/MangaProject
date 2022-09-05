@@ -54,7 +54,7 @@ namespace DataAccessLayer.Implementations
                 User? userLogged = await _db.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
                 if (userLogged == null)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>("User not found", null);
+                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, "User not found");
                 }
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(userLogged);
             }

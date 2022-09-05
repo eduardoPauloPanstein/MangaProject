@@ -151,7 +151,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            var userSelectResponse = await _userService.Select(id);
+            var userSelectResponse = await _userApiService.Select(id);
 
             if (!userSelectResponse.HasSuccess)
             {

@@ -8,7 +8,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
     public class MangaProjectApiUserService : MangaProjectApiBase, IMangaProjectApiUserService
     {
 
-        public Task<Response> Delete(int id)
+        public async Task<Response> Delete(int? id)
         {
             throw new NotImplementedException();
         }
@@ -39,9 +39,23 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             throw new NotImplementedException();
         }
 
-        public Task<SingleResponse<User>> Select(int id)
+        public async Task<SingleResponse<User>> Select(int? id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using HttpResponseMessage responseHttp = await client.GetAsync($"User/{id}");
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<SingleResponse<User>>(data);
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<User>(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+            }
         }
 
         public async Task<DataResponse<User>> SelectAll()
@@ -63,9 +77,25 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public Task<Response> Update(User item)
+        public async Task<Response> Update(User item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string serialized = JsonConvert.SerializeObject(item);
+                using HttpResponseMessage responseHttp = await client.PutAsJsonAsync($"User/{item.Id}", serialized);
+
+                var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
+
+                if (responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                }
+                return ResponseFactory.CreateInstance().CreateFailedResponse(null, response.Message);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(ex);
+            }
         }
     }
 }

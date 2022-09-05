@@ -29,6 +29,9 @@
         {
             return new DataResponse<T>("Dados coletados com sucesso", true,item,null);
         }
+
+
+
         public Response CreateFailedResponse(Exception ex)
         {
             return new Response("Erro no banco de dados, contate o administrador.", false,ex);
@@ -41,6 +44,9 @@
         {
             return new Response("Not found ID.", false, null);
         }
+
+
+
         public SingleResponse<T> CreateSingleNotFoundIdResponse<T>(T item)
         {
             return new SingleResponse<T>("Not found ID on database.", false, item, null);
@@ -49,10 +55,13 @@
         {
             return new SingleResponse<T>("Erro no banco, contate o administrador.", false,item,ex);
         }
-        public SingleResponse<T> CreateSingleFailedResponse<T>(String message, T item)
+        public SingleResponse<T> CreateSingleFailedResponse<T>(Exception ex, T item, string message)
         {
-            return new SingleResponse<T>(message, false, item, null);
+            return new SingleResponse<T>(message, false, item, ex);
         }
+
+
+
         public DataResponse<T> CreateDataFailedResponse<T>(Exception ex)
         {
             return new DataResponse<T>("Erro no banco, contate o administrador.", false, null,ex);
