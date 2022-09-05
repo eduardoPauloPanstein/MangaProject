@@ -2,6 +2,7 @@
 using BusinessLogicalLayer.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Shared;
 
 namespace WebApi.Controllers
@@ -24,25 +25,40 @@ namespace WebApi.Controllers
             DataResponse<User> responseUsers = await _userService.SelectAll();
             if (!responseUsers.HasSuccess)
             {
-                return BadRequest();
+                return BadRequest(responseUsers);
             }
 
-            return Ok(responseUsers.Data);
+            return Ok(responseUsers);
         }
 
         // GET api/User/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            return "value";
+            var responseUsers = await _userService.Select(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
         }
 
 
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> PostAsync([FromBody] string value)
         {
+            var user = JsonConvert.DeserializeObject<User>(value);
+
+            var response = await _userService.Insert(user);
+            if (!response.HasSuccess)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
         }
 
         // PUT api/<UserController>/5

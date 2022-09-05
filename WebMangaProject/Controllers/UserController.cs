@@ -5,8 +5,11 @@ using Entities.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Models.User;
+using Newtonsoft.Json;
 using Shared;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace MvcPresentationLayer.Controllers
@@ -16,13 +19,15 @@ namespace MvcPresentationLayer.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IMangaProjectApiUserService _userApiService;
         private string _filePath;
 
-        public UserController(IUserService userService, IMapper mapper, IWebHostEnvironment env)
+        public UserController(IUserService userService, IMapper mapper, IWebHostEnvironment env, IMangaProjectApiUserService userApiService)
         {
             this._filePath = env.WebRootPath;
             this._userService = userService;
             this._mapper = mapper;
+            this._userApiService = userApiService;
         }
 
         public async Task<Response> SaveAvatarFileAsync(IFormFile file, User user)
@@ -75,13 +80,13 @@ namespace MvcPresentationLayer.Controllers
             }
         }
 
+
         public async Task<IActionResult> Index()
         {
-            DataResponse<User> responseUsers = await _userService.SelectAll();
+            DataResponse<User> responseUsers = await _userApiService.SelectAll();
             if (!responseUsers.HasSuccess)
             {
-                ViewBag.Erros = responseUsers.Message;
-                return View();
+                return BadRequest(responseUsers.Exception);
             }
             List<UserSelectViewModel> users =
                 _mapper.Map<List<UserSelectViewModel>>(responseUsers.Data);
@@ -107,6 +112,7 @@ namespace MvcPresentationLayer.Controllers
             ViewBag.Errors = response.Message;
             return View();
         }
+
         [Authorize(Policy = "User")]
         public IActionResult TesteAuth() => Ok(User.Claims.Select(x => new { Type = x.Type, Value = x.Value }));
 
@@ -133,7 +139,7 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> Create(UserInsertViewModel viewModel)
         {
             User user = _mapper.Map<User>(viewModel);
-            var response = await _userService.Insert(user);
+            var response = await _userApiService.Insert(user);
 
             if (response.HasSuccess)
                 return RedirectToAction("Index");

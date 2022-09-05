@@ -33,6 +33,10 @@
         {
             return new Response("Erro no banco de dados, contate o administrador.", false,ex);
         }
+        public Response CreateFailedResponse(Exception ex, string message)
+        {
+            return new Response(message, false, ex);
+        }
         public Response CreateNotFoundIdResponse()
         {
             return new Response("Not found ID.", false, null);
