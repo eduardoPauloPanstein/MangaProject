@@ -2,6 +2,7 @@
 using BusinessLogicalLayer.Interfaces;
 using BusinessLogicalLayer.Validators.Manga;
 using DataAccessLayer.Interfaces;
+using Entities;
 using Entities.Manga;
 using Shared;
 using System;
@@ -56,6 +57,11 @@ namespace BusinessLogicalLayer.Implementations
         public async Task<DataResponse<Manga>> GetTopSixFavorites()
         {
             return await _mangaDAL.GetTopSixFavorites();
+        }
+
+        public async Task<DataResponse<UserToManga>> GetUserFavorites(int UserID)
+        {
+            return await _mangaDAL.GetUserFavorites(UserID);
         }
         public async Task<Response> Insert(Manga manga)
         {

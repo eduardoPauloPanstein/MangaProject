@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Interfaces;
+using Entities;
 using Entities.Manga;
 using Microsoft.EntityFrameworkCore;
 using Shared;
@@ -47,17 +48,13 @@ namespace DataAccessLayer.Implementations
             int pageSize = 10;
             List<Manga> mangas = await _db.Mangas.Skip(page * pageSize).Take(pageSize).ToListAsync();
             return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-            
         }
-
         public async Task<Response> DeleteAllDatas()
         {
-
             //var tableNames = db.Model.GetEntityTypes()
             //                         .Select(t => t.GetTableName())
             //                         .Distinct()
             //                         .ToList();
-
             try
             {
                 _db.Database.ExecuteSqlRaw($"DELETE FROM MangasRatingFrequencies; DELETE FROM MANGAS; DELETE FROM MangaTitles");
@@ -68,7 +65,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
         public async Task<DataResponse<Manga>> GetTopSixFavorites()
         {
             try
@@ -105,7 +101,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex,null);
             }
         }
-
         public async Task<DataResponse<Manga>> GetByName(string name)
         {
             try
@@ -116,6 +111,19 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
+
+        public async Task<DataResponse<UserToManga>> GetUserFavorites(int UserID)
+        {
+            try
+            {
+                List<UserToManga> Select = _db.userToMangas.Where(m => m.Users.Equals(UserID)).ToList();
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<UserToManga>(Select);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<UserToManga>(ex);
             }
         }
     }

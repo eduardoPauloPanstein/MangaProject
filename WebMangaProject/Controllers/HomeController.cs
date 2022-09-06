@@ -1,6 +1,7 @@
 ﻿using ApiConsumer;
 using AutoMapper;
 using BusinessLogicalLayer.Interfaces;
+using Entities;
 using Entities.Manga;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Models.Manga;

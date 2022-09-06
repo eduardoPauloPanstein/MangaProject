@@ -1,4 +1,5 @@
-﻿using Entities.Manga;
+﻿using Entities;
+using Entities.Manga;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,6 @@ namespace BusinessLogicalLayer.Interfaces
         Task<DataResponse<Manga>> GetMorePopular();
         Task<DataResponse<Manga>> GetByName(string name);
         Task<Response> DeleteAllDatas();
+        Task<DataResponse<UserToManga>> GetUserFavorites(int UserID);
     }
 }
