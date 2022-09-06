@@ -25,6 +25,7 @@ namespace Entities
         public string? AvatarImageFileLocation { get; set; }
         public string? CoverImageFileLocation { get; set; }
         public bool KeepLogged { get; set; }
+        public ICollection<Manga.Manga> MangaID { get; set; }
     }
     //Se não confirmar email não acessa, e fica registrado na DB?
 }
