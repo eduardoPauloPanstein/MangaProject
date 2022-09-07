@@ -113,18 +113,17 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
-        public async Task<DataResponse<UserToManga>> GetUserFavorites(int UserID)
-        {
-            try
-            {
-                List<UserToManga> Select = _db.userToMangas.Where(m => m.Users.Equals(UserID)).ToList();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<UserToManga>(Select);
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<UserToManga>(ex);
-            }
-        }
+        //public async Task<DataResponse<UserToManga>> GetUserFavorites(int UserID)
+        //{
+        //    try
+        //    {
+        //        List<UserToManga> Select = _db.userToMangas.Where(m => m.Users.Equals(UserID)).ToList();
+        //        return ResponseFactory.CreateInstance().CreateDataSuccessResponse<UserToManga>(Select);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ResponseFactory.CreateInstance().CreateDataFailedResponse<UserToManga>(ex);
+        //    }
+        //}
     }
 }

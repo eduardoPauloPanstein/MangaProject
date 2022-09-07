@@ -4,6 +4,7 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MangaProjectDbContext))]
-    partial class MangaProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220907060738_ADLIST")]
+    partial class ADLIST
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,6 +231,7 @@ namespace DataAccessLayer.Migrations
 
                     b.ToTable("Users", (string)null);
                 });
+
             modelBuilder.Entity("MangaUser", b =>
                 {
                     b.Property<int>("MangaIDId")
@@ -258,6 +261,7 @@ namespace DataAccessLayer.Migrations
 
                     b.Navigation("Titles");
                 });
+
             modelBuilder.Entity("MangaUser", b =>
                 {
                     b.HasOne("Entities.Manga.Manga", null)
@@ -271,7 +275,6 @@ namespace DataAccessLayer.Migrations
                         .HasForeignKey("UserIDId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
                 });
 #pragma warning restore 612, 618
         }
