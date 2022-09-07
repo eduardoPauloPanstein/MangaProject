@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using Entities;
-using Entities.Manga;
+using Entities.MangaS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 
@@ -69,7 +69,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(20).ToListAsync();
+                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(6).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
             }
             catch (Exception ex)

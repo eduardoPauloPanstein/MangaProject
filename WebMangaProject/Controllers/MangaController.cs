@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces;
-using Entities.Manga;
+using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Models.Manga;
 using Shared;

@@ -3,7 +3,7 @@ using BusinessLogicalLayer.Interfaces;
 using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
 using DataAccessLayer.Interfaces;
-using Entities;
+using Entities.UserS;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -64,7 +64,7 @@ namespace BusinessLogicalLayer.Implementations
             return await _userDAL.Update(user);
         }
 
-        public async Task<SingleResponse<User>> Login(User user)
+        public async Task<SingleResponse<User>> Login(UserLogin user)
         {
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
             return await _userDAL.Login(user);

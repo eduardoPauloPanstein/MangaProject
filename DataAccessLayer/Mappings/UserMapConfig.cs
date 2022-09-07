@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shared;

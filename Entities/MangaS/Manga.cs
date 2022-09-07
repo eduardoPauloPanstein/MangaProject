@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Manga
+namespace Entities.MangaS
 {
     public class Manga
     {
@@ -29,7 +29,5 @@ namespace Entities.Manga
         public string? Serialization { get; set; } //Ver generos
         public string PosterImageLink { get; set; }
         public string? CoverImageLink { get; set; }
-        public ICollection<User> UserID { get; set; }
-
     }
 }

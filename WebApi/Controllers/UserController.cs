@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces;
-using Entities;
+using Entities.UserS;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Shared;
@@ -67,7 +67,7 @@ namespace WebApi.Controllers
         {
             var user = JsonConvert.DeserializeObject<User>(value);
 
-            var response = await _userService.Insert(user);
+            var response = await _userService.Update(user);
             if (!response.HasSuccess)
             {
                 return BadRequest(response);
@@ -78,8 +78,29 @@ namespace WebApi.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var response = await _userService.Delete(id);
+            if (!response.HasSuccess)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] string value)
+        {
+            var user = JsonConvert.DeserializeObject<UserLogin>(value);
+
+            var response = await _userService.Login(user);
+            if (!response.HasSuccess)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
         }
     }
 }

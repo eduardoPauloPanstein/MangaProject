@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿using Entities.UserS;
 using Shared;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi
@@ -13,6 +13,6 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
     }
     public interface IMangaProjectApiUserService : IMangaProjectApiService<User>
     {
-        Task<SingleResponse<User>> Login(User user);
+        Task<SingleResponse<User>> Login(UserLogin user);
     }
 }

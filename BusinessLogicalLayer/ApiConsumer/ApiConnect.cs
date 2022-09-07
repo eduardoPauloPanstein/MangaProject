@@ -1,6 +1,6 @@
 ﻿using BusinessLogicalLayer.Interfaces;
 using DataAccessLayer.Implementations;
-using Entities.Manga;
+using Entities.MangaS;
 using Newtonsoft.Json;
 using Shared;
 using System;

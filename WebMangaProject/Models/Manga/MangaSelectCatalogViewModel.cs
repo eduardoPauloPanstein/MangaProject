@@ -1,4 +1,4 @@
-﻿using Entities.Manga;
+﻿using Entities.MangaS;
 using System.ComponentModel.DataAnnotations;
 
 namespace MvcPresentationLayer.Models.Manga

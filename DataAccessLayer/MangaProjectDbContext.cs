@@ -1,5 +1,5 @@
-﻿using Entities;
-using Entities.Manga;
+﻿using Entities.MangaS;
+using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -34,6 +34,7 @@ namespace DataAccessLayer
             //Carrega os map config que tão criado dentro do projeto (assembly) DAL
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
+
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Entities.Manga;
+using Entities.MangaS;
 using Shared;
 using System;
 using System.Collections.Generic;
