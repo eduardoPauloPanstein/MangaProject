@@ -23,5 +23,6 @@ namespace BusinessLogicalLayer.Interfaces
         Task<DataResponse<Manga>> GetByName(string name);
         Task<Response> DeleteAllDatas();
         //Task<DataResponse<UserToManga>> GetUserFavorites(int UserID);
+
     }
 }

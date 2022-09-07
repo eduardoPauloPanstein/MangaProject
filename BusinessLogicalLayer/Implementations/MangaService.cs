@@ -63,6 +63,7 @@ namespace BusinessLogicalLayer.Implementations
         //{
         //    return await _mangaDAL.GetUserFavorites(UserID);
         //}
+
         public async Task<Response> Insert(Manga manga)
         {
             Response response = new MangaInsertValidator().Validate(manga).ConvertToResponse();

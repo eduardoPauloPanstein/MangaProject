@@ -113,7 +113,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
         //public async Task<DataResponse<UserToManga>> GetUserFavorites(int UserID)
         //{
         //    try
