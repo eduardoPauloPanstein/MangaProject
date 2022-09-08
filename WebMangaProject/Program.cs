@@ -2,6 +2,7 @@ using BusinessLogicalLayer.Implementations;
 using BusinessLogicalLayer.Interfaces;
 using DataAccessLayer;
 using DataAccessLayer.Implementations;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.Enums;

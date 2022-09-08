@@ -5,6 +5,7 @@ using BusinessLogicalLayer.Validators.User;
 using DataAccessLayer.Interfaces;
 using Entities.UserS;
 using Shared;
+using Shared.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,16 @@ namespace BusinessLogicalLayer.Implementations
         {
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
             return await _userDAL.Login(user);
+        }
+
+        public Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response> FavoriteManga(int idmanga, int idusuario)
+        {
+            throw new NotImplementedException();
         }
     }
 }

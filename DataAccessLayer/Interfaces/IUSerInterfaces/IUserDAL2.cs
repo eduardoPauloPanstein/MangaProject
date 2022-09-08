@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces.IUSerInterfaces
 {
-    public interface IUserDAL :IUserGet , IUserPost ,ICRUD<User>
+    public interface IUserDAL2 :IUserGet , IUserPost ,ICRUD<User>
     {
         Task<SingleResponse<User>> Login(UserLogin user);
     }
