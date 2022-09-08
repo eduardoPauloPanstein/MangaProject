@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Oswald&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -147,8 +147,12 @@ body {
     width: calc(100% - 240px);
     left: 240px;
 }
-.title-logo{
-    padding:8px;
+
+/*Customizations */
+
+.title-logo {
+    padding: 8px;
+    font-family: 'Oswald', sans-serif;
 }
 .custom-link {
     color: #fff;
@@ -164,3 +168,80 @@ body {
         padding:8px;
         background: #fff;
     }
+.custom-navbar {
+    align-content: center;
+}
+
+/*Search Bar*/
+.wrapper {
+    z-index: 2;
+    left: 25rem;
+    position: absolute;
+    max-width: 450px;
+    /*margin: 150px auto;*/
+}
+
+    .wrapper .search-input {
+        position: relative;
+        background-color: #fff;
+        width: 100%;
+        color:#333;
+        border-radius: 8px;
+        box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+    }
+
+.search-input input {
+    height: 55px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    padding: 0 60px 0 20px;
+    font-size: 18px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-input .icon {
+    height: 55px;
+    width: 55px;
+    line-height: 55px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 20px;
+    color: #212D40;
+    cursor: pointer;
+}
+
+.search-input .autocom-box {
+    padding: 0px;
+    max-height: 280px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.search-input.active .autocom-box {
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.autocom-box li {
+    list-style: none;
+    padding: 8px 12px;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+    display: none;
+}
+
+.search-input.active .autocom-box li {
+    display: block;
+}
+
+.autocom-box li:hover {
+    background-color: #212D40;
+    color: #fff;
+}
