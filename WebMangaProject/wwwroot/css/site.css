@@ -168,12 +168,17 @@ body {
     align-content: center;
 }
 
+.custom-table {
+    color: #fff;
+}
+
+
 /*Search Bar*/
 .wrapper {
     z-index: 2;
     left: 25rem;
     position: absolute;
-    max-width: 450px;
+    max-width: 400px;
     /*margin: 150px auto;*/
 }
 

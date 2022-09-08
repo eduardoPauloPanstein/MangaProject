@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<MvcPresentationLayer.Models.Manga.MangaShortDbViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manga";
 }
 
-<h1>Index</h1>
+<h1>Manga</h1>
 
 <p>
-    <a asp-action="Create">Criar Novo</a>
-    <a asp-action="ConsumirApi">  Resetar + consumir</a>
+    <a class="custom-link" asp-action="Create">Criar Novo</a>
+    <a class="custom-link" asp-action="ConsumirApi">  Resetar + consumir</a>
 </p>
-<table class="table">
+<table class="table custom-table">
     <thead>
         <tr>
             <th>
