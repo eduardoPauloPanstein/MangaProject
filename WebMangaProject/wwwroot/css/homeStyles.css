@@ -1,22 +1,24 @@
 ﻿﻿section .catalog {
-    width: 100vw;
+    width: 100%;
     padding: 100px;
 }
 
 section .card-wrapper {
     display: grid;
+    padding:0px;
     grid-gap: 28px 30px;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
     grid-template-columns: repeat(auto-fill,185px);
-    justify-content: space-between;
 }
 
 section .card-item {
-    animation: in-data-v-4d8937d6 .3s linear;
-    display: grid;
+    display: flex;
     grid-template-rows: -webkit-min-content auto;
     grid-template-rows: min-content auto;
     position: relative;
-    width: 185px;
+    width: 200px;
     background: border-box;
 }
 
@@ -34,5 +36,9 @@ section .card-item {
 }
 
 .card-item img {
-    width: 100%;
+    width:100%;
+    height:100%;
+    max-width: 185px;
+    max-height:280px;
+    border-radius:15px;
 }

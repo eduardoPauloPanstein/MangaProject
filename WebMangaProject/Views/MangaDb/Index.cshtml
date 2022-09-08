@@ -8,7 +8,7 @@
 
 <p>
     <a asp-action="Create">Criar Novo</a>
-    <a asp-action="ConsumirApi">  Resetar + consumir</a>    
+    <a asp-action="ConsumirApi">  Resetar + consumir</a>
 </p>
 <table class="table">
     <thead>
@@ -26,22 +26,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CanonicalTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FavoritesCount)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Excluir", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CanonicalTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FavoritesCount)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Excluir", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

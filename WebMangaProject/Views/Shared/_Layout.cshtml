@@ -7,70 +7,107 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebMangaProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebMangaProject</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MangaDb" asp-action="Index">Mangas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>
-                           
-                        @{
-                            if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Hi @User.Identity.Name!</a>
-                                </li>
+    <div class="sidebar">
+        <div class="toggle"></div>
+        <ul>
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                      <i class="uil uil-estate"></i>
+                    <span class="title">Home</span>
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="MangaDb" asp-action="Index">
+                      <i class="uil uil-book-open"></i>
+                    <span class="title">Mangas</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="uil uil-play-circle"></i>
+                    <span class="title">Animes</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                     <i class="uil uil-cog"></i>
+                    <span class="title">Settings</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="home_content">
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+                <div class="container-fluid custom-navbar">
+                    <a class="navbar-brand custom-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <span class="title-logo">Anima List</span>
+                    </a>
+                    <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav custom-link-nav ">
+                            <li class="nav-item">
+                                <a class="nav-link custom-link " asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link custom-link " asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                            </li>
+
+                            @{
+                                if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item custom-login">
+                                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Hi @User.Identity.Name!</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item custom-login">
+                                        <a class="nav-link custom-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                                    </li>
+                                }
                             }
-                            else
-                            {
-                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                                </li>
-                            }
-                        }
-                        <form action="Manga/allfavorites" method="post" novalidate >
-                            <li>
-                          <input class="form-control valid" type="text" aria-invalid="false">
-                        </li>
-                        <li>
-                          <input type="submit" value="Save" class="btn btn-primary">
-                        </li>
-                        
-                        </form> ==$0
-                    </ul>
+                            <div class="wrapper">
+                                <div class="search-input">
+                                    <input type="text" placeholder="Search...">
+                                    <div class="autocom-box">
+                                    </div>
+                                    <div class="icon">
+                                        <i class="uil uil-search search-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - WebMangaProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <script>
+        let sidebar = document.querySelector('.sidebar');
+        let toggle = document.querySelector('.toggle');
+        toggle.onclick = function() {
+            sidebar.classList.toggle('active')
+        }
+    </script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/suggestions.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
