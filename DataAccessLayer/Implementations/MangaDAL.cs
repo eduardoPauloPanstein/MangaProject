@@ -28,18 +28,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-        public async Task<DataResponse<Manga>> GetAll()
-        {
-            try
-            {
-                List<Manga> mangas = await _db.Mangas.ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
-            }
-        }
         public async Task<DataResponse<Manga>> GetMorePopular()
         {
             throw new NotImplementedException();
@@ -90,18 +78,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-        public async Task<SingleResponse<Manga>> GetByID(int id)
-        {
-            try
-            {
-                Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex,null);
-            }
-        }
         public async Task<DataResponse<Manga>> GetByName(string name)
         {
             try
@@ -115,24 +91,64 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public Task<SingleResponse<Manga>> Select(int id)
+        public async Task<SingleResponse<Manga>> Select(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex, null);
+            }
         }
 
-        public Task<DataResponse<Manga>> Select()
+        public async Task<DataResponse<Manga>> Select()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Manga> mangas = await _db.Mangas.ToListAsync();
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
         }
 
-        public Task<Response> Update(Manga Item)
+        public async Task<Response> Update(Manga Item)
         {
-            throw new NotImplementedException();
+            Manga? MangaDB = await _db.Mangas.FindAsync(Item.Id);
+            if (MangaDB == null)
+                return ResponseFactory.CreateInstance().CreateNotFoundIdResponse();
+            try
+            {
+                _db.Mangas.Update(Item);
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
         }
 
-        public Task<Response> Delete(int id)
+        public async Task<Response> Delete(int id)
         {
-            throw new NotImplementedException();
+            Manga? MangaDB = await _db.Mangas.FindAsync(id);
+            if (MangaDB == null)
+                return ResponseFactory.CreateInstance().CreateNotFoundIdResponse();
+            try
+            {
+                _db.Mangas.Remove(MangaDB);
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
         }
     }
 }
