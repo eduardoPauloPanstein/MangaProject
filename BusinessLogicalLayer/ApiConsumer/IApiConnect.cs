@@ -1,5 +1,5 @@
 ﻿using Entities.MangaS;
-using Shared;
+using Shared.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;

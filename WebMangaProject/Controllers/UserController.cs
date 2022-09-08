@@ -9,6 +9,7 @@ using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Models.User;
 using Newtonsoft.Json;
 using Shared;
+using Shared.Responses;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 

@@ -2,9 +2,10 @@
 using BusinessLogicalLayer.Interfaces;
 using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.UserS;
 using Shared;
+using Shared.Responses;
 
 namespace BusinessLogicalLayer.Implementations
 {
@@ -45,7 +46,7 @@ namespace BusinessLogicalLayer.Implementations
         }
         public async Task<DataResponse<User>> SelectAll()
         {
-            return await _userDAL.SelectAll();
+            return await _userDAL.Select();
         }
         public async Task<Response> Update(User user)
         {

@@ -1,10 +1,10 @@
 ﻿using BLL.Extensions;
 using BusinessLogicalLayer.Interfaces;
 using BusinessLogicalLayer.Validators.Manga;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities;
 using Entities.MangaS;
-using Shared;
+using Shared.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace BusinessLogicalLayer.Implementations
         public async Task<DataResponse<Manga>> GetAll()
         {
             //politica de cache!
-            return await _mangaDAL.GetAll();
+            return await _mangaDAL.Select();
         }
 
         public async Task<DataResponse<Manga>> GetAllByFavorites()
@@ -39,7 +39,7 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<SingleResponse<Manga>> GetByID(int id)
         {
-            return await _mangaDAL.GetByID(id);
+            return await _mangaDAL.Select(id);
         }
 
         public async Task<DataResponse<Manga>> GetByName(string name)

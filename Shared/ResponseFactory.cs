@@ -1,6 +1,8 @@
-﻿namespace Shared
+﻿using Shared.Responses;
+
+namespace Shared
 {
-   public class ResponseFactory
+    public class ResponseFactory
     {
         #region Singleton
         private static ResponseFactory _factory;

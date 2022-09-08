@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared
+namespace Shared.Responses
 {
     public class SingleResponse<T> : Response
     {
-        public SingleResponse(string message, bool hasSuccess,T item,Exception? ex) : base(message, hasSuccess, ex)
+        public SingleResponse(string message, bool hasSuccess, T item, Exception? ex) : base(message, hasSuccess, ex)
         {
-           this.Data = item;
+            Data = item;
         }
 
         public T Data { get; set; }

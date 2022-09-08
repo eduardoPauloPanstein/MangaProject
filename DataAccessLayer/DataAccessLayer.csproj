@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interfaces\IMangaGet - Cópia.cs" />
     <Compile Remove="Mappings\UserToMangaMapConfig.cs" />
     <Compile Remove="Migrations\20220906060524_NparaN.cs" />
     <Compile Remove="Migrations\20220906060524_NparaN.Designer.cs" />

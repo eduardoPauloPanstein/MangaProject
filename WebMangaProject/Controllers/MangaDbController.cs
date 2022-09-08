@@ -5,7 +5,7 @@ using Entities.MangaS;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Models.Manga;
-using Shared;
+using Shared.Responses;
 
 namespace MvcPresentationLayer.Controllers
 {

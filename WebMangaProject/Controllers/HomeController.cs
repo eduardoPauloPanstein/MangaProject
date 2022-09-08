@@ -5,7 +5,7 @@ using Entities;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Models.Manga;
-using Shared;
+using Shared.Responses;
 using System.Diagnostics;
 using WebMangaProject.Models;
 

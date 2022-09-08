@@ -1,8 +1,9 @@
-﻿using DataAccessLayer.Interfaces;
+﻿using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities;
 using Entities.MangaS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Responses;
 
 namespace DataAccessLayer.Implementations
 {
@@ -112,6 +113,26 @@ namespace DataAccessLayer.Implementations
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
+        }
+
+        public Task<SingleResponse<Manga>> Select(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DataResponse<Manga>> Select()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response> Update(Manga Item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response> Delete(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared
+namespace Shared.Responses
 {
     public class Response
     {
-        public Response(string message, bool hasSuccess,Exception ex)
+        public Response(string message, bool hasSuccess, Exception ex)
         {
             Message = message;
             HasSuccess = hasSuccess;

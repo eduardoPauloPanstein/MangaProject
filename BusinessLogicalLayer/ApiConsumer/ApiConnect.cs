@@ -3,6 +3,7 @@ using DataAccessLayer.Implementations;
 using Entities.MangaS;
 using Newtonsoft.Json;
 using Shared;
+using Shared.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,14 +30,14 @@ namespace ApiConsumer
         public async Task<DataResponse<Manga>> Consume()
         {
             //1 page get 20 mangas
-            int qtdPages = 800;
+            int qtdPages = 100;
             int qtdMangas = qtdPages * 20;
             List<Manga> mangasTotal = new ();
             
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
 
-                for (int i = 2740; i <= qtdMangas; i+=20)
+                for (int i = 1; i <= qtdMangas; i+=20)
                 {
                     using (var response = await httpClient.GetAsync(requestString + i))
                     {

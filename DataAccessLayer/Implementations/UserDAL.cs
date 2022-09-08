@@ -1,7 +1,8 @@
-﻿using DataAccessLayer.Interfaces;
+﻿using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Responses;
 
 namespace DataAccessLayer.Implementations
 {
@@ -100,7 +101,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<DataResponse<User>> SelectAll()
+        public async Task<DataResponse<User>> Select()
         {
             try
             {

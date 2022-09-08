@@ -2,7 +2,7 @@ using BusinessLogicalLayer.Implementations;
 using BusinessLogicalLayer.Interfaces;
 using DataAccessLayer;
 using DataAccessLayer.Implementations;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

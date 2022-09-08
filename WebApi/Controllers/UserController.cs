@@ -3,7 +3,7 @@ using BusinessLogicalLayer.Interfaces;
 using Entities.UserS;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Shared;
+using Shared.Responses;
 
 namespace WebApi.Controllers
 {
