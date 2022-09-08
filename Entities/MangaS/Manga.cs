@@ -10,7 +10,7 @@ namespace Entities.MangaS
     public class Manga
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } //tirar
         public string Synopsis { get; set; }
         public MangaTitles? Titles { get; set; }
         public string? CanonicalTitle { get; set; }

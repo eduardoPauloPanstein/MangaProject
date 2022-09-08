@@ -10,19 +10,36 @@ inputBox.onkeyup = (e) => {
     let userData = e.target.value;
     let emptyArray = [];
     if (userData) {
-        emptyArray = suggestions.filter((data) => {
-            return data.toLocaleLowerCase().includes(userData.toLocaleLowerCase());
-        });
-        emptyArray = emptyArray.map((data) => {
-            return data = '<li>' + data + '</li>';
-        });
-        console.log(emptyArray);
-        searchWrapper.classList.add("active");
-        showSuggestions(emptyArray);
-    } else {
+        $.ajax({
+            type: "GET",
+            url: 'https://localhost:7164/api/Manga/GetSuggestionList/',
+            data: '{title: ' + userData + "}",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response.hasSuccess) {
+                    console.log(response.data);
+                    emptyArray = response.data.filter((data) => {
+                        return data.toLocaleLowerCase().includes(userData.toLocaleLowerCase());
+                    });
+                    emptyArray = emptyArray.map((data) => {
+                        return data = '<li>' + data + '</li>';
+                    });
+                    console.log(emptyArray);
+                    searchWrapper.classList.add("active");
+                    showSuggestions(emptyArray);
+                }
+                },
+                error: function () {
+                    alert("Erro ao buscar mangas");
+                }
+            });
+    }
+    else {
         searchWrapper.classList.remove("active");
     }
 }
+
 
 function showSuggestions(list) {
     let listData;

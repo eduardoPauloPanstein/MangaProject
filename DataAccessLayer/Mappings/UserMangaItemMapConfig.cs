@@ -20,7 +20,7 @@ namespace DataAccessLayer.Mappings
 
             builder.HasOne(m => m.User)
                 .WithMany(u => u.MangaList)
-                .IsRequired();
+                .OnDelete(DeleteBehavior.Cascade);
 
             //builder.HasOne(m => m.Manga)
             //    .WithOne()
