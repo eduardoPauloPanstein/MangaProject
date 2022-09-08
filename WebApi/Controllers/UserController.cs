@@ -19,10 +19,14 @@ namespace WebApi.Controllers
         }
 
         // todo paginação
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAllAsync()
+        [HttpGet(template:"skip/{skip}/take/{take}")]
+        public async Task<IActionResult> GetAsync([FromRoute] int skip = 0, [FromRoute] int take = 25)
         {
-            DataResponse<User> responseUsers = await _userService.SelectAll();
+            if (take >= 100)
+            {
+                return BadRequest("take < 100");
+            }
+            DataResponse<User> responseUsers = await _userService.Select(skip, take);
             if (!responseUsers.HasSuccess)
             {
                 return BadRequest(responseUsers);

@@ -82,7 +82,7 @@ namespace MvcPresentationLayer.Controllers
 
         public async Task<IActionResult> Index()
         {
-            DataResponse<User> responseUsers = await _userApiService.SelectAll();
+            DataResponse<User> responseUsers = await _userApiService.Select();
             if (!responseUsers.HasSuccess)
             {
                 return BadRequest(responseUsers.Exception);

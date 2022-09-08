@@ -87,11 +87,11 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<DataResponse<User>> SelectAll()
+        public async Task<DataResponse<User>> Select(int skip = 0, int take = 25)
         {
             try
             {
-                using HttpResponseMessage responseHttp = await client.GetAsync("User/GetAll");
+                using HttpResponseMessage responseHttp = await client.GetAsync($"User/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
                     return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(null);

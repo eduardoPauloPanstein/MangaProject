@@ -1,8 +1,7 @@
-﻿using DataAccessLayer.Interfaces.IUSerInterfaces;
+﻿using DataAccessLayer.Interfaces;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using Shared.Responses;
 
 namespace DataAccessLayer.Implementations
 {
@@ -32,25 +31,6 @@ namespace DataAccessLayer.Implementations
             {
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
-        }
-
-        public Task<Response> FavoriteManga(int idmanga, int idusuario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID)
-        {
-            throw new Exception();
-            //try
-            //{
-            //    List<UserMangaItem> Select = _db.Mangas.Where(m => m.Users.Equals(UserID)).ToList();
-            //    return ResponseFactory.CreateInstance().CreateDataSuccessResponse<UserMangaItem>(Select);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return ResponseFactory.CreateInstance().CreateDataFailedResponse<UserMangaItem>(ex);
-            //}
         }
 
         public async Task<Response> Insert(User user)
@@ -101,11 +81,15 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<DataResponse<User>> Select()
+        public async Task<DataResponse<User>> Select(int skip, int take)
         {
             try
             {
-                List<User> users = await _db.Users.ToListAsync();
+                List<User> users = await _db.Users
+                    .AsNoTracking()
+                    .Skip(skip)
+                    .Take(take)
+                    .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(users);
 
             }

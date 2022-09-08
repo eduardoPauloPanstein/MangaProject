@@ -7,7 +7,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
     {
         Task<Response> Insert(T item);
         Task<SingleResponse<T>> Select(int? id);
-        Task<DataResponse<T>> SelectAll();
+        Task<DataResponse<T>> Select(int skip = 0, int take = 25);
         Task<Response> Update(T item);
         Task<Response> Delete(int? id);
     }
