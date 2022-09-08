@@ -168,8 +168,8 @@ body {
         padding:8px;
         background: #fff;
     }
-.custom-navbar {
-    align-content: center;
+.custom-link-nav {
+    font-size:16px;
 }
 
 .custom-table {
@@ -196,7 +196,7 @@ body {
     }
 
 .search-input input {
-    height: 55px;
+    height: 45px;
     width: 100%;
     outline: none;
     border: none;
@@ -209,7 +209,7 @@ body {
 .search-input .icon {
     height: 55px;
     width: 55px;
-    line-height: 55px;
+    line-height: 45px;
     position: absolute;
     top: 0;
     right: 0;
