@@ -6,11 +6,6 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
 
 body {
     position: relative;
@@ -77,6 +72,7 @@ body {
 
 .sidebar.active .toggle::before {
     transform: translateY(0px) rotate(-405deg);
+    min-height: 100%;
 }
 
 .sidebar.active .toggle::after {

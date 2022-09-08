@@ -1,12 +1,8 @@
 ﻿using DataAccessLayer.Interfaces;
-using Entities.Manga;
+using Entities;
+using Entities.MangaS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Implementations
 {
@@ -41,31 +37,24 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
-                
-
             }
         }
         public async Task<DataResponse<Manga>> GetMorePopular()
         {
             throw new NotImplementedException();
         }
-
         public async Task<DataResponse<Manga>> GetPerPage(int page)
         {
             int pageSize = 10;
             List<Manga> mangas = await _db.Mangas.Skip(page * pageSize).Take(pageSize).ToListAsync();
             return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-            
         }
-
         public async Task<Response> DeleteAllDatas()
         {
-
             //var tableNames = db.Model.GetEntityTypes()
             //                         .Select(t => t.GetTableName())
             //                         .Distinct()
             //                         .ToList();
-
             try
             {
                 _db.Database.ExecuteSqlRaw($"DELETE FROM MangasRatingFrequencies; DELETE FROM MANGAS; DELETE FROM MangaTitles");
@@ -76,39 +65,30 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
         public async Task<DataResponse<Manga>> GetTopSixFavorites()
         {
             try
             {
-
                 List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(6).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-
-
             }
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
-
             }
         }
         public async Task<DataResponse<Manga>> GetAllByFavorites()
         {
-
             try
             {
                 List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-
             }
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
-
             }
         }
-
         public async Task<SingleResponse<Manga>> GetByID(int id)
         {
             try
@@ -116,11 +96,34 @@ namespace DataAccessLayer.Implementations
                 Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex,null);
             }
         }
+        public async Task<DataResponse<Manga>> GetByName(string name)
+        {
+            try
+            {
+                List<Manga> mangas = _db.Mangas.Where(M => M.Name.StartsWith(name)).ToList();
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(mangas);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
+        //public async Task<DataResponse<UserToManga>> GetUserFavorites(int UserID)
+        //{
+        //    try
+        //    {
+        //        List<UserToManga> Select = _db.userToMangas.Where(m => m.Users.Equals(UserID)).ToList();
+        //        return ResponseFactory.CreateInstance().CreateDataSuccessResponse<UserToManga>(Select);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ResponseFactory.CreateInstance().CreateDataFailedResponse<UserToManga>(ex);
+        //    }
+        //}
     }
 }

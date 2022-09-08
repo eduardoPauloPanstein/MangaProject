@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Validators.User
 {
-    internal class UserValidator : AbstractValidator<Entities.User>
+    internal class UserValidator : AbstractValidator<Entities.UserS.User>
     {
         public void ValidateID()
         {

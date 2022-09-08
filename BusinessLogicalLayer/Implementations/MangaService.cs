@@ -2,7 +2,8 @@
 using BusinessLogicalLayer.Interfaces;
 using BusinessLogicalLayer.Validators.Manga;
 using DataAccessLayer.Interfaces;
-using Entities.Manga;
+using Entities;
+using Entities.MangaS;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -41,11 +42,14 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.GetByID(id);
         }
 
+        public async Task<DataResponse<Manga>> GetByName(string name)
+        {
+            return await _mangaDAL.GetByName(name);
+        }
         public async Task<DataResponse<Manga>> GetMorePopular()
         {
             return await _mangaDAL.GetMorePopular();
         }
-
         public async Task<DataResponse<Manga>> GetPerPage(int page)
         {
             return await _mangaDAL.GetPerPage(page);
@@ -54,6 +58,11 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.GetTopSixFavorites();
         }
+
+        //public async Task<DataResponse<UserToManga>> GetUserFavorites(int UserID)
+        //{
+        //    return await _mangaDAL.GetUserFavorites(UserID);
+        //}
 
         public async Task<Response> Insert(Manga manga)
         {

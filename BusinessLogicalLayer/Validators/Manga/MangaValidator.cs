@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Validators.Manga
 {
-    internal class MangaValidator : AbstractValidator<Entities.Manga.Manga>
+    internal class MangaValidator : AbstractValidator<Entities.MangaS.Manga>
     {
         public void ValidateImages()
         {

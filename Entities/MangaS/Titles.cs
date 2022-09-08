@@ -1,4 +1,4 @@
-﻿namespace Entities.Manga
+﻿namespace Entities.MangaS
 {
     public class MangaTitles
     {

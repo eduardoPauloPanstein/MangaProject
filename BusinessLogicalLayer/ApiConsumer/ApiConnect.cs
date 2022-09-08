@@ -1,6 +1,6 @@
 ﻿using BusinessLogicalLayer.Interfaces;
 using DataAccessLayer.Implementations;
-using Entities.Manga;
+using Entities.MangaS;
 using Newtonsoft.Json;
 using Shared;
 using System;
@@ -29,7 +29,7 @@ namespace ApiConsumer
         public async Task<DataResponse<Manga>> Consume()
         {
             //1 page get 20 mangas
-            int qtdPages = 10;
+            int qtdPages = 100;
             int qtdMangas = qtdPages * 20;
             List<Manga> mangasTotal = new ();
             

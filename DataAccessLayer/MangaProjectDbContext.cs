@@ -1,5 +1,5 @@
-﻿using Entities;
-using Entities.Manga;
+﻿using Entities.MangaS;
+using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,6 @@ namespace DataAccessLayer
         //SQL para a tabela a partir dessa propriedade.
         public DbSet<Manga> Mangas { get; set; }
         public DbSet<User> Users { get; set; }
-
         public MangaProjectDbContext(DbContextOptions options) : base(options) { }
         public MangaProjectDbContext()
         {
@@ -35,6 +34,7 @@ namespace DataAccessLayer
             //Carrega os map config que tão criado dentro do projeto (assembly) DAL
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
+
         }
     }
 }

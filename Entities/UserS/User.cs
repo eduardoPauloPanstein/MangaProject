@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Entities.UserS
 {
     public class User
     {
@@ -25,6 +25,6 @@ namespace Entities
         public string? AvatarImageFileLocation { get; set; }
         public string? CoverImageFileLocation { get; set; }
         public bool KeepLogged { get; set; }
+        public ICollection<UserMangaItem> MangaList { get; set; }
     }
-    //Se não confirmar email não acessa, e fica registrado na DB?
 }

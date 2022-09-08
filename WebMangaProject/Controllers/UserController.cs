@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces;
-using Entities;
 using Entities.Enums;
+using Entities.UserS;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,18 +14,16 @@ using System.Security.Claims;
 
 namespace MvcPresentationLayer.Controllers
 {
-    
+
     public class UserController : Controller
     {
-        private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiUserService _userApiService;
         private string _filePath;
 
-        public UserController(IUserService userService, IMapper mapper, IWebHostEnvironment env, IMangaProjectApiUserService userApiService)
+        public UserController(IMapper mapper, IWebHostEnvironment env, IMangaProjectApiUserService userApiService)
         {
             this._filePath = env.WebRootPath;
-            this._userService = userService;
             this._mapper = mapper;
             this._userApiService = userApiService;
         }
@@ -103,11 +101,19 @@ namespace MvcPresentationLayer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginView)
          {
-            User user = _mapper.Map<User>(userLoginView);
-            var response = await _userService.Login(user);
+            UserLogin login = new()
+            {
+                EmailOrNickname = userLoginView.EmailOrNickname,
+                Password = userLoginView.Password
+            };
+            var response = await _userApiService.Login(login);
 
             if (response.HasSuccess)
+            {
                 _ = AuthenticationAsync(response.Data);
+                return RedirectToAction("Index", "Home");
+
+            }
 
             ViewBag.Errors = response.Message;
             return View();
@@ -151,7 +157,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            var userSelectResponse = await _userService.Select(id);
+            var userSelectResponse = await _userApiService.Select(id);
 
             if (!userSelectResponse.HasSuccess)
             {
@@ -183,15 +189,15 @@ namespace MvcPresentationLayer.Controllers
                 await SaveAvatarFileAsync(fileF, user);
             }
 
-            response = await _userService.Update(user);
+            response = await _userApiService.Update(user);
 
             if (!response.HasSuccess)
             {
                 ViewBag.Errors = response.Message;
                 return View(userUpdate);
             }
-            
-            return RedirectToAction("Edit");
+
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -205,7 +211,7 @@ namespace MvcPresentationLayer.Controllers
                 return Problem("User is null.");
             }
 
-            await _userService.Delete(id);
+            await _userApiService.Delete(id);
             //Delete avatar
 
             return RedirectToAction(nameof(Index));
@@ -213,7 +219,7 @@ namespace MvcPresentationLayer.Controllers
 
         private async Task<bool> UserExists(int id)
         {
-            var userSelectResponse = await _userService.Select(id);
+            var userSelectResponse = await _userApiService.Select(id);
             return userSelectResponse.HasSuccess;            
         }
     }

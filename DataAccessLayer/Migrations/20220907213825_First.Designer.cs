@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MangaProjectDbContext))]
-    [Migration("20220823220939_attv2")]
-    partial class attv2
+    [Migration("20220907213825_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace DataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Entities.Manga.Manga", b =>
+            modelBuilder.Entity("Entities.MangaS.Manga", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -101,7 +101,7 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Mangas", (string)null);
                 });
 
-            modelBuilder.Entity("Entities.Manga.MangaTitles", b =>
+            modelBuilder.Entity("Entities.MangaS.MangaTitles", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +126,7 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("MangaTitles", (string)null);
                 });
 
-            modelBuilder.Entity("Entities.Manga.RatingFrequencies", b =>
+            modelBuilder.Entity("Entities.MangaS.RatingFrequencies", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +169,7 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("MangasRatingFrequencies", (string)null);
                 });
 
-            modelBuilder.Entity("Entities.User", b =>
+            modelBuilder.Entity("Entities.UserS.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,7 +191,7 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -209,7 +209,7 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("LastLogin")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nickname")
                         .IsRequired()
@@ -232,19 +232,98 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("Entities.Manga.Manga", b =>
+            modelBuilder.Entity("Entities.UserS.UserMangaItem", b =>
                 {
-                    b.HasOne("Entities.Manga.RatingFrequencies", "RatingFrequencies")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Chapter")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Favorite")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MangaId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Private")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PrivateNotes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicNotes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalRereads")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Volume")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MangaId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserMangaItem", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.MangaS.Manga", b =>
+                {
+                    b.HasOne("Entities.MangaS.RatingFrequencies", "RatingFrequencies")
                         .WithMany()
                         .HasForeignKey("RatingFrequenciesId");
 
-                    b.HasOne("Entities.Manga.MangaTitles", "Titles")
+                    b.HasOne("Entities.MangaS.MangaTitles", "Titles")
                         .WithMany()
                         .HasForeignKey("TitlesId");
 
                     b.Navigation("RatingFrequencies");
 
                     b.Navigation("Titles");
+                });
+
+            modelBuilder.Entity("Entities.UserS.UserMangaItem", b =>
+                {
+                    b.HasOne("Entities.MangaS.Manga", "Manga")
+                        .WithMany()
+                        .HasForeignKey("MangaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.UserS.User", "User")
+                        .WithMany("MangaList")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Manga");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.UserS.User", b =>
+                {
+                    b.Navigation("MangaList");
                 });
 #pragma warning restore 612, 618
         }

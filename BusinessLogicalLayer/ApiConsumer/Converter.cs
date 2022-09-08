@@ -1,5 +1,5 @@
 ﻿using Entities.Enums;
-using Entities.Manga;
+using Entities.MangaS;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,5 @@
 ﻿using DataAccessLayer.Interfaces;
-using Entities;
+using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 
@@ -47,14 +47,14 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<SingleResponse<User>> Login(User user)
+        public async Task<SingleResponse<User>> Login(UserLogin user)
         {
             try
             {
-                User? userLogged = await _db.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+                User? userLogged = await _db.Users.FirstOrDefaultAsync(u =>( u.Email == user.EmailOrNickname || u.Nickname == user.EmailOrNickname) && u.Password == user.Password);
                 if (userLogged == null)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>("User not found", null);
+                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, "User not found");
                 }
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(userLogged);
             }

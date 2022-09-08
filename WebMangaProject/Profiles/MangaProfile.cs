@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Entities.Manga;
+using Entities.MangaS;
 using MvcPresentationLayer.Models.Manga;
 
 namespace MvcPresentationLayer.Profiles

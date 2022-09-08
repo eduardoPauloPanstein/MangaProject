@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿using Entities.UserS;
 using Newtonsoft.Json;
 using Shared;
 using System.Text;
@@ -8,16 +8,28 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
     public class MangaProjectApiUserService : MangaProjectApiBase, IMangaProjectApiUserService
     {
 
-        public Task<Response> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Response> Insert(User item)
+        public async Task<Response> Delete(int? id)
         {
             try
             {
-                string serialized = JsonConvert.SerializeObject(item);
+                using HttpResponseMessage responseHttp = await client.DeleteAsync($"User/{id}");
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null);
+                }
+                return JsonConvert.DeserializeObject<Response>(await responseHttp.Content.ReadAsStringAsync());
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
+
+        public async Task<Response> Insert(User user)
+        {
+            try
+            {
+                string serialized = JsonConvert.SerializeObject(user);
                 using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User", serialized);
 
                 var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
@@ -30,18 +42,48 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
 
-        public Task<SingleResponse<User>> Login(User user)
+        public async Task<SingleResponse<User>> Login(UserLogin userLogin)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string serialized = JsonConvert.SerializeObject(userLogin);
+                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User/Login", serialized);
+
+                var response = JsonConvert.DeserializeObject<SingleResponse<User>>(responseHttp.Content.ReadAsStringAsync().Result);
+
+                if (responseHttp.IsSuccessStatusCode)
+                {
+                    return response;
+                }
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, response.Message);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+            }
         }
 
-        public Task<SingleResponse<User>> Select(int id)
+        public async Task<SingleResponse<User>> Select(int? id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using HttpResponseMessage responseHttp = await client.GetAsync($"User/{id}");
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<SingleResponse<User>>(data);
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<User>(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+            }
         }
 
         public async Task<DataResponse<User>> SelectAll()
@@ -63,9 +105,25 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public Task<Response> Update(User item)
+        public async Task<Response> Update(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string serialized = JsonConvert.SerializeObject(user);
+                using HttpResponseMessage responseHttp = await client.PutAsJsonAsync($"User/{user.Id}", serialized);
+
+                var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
+
+                if (responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                }
+                return ResponseFactory.CreateInstance().CreateFailedResponse(null, response.Message);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
         }
     }
 }

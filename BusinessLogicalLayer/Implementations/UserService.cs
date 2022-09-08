@@ -3,7 +3,7 @@ using BusinessLogicalLayer.Interfaces;
 using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
 using DataAccessLayer.Interfaces;
-using Entities;
+using Entities.UserS;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -47,7 +47,7 @@ namespace BusinessLogicalLayer.Implementations
         {
             if (id == null)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>("Id is null.", null);
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, "Id is null.");
             }
 
             return await _userDAL.Select((int)id);
@@ -64,7 +64,7 @@ namespace BusinessLogicalLayer.Implementations
             return await _userDAL.Update(user);
         }
 
-        public async Task<SingleResponse<User>> Login(User user)
+        public async Task<SingleResponse<User>> Login(UserLogin user)
         {
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
             return await _userDAL.Login(user);

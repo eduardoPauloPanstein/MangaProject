@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿using Entities.UserS;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,6 @@ namespace DataAccessLayer.Interfaces
         Task<DataResponse<User>> SelectAll();
         Task<Response> Update(User user);
         Task<Response> Delete(int id);
-        Task<SingleResponse<User>> Login(User user);
+        Task<SingleResponse<User>> Login(UserLogin user);
     }
 }

@@ -1,7 +1,8 @@
 ﻿using ApiConsumer;
 using AutoMapper;
 using BusinessLogicalLayer.Interfaces;
-using Entities.Manga;
+using Entities;
+using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Models.Manga;
 using Shared;
@@ -27,7 +28,6 @@ namespace WebMangaProject.Controllers
         public async Task<IActionResult> Index()
         {
             DataResponse<Manga> responseMangas = await _mangaService.GetTopSixFavorites();
-
             if (!responseMangas.HasSuccess)
             {
                 ViewBag.Errors = responseMangas.Message;
