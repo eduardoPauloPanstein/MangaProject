@@ -33,6 +33,25 @@ namespace DataAccessLayer.Implementations
             }
         }
 
+        public Task<Response> FavoriteManga(int idmanga, int idusuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID)
+        {
+            throw new Exception();
+            //try
+            //{
+            //    List<UserMangaItem> Select = _db.Mangas.Where(m => m.Users.Equals(UserID)).ToList();
+            //    return ResponseFactory.CreateInstance().CreateDataSuccessResponse<UserMangaItem>(Select);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return ResponseFactory.CreateInstance().CreateDataFailedResponse<UserMangaItem>(ex);
+            //}
+        }
+
         public async Task<Response> Insert(User user)
         {
             _db.Users.Add(user);

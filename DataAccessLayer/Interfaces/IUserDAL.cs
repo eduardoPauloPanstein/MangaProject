@@ -16,5 +16,9 @@ namespace DataAccessLayer.Interfaces
         Task<Response> Update(User user);
         Task<Response> Delete(int id);
         Task<SingleResponse<User>> Login(UserLogin user);
+        Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID);
+        Task<Response> FavoriteManga(int idmanga, int idusuario);
+
+            
     }
 }
