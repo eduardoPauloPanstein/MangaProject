@@ -14,7 +14,7 @@ body {
     background: #212D40;
     color:#fff;
 }
-
+/*Sidebar*/
 .sidebar {
     position: fixed;
     top: 0px;
@@ -72,7 +72,6 @@ body {
 
 .sidebar.active .toggle::before {
     transform: translateY(0px) rotate(-405deg);
-    min-height: 100%;
 }
 
 .sidebar.active .toggle::after {
@@ -145,9 +144,14 @@ body {
 }
 
 /*Customizations */
-
+.custom-logo {
+    vertical-align:bottom;
+    height: 40px;
+    width: 35px;
+}
 .title-logo {
     padding: 8px;
+    font-size:25px;
     font-family: 'Oswald', sans-serif;
 }
 .custom-link {
@@ -168,12 +172,17 @@ body {
     align-content: center;
 }
 
+.custom-table {
+    color: #fff;
+}
+
+
 /*Search Bar*/
 .wrapper {
     z-index: 2;
     left: 25rem;
     position: absolute;
-    max-width: 450px;
+    max-width: 400px;
     /*margin: 150px auto;*/
 }
 
