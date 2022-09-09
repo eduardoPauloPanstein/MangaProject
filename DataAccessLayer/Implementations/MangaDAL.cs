@@ -14,7 +14,6 @@ namespace DataAccessLayer.Implementations
         {
             this._db = db;
         }
-
         public async Task<Response> Insert(Manga manga)
         {
             _db.Mangas.Add(manga);
@@ -135,7 +134,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
         public async Task<Response> Delete(int id)
         {
             Manga? MangaDB = await _db.Mangas.FindAsync(id);

@@ -63,7 +63,10 @@ namespace DataAccessLayer.Implementations
                 {
                     return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, "User not found");
                 }
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(userLogged);
+
+                UpdateLastLoginAsync(userLogged.Id);
+
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<User>(userLogged);
             }
             catch (Exception ex)
             {
@@ -124,6 +127,19 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
+        public async void UpdateLastLoginAsync(int id)
+        {
+            User? userDb = await _db.Users.FindAsync(id);
+            userDb.LastLogin = DateTime.Now;
+            try
+            {
+                await _db.SaveChangesAsync();
+                
+            }
+            catch (Exception ex)
+            {
             }
         }
     }

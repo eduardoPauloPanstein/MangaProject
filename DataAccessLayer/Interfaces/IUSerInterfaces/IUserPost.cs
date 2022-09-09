@@ -10,5 +10,6 @@ namespace DataAccessLayer.Interfaces.IUSerInterfaces
     public interface IUserPost
     {
         Task<Response> FavoriteManga(int idmanga, int idusuario);
+        
     }
 }
