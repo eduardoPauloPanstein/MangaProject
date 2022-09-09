@@ -1,4 +1,4 @@
-﻿@model MvcPresentationLayer.Models.User.UserLoginViewModel;
+﻿@model MvcPresentationLayer.Models.UserModel.UserLoginViewModel;
 
 <div class="row">
     <div class="col d-flex justify-content-md-center">
@@ -42,7 +42,8 @@
 
   <!-- Register -->
   <div class="text-center">
-    <p>Not a member? <a href="#!">Register</a></p>
+    @*<p>Not a member? <a href="#!">Register</a></p>*@
+    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Create">Not a member!</a>
 
   </div>
 </form>

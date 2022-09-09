@@ -8,6 +8,7 @@ namespace Entities.Enums
 {
     public enum MangaStatus
     {
+        SELECT_A_OPTION,
         current,
         finished,
         tba,

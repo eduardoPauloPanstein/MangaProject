@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
-using BusinessLogicalLayer.Interfaces;
 using Entities.Enums;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
-using MvcPresentationLayer.Models.User;
-using Newtonsoft.Json;
+using MvcPresentationLayer.Models.UserModel;
 using Shared;
 using Shared.Responses;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace MvcPresentationLayer.Controllers

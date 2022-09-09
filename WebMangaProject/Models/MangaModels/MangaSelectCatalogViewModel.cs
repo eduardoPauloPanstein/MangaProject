@@ -1,7 +1,7 @@
 ﻿using Entities.MangaS;
 using System.ComponentModel.DataAnnotations;
 
-namespace MvcPresentationLayer.Models.Manga
+namespace MvcPresentationLayer.Models.MangaModels
 {
     public class MangaSelectCatalogViewModel
     {

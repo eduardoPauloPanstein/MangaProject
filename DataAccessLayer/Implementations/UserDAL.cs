@@ -26,11 +26,11 @@ namespace DataAccessLayer.Implementations
             try
             {
                 await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(user);
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex, null);
             }
         }
         public Task<Response> FavoriteManga(int idmanga, int idusuario)

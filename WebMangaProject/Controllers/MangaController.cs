@@ -2,7 +2,7 @@
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
-using MvcPresentationLayer.Models.Manga;
+using MvcPresentationLayer.Models.MangaModels;
 using Shared.Responses;
 
 namespace MvcPresentationLayer.Controllers

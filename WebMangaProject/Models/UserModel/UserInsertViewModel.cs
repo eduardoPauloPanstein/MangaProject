@@ -1,4 +1,4 @@
-﻿namespace MvcPresentationLayer.Models.User
+﻿namespace MvcPresentationLayer.Models.UserModel
 {
     public class UserInsertViewModel
     {

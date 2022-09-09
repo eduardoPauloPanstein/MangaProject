@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities.MangaS;
-using MvcPresentationLayer.Models.Manga;
+using MvcPresentationLayer.Models.MangaModels;
 
 namespace MvcPresentationLayer.Profiles
 {

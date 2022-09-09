@@ -1,10 +1,8 @@
-﻿using ApiConsumer;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using Entities;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
-using MvcPresentationLayer.Models.Manga;
+using MvcPresentationLayer.Models.MangaModels;
 using Shared.Responses;
 using System.Diagnostics;
 using WebMangaProject.Models;

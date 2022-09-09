@@ -2,9 +2,8 @@
 using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MvcPresentationLayer.Models.Manga;
+using MvcPresentationLayer.Models.MangaModels;
 using Shared.Responses;
 
 namespace MvcPresentationLayer.Controllers
@@ -120,6 +119,10 @@ namespace MvcPresentationLayer.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult UserFavorite(int idusuario,int idmanga)
+        {
+            return View();
         }
     }
 }

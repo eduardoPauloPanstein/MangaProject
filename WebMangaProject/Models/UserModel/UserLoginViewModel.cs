@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MvcPresentationLayer.Models.User
+namespace MvcPresentationLayer.Models.UserModel
 {
     public class UserLoginViewModel 
     {

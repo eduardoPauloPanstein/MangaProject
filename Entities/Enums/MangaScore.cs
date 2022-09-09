@@ -8,6 +8,7 @@ namespace Entities.Enums
 {
     public enum MangaScore
     {
+        SELECT_A_OPTION,
         Zero,
         One,
         Two,
