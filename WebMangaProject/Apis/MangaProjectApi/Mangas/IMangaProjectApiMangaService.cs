@@ -4,7 +4,7 @@ using Shared.Responses;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 {
-    public interface IMangaService : IMangaProjectApiService<Manga>
+    public interface IMangaProjectApiMangaService : IMangaProjectApiService<Manga>
     {
         Task<DataResponse<Manga>> Select(string title);
     }

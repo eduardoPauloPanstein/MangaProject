@@ -8,6 +8,7 @@ using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using MvcPresentationLayer.Apis.MangaProjectApi;
+using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,8 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUserDAL, UserDAL>();
 
 builder.Services.AddTransient<IMangaProjectApiUserService, MangaProjectApiUserService>();
+builder.Services.AddTransient<IMangaProjectApiMangaService, MangaProjectApiMangaService>();
+
 
 builder.Services.AddTransient<ApiConsumer.IApiConnect, ApiConsumer.ApiConnect>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -47,6 +50,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCors();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
