@@ -11,8 +11,10 @@ body {
     position: relative;
     min-height: 100vh;
     width: 100%;
-    background: #212D40;
-    color:#fff;
+    background: linear-gradient(80deg, #334869,#212D40);
+    background-size:;
+    /*background: #212D40;*/
+    color: #fff;
 }
 /*Sidebar*/
 .sidebar {
