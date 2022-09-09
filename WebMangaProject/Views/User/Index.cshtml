@@ -8,7 +8,7 @@
 <h1>Users</h1>
 
 <p>
-    <a class="custom-link" asp-action="Create">Criar Novo</a>
+    <a class="custom-link" asp-action="Create">Create</a>
 </p>
 <table class="table custom-table">
     <thead>
@@ -25,7 +25,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.CreatedAt)
             </th>
-            <th>
+            <th ">
                 @Html.DisplayNameFor(model => model.FavoritesCount)
             </th>
             <th>
@@ -35,40 +35,47 @@
                 @Html.DisplayNameFor(model => model.LastLogin)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nickname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FavoritesCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewsCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastLogin)
-            </td>
-            <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id  })
-                <form asp-action="Delete", method="post">
-                    <input type="hidden" name="Id" value="@item.Id"/>
-                    <input type="submit" value="Delete" class="btn btn-link" /> 
-                </form>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nickname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FavoritesCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewsCount)
+                </td>
+                <td >
+                    @Html.DisplayFor(modelItem => item.LastLogin)
+                </td>
+                <td>
+                    <form asp-action="Edit", method="post">
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <input type="submit" value="Edit" class="btn btn-link custom-link" /> 
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="Delete" , method="post">
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <input type="submit" value="Delete" class="btn btn-link custom-link " />
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
