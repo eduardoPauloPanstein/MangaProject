@@ -11,7 +11,7 @@ namespace Shared
     {
         Task<Response> Insert(T Item);
         Task<SingleResponse<T>> Select(int id);
-        Task<DataResponse<T>> Select();
+        Task<DataResponse<T>> Select(int skip, int take);
         Task<Response> Update(T Item);
         Task<Response> Delete(int id);
     }

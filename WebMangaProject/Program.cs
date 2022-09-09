@@ -1,10 +1,9 @@
 using BusinessLogicalLayer.Implementations;
-using BusinessLogicalLayer.Interfaces;
+using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
+using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using DataAccessLayer;
 using DataAccessLayer.Implementations;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
-using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using MvcPresentationLayer.Apis.MangaProjectApi;
@@ -17,7 +16,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IMangaService, MangaService>();
 builder.Services.AddTransient<IMangaDAL, MangaDAL>();
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IUserDAL, UserDAL>();
+builder.Services.AddTransient<DataAccessLayer.Interfaces.IUSerInterfaces.IUserDAL, UserDAL>();
 
 builder.Services.AddTransient<IMangaProjectApiUserService, MangaProjectApiUserService>();
 

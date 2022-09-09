@@ -1,4 +1,4 @@
-﻿using BusinessLogicalLayer.Interfaces;
+﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
 
@@ -32,7 +32,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var responseUsers = await _mangaService.GetByID(id);
+            var responseUsers = await _mangaService.Select(id);
             if (!responseUsers.HasSuccess)
             {
                 return BadRequest(responseUsers);

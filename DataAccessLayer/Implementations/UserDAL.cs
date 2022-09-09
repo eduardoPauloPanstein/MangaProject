@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
@@ -13,7 +14,6 @@ namespace DataAccessLayer.Implementations
         {
             this._db = db;
         }
-
         public async Task<Response> Delete(int id)
         {
             User? user = await _db.Users.FindAsync(id);
@@ -33,7 +33,14 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
         }
-
+        public Task<Response> FavoriteManga(int idmanga, int idusuario)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID)
+        {
+            throw new NotImplementedException();
+        }
         public async Task<Response> Insert(User user)
         {
             _db.Users.Add(user);
@@ -47,7 +54,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
         public async Task<SingleResponse<User>> Login(UserLogin user)
         {
             try
@@ -64,7 +70,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
         }
-
         public async Task<SingleResponse<User>> Select(int id)
         {
             try
@@ -81,7 +86,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex,null);
             }
         }
-
         public async Task<DataResponse<User>> Select(int skip, int take)
         {
             try
@@ -99,7 +103,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(ex);
             }
         }
-
         public async Task<Response> Update(User user)
         {
             //_db.Users.Update(user);

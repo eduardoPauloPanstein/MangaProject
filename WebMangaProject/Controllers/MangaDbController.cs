@@ -1,6 +1,6 @@
 ﻿using ApiConsumer;
 using AutoMapper;
-using BusinessLogicalLayer.Interfaces;
+using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,7 @@ namespace MvcPresentationLayer.Controllers
         //ONCE YOU GO THREAD YOU NEVER GO BACK
         public async Task<IActionResult> Index()
         {
-            DataResponse<Manga> responseMangas = await _mangaSvc.GetAll();
+            DataResponse<Manga> responseMangas = await _mangaSvc.Select(01,15357);
 
             if (!responseMangas.HasSuccess)
             {

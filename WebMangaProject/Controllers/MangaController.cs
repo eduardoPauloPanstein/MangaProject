@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BusinessLogicalLayer.Interfaces;
+using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Models.Manga;
@@ -37,7 +37,7 @@ namespace MvcPresentationLayer.Controllers
         
         public async Task<IActionResult> MangaOnPage(int id)
         {
-            SingleResponse<Manga> response = await _mangaService.GetByID(id);
+            SingleResponse<Manga> response = await _mangaService.Select(id);
             if (!response.HasSuccess)
             {
                 return NotFound();

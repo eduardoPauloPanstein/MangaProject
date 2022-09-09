@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces.IUSerInterfaces
+namespace BusinessLogicalLayer.Interfaces.IUserInterfaces
 {
-    public interface IUserDAL2 :IUserGet , IUserPost ,ICRUD<User>
+    public interface IUserService :IUserGet,IUserPost,ICRUD<User>
     {
         Task<SingleResponse<User>> Login(UserLogin user);
     }

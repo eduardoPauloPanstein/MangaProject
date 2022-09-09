@@ -1,4 +1,4 @@
-﻿using BusinessLogicalLayer.Interfaces;
+﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Implementations;
 using Entities.MangaS;
 using Newtonsoft.Json;

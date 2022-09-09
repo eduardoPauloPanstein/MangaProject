@@ -11,8 +11,5 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
         Task<Response> Update(T item);
         Task<Response> Delete(int? id);
     }
-    public interface IMangaProjectApiUserService : IMangaProjectApiService<User>
-    {
-        Task<SingleResponse<User>> Login(UserLogin user);
-    }
+   
 }

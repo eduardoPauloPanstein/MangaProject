@@ -1,8 +1,8 @@
 ﻿using BLL.Extensions;
-using BusinessLogicalLayer.Interfaces;
+using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.UserS;
 using Shared;
 using Shared.Responses;
@@ -23,7 +23,7 @@ namespace BusinessLogicalLayer.Implementations
             this._userDAL = userDAL;
         }
 
-        public async Task<Response> Delete(int? id)
+        public async Task<Response> Delete(int id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace BusinessLogicalLayer.Implementations
             return response;
         }
 
-        public async Task<SingleResponse<User>> Select(int? id)
+        public async Task<SingleResponse<User>> Select(int id)
         {
             if (id == null)
             {

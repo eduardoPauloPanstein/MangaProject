@@ -1,5 +1,6 @@
 using BusinessLogicalLayer.Implementations;
-using BusinessLogicalLayer.Interfaces;
+using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
+using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using DataAccessLayer;
 using DataAccessLayer.Implementations;
 using DataAccessLayer.Interfaces;
@@ -17,7 +18,7 @@ builder.Services.AddTransient<IMangaService, MangaService>();
 builder.Services.AddTransient<IMangaDAL, MangaDAL>();
 
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IUserDAL, UserDAL>();
+builder.Services.AddTransient<DataAccessLayer.Interfaces.IUSerInterfaces.IUserDAL, UserDAL>();
 
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));
 

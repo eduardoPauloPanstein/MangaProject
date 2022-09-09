@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BusinessLogicalLayer.Interfaces;
+using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.UserS;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

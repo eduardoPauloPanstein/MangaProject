@@ -58,7 +58,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(6).ToListAsync();
+                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(10).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
             }
             catch (Exception ex)
@@ -90,7 +90,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
         public async Task<SingleResponse<Manga>> Select(int id)
         {
             try
@@ -103,20 +102,23 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex, null);
             }
         }
-
-        public async Task<DataResponse<Manga>> Select()
+        public async Task<DataResponse<Manga>> Select(int skip, int take)
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas.ToListAsync();
+                List<Manga> mangas = await _db.Mangas
+                    .AsNoTracking()
+                    .Skip(skip)
+                    .Take(take)
+                    .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+
             }
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
         public async Task<Response> Update(Manga Item)
         {
             Manga? MangaDB = await _db.Mangas.FindAsync(Item.Id);
