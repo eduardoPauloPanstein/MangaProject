@@ -120,9 +120,6 @@ namespace MvcPresentationLayer.Controllers
                 return View();
             }
         }
-        public ActionResult UserFavorite(int idusuario,int idmanga)
-        {
-            return View();
-        }
+        
     }
 }

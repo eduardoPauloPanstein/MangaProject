@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
+using Entities.UserS;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Models.MangaModels;
 using Shared.Responses;
@@ -47,5 +48,36 @@ namespace MvcPresentationLayer.Controllers
 
             return View(manga);
         }
+        public ActionResult UserFavorite(int idusuario, int idmanga)
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel User)
+        {
+
+            UserMangaItem Favorite =
+                _mapper.Map<UserFavoriteMangaViewModel>(User);
+
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 }
