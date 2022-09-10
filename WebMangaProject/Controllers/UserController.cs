@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
+using MvcPresentationLayer.Models.User;
 using MvcPresentationLayer.Models.UserModel;
 using Shared;
 using Shared.Responses;

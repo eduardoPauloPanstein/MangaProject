@@ -24,5 +24,7 @@ namespace MvcPresentationLayer.Models.MangaModels
         public int? VolumeCount { get; set; }
         public string? Serialization { get; set; } 
         public string? CoverImageLink { get; set; }
+        public string? PosterImageLink { get; set; }
+
     }
 }

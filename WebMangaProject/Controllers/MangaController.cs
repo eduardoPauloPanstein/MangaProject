@@ -3,10 +3,8 @@ using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
-using MvcPresentationLayer.Models.Manga;
+using MvcPresentationLayer.Models.MangaModels;
 using Shared.Responses;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace MvcPresentationLayer.Controllers
 {
@@ -68,7 +66,26 @@ namespace MvcPresentationLayer.Controllers
             DataResponse<Manga> response = await _mangaApiService.Select(title);
             return Json(new { resultado = response.Data });
         }
+        public async Task<ActionResult> UserFavorite()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> UserFavorite(int id)
+        {
 
+            var Favorite =
+                _mapper.Map<UserFavoriteMangaViewModel>(User);
+
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 
 }

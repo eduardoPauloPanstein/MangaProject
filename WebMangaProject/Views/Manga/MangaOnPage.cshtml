@@ -1,22 +1,37 @@
 ﻿@model MvcPresentationLayer.Models.MangaModels.MangaOnPageViewModel
 
 @{
+
     ViewData["Title"] = @Model.Name;
+    string Img = @Model.CoverImageLink;
+    string width = "100%";
+    int height = 400;
+    if (Model.CoverImageLink == null)
+    {
+        //width = "25";
+        //height = 400;
+        Img = Model.PosterImageLink;
+    }
 }
 
 
 
 <div class="row" id="Banner">
     <!-- Background image -->
-    <img class="" wwidth="100%" height="400" src="@Model.CoverImageLink" alt="Background image">
+    <img class="" wwidth="@width" height="@height" src="@Img" alt="Background image">
 </div>
 <!-- Page Content -->
 <section class="py-5">
-  <div class="container">
-    <h2 class="fw-light">Synopsis</h2>
-    <p>@Model.Synopsis</p>
-  </div>
-  <div class="form-group">
-                <a class="custom-link" asp-area="" asp-action="UserFavorite" asp-controller="Manga">Favoritar</a>
-            </div>
+    <div class="container">
+        <h2 class="fw-light">Synopsis</h2>
+        <p>@Model.Synopsis</p>
+    </div>
+
+    <div class="form-group">
+        <div class="card-item">
+            <a class="custom-link" href="/Manga/UserFavorite/@Model.Id">
+                <input type="submit" value="Favoritar" class="btn btn-primary" />
+            </a>
+        </div>
+    </div>
 </section>

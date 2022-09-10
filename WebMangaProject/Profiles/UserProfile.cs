@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities.UserS;
+using MvcPresentationLayer.Models.User;
 using MvcPresentationLayer.Models.UserModel;
 
 namespace MvcPresentationLayer.Profiles

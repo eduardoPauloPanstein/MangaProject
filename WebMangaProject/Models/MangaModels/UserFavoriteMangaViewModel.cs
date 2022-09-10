@@ -8,7 +8,7 @@ namespace MvcPresentationLayer.Models.MangaModels
     {
         public int Id { get; set; }
         public Manga Manga { get; set; }
-        public User User { get; set; }
+        public Entities.UserS.User User { get; set; }
 
         public UserMangaStatus Status { get; set; }
         public DateTime StartDate { get; set; }
