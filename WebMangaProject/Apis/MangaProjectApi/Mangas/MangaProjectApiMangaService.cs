@@ -5,7 +5,7 @@ using Shared.Responses;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 {
-    public class MangaService : MangaProjectApiBase, IMangaService
+    public class MangaProjectApiMangaService : MangaProjectApiBase, IMangaProjectApiMangaService
     {
         public Task<Response> Delete(int? id)
         {
@@ -21,7 +21,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         {
             try
             {
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/{title}");
+                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/GetSuggestionList/{title}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
                     return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);

@@ -1,4 +1,5 @@
-﻿using Entities.UserS;
+﻿using Entities.MangaS;
+using Entities.UserS;
 using Shared;
 using Shared.Responses;
 

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Oswald&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -11,8 +12,10 @@ body {
     position: relative;
     min-height: 100vh;
     width: 100%;
-    background: #212D40;
-    color:#fff;
+    background: linear-gradient(80deg, #334869,#212D40);
+    background-size:;
+    /*background: #212D40;*/
+    color: #fff;
 }
 /*Sidebar*/
 .sidebar {
@@ -29,9 +32,9 @@ body {
     transition: all 0.5s ease;
 }
 
-.sidebar.active {
-    width: 240px;
-}
+    .sidebar.active {
+        width: 240px;
+    }
 
 .toggle {
     position: absolute;
@@ -48,27 +51,27 @@ body {
     align-items: center;
 }
 
-.toggle::before {
-    content: '';
-    position: absolute;
-    width: 26px;
-    height: 3px;
-    border-radius: 3px;
-    background: #212D40;
-    transform: translateY(-5px);
-    transition: 1s;
-}
+    .toggle::before {
+        content: '';
+        position: absolute;
+        width: 26px;
+        height: 3px;
+        border-radius: 3px;
+        background: #212D40;
+        transform: translateY(-5px);
+        transition: 1s;
+    }
 
-.toggle::after {
-    content: '';
-    position: absolute;
-    width: 26px;
-    height: 3px;
-    border-radius: 3px;
-    background: #212D40;
-    transform: translateY(5px);
-    transition: 1s;
-}
+    .toggle::after {
+        content: '';
+        position: absolute;
+        width: 26px;
+        height: 3px;
+        border-radius: 3px;
+        background: #212D40;
+        transform: translateY(5px);
+        transition: 1s;
+    }
 
 .sidebar.active .toggle::before {
     transform: translateY(0px) rotate(-405deg);
@@ -80,43 +83,43 @@ body {
 
 .sidebar ul {
     margin-top: 75px;
-    padding:0px;
+    padding: 0px;
 }
 
-.sidebar ul li {
-    position: relative;
-    height: 50px;
-    width: 100%;
-    list-style: none;
-    line-height: 50px;
-}
+    .sidebar ul li {
+        position: relative;
+        height: 50px;
+        width: 100%;
+        list-style: none;
+        line-height: 50px;
+    }
 
 
-.sidebar ul li a {
-    color: #fff;
-    position: relative;
-    width: 100%;
-    display: flex;
-    text-decoration: none;
-    align-items: center;
-    transition: all 0.4s ease;
-    border-radius: 12px;
-    white-space: nowrap;
-}
+        .sidebar ul li a {
+            color: #fff;
+            position: relative;
+            width: 100%;
+            display: flex;
+            text-decoration: none;
+            align-items: center;
+            transition: all 0.4s ease;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
 
-.sidebar ul li a:hover {
-    color: #222;
-    background: #fff;
-}
+            .sidebar ul li a:hover {
+                color: #222;
+                background: #fff;
+            }
 
-.sidebar ul li a i {
-    height: 50px;
-    min-width: 50px;
-    border-radius: 12px;
-    line-height: 50px;
-    text-align: center;
-    font-size: 1.75em;
-}
+            .sidebar ul li a i {
+                height: 50px;
+                min-width: 50px;
+                border-radius: 12px;
+                line-height: 50px;
+                text-align: center;
+                font-size: 1.75em;
+            }
 
 .sidebar .title {
     opacity: 0;
@@ -138,42 +141,58 @@ body {
     transition: all 0.5s ease;
 }
 
-.sidebar.active ~ .home_content{
+.sidebar.active ~ .home_content {
     width: calc(100% - 240px);
     left: 240px;
 }
 
 /*Customizations */
 .custom-logo {
-    vertical-align:bottom;
+    vertical-align: bottom;
     height: 40px;
     width: 35px;
 }
+
 .title-logo {
     padding: 8px;
-    font-size:25px;
+    font-size: 25px;
     font-family: 'Oswald', sans-serif;
 }
+
 .custom-link {
     color: #fff;
-    padding:8px;
+    padding: 8px;
     text-align: center;
     text-decoration: none;
     align-items: center;
     transition: all 0.5s ease;
     border-radius: 12px;
 }
+
     .custom-link:hover {
         color: #222;
-        padding:8px;
+        padding: 8px;
         background: #fff;
     }
+
 .custom-link-nav {
-    font-size:16px;
+    font-size: 16px;
 }
 
 .custom-table {
     color: #fff;
+}
+.custom-table th{
+    text-align:center;
+}
+    .custom-table td {
+        vertical-align:text-bottom;
+        text-align: center;
+    }
+
+.custom-td-ed {
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -190,7 +209,7 @@ body {
         position: relative;
         background-color: #fff;
         width: 100%;
-        color:#333;
+        color: #333;
         border-radius: 8px;
         box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
     }

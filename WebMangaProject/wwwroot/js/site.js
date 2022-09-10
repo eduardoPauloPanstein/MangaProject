@@ -12,28 +12,30 @@ inputBox.onkeyup = (e) => {
     if (userData) {
         $.ajax({
             type: "GET",
-            url: 'https://localhost:7164/api/Manga/GetSuggestionList/',
-            data: '{title: ' + userData + "}",
+            url: '/Manga/GetSuggestionListTeste',
+            data:
+            {
+                title: userData,
+            },
+            //data: '{title: ' + userData + "}",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                if (response.hasSuccess) {
-                    console.log(response.data);
-                    emptyArray = response.data.filter((data) => {
-                        return data.toLocaleLowerCase().includes(userData.toLocaleLowerCase());
-                    });
-                    emptyArray = emptyArray.map((data) => {
-                        return data = '<li>' + data + '</li>';
-                    });
-                    console.log(emptyArray);
-                    searchWrapper.classList.add("active");
-                    showSuggestions(emptyArray);
+            success: function (resultado) {
+                for (var i = 0; i < resultado.length; i++) {
+                    emptyArray.push(resultado.canonicalTitle.toLocaleLowerCase());
+                    resultado[i].canonicalTitle
                 }
-                },
-                error: function () {
-                    alert("Erro ao buscar mangas");
-                }
-            });
+                emptyArray = emptyArray.map((data) => {
+                    return data = '<li>' + data + '</li>';
+                });
+                console.log(emptyArray);
+                searchWrapper.classList.add("active");
+                showSuggestions(emptyArray);
+            },
+            error: function () {
+                alert("Erro ao buscar mangas");
+            }
+        });
     }
     else {
         searchWrapper.classList.remove("active");

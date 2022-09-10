@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
-using Entities.UserS;
 using Microsoft.AspNetCore.Mvc;
-using MvcPresentationLayer.Models.MangaModels;
+using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
+using MvcPresentationLayer.Models.Manga;
 using Shared.Responses;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MvcPresentationLayer.Controllers
 {
@@ -12,12 +14,14 @@ namespace MvcPresentationLayer.Controllers
     {
         private readonly IMangaService _mangaService;
         private readonly IMapper _mapper;
+        private readonly IMangaProjectApiMangaService _mangaApiService;
 
 
-        public MangaController( IMangaService svc, IMapper mapper)
+        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService)
         {
             this._mapper = mapper;
             this._mangaService = svc;
+            this._mangaApiService = mangaApiService;
         }
         //MangaController/AllFavorites
         public async Task<IActionResult> AllFavorites()
@@ -35,7 +39,7 @@ namespace MvcPresentationLayer.Controllers
 
             return View(mangas);
         }
-        
+
         public async Task<IActionResult> MangaOnPage(int id)
         {
             SingleResponse<Manga> response = await _mangaService.Select(id);
@@ -48,36 +52,23 @@ namespace MvcPresentationLayer.Controllers
 
             return View(manga);
         }
-        public ActionResult UserFavorite(int idusuario, int idmanga)
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel User)
-        {
 
-            UserMangaItem Favorite =
-                _mapper.Map<UserFavoriteMangaViewModel>(User);
-
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+        public class Rootobject
+        {
+            public Datum[] data { get; set; }
+            public string message { get; set; }
+            public bool hasSuccess { get; set; }
+            public object exception { get; set; }
         }
 
+        //TESTE
 
-
-
-
-
-
-
-
-
+        public async Task<IActionResult> GetSuggestionListTeste(string title)
+        {
+            DataResponse<Manga> response = await _mangaApiService.Select(title);
+            return Json(new { resultado = response.Data });
+        }
 
     }
+
 }
