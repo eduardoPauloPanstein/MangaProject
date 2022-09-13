@@ -51,6 +51,28 @@ namespace DataAccessLayer.Implementations
             }
         }
 
+        public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
+        {
+            List<Manga> mangas = new();
+            try
+            {
+                List<UserMangaItem> user = await _db.UserManga.Where(u => u.User == userid && u.Favorite == true).ToListAsync();
+
+                foreach (UserMangaItem item in user)
+                {
+                    mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.Manga));
+                }
+
+
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
+
         public async Task<DataResponse<Manga>> GetUserList(int userid)
         {
             List<Manga> mangas = new();
@@ -72,7 +94,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
         public async Task<Response> Insert(User user)
         {
             _db.Users.Add(user);
