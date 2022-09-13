@@ -77,16 +77,13 @@ namespace MvcPresentationLayer.Controllers
         {
             UserMangaItem item = this._mapper.Map<UserMangaItem>(Fav);
 
+            item.User = 1;
+            item.Manga = id;
             item.Id = 0;
-            Manga manga = new Manga();
-            manga.Id = id;
-            User user = new User();
-            user.Id = 2;
-            item.Manga = manga;
-            item.User = user;
+               
             
             Response Response = await _userService.FavoriteManga(item);
-            return View(item);
+            return RedirectToAction("Index","Home");
         }
     }
 

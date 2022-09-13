@@ -18,13 +18,6 @@ namespace DataAccessLayer.Mappings
             builder.Property(m => m.FinishDate).HasColumnType("datetime2");
             builder.HasKey(m => m.Id);
 
-            builder.HasOne(m => m.User)
-                .WithMany(u => u.MangaList)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            //builder.HasOne(m => m.Manga)
-            //    .WithOne()
-            //    .IsRequired();
         }
     }
 }
