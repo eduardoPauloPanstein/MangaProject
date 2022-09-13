@@ -186,7 +186,6 @@ namespace MvcPresentationLayer.Controllers
             User user = userSelectResponse.Data;
             UserUpdateViewModel userUpdate = _mapper.Map<UserUpdateViewModel>(user);
 
-
             return View(userUpdate);
         }
 

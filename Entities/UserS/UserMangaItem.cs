@@ -6,8 +6,8 @@ namespace Entities.UserS
     public class UserMangaItem
     {
         public int Id { get; set; }
-        public int Manga { get; set; }
-        public int User { get; set; }
+        public int MangaId { get; set; }
+        public int UserId { get; set; }
 
         public UserMangaStatus Status { get; set; }
         public DateTime StartDate { get; set; }
