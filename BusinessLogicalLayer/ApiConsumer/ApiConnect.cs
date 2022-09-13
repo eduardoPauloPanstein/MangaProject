@@ -30,7 +30,7 @@ namespace ApiConsumer
         public async Task<DataResponse<Manga>> Consume()
         {
             //1 page get 20 mangas
-            int qtdPages = 100;
+            int qtdPages = 800;
             int qtdMangas = qtdPages * 20;
             List<Manga> mangasTotal = new ();
             

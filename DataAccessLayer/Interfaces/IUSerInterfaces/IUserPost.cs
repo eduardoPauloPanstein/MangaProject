@@ -1,4 +1,5 @@
-﻿using Shared.Responses;
+﻿using Entities.UserS;
+using Shared.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace DataAccessLayer.Interfaces.IUSerInterfaces
 {
     public interface IUserPost
     {
-        Task<Response> FavoriteManga(int idmanga, int idusuario);
-        
+        Task<Response> FavoriteManga(UserMangaItem Fav);
     }
 }

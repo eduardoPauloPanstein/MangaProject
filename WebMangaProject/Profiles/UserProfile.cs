@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities.UserS;
+using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Models.User;
 using MvcPresentationLayer.Models.UserModel;
 
@@ -21,6 +22,8 @@ namespace MvcPresentationLayer.Profiles
 
             CreateMap<UserLoginViewModel, User>();
             CreateMap<User, UserLoginViewModel>();
+
+            CreateMap<UserFavoriteMangaViewModel, UserMangaItem>();
 
         }
     }

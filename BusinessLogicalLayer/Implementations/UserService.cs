@@ -76,9 +76,9 @@ namespace BusinessLogicalLayer.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<Response> FavoriteManga(int idmanga, int idusuario)
+        public async Task<Response> FavoriteManga(UserMangaItem fav)
         {
-            throw new NotImplementedException();
+            return await _userDAL.FavoriteManga(fav);
         }
     }
 }
