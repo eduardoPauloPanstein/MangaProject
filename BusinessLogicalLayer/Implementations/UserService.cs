@@ -81,5 +81,12 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _userDAL.FavoriteManga(fav);
         }
+
+        public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
+        {
+            return await _userDAL.GetUserFavorites(userid);
+        }
+
+        
     }
 }
