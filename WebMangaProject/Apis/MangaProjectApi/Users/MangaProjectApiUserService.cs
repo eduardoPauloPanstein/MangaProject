@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using Shared;
 using Shared.Responses;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi
@@ -47,32 +49,34 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<SingleResponse<User>> Login(UserLogin userLogin)
+        public async Task<SingleResponseWToken<User>> Login(UserLogin userLogin)
         {
             try
             {
                 string serialized = JsonConvert.SerializeObject(userLogin);
-                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User/Login", serialized);
+                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User/LoginA", serialized);
 
-                var response = JsonConvert.DeserializeObject<SingleResponse<User>>(responseHttp.Content.ReadAsStringAsync().Result);
+                var response = JsonConvert.DeserializeObject<SingleResponseWToken<User>>(responseHttp.Content.ReadAsStringAsync().Result);
 
                 if (responseHttp.IsSuccessStatusCode)
                 {
                     return response;
                 }
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, response.Message);
+                return response;
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+                return new("Fail", false, null, null, ex);
             }
         }
 
-        public async Task<SingleResponse<User>> Select(int? id)
+        public async Task<SingleResponse<User>> Select(int? id, string token)
         {
             try
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 using HttpResponseMessage responseHttp = await client.GetAsync($"User/{id}");
+
                 if (!responseHttp.IsSuccessStatusCode)
                 {
                     return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null);

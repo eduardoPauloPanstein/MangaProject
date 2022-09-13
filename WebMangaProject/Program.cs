@@ -9,6 +9,7 @@ using Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
+using MvcPresentationLayer.Utilities;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,12 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IMangaService, MangaService>();
 builder.Services.AddTransient<IMangaDAL, MangaDAL>();
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IUserService, BusinessLogicalLayer.Implementations.UserService>();
 builder.Services.AddTransient<IUserDAL, UserDAL>();
 
-builder.Services.AddTransient<IMangaProjectApiUserService, MangaProjectApiUserService>();
-builder.Services.AddTransient<IMangaProjectApiMangaService, MangaProjectApiMangaService>();
-
+builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
+builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiMangaService>();
 
 builder.Services.AddTransient<ApiConsumer.IApiConnect, ApiConsumer.ApiConnect>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -32,6 +32,8 @@ builder.Services.AddAuthentication("CookieSerieAuth")
     .AddCookie("CookieSerieAuth", opt =>
     {
         opt.Cookie.Name = "SeriesAuthCookie";
+        opt.LoginPath = "/User/Login";
+        opt.ExpireTimeSpan = TimeSpan.FromDays(1);
     });
 
 builder.Services.AddAuthorization(opt =>

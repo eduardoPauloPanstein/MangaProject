@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Models.User;
 using MvcPresentationLayer.Models.UserModel;
+using MvcPresentationLayer.Utilities;
 using Shared;
 using Shared.Responses;
 using System.Security.Claims;
@@ -77,7 +78,7 @@ namespace MvcPresentationLayer.Controllers
             }
         }
 
-
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             DataResponse<User> responseUsers = await _userApiService.Select();
@@ -109,7 +110,7 @@ namespace MvcPresentationLayer.Controllers
 
             if (response.HasSuccess)
             {
-                _ = AuthenticationAsync(response.Data);
+                _ = AuthenticationAsync(response.Data, response.Token);
                 return RedirectToAction("Index", "Home");
 
             }
@@ -121,18 +122,38 @@ namespace MvcPresentationLayer.Controllers
         [Authorize(Policy = "User")]
         public IActionResult TesteAuth() => Ok(User.Claims.Select(x => new { Type = x.Type, Value = x.Value }));
 
-        public async Task AuthenticationAsync(User user)
+        public async Task AuthenticationAsync(User user, string token)
         {
-            ClaimsIdentity identity = new ("CookieSerieAuth");
+            ClaimsIdentity identity = new("CookieSerieAuth");
 
             identity.AddClaim(new Claim(ClaimTypes.Name, user.Nickname));
-            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            identity.AddClaim(new Claim(ClaimTypes.PrimarySid, user.Id.ToString()));
             identity.AddClaim(new Claim(ClaimTypes.Role, Enum.GetName(typeof(UserRoles), user.Role)));
+            identity.AddClaim(new Claim("Token", token));
 
+            ClaimsPrincipal principal = new(identity);
 
-            ClaimsPrincipal principal = new (identity);
+            Thread.CurrentPrincipal = principal;
 
-            await HttpContext.SignInAsync("CookieSerieAuth", principal);
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTime.UtcNow.AddHours(8),
+                IssuedUtc = DateTime.UtcNow
+            };
+
+            await HttpContext.SignInAsync("CookieSerieAuth", principal, authProperties);
+        }
+
+        public async Task LogoutAuthenticationAsync()
+        {
+            await HttpContext.SignOutAsync("CookieSerieAuth");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> logout()
+        {
+            await LogoutAuthenticationAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -153,10 +174,10 @@ namespace MvcPresentationLayer.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
-            var userSelectResponse = await _userApiService.Select(id);
+            var userSelectResponse = await _userApiService.Select(id, UserService.GetToken(HttpContext));
 
             if (!userSelectResponse.HasSuccess)
             {

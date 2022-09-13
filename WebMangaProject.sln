@@ -13,13 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{77DAD20A-D37E-4E20-B4CC-F63CF8D7530E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataBase", "DataBase", "{0D0B642C-5197-4A5A-AD5D-436804D42C90}"
-	ProjectSection(SolutionItems) = preProject
-		Database\MangaProjectDB.mdf = Database\MangaProjectDB.mdf
-		Database\MangaProjectDB_log.ldf = Database\MangaProjectDB_log.ldf
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{FE514DC7-334F-46D5-B3D4-7817CBEC6B4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{FE514DC7-334F-46D5-B3D4-7817CBEC6B4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

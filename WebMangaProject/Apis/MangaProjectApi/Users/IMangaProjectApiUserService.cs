@@ -7,6 +7,6 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
 {
     public interface IMangaProjectApiUserService : IMangaProjectApiService<User>
     {
-        Task<SingleResponse<User>> Login(UserLogin user);
+        Task<SingleResponseWToken<User>> Login(UserLogin user);
     }
 }

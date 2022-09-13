@@ -1,11 +1,13 @@
 ﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
+using Entities.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class MangaController : ControllerBase
     {
         private readonly IMangaService _mangaService;
@@ -30,6 +32,7 @@ namespace WebApi.Controllers
 
         // GET api/User/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetAsync(int id)
         {
             var responseUsers = await _mangaService.Select(id);

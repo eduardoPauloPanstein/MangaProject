@@ -36,7 +36,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             }
         }
 
-        public Task<SingleResponse<Manga>> Select(int? id)
+        public Task<SingleResponse<Manga>> Select(int? id, string token)
         {
             throw new NotImplementedException();
         }

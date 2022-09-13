@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.UserS;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Shared.Responses;
+using WebApi.Services;
 
 namespace WebApi.Controllers
 {
@@ -37,6 +39,7 @@ namespace WebApi.Controllers
 
         // GET api/User/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetAsync(int id)
         {
             var responseUsers = await _userService.Select(id);
@@ -106,5 +109,37 @@ namespace WebApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("LoginA")]
+        [AllowAnonymous]
+        public async Task<IActionResult> AuthenticateAsync([FromBody] string value)
+        {
+            var user = JsonConvert.DeserializeObject<UserLogin>(value);
+
+            //recuperar usuario
+            var response = await _userService.Login(user);
+
+            if (!response.HasSuccess)
+            {
+                return BadRequest(new SingleResponseWToken<User>(response.Message, response.HasSuccess, response.Data, null, null));
+            }
+
+            //Gerar token
+            var token = TokenService.GenerateToken(response.Data);
+
+            //testando
+            SingleResponseWToken<User> responseWToken = new(response.Message, response.HasSuccess, response.Data, token, null);
+
+            //Retornar user + token
+            return Ok(responseWToken);
+        }
+
+        [HttpGet("Authenticated")]
+        [Authorize]
+        public string Authenticated() => String.Format($"Autenticado - {User.Identity.Name}");
+
+        [HttpGet("AuthorizeUser")]
+        [Authorize(Policy = "User")]
+        public IActionResult TesteAuth() => Ok(User.Claims.Select(x => new { Type = x.Type, Value = x.Value }));
     }
 }

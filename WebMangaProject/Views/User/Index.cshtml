@@ -65,13 +65,13 @@
                     @Html.DisplayFor(modelItem => item.LastLogin)
                 </td>
                 <td>
-                    <form asp-action="Edit", method="post">
+                    <form asp-controller="User" asp-action="Edit" method="get">
                         <input type="hidden" name="Id" value="@item.Id" />
                         <input type="submit" value="Edit" class="btn btn-link custom-link" /> 
                     </form>
                 </td>
                 <td>
-                    <form asp-action="Delete" , method="post">
+                    <form asp-action="Delete" method="post">
                         <input type="hidden" name="Id" value="@item.Id" />
                         <input type="submit" value="Delete" class="btn btn-link custom-link " />
                     </form>
