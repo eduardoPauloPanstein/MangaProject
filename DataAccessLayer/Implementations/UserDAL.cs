@@ -33,9 +33,18 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex, null);
             }
         }
-        public Task<Response> FavoriteManga(int idmanga, int idusuario)
+        public async Task<Response> FavoriteManga(UserMangaItem Fav)
         {
-            throw new NotImplementedException();
+            _db.UserManga.Add(Fav);
+            try
+            {
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
         }
         public Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID)
         {

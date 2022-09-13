@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
+using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.MangaS;
+using Entities.UserS;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
@@ -13,10 +15,10 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMangaService _mangaService;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiMangaService _mangaApiService;
-
-
-        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService)
+        private readonly IUserService _userService;
+        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IUserService userService)
         {
+            this._userService = userService;
             this._mapper = mapper;
             this._mangaService = svc;
             this._mangaApiService = mangaApiService;
@@ -71,20 +73,20 @@ namespace MvcPresentationLayer.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> UserFavorite(int id)
+        public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel Fav, int id)
         {
+            UserMangaItem item = this._mapper.Map<UserMangaItem>(Fav);
 
-            var Favorite =
-                _mapper.Map<UserFavoriteMangaViewModel>(User);
-
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            item.Id = 0;
+            Manga manga = new Manga();
+            manga.Id = id;
+            User user = new User();
+            user.Id = 2;
+            item.Manga = manga;
+            item.User = user;
+            
+            Response Response = await _userService.FavoriteManga(item);
+            return View(item);
         }
     }
 

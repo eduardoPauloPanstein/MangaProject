@@ -15,6 +15,7 @@ namespace DataAccessLayer
         //SQL para a tabela a partir dessa propriedade.
         public DbSet<Manga> Mangas { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserMangaItem> UserManga { get; set; }
         public MangaProjectDbContext(DbContextOptions options) : base(options) { }
         public MangaProjectDbContext()
         {
