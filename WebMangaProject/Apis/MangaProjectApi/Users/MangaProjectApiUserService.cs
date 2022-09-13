@@ -10,7 +10,6 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
 {
     public class MangaProjectApiUserService : MangaProjectApiBase, IMangaProjectApiUserService
     {
-
         public async Task<Response> Delete(int? id)
         {
             try
@@ -60,6 +59,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
 
                 if (responseHttp.IsSuccessStatusCode)
                 {
+
                     return response;
                 }
                 return response;
