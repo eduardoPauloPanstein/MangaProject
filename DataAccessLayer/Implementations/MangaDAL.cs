@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities;
 using Entities.MangaS;
+using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Responses;
@@ -57,7 +58,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.FavoritesCount).Take(10).ToListAsync();
+                List<Manga> mangas = await _db.Mangas.OrderByDescending(m => m.UserCount).Take(10).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
             }
             catch (Exception ex)
@@ -81,7 +82,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                List<Manga> mangas = _db.Mangas.Where(M => M.Name.StartsWith(name)).ToList();
+                List<Manga> mangas = await _db.Mangas.Where(M => M.Name.StartsWith(name)).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(mangas);
             }
             catch (Exception ex)
@@ -150,5 +151,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
+        
     }
 }

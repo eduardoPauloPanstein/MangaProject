@@ -76,8 +76,8 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel Fav, int id)
         {
             UserMangaItem item = this._mapper.Map<UserMangaItem>(Fav);
-
-            item.User = 1;
+            ////PAULO FAZ A BOA DO ID AI NUNCA TE PEDI NADA
+            item.User = 2;
             item.Manga = id;
             item.Id = 0;
                

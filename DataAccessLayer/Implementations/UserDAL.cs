@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
@@ -36,6 +37,9 @@ namespace DataAccessLayer.Implementations
         public async Task<Response> FavoriteManga(UserMangaItem Fav)
         {
             _db.UserManga.Add(Fav);
+            User? user = await _db.Users.FindAsync(Fav.User);
+            user.FavoritesCount += 1;
+            _db.Users.Update(user);
             try
             {
                 await _db.SaveChangesAsync();
@@ -46,10 +50,29 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-        public Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID)
+
+        public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
         {
-            throw new NotImplementedException();
+            List<Manga> mangas = new();
+            try
+            {
+                List<UserMangaItem> user = await _db.UserManga.Where(u => u.User == userid).ToListAsync();
+
+                foreach (UserMangaItem item in user)
+                {
+                    mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.Manga));
+                }
+
+
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
         }
+
         public async Task<Response> Insert(User user)
         {
             _db.Users.Add(user);
@@ -151,5 +174,7 @@ namespace DataAccessLayer.Implementations
             {
             }
         }
+
+       
     }
 }

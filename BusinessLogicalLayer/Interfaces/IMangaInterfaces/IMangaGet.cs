@@ -15,6 +15,6 @@ namespace BusinessLogicalLayer.Interfaces.IMangaInterfaces
         Task<DataResponse<Manga>> GetPerPage(int page);
         Task<DataResponse<Manga>> GetMorePopular();
         Task<DataResponse<Manga>> GetByName(string name);
-        //Task<DataResponse<UserToManga>> GetUserFavorites(int UserID);
+
     }
 }

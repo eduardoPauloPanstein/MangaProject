@@ -15,5 +15,6 @@ namespace DataAccessLayer.Interfaces.IMangaInterfaces
         Task<DataResponse<Manga>> GetPerPage(int page);
         Task<DataResponse<Manga>> GetMorePopular();
         Task<DataResponse<Manga>> GetByName(string name);
+        
     }
 }

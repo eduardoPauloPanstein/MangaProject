@@ -3,6 +3,7 @@ using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using Entities.MangaS;
 using Entities.UserS;
 using Shared;
 using Shared.Responses;
@@ -71,9 +72,9 @@ namespace BusinessLogicalLayer.Implementations
             return await _userDAL.Login(user);
         }
 
-        public Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID)
+        public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
         {
-            throw new NotImplementedException();
+            return await _userDAL.GetUserFavorites(userid);
         }
 
         public async Task<Response> FavoriteManga(UserMangaItem fav)

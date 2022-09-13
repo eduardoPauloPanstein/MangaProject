@@ -1,4 +1,5 @@
-﻿using Entities.UserS;
+﻿using Entities.MangaS;
+using Entities.UserS;
 using Shared.Responses;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace DataAccessLayer.Interfaces.IUSerInterfaces
 {
     public interface IUserGet
     {
-        Task<DataResponse<UserMangaItem>> GetUserFavorites(int UserID);
+        Task<DataResponse<Manga>> GetUserFavorites(int userid);
     }
 }
