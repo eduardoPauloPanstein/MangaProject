@@ -3,9 +3,11 @@ using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.MangaS;
 using Entities.UserS;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
+using MvcPresentationLayer.Utilities;
 using Shared.Responses;
 
 namespace MvcPresentationLayer.Controllers
@@ -72,18 +74,22 @@ namespace MvcPresentationLayer.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel Fav, int id)
+        [HttpPost, Authorize]
+        public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel Fav,int id)
         {
+           
             UserMangaItem item = this._mapper.Map<UserMangaItem>(Fav);
+
             ////PAULO FAZ A BOA DO ID AI NUNCA TE PEDI NADA
-            item.User = 2;
+            item.User = UserService.GetId(HttpContext);
             item.Manga = id;
             item.Id = 0;
                
             
             Response Response = await _userService.FavoriteManga(item);
-            return RedirectToAction("Index","Home");
+            //return RedirectToAction("Index","Home");
+            return RedirectToAction("MangaOnPage", "Manga", new {id = id});
+
         }
     }
 

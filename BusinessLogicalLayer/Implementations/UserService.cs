@@ -72,9 +72,9 @@ namespace BusinessLogicalLayer.Implementations
             return await _userDAL.Login(user);
         }
 
-        public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
+        public async Task<DataResponse<Manga>> GetUserList(int userid)
         {
-            return await _userDAL.GetUserFavorites(userid);
+            return await _userDAL.GetUserList(userid);
         }
 
         public async Task<Response> FavoriteManga(UserMangaItem fav)

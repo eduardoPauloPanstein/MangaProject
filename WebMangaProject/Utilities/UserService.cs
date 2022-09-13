@@ -10,9 +10,10 @@ namespace MvcPresentationLayer.Utilities
                    .Select(c => c.Value).SingleOrDefault();
             return token;
         }
-        public static string GetId(HttpContext _context)
+        public static int GetId(HttpContext _context)
         {
-            return _context.User.Claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.PrimarySid, StringComparison.OrdinalIgnoreCase))?.Value;
+            return Convert.ToInt32(_context.User.Claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.PrimarySid, StringComparison.OrdinalIgnoreCase))?.Value);
+
         }
     }
 }

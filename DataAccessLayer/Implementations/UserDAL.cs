@@ -51,7 +51,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
+        public async Task<DataResponse<Manga>> GetUserList(int userid)
         {
             List<Manga> mangas = new();
             try
