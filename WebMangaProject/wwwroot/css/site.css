@@ -30,6 +30,7 @@ body {
     padding: 6px 14px;
     overflow: hidden;
     transition: all 0.5s ease;
+    background: linear-gradient(270deg, #334869,#212D40);
 }
 
     .sidebar.active {

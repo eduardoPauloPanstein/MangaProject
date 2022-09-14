@@ -21,12 +21,11 @@ inputBox.onkeyup = (e) => {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (resultado) {
-                for (var i = 0; i < resultado.length; i++) {
-                    emptyArray.push(resultado.canonicalTitle.toLocaleLowerCase());
-                    resultado[i].canonicalTitle
+                for (let i = 0; i < resultado.resultado.length; i++) {
+                    emptyArray.push(resultado.resultado[i].canonicalTitle);
                 }
                 emptyArray = emptyArray.map((data) => {
-                    return data = '<li>' + data + '</li>';
+                    return data = '<li><a>' + data + '</li>';
                 });
                 console.log(emptyArray);
                 searchWrapper.classList.add("active");
