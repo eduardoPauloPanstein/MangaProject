@@ -37,7 +37,7 @@ namespace DataAccessLayer.Implementations
         public async Task<Response> FavoriteManga(UserMangaItem Fav)
         {
             _db.UserManga.Add(Fav);
-            User? user = await _db.Users.FindAsync(Fav.User);
+            User? user = await _db.Users.FindAsync(Fav.UserId);
             user.FavoritesCount += 1;
             _db.Users.Update(user);
             try
@@ -50,17 +50,16 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
         {
             List<Manga> mangas = new();
             try
             {
-                List<UserMangaItem> user = await _db.UserManga.Where(u => u.User == userid && u.Favorite == true).ToListAsync();
+                List<UserMangaItem> user = await _db.UserManga.Where(u => u.UserId == userid && u.Favorite == true).ToListAsync();
 
                 foreach (UserMangaItem item in user)
                 {
-                    mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.Manga));
+                    mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
                 }
 
 
@@ -72,22 +71,18 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
         public async Task<DataResponse<Manga>> GetUserList(int userid)
         {
             List<Manga> mangas = new();
             try
             {
-                List<UserMangaItem> user = await _db.UserManga.Where(u => u.User == userid).ToListAsync();
+                List<UserMangaItem> user = await _db.UserManga.Where(u => u.UserId == userid).ToListAsync();
 
                 foreach (UserMangaItem item in user)
                 {
-                    mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.Manga));
+                    mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
                 }
-
-
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-
             }
             catch (Exception ex)
             {
@@ -195,7 +190,37 @@ namespace DataAccessLayer.Implementations
             {
             }
         }
+        public async Task<DataResponse<Manga>> GetUserRecommendations(int userid)
+        {
+            
+            List<int> IdsUsuarios = new();
+            List<UserMangaItem> Fav = new();
+            List<Manga> Mangas = new();
+            try
+            {
+                List<UserMangaItem> userFav = await _db.UserManga.Where(u => u.UserId == userid && u.Favorite == true).ToListAsync();
+                foreach (UserMangaItem item in userFav)
+                {
+                    List<UserMangaItem> user = await _db.UserManga.Where(m => m.MangaId == item.MangaId && m.UserId != item.Id).ToListAsync();
+                    IdsUsuarios.Add(item.UserId);
+                }
 
-       
+                foreach (int item in IdsUsuarios)
+                {
+                    Fav.Add(_db.UserManga.FirstOrDefault(u=> u.UserId == item));
+                }
+
+                foreach (UserMangaItem item in Fav)
+                {
+                    Mangas.Add(_db.Mangas.FirstOrDefault(m=> m.Id == item.Id));
+                }
+                
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(Mangas);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
     }
 }

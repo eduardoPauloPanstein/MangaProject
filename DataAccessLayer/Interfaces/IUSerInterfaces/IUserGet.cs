@@ -13,5 +13,7 @@ namespace DataAccessLayer.Interfaces.IUSerInterfaces
     {
         Task<DataResponse<Manga>> GetUserList(int userid);
         Task<DataResponse<Manga>> GetUserFavorites(int userid);
+        Task<DataResponse<Manga>> GetUserRecommendations(int userid);
+
     }
 }

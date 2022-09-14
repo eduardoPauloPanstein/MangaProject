@@ -74,21 +74,22 @@ namespace MvcPresentationLayer.Controllers
         {
             return View();
         }
-        [HttpPost, Authorize]
+        [HttpPost]
         public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel Fav,int id)
         {
            
             UserMangaItem item = this._mapper.Map<UserMangaItem>(Fav);
 
-            ////PAULO FAZ A BOA DO ID AI NUNCA TE PEDI NADA
-            item.User = UserService.GetId(HttpContext);
-            item.Manga = id;
+            item.UserId = 2;
+            //item.UserId = UserService.GetId(HttpContext);
+            item.MangaId = id;
             item.Id = 0;
                
             
             Response Response = await _userService.FavoriteManga(item);
             //return RedirectToAction("Index","Home");
             return RedirectToAction("MangaOnPage", "Manga", new {id = id});
+            //Authorize
 
         }
     }
