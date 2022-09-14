@@ -70,27 +70,24 @@ namespace MvcPresentationLayer.Controllers
             DataResponse<Manga> response = await _mangaApiService.Select(title);
             return Json(new { resultado = response.Data });
         }
+
+        [HttpGet, Authorize]
         public async Task<ActionResult> UserFavorite()
         {
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel Fav,int id)
+        [HttpPost, Authorize]
+        public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel fav)
         {
            
-            UserMangaItem item = this._mapper.Map<UserMangaItem>(Fav);
+            UserMangaItem item = this._mapper.Map<UserMangaItem>(fav);
 
-            item.UserId = 2;
-            //item.UserId = UserService.GetId(HttpContext);
-            item.MangaId = id;
+            item.UserId = UserService.GetId(HttpContext);
+            item.MangaId = item.Id;
             item.Id = 0;
-               
-            
-            Response Response = await _userService.FavoriteManga(item);
-            //return RedirectToAction("Index","Home");
-            return RedirectToAction("MangaOnPage", "Manga", new {id = id});
-            //Authorize
 
+            Response Response = await _userService.FavoriteManga(item);
+            return RedirectToAction("MangaOnPage", "Manga", new {id = fav.Id});
         }
     }
 

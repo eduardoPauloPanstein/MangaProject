@@ -17,7 +17,8 @@ namespace DataAccessLayer.Mappings
             builder.Property(m => m.StartDate).HasColumnType("datetime2");
             builder.Property(m => m.FinishDate).HasColumnType("datetime2");
             builder.HasKey(m => m.Id);
-            
+
+            builder.HasOne(c => c.User).WithMany(c => c.MangaList).HasConstraintName("fk_mangauser").HasForeignKey(c => c.UserId);
         }
     }
 }

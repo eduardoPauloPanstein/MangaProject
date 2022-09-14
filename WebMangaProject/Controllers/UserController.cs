@@ -28,6 +28,7 @@ namespace MvcPresentationLayer.Controllers
             this._userApiService = userApiService;
         }
 
+        #region Avatar
         public async Task<Response> SaveAvatarFileAsync(IFormFile file, User user)
         {
             var response = ImageFileValidator(file);
@@ -77,6 +78,7 @@ namespace MvcPresentationLayer.Controllers
                 System.IO.File.Delete(filePath);
             }
         }
+        #endregion
 
         [Authorize]
         public async Task<IActionResult> Index()
@@ -97,6 +99,7 @@ namespace MvcPresentationLayer.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginView)
@@ -118,6 +121,8 @@ namespace MvcPresentationLayer.Controllers
             ViewBag.Errors = response.Message;
             return View();
         }
+
+
 
         [Authorize(Policy = "User")]
         public IActionResult TesteAuth() => Ok(User.Claims.Select(x => new { Type = x.Type, Value = x.Value }));

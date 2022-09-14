@@ -96,19 +96,6 @@ namespace WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] string value)
-        {
-            var user = JsonConvert.DeserializeObject<UserLogin>(value);
-
-            var response = await _userService.Login(user);
-            if (!response.HasSuccess)
-            {
-                return BadRequest(response);
-            }
-
-            return Ok(response);
-        }
 
         [HttpPost("LoginA")]
         [AllowAnonymous]
