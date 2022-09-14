@@ -38,7 +38,7 @@ namespace WebMangaProject.Controllers
             return View(mangas);
         }
 
-        public IActionResult Privacy()
+        public IActionResult AboutUs()
         {
             return View();
         }

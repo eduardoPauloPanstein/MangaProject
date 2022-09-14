@@ -182,17 +182,35 @@ body {
 .custom-table {
     color: #fff;
 }
-.custom-table th{
-    text-align:center;
-}
+
+    .custom-table th {
+        text-align: center;
+    }
+
     .custom-table td {
-        vertical-align:text-bottom;
+        vertical-align: text-bottom;
         text-align: center;
     }
 
 .custom-td-ed {
     display: flex;
     justify-content: center;
+}
+
+.columns {
+    padding:18px;
+    column-count: 3;
+    column-gap: 30px;
+    align-items:center;
+    justify-content: center;
+    display:flex;
+    flex-direction: column;
+}
+
+.icon-ed {
+    border-radius:30px;
+    width: 200px;
+    height: 200px;
 }
 
 
