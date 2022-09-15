@@ -199,22 +199,24 @@ body {
 }
 
 .columns {
-    padding:18px;
+    padding: 18px;
     column-count: 3;
-    column-gap: 30px;
-    align-items:center;
+    column-gap: 40px;
+    align-items: center;
     justify-content: center;
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
 .icon-ed {
-    border-radius:30px;
+    border-radius: 30px;
     width: 200px;
     height: 200px;
 }
 
-
+.text-ed{
+    padding-left:3px;
+}
 /*Search Bar*/
 .wrapper {
     z-index: 2;
@@ -287,4 +289,12 @@ body {
 .autocom-box li:hover {
     background-color: #212D40;
     color: #fff;
+}
+
+
+/*IDs*/
+
+#githubId{
+    width: 450px;
+    height:200px;
 }
