@@ -17,6 +17,22 @@ namespace WebApi.Controllers
             this._mangaService = mangaService;
         }
 
+        [HttpGet(template: "skip/{skip}/take/{take}"), Authorize]
+        public async Task<IActionResult> GeByFavoritestAsync([FromRoute] int skip = 0, [FromRoute] int take = 25)
+        {
+            if (take >= 100)
+            {
+                return BadRequest("take < 100");
+            }
+            var responseUsers = await _mangaService.Select(skip, take);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
+
         [HttpGet("GetSuggestionList/{title}")]
         public async Task<IActionResult> GetAsync([FromRoute] string title)
         {
@@ -30,7 +46,6 @@ namespace WebApi.Controllers
         }
 
 
-        // GET api/User/5
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetAsync(int id)

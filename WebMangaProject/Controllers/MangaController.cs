@@ -25,7 +25,7 @@ namespace MvcPresentationLayer.Controllers
             this._mangaService = svc;
             this._mangaApiService = mangaApiService;
         }
-        //MangaController/AllFavorites
+
         public async Task<IActionResult> AllFavorites()
         {
             DataResponse<Manga> responseMangas = await _mangaService.GetAllByFavorites();
