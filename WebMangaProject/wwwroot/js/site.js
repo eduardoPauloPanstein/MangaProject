@@ -9,10 +9,13 @@ const suggBox = searchWrapper.querySelector(".autocom-box");
 inputBox.onkeyup = (e) => {
     let userData = e.target.value;
     let emptyArray = [];
+    let idArray = [];
+    let imgArray = [];
+    let finalArray = [];
     if (userData) {
         $.ajax({
             type: "GET",
-            url: '/Manga/GetSuggestionListTeste',
+            url: '/Manga/GetSuggestionList',
             data:
             {
                 title: userData,
@@ -23,13 +26,22 @@ inputBox.onkeyup = (e) => {
             success: function (resultado) {
                 for (let i = 0; i < resultado.resultado.length; i++) {
                     emptyArray.push(resultado.resultado[i].canonicalTitle);
+                    idArray.push(resultado.resultado[i].id);
+                    imgArray.push(resultado.resultado[i].posterImageLink);
                 }
-                emptyArray = emptyArray.map((data) => {
-                    return data = '<li><a>' + data + '</li>';
-                });
-                console.log(emptyArray);
+                for (let j = 0; j < emptyArray.length; j++) {
+                    finalArray[j] = '<a href="/Manga/MangaOnPage/' + idArray[j] + '"><li><img src="' + imgArray[j] + ' "><span class="Manga-name">' + emptyArray[j] + '</span></li></a>';
+
+                };
+                //emptyArray = emptyArray.map((data) => {
+                //    return data = '<li>' + data + '</li>';
+                //});
+
+                console.log(finalArray);
+                console.log(imgArray);
+                //console.log(emptyArray);
                 searchWrapper.classList.add("active");
-                showSuggestions(emptyArray);
+                showSuggestions(finalArray);
             },
             error: function () {
                 alert("Erro ao buscar mangas");
@@ -47,8 +59,8 @@ function showSuggestions(list) {
     if (!list.length) {
         userValue = inputBox.value;
         listData = '<li>' + userValue + '</li>';
-    } else if (list.length >= 5) {
-        let maxLength = 5;
+    } else if (list.length >= 4) {
+        let maxLength = 4;
         let newArray = [];
         for (var i = 0; i < maxLength; i++) {
             newArray.push(list[i]);

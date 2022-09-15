@@ -65,7 +65,7 @@ namespace MvcPresentationLayer.Controllers
 
         //TESTE
 
-        public async Task<IActionResult> GetSuggestionListTeste(string title)
+        public async Task<IActionResult> GetSuggestionList(string title)
         {
             DataResponse<Manga> response = await _mangaApiService.Select(title);
             return Json(new { resultado = response.Data });

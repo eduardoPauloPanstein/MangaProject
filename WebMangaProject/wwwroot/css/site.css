@@ -291,6 +291,36 @@ body {
     color: #fff;
 }
 
+.autocom-box a{
+    text-decoration:none;
+}
+.autocom-box a li .manga-name{
+    justify-content:center;
+}
+.autocom-box a li img {
+    padding-right:5px;
+    height:80px;
+    width:65px;
+}
+.autocom-box a li {
+    list-style: none;
+    color: #222;
+    padding: 8px 12px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 3px;
+    display: none;
+}
+
+.search-input.active .autocom-box a li {
+    display: block;
+}
+
+.autocom-box a li:hover {
+    background-color: #212D40;
+    color: #fff;
+}
+
 
 /*IDs*/
 
