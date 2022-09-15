@@ -10,10 +10,12 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
 {
     public class MangaProjectApiUserService : MangaProjectApiBase, IMangaProjectApiUserService
     {
-        public async Task<Response> Delete(int? id)
+        public async Task<Response> Delete(int? id, string token)
         {
             try
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 using HttpResponseMessage responseHttp = await client.DeleteAsync($"User/{id}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
@@ -27,10 +29,12 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<Response> Insert(User user)
+        public async Task<Response> Insert(User user, string token)
         {
             try
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 string serialized = JsonConvert.SerializeObject(user);
                 using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User", serialized);
 
@@ -91,10 +95,12 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<DataResponse<User>> Select(int skip = 0, int take = 25)
+        public async Task<DataResponse<User>> Select(string token, int skip = 0, int take = 25)
         {
             try
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 using HttpResponseMessage responseHttp = await client.GetAsync($"User/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
@@ -110,10 +116,12 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<Response> Update(User user)
+        public async Task<Response> Update(User user, string token)
         {
             try
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 string serialized = JsonConvert.SerializeObject(user);
                 using HttpResponseMessage responseHttp = await client.PutAsJsonAsync($"User/{user.Id}", serialized);
 

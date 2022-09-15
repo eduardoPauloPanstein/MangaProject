@@ -3,6 +3,7 @@ using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using Entities.Enums;
 using Entities.MangaS;
 using Entities.UserS;
 using Shared;
@@ -24,6 +25,21 @@ namespace BusinessLogicalLayer.Implementations
             this._userDAL = userDAL;
         }
 
+        public void CreateAdmin()
+        {
+            string password = HashGenerator.ComputeSha256Hash("admin");
+
+            User adm = new()
+            {
+                Nickname = "admin",
+                Password = password,
+                ConfirmPassword = password,
+                Email = "admin@gmail.com",
+
+                Role = UserRoles.Admin,
+            };
+            _userDAL.CreateAdmin(adm);
+        }
         public async Task<Response> Delete(int id)
         {
             if (id == null)

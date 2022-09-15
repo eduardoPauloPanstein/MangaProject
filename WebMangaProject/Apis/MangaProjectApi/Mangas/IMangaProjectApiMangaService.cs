@@ -6,6 +6,6 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 {
     public interface IMangaProjectApiMangaService : IMangaProjectApiService<Manga>
     {
-        Task<DataResponse<Manga>> Select(string title);
+        Task<DataResponse<Manga>> Select(string title, string token);
     }
 }

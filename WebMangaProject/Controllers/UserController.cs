@@ -28,6 +28,19 @@ namespace MvcPresentationLayer.Controllers
             this._userApiService = userApiService;
         }
 
+        [HttpGet, Authorize(Policy = "Admin")]
+        public async Task<IActionResult> Index()
+        {
+            DataResponse<User> responseUsers = await _userApiService.Select(UserService.GetToken(HttpContext));
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers.Exception);
+            }
+            List<UserSelectViewModel> users =
+                _mapper.Map<List<UserSelectViewModel>>(responseUsers.Data);
+            return View(users);
+        }
+
         #region Avatar
         public async Task<Response> SaveAvatarFileAsync(IFormFile file, User user)
         {
@@ -80,28 +93,55 @@ namespace MvcPresentationLayer.Controllers
         }
         #endregion
 
-        [Authorize]
-        public async Task<IActionResult> Index()
+        #region Utilities
+
+        public bool IsAuthenticated()
         {
-            DataResponse<User> responseUsers = await _userApiService.Select();
-            if (!responseUsers.HasSuccess)
-            {
-                return BadRequest(responseUsers.Exception);
-            }
-            List<UserSelectViewModel> users =
-                _mapper.Map<List<UserSelectViewModel>>(responseUsers.Data);
-            return View(users);
+            return HttpContext.User.Identity.IsAuthenticated;
+        }
+        public RedirectToActionResult RedirectIfIsAuthenticated()
+        {
+            return RedirectToAction("Index", "Home");
         }
 
+        public bool IsAmMyself(int? id)
+        {
+            int MyId = UserService.GetId(HttpContext);
+            return MyId == id;
+        }
+        public RedirectToActionResult RedirectIfImNotMe()
+        {
+            return RedirectToAction("Index", "Home");
+        }
 
-        [HttpGet]
+        public bool IsAdmin()
+        {
+            return UserService.IsRole(UserRoles.Admin.ToString(), HttpContext);
+        }
+
+        private async Task<bool> UserExists(int id)
+        {
+            var userSelectResponse = await _userApiService.Select(id, UserService.GetToken(HttpContext));
+            return userSelectResponse.HasSuccess;
+        }
+
+        [Authorize]
+        public IActionResult TesteAuth() => Ok(User.Claims.Select(x => new { Type = x.Type, Value = x.Value }));
+
+        #endregion
+
+        #region Login
+
+        [HttpGet, AllowAnonymous]
         public IActionResult Login()
         {
+            if (IsAuthenticated())
+                return RedirectIfIsAuthenticated();
+
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginView)
          {
             UserLogin login = new()
@@ -123,17 +163,13 @@ namespace MvcPresentationLayer.Controllers
         }
 
 
-
-        [Authorize(Policy = "User")]
-        public IActionResult TesteAuth() => Ok(User.Claims.Select(x => new { Type = x.Type, Value = x.Value }));
-
         public async Task AuthenticationAsync(User user, string token)
         {
             ClaimsIdentity identity = new("CookieSerieAuth");
 
             identity.AddClaim(new Claim(ClaimTypes.Name, user.Nickname));
             identity.AddClaim(new Claim(ClaimTypes.PrimarySid, user.Id.ToString()));
-            identity.AddClaim(new Claim(ClaimTypes.Role, Enum.GetName(typeof(UserRoles), user.Role)));
+            identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
             identity.AddClaim(new Claim("Token", token));
 
             ClaimsPrincipal principal = new(identity);
@@ -154,23 +190,30 @@ namespace MvcPresentationLayer.Controllers
             await HttpContext.SignOutAsync("CookieSerieAuth");
         }
 
-        [Authorize]
+        [HttpPost, ValidateAntiForgeryToken, Authorize] //Why not HttpDelete? 
         public async Task<IActionResult> logout()
         {
             await LogoutAuthenticationAsync();
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
+        #endregion
+
+
+        [HttpGet, AllowAnonymous]
         public IActionResult Create()
         {
+            if (IsAuthenticated())
+                return RedirectIfIsAuthenticated();
+
             return View();
         }
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<IActionResult> Create(UserInsertViewModel viewModel)
         {
             User user = _mapper.Map<User>(viewModel);
-            var response = await _userApiService.Insert(user);
+
+            var response = await _userApiService.Insert(user, UserService.GetToken(HttpContext));
 
             if (response.HasSuccess)
                 return RedirectToAction("Index");
@@ -179,9 +222,14 @@ namespace MvcPresentationLayer.Controllers
             return View();
         }
 
+
+
         [HttpGet, Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!IsAmMyself(id))
+                return RedirectIfImNotMe();
+
             var userSelectResponse = await _userApiService.Select(id, UserService.GetToken(HttpContext));
 
             if (!userSelectResponse.HasSuccess)
@@ -193,10 +241,7 @@ namespace MvcPresentationLayer.Controllers
 
             return View(userUpdate);
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,About,AvatarImage,CoverImage")] UserUpdateViewModel userUpdate, IFormFile fileF)
         {
             Response response;
@@ -213,7 +258,7 @@ namespace MvcPresentationLayer.Controllers
                 await SaveAvatarFileAsync(fileF, user);
             }
 
-            response = await _userApiService.Update(user);
+            response = await _userApiService.Update(user, UserService.GetToken(HttpContext));
 
             if (!response.HasSuccess)
             {
@@ -226,25 +271,26 @@ namespace MvcPresentationLayer.Controllers
 
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            if (!await UserExists(id))
+            //only admin or the logged in user
+            if (!IsAdmin())
             {
-                return Problem("User is null.");
+                if (!IsAmMyself(id))
+                    return RedirectIfImNotMe();
             }
 
-            await _userApiService.Delete(id);
+
+            if (!await UserExists(id))
+                return Problem("User is not exist.");
+
+
+            await _userApiService.Delete(id, UserService.GetToken(HttpContext));
             //Delete avatar
 
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task<bool> UserExists(int id)
-        {
-            var userSelectResponse = await _userApiService.Select(id);
-            return userSelectResponse.HasSuccess;            
-        }
     }
 }

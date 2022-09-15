@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using Entities.Enums;
 using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,21 @@ namespace DataAccessLayer.Implementations
         {
             this._db = db;
         }
+
+        public UserDAL()
+        {
+        }
+
+        public void CreateAdmin(User adm)
+        {
+            var user = _db.Users.Where(u => u.Id > -1).FirstOrDefault();
+            if (user == null)
+            {
+                _db.Add(adm);
+                _db.SaveChanges();
+            }
+        }
+
         public async Task<Response> Delete(int id)
         {
             User? user = await _db.Users.FindAsync(id);

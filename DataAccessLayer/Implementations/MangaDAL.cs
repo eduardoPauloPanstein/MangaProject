@@ -15,6 +15,7 @@ namespace DataAccessLayer.Implementations
         {
             this._db = db;
         }
+
         public async Task<Response> Insert(Manga manga)
         {
             _db.Mangas.Add(manga);

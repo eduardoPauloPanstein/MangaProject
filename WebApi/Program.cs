@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 using WebApi;
+using WebApi.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -7,17 +7,17 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 {
     public class MangaProjectApiMangaService : MangaProjectApiBase, IMangaProjectApiMangaService
     {
-        public Task<Response> Delete(int? id)
+        public Task<Response> Delete(int? id, string token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> Insert(Manga item)
+        public Task<Response> Insert(Manga item, string token)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<DataResponse<Manga>> Select(string title)
+        public async Task<DataResponse<Manga>> Select(string title, string token)
         {
             try
             {
@@ -41,12 +41,12 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             throw new NotImplementedException();
         }
 
-        public Task<DataResponse<Manga>> Select(int skip = 0, int take = 25)
+        public Task<DataResponse<Manga>> Select(string token, int skip = 0, int take = 25)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> Update(Manga item)
+        public Task<Response> Update(Manga item, string token)
         {
             throw new NotImplementedException();
         }

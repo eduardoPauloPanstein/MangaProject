@@ -12,5 +12,6 @@ namespace DataAccessLayer.Interfaces.IUSerInterfaces
     public interface IUserDAL :IUserGet , IUserPost ,ICRUD<User>
     {
         Task<SingleResponse<User>> Login(UserLogin user);
+        void CreateAdmin(User adm);
     }
 }

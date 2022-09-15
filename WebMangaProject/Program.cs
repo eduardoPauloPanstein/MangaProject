@@ -6,6 +6,7 @@ using DataAccessLayer.Implementations;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.Enums;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
@@ -32,7 +33,8 @@ builder.Services.AddAuthentication("CookieSerieAuth")
     .AddCookie("CookieSerieAuth", opt =>
     {
         opt.Cookie.Name = "SeriesAuthCookie";
-        opt.LoginPath = "/User/Login";
+        opt.LoginPath = "/User/Login"; //401
+        opt.AccessDeniedPath = "/Home/Index"; //403 Forbidden !Create view for errors
         opt.ExpireTimeSpan = TimeSpan.FromDays(1);
     });
 
@@ -55,6 +57,12 @@ if (!app.Environment.IsDevelopment())
 app.UseCors();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+    HttpOnly = HttpOnlyPolicy.Always
+}); 
 
 app.UseRouting();
 

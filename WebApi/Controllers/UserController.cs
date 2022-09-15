@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
+using Entities.Enums;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,16 @@ namespace WebApi.Controllers
         public UserController(IUserService userService)
         {
             this._userService = userService;
+            _userService.CreateAdmin();
         }
 
-        // todo paginação
-        [HttpGet(template:"skip/{skip}/take/{take}")]
+        /// <summary>
+        /// Pegar usuarios atravez da paginação
+        /// </summary>
+        /// <param name="skip"></param>
+        /// <param name="take"></param>
+        /// <returns></returns>
+        [HttpGet(template:"skip/{skip}/take/{take}"), Authorize]
         public async Task<IActionResult> GetAsync([FromRoute] int skip = 0, [FromRoute] int take = 25)
         {
             if (take >= 100)
@@ -37,9 +44,7 @@ namespace WebApi.Controllers
             return Ok(responseUsers);
         }
 
-        // GET api/User/5
-        [HttpGet("{id}")]
-        [Authorize]
+        [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetAsync(int id)
         {
             var responseUsers = await _userService.Select(id);
@@ -51,12 +56,11 @@ namespace WebApi.Controllers
             return Ok(responseUsers);
         }
 
-
-
-        // POST api/<UserController>
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public async Task<IActionResult> PostAsync([FromBody] string value)
         {
+            //if (IsAuthenticated())
+
             var user = JsonConvert.DeserializeObject<User>(value);
 
             var response = await _userService.Insert(user);
@@ -68,10 +72,16 @@ namespace WebApi.Controllers
             return Ok(response);
         }
 
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> PutAsync(int id, [FromBody] string value)
         {
+            if (!UserService.IsAdmin(HttpContext))
+            {
+                if (!UserService.IsAmMyself(HttpContext, id))
+                    return BadRequest();
+            }
+           
+
             var user = JsonConvert.DeserializeObject<User>(value);
 
             var response = await _userService.Update(user);
@@ -83,10 +93,16 @@ namespace WebApi.Controllers
             return Ok(response);
         }
 
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<IActionResult> Delete(int id)
         {
+            //only admin or the logged in user
+            if (!UserService.IsAdmin(HttpContext))
+            {
+                if (!UserService.IsAmMyself(HttpContext, id))
+                    return BadRequest();
+            }
+
             var response = await _userService.Delete(id);
             if (!response.HasSuccess)
             {
@@ -97,13 +113,14 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpPost("LoginA")]
-        [AllowAnonymous]
+        [HttpPost("LoginA"), AllowAnonymous]
         public async Task<IActionResult> AuthenticateAsync([FromBody] string value)
         {
+            if (UserService.IsAuthenticated(HttpContext))
+                return BadRequest();
+
             var user = JsonConvert.DeserializeObject<UserLogin>(value);
 
-            //recuperar usuario
             var response = await _userService.Login(user);
 
             if (!response.HasSuccess)
@@ -111,22 +128,14 @@ namespace WebApi.Controllers
                 return BadRequest(new SingleResponseWToken<User>(response.Message, response.HasSuccess, response.Data, null, null));
             }
 
-            //Gerar token
             var token = TokenService.GenerateToken(response.Data);
 
-            //testando
+            //test
             SingleResponseWToken<User> responseWToken = new(response.Message, response.HasSuccess, response.Data, token, null);
 
-            //Retornar user + token
+            //Return user + token
             return Ok(responseWToken);
         }
 
-        [HttpGet("Authenticated")]
-        [Authorize]
-        public string Authenticated() => String.Format($"Autenticado - {User.Identity.Name}");
-
-        [HttpGet("AuthorizeUser")]
-        [Authorize(Policy = "User")]
-        public IActionResult TesteAuth() => Ok(User.Claims.Select(x => new { Type = x.Type, Value = x.Value }));
     }
 }
