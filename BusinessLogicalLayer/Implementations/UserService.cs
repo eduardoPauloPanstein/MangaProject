@@ -103,6 +103,9 @@ namespace BusinessLogicalLayer.Implementations
             return await _userDAL.GetUserFavorites(userid);
         }
 
-        
+        public async Task<DataResponse<Manga>> GetUserRecommendations(int userid)
+        {
+            return await _userDAL.GetUserRecommendations(userid);
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace DataAccessLayer.Implementations
             User? user = await _db.Users.FindAsync(id);
             if (user == null)
             {
-                return new Response("Usuario não encontrado no banco de dados.", false,null);
+                return new Response("Usuario não encontrado no banco de dados.", false, null);
             }
 
             _db.Users.Remove(user);
@@ -122,7 +122,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                User? userLogged = await _db.Users.FirstOrDefaultAsync(u =>( u.Email == user.EmailOrNickname || u.Nickname == user.EmailOrNickname) && u.Password == user.Password);
+                User? userLogged = await _db.Users.FirstOrDefaultAsync(u => (u.Email == user.EmailOrNickname || u.Nickname == user.EmailOrNickname) && u.Password == user.Password);
                 if (userLogged == null)
                 {
                     return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, "User not found");
@@ -150,7 +150,7 @@ namespace DataAccessLayer.Implementations
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex,null);
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
         }
         public async Task<DataResponse<User>> Select(int skip, int take)
@@ -200,7 +200,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 await _db.SaveChangesAsync();
-                
+
             }
             catch (Exception ex)
             {
@@ -208,7 +208,7 @@ namespace DataAccessLayer.Implementations
         }
         public async Task<DataResponse<Manga>> GetUserRecommendations(int userid)
         {
-            
+
             List<int> IdsUsuarios = new();
             List<UserMangaItem> Fav = new();
             List<Manga> Mangas = new();
@@ -217,20 +217,38 @@ namespace DataAccessLayer.Implementations
                 List<UserMangaItem> userFav = await _db.UserManga.Where(u => u.UserId == userid && u.Favorite == true).ToListAsync();
                 foreach (UserMangaItem item in userFav)
                 {
-                    List<UserMangaItem> user = await _db.UserManga.Where(m => m.MangaId == item.MangaId && m.UserId != item.Id).ToListAsync();
-                    IdsUsuarios.Add(item.UserId);
+                    UserMangaItem user = _db.UserManga.FirstOrDefault(m => m.MangaId == item.MangaId && m.UserId != userid);
+                    if (user == null)
+                    {
+
+                    }
+                    else
+                    {
+                        if (IdsUsuarios.Contains(user.UserId))
+                        {
+
+                        }
+                        else
+                        {
+                            IdsUsuarios.Add(user.UserId);
+                        }
+                    }
                 }
 
                 foreach (int item in IdsUsuarios)
                 {
-                    Fav.Add(_db.UserManga.FirstOrDefault(u=> u.UserId == item));
+                    List<UserMangaItem> user = _db.UserManga.Where(u => u.UserId == item).ToList();
+                    foreach (UserMangaItem i in user)
+                    {
+                        Fav.Add(i);
+                    }
                 }
 
                 foreach (UserMangaItem item in Fav)
                 {
-                    Mangas.Add(_db.Mangas.FirstOrDefault(m=> m.Id == item.Id));
+                    Mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
                 }
-                
+
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(Mangas);
             }
             catch (Exception ex)
