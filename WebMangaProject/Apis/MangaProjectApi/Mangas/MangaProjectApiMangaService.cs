@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Shared;
 using Shared.Responses;
+using System.Net.Http.Headers;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 {
@@ -17,7 +18,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             throw new NotImplementedException();
         }
 
-        public async Task<DataResponse<Manga>> Select(string title, string token)
+        public async Task<DataResponse<Manga>> Select(string title)
         {
             try
             {

@@ -83,7 +83,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas.Where(M => M.Name.StartsWith(name)).ToListAsync();
+                List<Manga> mangas = await _db.Mangas.Where(M => M.CanonicalTitle.StartsWith(name)).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(mangas);
             }
             catch (Exception ex)
