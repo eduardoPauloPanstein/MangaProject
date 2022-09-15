@@ -295,6 +295,18 @@ body {
 /*IDs*/
 
 #githubId{
-    width: 450px;
-    height:200px;
+    display: flex;
+    justify-content: center;
+    width: 430px;
+    height:190px;
+
+}
+
+#OurCodeId{
+    padding:12px;
+}
+
+#centerId{
+    display:flex;
+    justify-content:center;
 }
