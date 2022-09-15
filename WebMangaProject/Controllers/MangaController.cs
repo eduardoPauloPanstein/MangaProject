@@ -28,7 +28,7 @@ namespace MvcPresentationLayer.Controllers
         //MangaController/AllFavorites
         public async Task<IActionResult> AllFavorites()
         {
-            DataResponse<Manga> responseMangas = await _userService.GetUserRecommendations(UserService.GetId(HttpContext));
+            DataResponse<Manga> responseMangas = await _mangaService.GetAllByFavorites();
 
             if (!responseMangas.HasSuccess)
             {
