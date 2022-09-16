@@ -299,14 +299,23 @@ body {
     justify-content: center;
     width: 430px;
     height:190px;
+    
 
 }
 
 #OurCodeId{
     padding:12px;
+    display:flex;
+    justify-content:center;
 }
 
 #centerId{
     display:flex;
     justify-content:center;
+}
+
+#linkId {
+    padding-right: 3px;
+    color: #fff;
+    transition:all 0.5s ease;
 }

@@ -71,8 +71,8 @@
                             @{
                                 if (User.Identity.IsAuthenticated)
                                 {
-                                    <li class="nav-item custom-login">
-                                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Hi @User.Identity.Name!</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile">Hi @User.Identity.Name!</a>
                                     </li>
                                 }
                                 else
