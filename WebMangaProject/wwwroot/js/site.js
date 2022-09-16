@@ -30,7 +30,7 @@ inputBox.onkeyup = (e) => {
                     imgArray.push(resultado.resultado[i].posterImageLink);
                 }
                 for (let j = 0; j < emptyArray.length; j++) {
-                    finalArray[j] = '<a href="/Manga/MangaOnPage/' + idArray[j] + '"><li><img src="' + imgArray[j] + ' "><span class="Manga-name">' + emptyArray[j] + '</span></li></a>';
+                    finalArray[j] = '<a href="/Manga/MangaOnPage/' + idArray[j] + '"><li><img src="' + imgArray[j] + ' "><span class="manga-name">' + emptyArray[j] + '</span></li></a>';
 
                 };
                 //emptyArray = emptyArray.map((data) => {
@@ -59,8 +59,8 @@ function showSuggestions(list) {
     if (!list.length) {
         userValue = inputBox.value;
         listData = '<li>' + userValue + '</li>';
-    } else if (list.length >= 4) {
-        let maxLength = 4;
+    } else if (list.length >= 5) {
+        let maxLength = 5;
         let newArray = [];
         for (var i = 0; i < maxLength; i++) {
             newArray.push(list[i]);

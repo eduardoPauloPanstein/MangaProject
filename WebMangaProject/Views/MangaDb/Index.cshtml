@@ -40,16 +40,20 @@
                     @Html.DisplayFor(modelItem => item.FavoritesCount)
                 </td>
                 <td>
-                    <form asp-action="Edit", method="post">
+                @Html.ActionLink("Edit","Edit","Manga",new { id = @item.Id },new {@class = "custom-link"})
+
+                   @* <form asp-action="Edit", method="post">
                         <input type="hidden" name="Id" value="@item.Id" />
                         <input type="submit" value="Edit" class="btn btn-link custom-link" /> 
-                    </form>
+                    </form>*@
                 </td>
                 <td>
-                    <form asp-action="Delete" , method="post">
+                @Html.ActionLink("Delete","Delete","Manga",new { id = @item.Id },new {@class = "custom-link"})
+
+                   @* <form asp-action="Delete" , method="post">
                         <input type="hidden" name="Id" value="@item.Id" />
                         <input type="submit" value="Delete" class="btn btn-link custom-link" />
-                    </form>
+                    </form>*@
                 </td>
             </tr>
         }
