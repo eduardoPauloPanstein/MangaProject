@@ -35,7 +35,7 @@ namespace WebApi.Controllers
             {
                 return BadRequest("take < 100");
             }
-            DataResponse<User> responseUsers = await _userService.Select(skip, take);
+            DataResponse<User> responseUsers = await _userService.Get(skip, take);
             if (!responseUsers.HasSuccess)
             {
                 return BadRequest(responseUsers);
@@ -47,7 +47,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var responseUsers = await _userService.Select(id);
+            var responseUsers = await _userService.Get(id);
             if (!responseUsers.HasSuccess)
             {
                 return BadRequest(responseUsers);

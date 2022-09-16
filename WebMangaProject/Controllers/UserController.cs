@@ -223,7 +223,6 @@ namespace MvcPresentationLayer.Controllers
         }
 
 
-
         [HttpGet, Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -268,7 +267,6 @@ namespace MvcPresentationLayer.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
 
 
         [HttpPost, ValidateAntiForgeryToken, Authorize]

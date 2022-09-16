@@ -24,34 +24,26 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.DeleteAllDatas();
         }
-        public async Task<DataResponse<Manga>> Select(int skip, int take)
+        public async Task<DataResponse<Manga>> Get(int skip, int take)
         {
             //politica de cache!
-            return await _mangaDAL.Select(skip,take);
+            return await _mangaDAL.Get(skip,take);
         }
-        public async Task<DataResponse<Manga>> GetAllByFavorites()
+        public async Task<DataResponse<Manga>> GetByFavorites(int skip, int take)
         {
-            return await _mangaDAL.GetAllByFavorites();
+            return await _mangaDAL.GetByFavorites(skip, take);
         }
-        public async Task<SingleResponse<Manga>> Select(int id)
+        public async Task<SingleResponse<Manga>> Get(int id)
         {
-            return await _mangaDAL.Select(id);
+            return await _mangaDAL.Get(id);
         }
-        public async Task<DataResponse<Manga>> GetByName(string name)
+        public async Task<DataResponse<Manga>> Get(string name)
         {
-            return await _mangaDAL.GetByName(name);
+            return await _mangaDAL.Get(name);
         }
-        public async Task<DataResponse<Manga>> GetMorePopular()
+        public async Task<DataResponse<Manga>> GetByUserCount(int skip, int take)
         {
-            return await _mangaDAL.GetMorePopular();
-        }
-        public async Task<DataResponse<Manga>> GetPerPage(int page)
-        {
-            return await _mangaDAL.GetPerPage(page);
-        }
-        public async Task<DataResponse<Manga>> GetTopSixFavorites()
-        {
-            return await _mangaDAL.GetTopSixFavorites();
+            return await _mangaDAL.GetByUserCount(skip, take);
         }
         public async Task<Response> Insert(Manga manga)
         {

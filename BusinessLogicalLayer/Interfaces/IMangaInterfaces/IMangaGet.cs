@@ -10,11 +10,8 @@ namespace BusinessLogicalLayer.Interfaces.IMangaInterfaces
 {
     public interface IMangaGet
     {
-        Task<DataResponse<Manga>> GetTopSixFavorites();
-        Task<DataResponse<Manga>> GetAllByFavorites();
-        Task<DataResponse<Manga>> GetPerPage(int page);
-        Task<DataResponse<Manga>> GetMorePopular();
-        Task<DataResponse<Manga>> GetByName(string name);
-
+        Task<DataResponse<Manga>> GetByUserCount(int skip, int take);
+        Task<DataResponse<Manga>> GetByFavorites(int skip, int take);
+        Task<DataResponse<Manga>> Get(string name);
     }
 }

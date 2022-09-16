@@ -137,7 +137,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
         }
-        public async Task<SingleResponse<User>> Select(int id)
+        public async Task<SingleResponse<User>> Get(int id)
         {
             try
             {
@@ -153,7 +153,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
         }
-        public async Task<DataResponse<User>> Select(int skip, int take)
+        public async Task<DataResponse<User>> Get(int skip, int take)
         {
             try
             {

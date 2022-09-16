@@ -61,19 +61,19 @@ namespace BusinessLogicalLayer.Implementations
             return response;
         }
 
-        public async Task<SingleResponse<User>> Select(int id)
+        public async Task<SingleResponse<User>> Get(int id)
         {
             if (id == null)
             {
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, "Id is null.");
             }
 
-            return await _userDAL.Select((int)id);
+            return await _userDAL.Get(id);
         }
 
-        public async Task<DataResponse<User>> Select(int skip, int take)
+        public async Task<DataResponse<User>> Get(int skip, int take)
         {
-            return await _userDAL.Select(skip, take);
+            return await _userDAL.Get(skip, take);
         }
 
         public async Task<Response> Update(User user)
