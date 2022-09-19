@@ -222,6 +222,71 @@ abbr[title]{
 .text-ed {
     padding-left: 3px;
 }
+
+.container {
+    margin: 100px auto;
+    background: #212D40;
+    color: #fff;
+    border-radius: 5px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+}
+
+.cover-photo {
+    background: url(cover.jpg);
+    height: 160px;
+    width:100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.profile{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    margin: 93px 0 0 -175px;
+    border: 1px solid #fff;
+    padding:7px;
+    background: #212D40;
+}
+
+.profile-name{
+    font-size: 25px;
+    font-weight: bold;
+    margin: 27px 0 0 120px;
+}
+
+.about{
+    margin-top: 35px;
+    line-height: 21px;
+}
+
+button {
+    margin-left: 10px 0 40px 0;
+}
+
+.msg-btn, follow-btn {
+    background: #212D40;
+    border: 1px solid #03bfbc;
+    padding: 10px 25px;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.follow-btn{
+
+    margin-left: 10px;
+    background: transparent;
+    color: #02899c;
+}
+
+    .follow-btn:hover {
+        color: #231e39;
+        background: #212D40;
+        transition: .5s;
+    }
+
 /*Search Bar*/
 .wrapper {
     z-index: 2;
