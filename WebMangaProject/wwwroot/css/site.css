@@ -223,12 +223,14 @@ abbr[title]{
     padding-left: 3px;
 }
 
-.container {
+/*Profile*/
+.profile-container {
     margin: 100px auto;
     background: #212D40;
     color: #fff;
     border-radius: 5px;
-    width: 350px;
+    width:100%;
+    height: 350px;
     text-align: center;
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
 }
@@ -238,16 +240,18 @@ abbr[title]{
     height: 160px;
     width:100%;
     border-radius: 5px 5px 0 0;
+    
 }
 
-.profile{
+.profile-icon {
     height: 120px;
     width: 120px;
     border-radius: 50%;
     margin: 93px 0 0 -175px;
     border: 1px solid #fff;
-    padding:7px;
+    padding: 7px;
     background: #212D40;
+    position: relative;
 }
 
 .profile-name{
@@ -286,6 +290,12 @@ button {
         background: #212D40;
         transition: .5s;
     }
+
+.align-profile{
+    border: 10px;
+    width: 30%;
+}
+
 
 /*Search Bar*/
 .wrapper {
@@ -412,7 +422,6 @@ button {
 
 #OurCodeId {
     padding: 12px;
-    padding:12px;
     display:flex;
     justify-content:center;
 }
