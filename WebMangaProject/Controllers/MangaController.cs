@@ -17,6 +17,7 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMangaService _mangaService;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiMangaService _mangaApiService;
+
         private readonly IUserService _userService;
         public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IUserService userService)
         {
@@ -67,7 +68,7 @@ namespace MvcPresentationLayer.Controllers
 
         public async Task<IActionResult> GetSuggestionList(string title)
         {
-            DataResponse<Manga> response = await _mangaApiService.Select(title);
+            DataResponse<Manga> response = await _mangaApiService.Get(title);
             return Json(new { resultado = response.Data });
         }
 

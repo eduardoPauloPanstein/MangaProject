@@ -74,7 +74,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<SingleResponse<User>> Select(int? id, string token)
+        public async Task<SingleResponse<User>> Get(int? id, string token)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<DataResponse<User>> Select(string token, int skip = 0, int take = 25)
+        public async Task<DataResponse<User>> Get(string token, int skip = 0, int take = 25)
         {
             try
             {

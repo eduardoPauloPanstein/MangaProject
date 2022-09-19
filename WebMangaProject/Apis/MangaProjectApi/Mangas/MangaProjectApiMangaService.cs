@@ -50,7 +50,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             }
         }
 
-        public async Task<DataResponse<Manga>> Select(string title)
+        public async Task<DataResponse<Manga>> Get(string title)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             }
         }
 
-        public async Task<SingleResponse<Manga>> Select(int? id, string? token)
+        public async Task<SingleResponse<Manga>> Get(int? id, string? token)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             }
         }
 
-        public async Task<DataResponse<Manga>> Select(string? token, int skip = 0, int take = 25)
+        public async Task<DataResponse<Manga>> Get(string? token, int skip = 0, int take = 25)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             }
         }
 
-        public async Task<DataResponse<Manga>> SelectByFavorites(int skip = 0, int take = 25)
+        public async Task<DataResponse<Manga>> GetByFavorites(int skip = 0, int take = 25)
         {
             try
             {
@@ -130,7 +130,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             }
         }
 
-        public async Task<DataResponse<Manga>> SelectByUserCount(int skip = 0, int take = 25)
+        public async Task<DataResponse<Manga>> GetByUserCount(int skip = 0, int take = 25)
         {
             try
             {
