@@ -22,7 +22,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         {
             try
             {
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/GetSuggestionList/{title}");
+                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByName/{title}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
                     return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
@@ -43,6 +43,16 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         }
 
         public Task<DataResponse<Manga>> Select(string token, int skip = 0, int take = 25)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DataResponse<Manga>> SelectByFavorites(int skip = 0, int take = 25)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DataResponse<Manga>> SelectByUserCount(int skip = 0, int take = 25)
         {
             throw new NotImplementedException();
         }

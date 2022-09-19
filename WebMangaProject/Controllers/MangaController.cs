@@ -28,7 +28,7 @@ namespace MvcPresentationLayer.Controllers
 
         public async Task<IActionResult> AllFavorites()
         {
-            DataResponse<Manga> responseMangas = await _mangaService.GetAllByFavorites();
+            DataResponse<Manga> responseMangas = await _mangaService.GetByFavorites(0, 100);
 
             if (!responseMangas.HasSuccess)
             {
@@ -44,7 +44,7 @@ namespace MvcPresentationLayer.Controllers
 
         public async Task<IActionResult> MangaOnPage(int id)
         {
-            SingleResponse<Manga> response = await _mangaService.Select(id);
+            SingleResponse<Manga> response = await _mangaService.Get(id);
             if (!response.HasSuccess)
             {
                 return NotFound();

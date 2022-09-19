@@ -25,7 +25,7 @@ namespace MvcPresentationLayer.Controllers
         //ONCE YOU GO THREAD YOU NEVER GO BACK
         public async Task<IActionResult> Index()
         {
-            DataResponse<Manga> responseMangas = await _mangaSvc.Select(01,15357);
+            DataResponse<Manga> responseMangas = await _mangaSvc.Get(01,15357);
 
             if (!responseMangas.HasSuccess)
             {
