@@ -17,6 +17,11 @@ body {
     /*background: #212D40;*/
     color: #fff;
 }
+abbr[title]{
+    display:inline;
+    border-bottom:none;
+    text-decoration:none;
+}
 /*Sidebar*/
 .sidebar {
     position: fixed;
@@ -342,7 +347,6 @@ body {
 
 #OurCodeId {
     padding: 12px;
-#OurCodeId{
     padding:12px;
     display:flex;
     justify-content:center;
