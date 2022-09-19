@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiConsumer
+namespace BusinessLogicalLayer.ApiConsumer.MangaApi
 {
     public interface IApiConnect
     {

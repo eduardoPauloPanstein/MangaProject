@@ -164,5 +164,18 @@ namespace DataAccessLayer.Implementations
             }
         }
 
+        public async Task<Response> InsertCategory(Category id)
+        {
+            try
+            {
+                _db.Categories.Add(id);
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
     }
 }

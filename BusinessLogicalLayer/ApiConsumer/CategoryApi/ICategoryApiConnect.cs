@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicalLayer.Interfaces.IMangaInterfaces
+namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
 {
-    public interface IMangaPost
+    internal interface ICategoryApiConnect
     {
+        Task<DataResponse<Category>> CovertiCatego(RootCate Cate);
         Task<Response> DeleteAllDatas();
-        Task<Response> InsertCategory(Category id);
     }
 }

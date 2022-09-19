@@ -61,5 +61,10 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.Delete(id);
         }
+
+        public async Task<Response> InsertCategory(Category id)
+        {
+            return await _mangaDAL.InsertCategory(id);
+        }
     }
 }

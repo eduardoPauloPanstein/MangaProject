@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiConsumer
+namespace BusinessLogicalLayer.ApiConsumer.MangaApi
 {
-    public class Converter
+    public class ConverterToCategory
     {
         public static List<Manga> ConvertDTOToManga(Root mangaRootDTO)
         {
@@ -48,6 +48,7 @@ namespace ApiConsumer
                     Serialization = item.attributes.serialization,
                     PosterImageLink = item.attributes.posterImage?.original,
                     CoverImageLink = item.attributes.coverImage?.original,
+                    Apiids = item.id,
                 };
                 mangaList.Add(manga);
             }

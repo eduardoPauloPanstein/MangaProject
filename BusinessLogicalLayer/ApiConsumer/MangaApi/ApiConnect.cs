@@ -10,20 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiConsumer
+namespace BusinessLogicalLayer.ApiConsumer.MangaApi
 {
-    public class ApiConnect : IApiConnect
+    public class CategoryApiConnect : IApiConnect
     {
         //https://kitsu.io/api/edge/manga?page[limit]=20&page[offset]=0
         // pageLimit Max=20
 
         Uri baseAddress = new Uri("https://kitsu.io/api/edge/");
-        String requestString = $"manga?page[limit]=20&page[offset]=";
+        string requestString = $"manga?page[limit]=20&page[offset]=";
 
         private readonly IMangaService _mangaService;
-        public ApiConnect(IMangaService mangaService)
+        public CategoryApiConnect(IMangaService mangaService)
         {
-            this._mangaService = mangaService;
+            _mangaService = mangaService;
         }
 
 
@@ -32,12 +32,12 @@ namespace ApiConsumer
             //1 page get 20 mangas
             int qtdPages = 800;
             int qtdMangas = qtdPages * 20;
-            List<Manga> mangasTotal = new ();
-            
+            List<Manga> mangasTotal = new();
+
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
 
-                for (int i = 1; i <= qtdMangas; i+=20)
+                for (int i = 1; i <= qtdMangas; i += 20)
                 {
                     using (var response = await httpClient.GetAsync(requestString + i))
                     {
@@ -48,7 +48,7 @@ namespace ApiConsumer
                         Root? mangaRootDTO = JsonConvert.DeserializeObject<Root>(jsonString);
 
                         //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
-                        List<Manga> mangas = Converter.ConvertDTOToManga(mangaRootDTO);
+                        List<Manga> mangas = ConverterToCategory.ConvertDTOToManga(mangaRootDTO);
 
                         foreach (var item in mangas)
                         {

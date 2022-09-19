@@ -11,5 +11,7 @@ namespace DataAccessLayer.Interfaces.IMangaInterfaces
     public interface IMangaPost
     {
         Task<Response> DeleteAllDatas();
+        Task<Response> InsertCategory(Category id);
+
     }
 }
