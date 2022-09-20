@@ -24,15 +24,23 @@
                 </a>
             </li>
             <li>
-                <a asp-area="" asp-controller="MangaDb" asp-action="Index">
+                <a href="#" class="manga-btn">
                     <i class="uil uil-book-open"></i>
-                    <span class="title">Mangas</span>
+                    <span class="title">Manga</span>
+                    <i class="uil uil-caret-right sub-menu"></i>
                 </a>
+                <ul class="manga-show">
+                    <li >
+                        <a asp-area="" asp-controller="MangaDb" asp-action="Index">
+                            <span class="sub-title">MandaIndex</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="#">
                     <i class="uil uil-play-circle"></i>
-                    <span class="title">Animes</span>
+                    <span class="title">Anime</span>
                 </a>
             </li>
             <li>
@@ -71,15 +79,15 @@
                             @{
                                 if (User.Identity.IsAuthenticated)
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile">Hi @User.Identity.Name!</a>
-                                    </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile">Hi @User.Identity.Name!</a>
+                                                        </li>
                                 }
                                 else
                                 {
-                                    <li class="nav-item custom-link-nav custom-login">
-                                        <a class="nav-link custom-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                                    </li>
+                                                        <li class="nav-item custom-link-nav custom-login">
+                                                            <a class="nav-link custom-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                                                        </li>
                                 }
                             }
                             <div class="wrapper">
@@ -111,6 +119,16 @@
         toggle.onclick = function() {
             sidebar.classList.toggle('active')
         }
+
+        let mangashow = document.querySelector('.manga-show');
+        let mangabtn = document.querySelector('.manga-btn');
+        mangabtn.onclick = function(){
+            mangashow.classList.toggle('active')
+        }
+
+        //$('.manga-btn').click(function(){
+        //    $('.sidebar ul .manga-show').toggleClasse("show")
+        //});
     </script>
     <script src="~/js/site.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
