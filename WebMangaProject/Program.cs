@@ -1,3 +1,4 @@
+using BusinessLogicalLayer.ApiConsumer.CategoryApi;
 using BusinessLogicalLayer.ApiConsumer.MangaApi;
 using BusinessLogicalLayer.Implementations;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
@@ -26,7 +27,8 @@ builder.Services.AddTransient<IUserDAL, UserDAL>();
 builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
 builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiMangaService>();
 
-builder.Services.AddTransient<IApiConnect, CategoryApiConnect>();
+builder.Services.AddTransient<ICategoryApiConnect, CategoryApiConnect>();
+builder.Services.AddTransient<IApiConnect, ApiConnect>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));
 

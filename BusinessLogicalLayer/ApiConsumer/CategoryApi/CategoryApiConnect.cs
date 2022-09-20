@@ -24,7 +24,7 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
         {
             throw new NotImplementedException();
         }
-        public async Task<DataResponse<Category>> CovertiCatego(RootCate Cate)
+        public async Task<DataResponse<Category>> CovertiCatego()
         {
             int qtdPages = 18000;
 
@@ -33,28 +33,32 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
 
-                for (int i = 1; i <= qtdPages; i += 20)
+                for (int i = 1; i <= qtdPages; i++)
                 {
                     using (var response = await httpClient.GetAsync($"categories/{i}"))
                     {
 
                         string jsonString = await response.Content.ReadAsStringAsync();
-
-
-                        RootCate? mangaRootDTO = JsonConvert.DeserializeObject<RootCate>(jsonString);
-
-                        //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
-                        Category c = Convertercate.CovertiCatego(mangaRootDTO);
-
-
-                        //BLL
-                        Response responseManga = await _mangaService.InsertCategory(c);
-                        if (responseManga.HasSuccess)
+                        if (jsonString.Contains("errors"))
                         {
-                            mangasTotal.Add(c);
+
                         }
+                        else
+                        {
+                            RootCate? mangaRootDTO = JsonConvert.DeserializeObject<RootCate>(jsonString);
+
+                            //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
+                            Category c = Convertercate.CovertiCatego(mangaRootDTO);
 
 
+                            //BLL
+                            Response responseManga = await _mangaService.InsertCategory(c);
+                            if (responseManga.HasSuccess)
+                            {
+                                mangasTotal.Add(c);
+                            }
+
+                        }
                     }
                 }
             }

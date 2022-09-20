@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
 {
-    internal interface ICategoryApiConnect
+    public interface ICategoryApiConnect
     {
-        Task<DataResponse<Category>> CovertiCatego(RootCate Cate);
+        Task<DataResponse<Category>> CovertiCatego();
         Task<Response> DeleteAllDatas();
     }
 }

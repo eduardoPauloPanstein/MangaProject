@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.ApiConsumer.MangaApi
 {
-    public class CategoryApiConnect : IApiConnect
+    public class ApiConnect : IApiConnect
     {
         //https://kitsu.io/api/edge/manga?page[limit]=20&page[offset]=0
         // pageLimit Max=20
@@ -21,7 +21,7 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
         string requestString = $"manga?page[limit]=20&page[offset]=";
 
         private readonly IMangaService _mangaService;
-        public CategoryApiConnect(IMangaService mangaService)
+        public ApiConnect(IMangaService mangaService)
         {
             _mangaService = mangaService;
         }
@@ -37,7 +37,7 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
 
-                for (int i = 1; i <= qtdMangas; i += 20)
+                for (int i = 1; i <= qtdMangas; i ++)
                 {
                     using (var response = await httpClient.GetAsync(requestString + i))
                     {

@@ -12,6 +12,6 @@ namespace Entities.MangaS
         public string Name { get; set; }
         public string Description { get; set; }
         public int ApiID { get; set; }
-
+        public ICollection<Manga> MangasID { get; set; }
     }
 }

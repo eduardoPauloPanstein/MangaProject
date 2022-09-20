@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessLogicalLayer.ApiConsumer.CategoryApi;
 using BusinessLogicalLayer.ApiConsumer.MangaApi;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
@@ -13,9 +14,10 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMangaService _mangaSvc;
         private readonly IMapper _mapper;
         private readonly IApiConnect _apiService;
-
-        public MangaDbController(IMangaService svc, IMapper mapper, IApiConnect connect)
+        private readonly ICategoryApiConnect _CateApi;
+        public MangaDbController(IMangaService svc, IMapper mapper, IApiConnect connect, ICategoryApiConnect CateApi)
         {
+            this._CateApi = CateApi;
             this._mangaSvc = svc;
             this._mapper = mapper;
             this._apiService = connect;
@@ -42,6 +44,7 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> ConsumirApi()
         {
             //await _apiService.DeleteAllDatas();
+            //DataResponse<Category> ConsumeApi = await _CateApi.CovertiCatego();
             DataResponse<Manga> responseMangas = await _apiService.Consume();
 
             if (!responseMangas.HasSuccess)
