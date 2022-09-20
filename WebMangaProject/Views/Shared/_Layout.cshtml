@@ -27,21 +27,39 @@
                 <a href="#" class="manga-btn">
                     <i class="uil uil-book-open"></i>
                     <span class="title">Manga</span>
-                    <i class="uil uil-caret-right sub-menu"></i>
+                    <i class="uil uil-caret-right sub-menu-manga"></i>
                 </a>
                 <ul class="manga-show">
-                    <li >
+                    <li>
                         <a asp-area="" asp-controller="MangaDb" asp-action="Index">
-                            <span class="sub-title">MandaIndex</span>
+                            <span class="sub-title">Manga Index</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Manga" asp-action="AllFavorites">
+                            <span class="sub-title">All Favorites</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="#" class="anime-btn">
                     <i class="uil uil-play-circle"></i>
                     <span class="title">Anime</span>
+                    <i class="uil uil-caret-right sub-menu-anime"></i>
                 </a>
+                <ul class="anime-show">
+                    <li>
+                        <a asp-area="" asp-controller="#" asp-action="#">
+                            <span class="sub-title">Anime Index</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="#" asp-action="#">
+                            <span class="sub-title">Teste</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a asp-area="" asp-controller="Home" asp-action="AboutUs">
@@ -79,15 +97,15 @@
                             @{
                                 if (User.Identity.IsAuthenticated)
                                 {
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile">Hi @User.Identity.Name!</a>
-                                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile">Hi @User.Identity.Name!</a>
+                                        </li>
                                 }
                                 else
                                 {
-                                                        <li class="nav-item custom-link-nav custom-login">
-                                                            <a class="nav-link custom-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                                                        </li>
+                                        <li class="nav-item custom-link-nav custom-login">
+                                            <a class="nav-link custom-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                                        </li>
                                 }
                             }
                             <div class="wrapper">
@@ -116,19 +134,49 @@
     <script>
         let sidebar = document.querySelector('.sidebar');
         let toggle = document.querySelector('.toggle');
-        toggle.onclick = function() {
+        toggle.onclick = function () {
             sidebar.classList.toggle('active')
+            if (mangashow.classList.contains('active')) {
+                mangashow.classList.toggle('active')
+                submenumanga.classList.toggle('rotate')
+            }
+            if(animeshow.classList.contains('active')){
+                animeshow.classList.toggle('active')
+                submenuanime.classList.toggle('rotate')
+            }
         }
 
         let mangashow = document.querySelector('.manga-show');
+        let animeshow = document.querySelector('.anime-show');
+
         let mangabtn = document.querySelector('.manga-btn');
-        mangabtn.onclick = function(){
-            mangashow.classList.toggle('active')
+        let animebtn = document.querySelector('.anime-btn');
+
+        let submenumanga = document.querySelector('.sub-menu-manga')
+        let submenuanime = document.querySelector('.sub-menu-anime')
+
+        mangabtn.onclick = function () {
+            if (sidebar.classList.contains('active')) {
+                mangashow.classList.toggle('active')
+                submenumanga.classList.toggle('rotate')
+            }
+            else{
+                sidebar.classList.toggle('active')
+                mangashow.classList.toggle('active')
+                submenumanga.classList.toggle('rotate')
+            }
+        }
+        animebtn.onclick = function () {
+            if (sidebar.classList.contains('active')) {
+                animeshow.classList.toggle('active')
+                submenuanime.classList.toggle('rotate')
+            } else {
+                sidebar.classList.toggle('active')
+                animeshow.classList.toggle('active')
+                submenuanime.classList.toggle('rotate')
+            }
         }
 
-        //$('.manga-btn').click(function(){
-        //    $('.sidebar ul .manga-show').toggleClasse("show")
-        //});
     </script>
     <script src="~/js/site.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

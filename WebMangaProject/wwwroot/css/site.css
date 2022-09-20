@@ -127,17 +127,43 @@ abbr[title] {
                 font-size: 1.75em;
             }
 
-            .sidebar ul li a .sub-menu {
+            .sidebar ul li a .sub-menu-manga {
                 position: absolute;
                 right: 0px;
                 line-height: 50px;
                 text-align: center;
                 font-size: 1em;
                 opacity: 0;
+                transform: rotate(90deg);
                 transition: all 0.4s ease;
             }
 
-.sidebar.active ul li a .sub-menu {
+                .sidebar ul li a .sub-menu-manga.rotate {
+                    transform: rotate(270deg);
+                }
+
+.sidebar.active ul li a .sub-menu-manga {
+    opacity: 1;
+    transition: all 0.4s ease;
+    pointer-events: auto;
+}
+
+.sidebar ul li a .sub-menu-anime {
+    position: absolute;
+    right: 0px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 1em;
+    opacity: 0;
+    transform: rotate(90deg);
+    transition: all 0.4s ease;
+}
+
+    .sidebar ul li a .sub-menu-anime.rotate {
+        transform: rotate(270deg);
+    }
+
+.sidebar.active ul li a .sub-menu-anime {
     opacity: 1;
     transition: all 0.4s ease;
     pointer-events: auto;
@@ -156,23 +182,47 @@ abbr[title] {
     }
 
         .sidebar ul ul li a {
-            font-size: 17px;
-            padding-left: 65px;
+            font-size: 15px;
+            width: 130px;
+            margin-left: 60px;
             transition: all 0.4s ease;
         }
 
+            .sidebar ul ul li a .sub-title {
+                padding-left: 15px;
+            }
+
 .sidebar ul .manga-show {
-    display:none;
+    display: none;
     opacity: 0;
     transition: all 0.4s ease;
     pointer-events: none;
 }
-.sidebar ul .manga-show.active {
-    display:flex;
-    opacity: 1;
+
+    .sidebar ul .manga-show.active {
+        display: flex;
+        flex-direction: column;
+        opacity: 1;
+        transition: all 0.4s ease;
+        pointer-events: auto;
+    }
+
+.sidebar ul .anime-show {
+    display: none;
+    opacity: 0;
     transition: all 0.4s ease;
-    pointer-events: auto;
+    pointer-events: none;
 }
+
+    .sidebar ul .anime-show.active {
+        display: flex;
+        flex-direction: column;
+        opacity: 1;
+        transition: all 0.4s ease;
+        pointer-events: auto;
+    }
+
+
 
 .sidebar .title {
     font-size: 20px;
@@ -346,7 +396,7 @@ button {
 /*Search Bar*/
 .wrapper {
     z-index: 2;
-    left: 25rem;
+    right: 1rem;
     position: absolute;
     max-width: 400px;
 }
