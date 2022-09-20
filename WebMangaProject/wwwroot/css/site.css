@@ -321,6 +321,10 @@ abbr[title] {
     padding-left: 3px;
 }
 
+.align-about-us {
+    justify-content: center;
+}
+
 /*Profile*/
 .profile-container {
     margin: 100px auto;
@@ -334,7 +338,7 @@ abbr[title] {
 }
 
 .cover-photo {
-    background: url(cover.jpg);
+    
     height: 160px;
     width: 100%;
     border-radius: 5px 5px 0 0;

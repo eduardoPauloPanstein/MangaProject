@@ -1,0 +1,19 @@
+﻿@model MvcPresentationLayer.Models.UserModel.UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="profile-container">
+    <img src="~/avatars/@{@Model.CoverImageFileLocation}" class="cover-photo" />
+    <div class="align-profile">
+        <div class="cover-photo">
+            <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="profile-icon" />
+        </div>
+        <div class="profile-name">@Model.Nickname</div>
+        <p class="about">@Model.About</p>
+        <button class="msg-btn">Message</button>
+        <button class="follow-btn">Following</button>
+    </div>
+</div>

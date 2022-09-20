@@ -53,7 +53,7 @@ namespace MvcPresentationLayer.Controllers
             string filePath = _filePath + folder;
             string extension = Path.GetExtension(file.FileName);
 
-            if (!Directory.Exists(filePath)) 
+            if (!Directory.Exists(filePath))
             {
                 Directory.CreateDirectory(filePath); //folder
             }
@@ -61,7 +61,7 @@ namespace MvcPresentationLayer.Controllers
             string name = $"{user.Nickname}Avatar{extension}";
 
             DeleteAvatarImage(folder, name);
-            using (var stream = System.IO.File.Create(filePath + "\\" + name)) 
+            using (var stream = System.IO.File.Create(filePath + "\\" + name))
             {
                 await file.CopyToAsync(stream);
             }
@@ -84,6 +84,46 @@ namespace MvcPresentationLayer.Controllers
             }
         }
         public void DeleteAvatarImage(string folder, string fileName)
+        {
+            string filePath = $"{_filePath}{folder}\\{fileName}";
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+        }
+        #endregion
+
+        #region Cover
+        public async Task<Response> SaveCoverFileAsync(IFormFile file, User user)
+        {
+            var response = ImageFileValidator(file);
+            if (!response.HasSuccess)
+                return response;
+
+            //var name = Guid.NewGuid().ToString() + file.FileName;
+            string folder = "\\covers";
+            string filePath = _filePath + folder;
+            string extension = Path.GetExtension(file.FileName);
+
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath); //folder
+            }
+
+            string name = $"{user.Nickname}Cover{extension}";
+
+            DeleteCoverImage(folder, name);
+            using (var stream = System.IO.File.Create(filePath + "\\" + name))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            user.CoverImageFileLocation= name;
+
+            return ResponseFactory.CreateInstance().CreateSuccessResponse();
+        }
+
+        public void DeleteCoverImage(string folder, string fileName)
         {
             string filePath = $"{_filePath}{folder}\\{fileName}";
             if (System.IO.File.Exists(filePath))
@@ -143,7 +183,7 @@ namespace MvcPresentationLayer.Controllers
 
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginView)
-         {
+        {
             UserLogin login = new()
             {
                 EmailOrNickname = userLoginView.EmailOrNickname,
@@ -199,8 +239,30 @@ namespace MvcPresentationLayer.Controllers
 
         #endregion
 
+        [HttpGet, Authorize]
+		public async Task<IActionResult> Profile()
+		{
+            var ctx = HttpContext;
+            int id = UserService.GetId(ctx);
 
-        [HttpGet, AllowAnonymous]
+			if (!IsAmMyself(id))
+				return RedirectIfImNotMe();
+
+			SingleResponse<User> response = await _userApiService.Get(id, UserService.GetToken(ctx));
+
+			var user = _mapper.Map<UserProfileViewModel>(response.Data);
+
+
+			if (!response.HasSuccess)
+            {
+                return BadRequest(response);
+            }
+
+			return View(user);
+		}
+
+
+		[HttpGet, AllowAnonymous]
         public IActionResult Create()
         {
             if (IsAuthenticated())
@@ -241,7 +303,7 @@ namespace MvcPresentationLayer.Controllers
             return View(userUpdate);
         }
         [HttpPost, ValidateAntiForgeryToken, Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,About,AvatarImage,CoverImage")] UserUpdateViewModel userUpdate, IFormFile fileF)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,About,AvatarImage,CoverImage")] UserUpdateViewModel userUpdate, IFormFile fileA, IFormFile fileC)
         {
             Response response;
 
@@ -252,11 +314,14 @@ namespace MvcPresentationLayer.Controllers
 
             User user = _mapper.Map<User>(userUpdate);
             
-            if (fileF != null)
+            if (fileA != null)
             {
-                await SaveAvatarFileAsync(fileF, user);
+                await SaveAvatarFileAsync(fileA, user);
             }
-
+            if (fileC != null)
+            {
+                await SaveCoverFileAsync(fileC, user);
+            }
             response = await _userApiService.Update(user, UserService.GetToken(HttpContext));
 
             if (!response.HasSuccess)
