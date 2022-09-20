@@ -50,10 +50,10 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex, null);
             }
         }
-        public async Task<Response> FavoriteManga(UserMangaItem Fav)
+        public async Task<Response> AddUserMangaItem(UserMangaItem item)
         {
-            _db.UserManga.Add(Fav);
-            User? user = await _db.Users.FindAsync(Fav.UserId);
+            _db.UserManga.Add(item);
+            User? user = await _db.Users.FindAsync(item.UserId);
             user.FavoritesCount += 1;
             _db.Users.Update(user);
             try

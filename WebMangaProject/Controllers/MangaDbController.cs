@@ -3,6 +3,7 @@ using BusinessLogicalLayer.ApiConsumer.MangaApi;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
+using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
 using Shared.Responses;
 
@@ -10,22 +11,21 @@ namespace MvcPresentationLayer.Controllers
 {
     public class MangaDbController : Controller
     {
-        private readonly IMangaService _mangaSvc;
+        private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly IMapper _mapper;
         private readonly IApiConnect _apiService;
 
-        public MangaDbController(IMangaService svc, IMapper mapper, IApiConnect connect)
+        public MangaDbController(IMapper mapper, IApiConnect connect, IMangaProjectApiMangaService msvc)
         {
-            this._mangaSvc = svc;
+            this._mangaApiService = msvc;
             this._mapper = mapper;
             this._apiService = connect;
         }
-        //meusite.com/Pet
-        //meusite.com/Pet/Index
+
         //ONCE YOU GO THREAD YOU NEVER GO BACK
         public async Task<IActionResult> Index()
         {
-            DataResponse<Manga> responseMangas = await _mangaSvc.Get(01,15357);
+            DataResponse<Manga> responseMangas = await _mangaApiService.Get(null, 01, 15357);
 
             if (!responseMangas.HasSuccess)
             {
