@@ -13,7 +13,7 @@ body {
     min-height: 100vh;
     width: 100%;
     background: linear-gradient(80deg, #334869,#212D40);
-    background-size:;
+    /*background-size:;*/
     /*background: #212D40;*/
     color: #fff;
 }
@@ -95,7 +95,7 @@ abbr[title] {
 
     .sidebar ul li {
         position: relative;
-        height: 50px;
+        /*height: 50px;*/
         width: 100%;
         list-style: none;
         line-height: 50px;
@@ -151,13 +151,14 @@ abbr[title] {
 
     .sidebar ul ul li {
         line-height: 42px;
+        transition: all 0.4s ease;
         border-bottom: none;
     }
 
         .sidebar ul ul li a {
             font-size: 17px;
             padding-left: 65px;
-
+            transition: all 0.4s ease;
         }
 
 .sidebar ul .manga-show {
