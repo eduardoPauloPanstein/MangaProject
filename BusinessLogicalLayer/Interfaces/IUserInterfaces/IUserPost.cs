@@ -5,6 +5,6 @@ namespace BusinessLogicalLayer.Interfaces.IUserInterfaces
 {
     public interface IUserPost
     {
-        Task<Response> FavoriteManga(UserMangaItem Fav);
+        Task<Response> AddUserMangaItem(UserMangaItem item);
     }
 }

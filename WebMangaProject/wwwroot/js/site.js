@@ -30,8 +30,8 @@ inputBox.onkeyup = (e) => {
                     imgArray.push(resultado.resultado[i].posterImageLink);
                 }
                 for (let j = 0; j < emptyArray.length; j++) {
-                    if (emptyArray[j].length >= 25) {
-                        emptyArray[j] = '<abbr title="' + emptyArray[j] + '">' + emptyArray[j].substr(0,24) + '</abbr>'
+                    if (emptyArray[j].length >= 30) {
+                        emptyArray[j] = '<abbr title="' + emptyArray[j] + '">' + emptyArray[j].substr(0,29) + '...</abbr>'
                     }
                     finalArray[j] = '<a href="/Manga/MangaOnPage/' + idArray[j] + '"><li><img src="' + imgArray[j] + ' "><span class="manga-name">' + emptyArray[j] + '</span></li></a>';
                 };

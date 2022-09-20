@@ -31,7 +31,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, Authorize(Policy = "Admin")]
         public async Task<IActionResult> Index()
         {
-            DataResponse<User> responseUsers = await _userApiService.Select(UserService.GetToken(HttpContext));
+            DataResponse<User> responseUsers = await _userApiService.Get(UserService.GetToken(HttpContext));
             if (!responseUsers.HasSuccess)
             {
                 return BadRequest(responseUsers.Exception);
@@ -121,7 +121,7 @@ namespace MvcPresentationLayer.Controllers
 
         private async Task<bool> UserExists(int id)
         {
-            var userSelectResponse = await _userApiService.Select(id, UserService.GetToken(HttpContext));
+            var userSelectResponse = await _userApiService.Get(id, UserService.GetToken(HttpContext));
             return userSelectResponse.HasSuccess;
         }
 
@@ -229,7 +229,7 @@ namespace MvcPresentationLayer.Controllers
             if (!IsAmMyself(id))
                 return RedirectIfImNotMe();
 
-            var userSelectResponse = await _userApiService.Select(id, UserService.GetToken(HttpContext));
+            var userSelectResponse = await _userApiService.Get(id, UserService.GetToken(HttpContext));
 
             if (!userSelectResponse.HasSuccess)
             {

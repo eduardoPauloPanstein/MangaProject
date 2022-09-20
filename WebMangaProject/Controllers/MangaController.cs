@@ -5,6 +5,7 @@ using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
@@ -14,21 +15,20 @@ namespace MvcPresentationLayer.Controllers
 {
     public class MangaController : Controller
     {
-        private readonly IMangaService _mangaService;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiMangaService _mangaApiService;
-        private readonly IUserService _userService;
-        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IUserService userService)
+        private readonly IMangaProjectApiUserService _userApiService;
+
+        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService)
         {
-            this._userService = userService;
+            this._userApiService = userService;
             this._mapper = mapper;
-            this._mangaService = svc;
             this._mangaApiService = mangaApiService;
         }
 
         public async Task<IActionResult> AllFavorites()
         {
-            DataResponse<Manga> responseMangas = await _mangaService.GetByFavorites(0, 100);
+            DataResponse<Manga> responseMangas = await _mangaApiService.GetByFavorites(0, 100);
 
             if (!responseMangas.HasSuccess)
             {
@@ -44,7 +44,7 @@ namespace MvcPresentationLayer.Controllers
 
         public async Task<IActionResult> MangaOnPage(int id)
         {
-            SingleResponse<Manga> response = await _mangaService.Get(id);
+            SingleResponse<Manga> response = await _mangaApiService.Get(id, null);
             if (!response.HasSuccess)
             {
                 return NotFound();
@@ -63,11 +63,10 @@ namespace MvcPresentationLayer.Controllers
             public object exception { get; set; }
         }
 
-        //TESTE
 
         public async Task<IActionResult> GetSuggestionList(string title)
         {
-            DataResponse<Manga> response = await _mangaApiService.Select(title);
+            DataResponse<Manga> response = await _mangaApiService.Get(title);
             return Json(new { resultado = response.Data });
         }
 
@@ -86,7 +85,11 @@ namespace MvcPresentationLayer.Controllers
             item.MangaId = item.Id;
             item.Id = 0;
 
-            Response Response = await _userService.FavoriteManga(item);
+            Response Response = await _userApiService.AddUserMangaItem(item, UserService.GetToken(HttpContext));
+            if (!Response.HasSuccess)
+            {
+                return BadRequest(Response);
+            }
             return RedirectToAction("MangaOnPage", "Manga", new {id = fav.Id});
         }
     }

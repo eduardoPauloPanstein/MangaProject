@@ -2,6 +2,7 @@
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Mvc;
+using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
 using Shared.Responses;
 using System.Diagnostics;
@@ -12,20 +13,20 @@ namespace WebMangaProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IMangaService _mangaService;
+        private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly IMapper _mapper;
 
 
-        public HomeController(ILogger<HomeController> logger, IMangaService svc, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, IMangaProjectApiMangaService mangaApi)
         {
             this._logger = logger;
             this._mapper = mapper;
-            this._mangaService = svc;
+            this._mangaApiService = mangaApi;
         }
 
         public async Task<IActionResult> Index()
         {
-            DataResponse<Manga> responseMangas = await _mangaService.GetByFavorites(0,6);
+            DataResponse<Manga> responseMangas = await _mangaApiService.GetByFavorites(0,6);
             if (!responseMangas.HasSuccess)
             {
                 ViewBag.Errors = responseMangas.Message;
@@ -39,6 +40,11 @@ namespace WebMangaProject.Controllers
         }
 
         public IActionResult AboutUs()
+        {
+            return View();
+        }
+
+        public IActionResult Profile()
         {
             return View();
         }

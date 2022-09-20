@@ -17,6 +17,12 @@ body {
     /*background: #212D40;*/
     color: #fff;
 }
+
+abbr[title] {
+    display: inline;
+    border-bottom: none;
+    text-decoration: none;
+}
 /*Sidebar*/
 .sidebar {
     position: fixed;
@@ -95,7 +101,6 @@ body {
         line-height: 50px;
     }
 
-
         .sidebar ul li a {
             color: #fff;
             position: relative;
@@ -122,7 +127,54 @@ body {
                 font-size: 1.75em;
             }
 
+            .sidebar ul li a .sub-menu {
+                position: absolute;
+                right: 0px;
+                line-height: 50px;
+                text-align: center;
+                font-size: 1em;
+                opacity: 0;
+                transition: all 0.4s ease;
+            }
+
+.sidebar.active ul li a .sub-menu {
+    opacity: 1;
+    transition: all 0.4s ease;
+    pointer-events: auto;
+}
+
+.sidebar ul ul {
+    margin-top: 0px;
+    position: static;
+    transition: all 0.4s ease;
+}
+
+    .sidebar ul ul li {
+        line-height: 42px;
+        border-bottom: none;
+    }
+
+        .sidebar ul ul li a {
+            font-size: 17px;
+            padding-left: 65px;
+
+        }
+
+.sidebar ul .manga-show {
+    display:none;
+    opacity: 0;
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+.sidebar ul .manga-show.active {
+    display:flex;
+    opacity: 1;
+    transition: all 0.4s ease;
+    pointer-events: auto;
+}
+
 .sidebar .title {
+    font-size: 20px;
     opacity: 0;
     transition: all 0.4s ease;
     pointer-events: none;
@@ -217,6 +269,79 @@ body {
 .text-ed {
     padding-left: 3px;
 }
+
+/*Profile*/
+.profile-container {
+    margin: 100px auto;
+    background: #212D40;
+    color: #fff;
+    border-radius: 5px;
+    width: 100%;
+    height: 350px;
+    text-align: center;
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+}
+
+.cover-photo {
+    background: url(cover.jpg);
+    height: 160px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.profile-icon {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    margin: 93px 0 0 -175px;
+    border: 1px solid #fff;
+    padding: 7px;
+    background: #212D40;
+    position: relative;
+}
+
+.profile-name {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 27px 0 0 120px;
+}
+
+.about {
+    margin-top: 35px;
+    line-height: 21px;
+}
+
+button {
+    margin-left: 10px 0 40px 0;
+}
+
+.msg-btn, follow-btn {
+    background: #212D40;
+    border: 1px solid #03bfbc;
+    padding: 10px 25px;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.follow-btn {
+    margin-left: 10px;
+    background: transparent;
+    color: #02899c;
+}
+
+    .follow-btn:hover {
+        color: #231e39;
+        background: #212D40;
+        transition: .5s;
+    }
+
+.align-profile {
+    border: 10px;
+    width: 30%;
+}
+
+
 /*Search Bar*/
 .wrapper {
     z-index: 2;
@@ -335,26 +460,22 @@ body {
     display: flex;
     justify-content: center;
     width: 430px;
-    height:190px;
-    
-
+    height: 190px;
 }
 
 #OurCodeId {
     padding: 12px;
-#OurCodeId{
-    padding:12px;
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 }
 
-#centerId{
-    display:flex;
-    justify-content:center;
+#centerId {
+    display: flex;
+    justify-content: center;
 }
 
 #linkId {
     padding-right: 3px;
     color: #fff;
-    transition:all 0.5s ease;
+    transition: all 0.5s ease;
 }

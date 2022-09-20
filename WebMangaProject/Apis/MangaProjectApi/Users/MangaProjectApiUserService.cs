@@ -74,7 +74,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<SingleResponse<User>> Select(int? id, string token)
+        public async Task<SingleResponse<User>> Get(int? id, string token)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<DataResponse<User>> Select(string token, int skip = 0, int take = 25)
+        public async Task<DataResponse<User>> Get(string token, int skip = 0, int take = 25)
         {
             try
             {
@@ -124,6 +124,29 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
 
                 string serialized = JsonConvert.SerializeObject(user);
                 using HttpResponseMessage responseHttp = await client.PutAsJsonAsync($"User/{user.Id}", serialized);
+
+                var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
+
+                if (responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                }
+                return ResponseFactory.CreateInstance().CreateFailedResponse(null, response.Message);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
+
+        public async Task<Response> AddUserMangaItem(UserMangaItem item, string token)
+        {
+            try
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string serialized = JsonConvert.SerializeObject(item);
+                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User/AddUserMangaItem", serialized);
 
                 var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
 

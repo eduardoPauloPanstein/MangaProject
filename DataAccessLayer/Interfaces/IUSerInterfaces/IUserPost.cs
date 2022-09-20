@@ -10,6 +10,6 @@ namespace DataAccessLayer.Interfaces.IUSerInterfaces
 {
     public interface IUserPost
     {
-        Task<Response> FavoriteManga(UserMangaItem Fav);
+        Task<Response> AddUserMangaItem(UserMangaItem item);
     }
 }

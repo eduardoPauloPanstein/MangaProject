@@ -4,6 +4,7 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MangaProjectDbContext))]
-    partial class MangaProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220920120029_null")]
+    partial class @null
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace DataAccessLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("CategoryManga", b =>
-                {
-                    b.Property<int>("CategoriaID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MangasIDId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoriaID", "MangasIDId");
-
-                    b.HasIndex("MangasIDId");
-
-                    b.ToTable("CategoryManga");
-                });
 
             modelBuilder.Entity("Entities.MangaS.Category", b =>
                 {
@@ -52,11 +39,16 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MangaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MangaId");
 
                     b.ToTable("Category", (string)null);
                 });
@@ -329,19 +321,11 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("UserMangaItem", (string)null);
                 });
 
-            modelBuilder.Entity("CategoryManga", b =>
+            modelBuilder.Entity("Entities.MangaS.Category", b =>
                 {
-                    b.HasOne("Entities.MangaS.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entities.MangaS.Manga", null)
-                        .WithMany()
-                        .HasForeignKey("MangasIDId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Categoria")
+                        .HasForeignKey("MangaId");
                 });
 
             modelBuilder.Entity("Entities.MangaS.Manga", b =>
@@ -377,6 +361,11 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Manga");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.MangaS.Manga", b =>
+                {
+                    b.Navigation("Categoria");
                 });
 
             modelBuilder.Entity("Entities.UserS.User", b =>
