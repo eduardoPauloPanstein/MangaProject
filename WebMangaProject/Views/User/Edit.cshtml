@@ -10,8 +10,8 @@
 <hr />
 <div class="row">
     <div class="col-md-2">
-        <input class="btn" value="Profile"/>
-        <input class="btn" value="Account"/>
+        <input class="btn" value="Profile" />
+        <input class="btn" value="Account" />
 
     </div>
     <div class="col-md-10">
@@ -31,13 +31,24 @@
 
             <div class="row">
                 <div class="form-group col-md-6">
-                    <input asp-for="AvatarImageFileLocation" type="file" name="fileF" accept="image/png" class="custom-file-input" id="inputGroupFile01">
+                    <input asp-for="AvatarImageFileLocation" type="file" name="fileA" accept="image/png" class="custom-file-input" id="inputGroupFile01">
                     <label class="custom-file-label" for="inputGroupFile01"></label>
                     <span asp-validation-for="AvatarImageFileLocation" class="text-danger"></span>
 
                 </div>
                 <div class="col-md-6">
-                          <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="img-thumbnail" width="230" />
+                    <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="img-thumbnail" width="230" />
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <input asp-for="CoverImageFileLocation" type="file" name="fileC" accept="image/png" class="custom-file-input" id="inputGroupFile01">
+                    <label class="custom-file-label" for="inputGroupFile01"></label>
+                    <span asp-validation-for="CoverImageFileLocation" class="text-danger"></span>
+
+                </div>
+                <div class="col-md-6">
+                    <img src="~/avatars/@{@Model.CoverImageFileLocation}" class="img-thumbnail" height="230" />
                 </div>
             </div>
 
