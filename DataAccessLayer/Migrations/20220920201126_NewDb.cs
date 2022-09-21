@@ -5,10 +5,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class First : Migration
+    public partial class NewDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ApiID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.ID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "MangasRatingFrequencies",
                 columns: table => new
@@ -77,8 +92,7 @@ namespace DataAccessLayer.Migrations
                 name: "Mangas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Synopsis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TitlesId = table.Column<int>(type: "int", nullable: true),
@@ -115,6 +129,30 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CategoryManga",
+                columns: table => new
+                {
+                    CategoriaID = table.Column<int>(type: "int", nullable: false),
+                    MangasIDId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryManga", x => new { x.CategoriaID, x.MangasIDId });
+                    table.ForeignKey(
+                        name: "FK_CategoryManga_Category_CategoriaID",
+                        column: x => x.CategoriaID,
+                        principalTable: "Category",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryManga_Mangas_MangasIDId",
+                        column: x => x.MangasIDId,
+                        principalTable: "Mangas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserMangaItem",
                 columns: table => new
                 {
@@ -125,11 +163,12 @@ namespace DataAccessLayer.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalRereads = table.Column<int>(type: "int", nullable: false),
-                    Chapter = table.Column<int>(type: "int", nullable: false),
-                    Volume = table.Column<int>(type: "int", nullable: false),
-                    PrivateNotes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PublicNotes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: true),
+                    TotalRereads = table.Column<int>(type: "int", nullable: true),
+                    Chapter = table.Column<int>(type: "int", nullable: true),
+                    Volume = table.Column<int>(type: "int", nullable: true),
+                    PrivateNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PublicNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Private = table.Column<bool>(type: "bit", nullable: false),
                     Favorite = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -137,18 +176,23 @@ namespace DataAccessLayer.Migrations
                 {
                     table.PrimaryKey("PK_UserMangaItem", x => x.Id);
                     table.ForeignKey(
+                        name: "fk_mangauser",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_UserMangaItem_Mangas_MangaId",
                         column: x => x.MangaId,
                         principalTable: "Mangas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserMangaItem_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryManga_MangasIDId",
+                table: "CategoryManga",
+                column: "MangasIDId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Mangas_RatingFrequenciesId",
@@ -174,13 +218,19 @@ namespace DataAccessLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CategoryManga");
+
+            migrationBuilder.DropTable(
                 name: "UserMangaItem");
 
             migrationBuilder.DropTable(
-                name: "Mangas");
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Mangas");
 
             migrationBuilder.DropTable(
                 name: "MangasRatingFrequencies");

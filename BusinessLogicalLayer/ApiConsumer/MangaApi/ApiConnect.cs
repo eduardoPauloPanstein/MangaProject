@@ -52,7 +52,9 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
 
                         foreach (var item in mangas)
                         {
+                            List<Category> Response = await CategoryApi.MangaCategory(Convert.ToInt32(item.Id));
                             //BLL
+                            item.Categoria = Response;
                             Response responseManga = await _mangaService.Insert(item);
                             responseManga.Message = $"{i} :{item.Name}, {responseManga.Message}";
                             if (responseManga.HasSuccess)

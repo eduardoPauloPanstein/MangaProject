@@ -30,6 +30,5 @@ namespace Entities.MangaS
         public string PosterImageLink { get; set; }
         public string? CoverImageLink { get; set; }
         public ICollection<Category> Categoria { get; set; }
-        public string Apiids { get; set; }
     }
 }

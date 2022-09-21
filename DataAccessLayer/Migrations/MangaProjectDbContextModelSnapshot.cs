@@ -64,19 +64,12 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("Entities.MangaS.Manga", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AgeRating")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AgeRatingGuide")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Apiids")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AverageRating")

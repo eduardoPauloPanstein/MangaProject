@@ -18,6 +18,12 @@ namespace DataAccessLayer.Implementations
 
         public async Task<Response> Insert(Manga manga)
         {
+            foreach (var item in manga.Categoria)
+            {
+                _db.Entry<Category>(item).State = EntityState.Detached;
+                //unchanged
+            }
+
             _db.Mangas.Add(manga);
             try
             {

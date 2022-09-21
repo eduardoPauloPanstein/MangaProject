@@ -26,7 +26,7 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
         }
         public async Task<DataResponse<Category>> CovertiCatego()
         {
-            int qtdPages = 18000;
+            int qtdPages = 500;
 
             List<Category> mangasTotal = new();
 

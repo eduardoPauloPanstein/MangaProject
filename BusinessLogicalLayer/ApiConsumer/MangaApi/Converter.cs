@@ -30,6 +30,7 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
 
                 Manga manga = new()
                 {
+                    Id = Convert.ToInt32(item.id),
                     Name = item.attributes.slug,
                     Synopsis = item.attributes.synopsis,
                     Titles = titles,
@@ -48,7 +49,6 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
                     Serialization = item.attributes.serialization,
                     PosterImageLink = item.attributes.posterImage?.original,
                     CoverImageLink = item.attributes.coverImage?.original,
-                    Apiids = item.id,
                 };
                 mangaList.Add(manga);
             }
