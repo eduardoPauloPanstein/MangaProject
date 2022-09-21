@@ -328,18 +328,18 @@ abbr[title] {
 /*Profile*/
 .profile-container {
     margin: 100px auto;
-    background: #212D40;
-    color: #fff;
     border-radius: 5px;
     width: 100%;
     height: 350px;
     text-align: center;
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+    position: relative;
+    top: 0px;
+    left: 0px
 }
 
 .cover-photo {
-    
-    height: 160px;
+    height: 350px;
     width: 100%;
     border-radius: 5px 5px 0 0;
 }
@@ -350,27 +350,31 @@ abbr[title] {
     border-radius: 50%;
     margin: 93px 0 0 -175px;
     border: 1px solid #fff;
-    padding: 7px;
+    padding: 1px;
     background: #212D40;
-    position: relative;
+    position: absolute;
+    top: 360px;
+    left: 265px;
 }
 
 .profile-name {
     font-size: 25px;
     font-weight: bold;
-    margin: 27px 0 0 120px;
+    margin: 25px 0 0 15px;
 }
 
-.about {
+.about { 
     margin-top: 35px;
     line-height: 21px;
+    margin-bottom: 35px;
+    margin-left: 15px;
 }
 
 button {
     margin-left: 10px 0 40px 0;
 }
 
-.msg-btn, follow-btn {
+.msg-btn, .follow-btn {
     background: #212D40;
     border: 1px solid #03bfbc;
     padding: 10px 25px;
@@ -379,16 +383,16 @@ button {
     cursor: pointer;
 }
 
-.follow-btn {
+.clicked-btn {
     margin-left: 10px;
     background: transparent;
     color: #02899c;
 }
 
-    .follow-btn:hover {
+    .msg-btn:hover, .follow-btn:hover {
         color: #231e39;
         background: #212D40;
-        transition: .5s;
+        transition: .3s;
     }
 
 .align-profile {
