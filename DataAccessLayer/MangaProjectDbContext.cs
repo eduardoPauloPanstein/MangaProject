@@ -34,6 +34,8 @@ namespace DataAccessLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Manga>().Property(c => c.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Category>().Property(c => c.ID).ValueGeneratedNever();
+
             //Assembly no contexto do .NET
             //Carrega os map config que tão criado dentro do projeto (assembly) DAL
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

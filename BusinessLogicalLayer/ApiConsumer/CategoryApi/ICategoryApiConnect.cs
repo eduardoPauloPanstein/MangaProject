@@ -10,7 +10,7 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
 {
     public interface ICategoryApiConnect
     {
-        Task<DataResponse<Category>> CovertiCatego();
-        Task<Response> DeleteAllDatas();
+        Task<int> CovertiCatego();
+        
     }
 }

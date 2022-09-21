@@ -40,12 +40,6 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("Entities.MangaS.Category", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<int>("ApiID")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")

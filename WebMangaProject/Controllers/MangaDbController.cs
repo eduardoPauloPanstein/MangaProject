@@ -44,7 +44,7 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> ConsumirApi()
         {
             //await _apiService.DeleteAllDatas();
-            DataResponse<Category> ConsumeApi = await _CateApi.CovertiCatego();
+            int ConsumeApi = await _CateApi.CovertiCatego();
             DataResponse<Manga> responseMangas = await _apiService.Consume();
 
             if (!responseMangas.HasSuccess)

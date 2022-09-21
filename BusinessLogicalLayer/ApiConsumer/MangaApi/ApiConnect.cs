@@ -1,5 +1,6 @@
 ﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Implementations;
+using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Newtonsoft.Json;
 using Shared;
@@ -21,35 +22,38 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
         string requestString = $"manga?page[limit]=20&page[offset]=";
 
         private readonly IMangaService _mangaService;
-        public ApiConnect(IMangaService mangaService)
+        private readonly IMangaDAL _mangaDAL;
+        public ApiConnect(IMangaService mangaService, IMangaDAL mangaDAL)
         {
-            _mangaService = mangaService;
+            this._mangaDAL = mangaDAL;
+            this._mangaService = mangaService;
         }
 
 
         public async Task<DataResponse<Manga>> Consume()
         {
             //1 page get 20 mangas
+            int last = await _mangaDAL.GetLastIndexManga();
+            if(last > 10)
+            {
+                last -= 10;
+            }
             int qtdPages = 800;
             int qtdMangas = qtdPages * 20;
             List<Manga> mangasTotal = new();
 
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
-
-                for (int i = 1; i <= qtdMangas; i ++)
+                for (int i = last; i <= qtdMangas; i += 20)
                 {
                     using (var response = await httpClient.GetAsync(requestString + i))
                     {
-
                         string jsonString = await response.Content.ReadAsStringAsync();
-
 
                         Root? mangaRootDTO = JsonConvert.DeserializeObject<Root>(jsonString);
 
                         //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
                         List<Manga> mangas = ConverterToCategory.ConvertDTOToManga(mangaRootDTO);
-
                         foreach (var item in mangas)
                         {
                             List<Category> Response = await CategoryApi.MangaCategory(Convert.ToInt32(item.Id));

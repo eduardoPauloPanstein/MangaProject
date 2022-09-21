@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MangaProjectDbContext))]
-    [Migration("20220920201126_NewDb")]
+    [Migration("20220921052726_NewDb")]
     partial class NewDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,12 +42,6 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("Entities.MangaS.Category", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<int>("ApiID")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")

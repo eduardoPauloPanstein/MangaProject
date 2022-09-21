@@ -1,13 +1,8 @@
 ﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
+using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Newtonsoft.Json;
-using Shared;
 using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
 {
@@ -16,24 +11,25 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
         Uri baseAddress = new Uri("https://kitsu.io/api/edge/");
 
         private readonly IMangaService _mangaService;
-        public CategoryApiConnect(IMangaService mangaService)
+        private readonly IMangaDAL _mangaDAL;
+        public CategoryApiConnect(IMangaService mangaService, IMangaDAL mangaDAL)
         {
+            this._mangaDAL = mangaDAL;
             this._mangaService = mangaService;
         }
-        public Task<Response> DeleteAllDatas()
+        public async Task<int> CovertiCatego()
         {
-            throw new NotImplementedException();
-        }
-        public async Task<DataResponse<Category>> CovertiCatego()
-        {
-            int qtdPages = 500;
-
-            List<Category> mangasTotal = new();
-
+            int LimitesCategory = 246;
+            int Last = await _mangaDAL.GetLastIndexCategory();
+            if (LimitesCategory == Last)
+            {
+                return Last;
+            }
+            Last++;
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
 
-                for (int i = 1; i <= qtdPages; i++)
+                for (int i = Last; i <= LimitesCategory; i++)
                 {
                     using (var response = await httpClient.GetAsync($"categories/{i}"))
                     {
@@ -41,33 +37,19 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
                         string jsonString = await response.Content.ReadAsStringAsync();
                         if (jsonString.Contains("errors"))
                         {
-
                         }
                         else
                         {
                             RootCate? mangaRootDTO = JsonConvert.DeserializeObject<RootCate>(jsonString);
-
                             //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
                             Category c = Convertercate.CovertiCatego(mangaRootDTO);
-
-
                             //BLL
                             Response responseManga = await _mangaService.InsertCategory(c);
-                            if (responseManga.HasSuccess)
-                            {
-                                mangasTotal.Add(c);
-                            }
-
                         }
                     }
                 }
+                return Last;
             }
-            if (mangasTotal.Count > 0)
-            {
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Category>(mangasTotal);
-            }
-
-            return ResponseFactory.CreateInstance().CreateDataFailedResponse<Category>(null);
         }
     }
 }

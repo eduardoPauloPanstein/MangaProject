@@ -14,9 +14,9 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi.MangaCategoryApi
             foreach (var item in Cate.data)
             {
                 Category c = new Category();
+                c.ID = Convert.ToInt32(item.id);
                 c.Name = item.attributes.title;
                 c.Description = item.attributes.description;
-                c.ApiID = Convert.ToInt32(item.id);
                 category.Add(c);
             }
 
