@@ -3,6 +3,7 @@ using BusinessLogicalLayer.ApiConsumer.CategoryApi;
 using BusinessLogicalLayer.ApiConsumer.MangaApi;
 using BusinessLogicalLayer.ApiConsumer.NovaPasta;
 using BusinessLogicalLayer.Implementations;
+using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using DataAccessLayer;
@@ -27,6 +28,7 @@ builder.Services.AddTransient<IMangaDAL, MangaDAL>();
 builder.Services.AddTransient<IUserService, BusinessLogicalLayer.Implementations.UserService>();
 builder.Services.AddTransient<IUserDAL, UserDAL>();
 builder.Services.AddTransient<IAnimeDAL, AnimeDAL>();
+builder.Services.AddTransient<IAnimeService, AnimeService>();
 
 builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
 builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiMangaService>();

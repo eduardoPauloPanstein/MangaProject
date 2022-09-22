@@ -49,7 +49,7 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
                             Root? mangaRootDTO = JsonConvert.DeserializeObject<Root>(jsonString);
                             //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
                             Manga manga = ConverterToCategory.ConvertDTOToManga(mangaRootDTO);
-                            manga.Categoria = await CategoryApi.MangaCategory(Convert.ToInt32(manga.Id));
+                            manga.Categoria = await CategoryToMangaApi.MangaCategory(Convert.ToInt32(manga.Id));
                             //BLL
                             Response responseManga = await _mangaService.Insert(manga);
                         }

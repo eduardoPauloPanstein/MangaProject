@@ -1,8 +1,9 @@
 ﻿using BusinessLogicalLayer.ApiConsumer.AnimeApi;
-using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using DataAccessLayer.Interfaces.IMangaInterfaces;
+using BusinessLogicalLayer.ApiConsumer.CategoryToItemApi;
+using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using Entities.AnimeS;
 using Newtonsoft.Json;
+using Shared.Responses;
 
 namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
 {
@@ -10,26 +11,24 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
     {
         Uri baseAddress = new Uri("https://kitsu.io/api/edge/");
 
-        private readonly IMangaService _mangaService;
-        private readonly IMangaDAL _mangaDAL;
-        public AnimeApi(IMangaService mangaService, IMangaDAL mangaDAL)
+        private readonly IAnimeService _AnimeService;
+        public AnimeApi(IAnimeService AnimeService)
         {
-            this._mangaDAL = mangaDAL;
-            this._mangaService = mangaService;
+            this._AnimeService = AnimeService;
         }
         public async Task ConsumeAnime()
         {
-            //int last = await _mangaDAL.GetLastIndexManga();
-            int LimiteManga = 64595;
+            int last = await _AnimeService.GetLastIndexAnime();
+            int LimiteAnimes = 14277;
 
-            //if (last >= LimiteManga)
-            //{
-            //    return;
-            //}
-            //last++;
+            if (last >= LimiteAnimes)
+            {
+                return;
+            }
+            last++;
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
-                for (int i = 1; i <= LimiteManga; i++)
+                for (int i = last; i <= LimiteAnimes; i++)
                 {
                     using (var response = await httpClient.GetAsync($"anime/{i}"))
                     {
@@ -41,11 +40,10 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
                         else
                         {
                             RootANI? mangaRootDTO = JsonConvert.DeserializeObject<RootANI>(jsonString);
-                            string s = "";
-                            Anime manga = AnimeConverter.ConvertDTOToAnime(mangaRootDTO);
-                            //manga.Categoria = await CategoryApi.MangaCategory(Convert.ToInt32(manga.Id));
+                            Anime anime = AnimeConverter.ConvertDTOToAnime(mangaRootDTO);
+                            anime.Categories = await CategoryToAnime.AnimeCategory(Convert.ToInt32(anime.Id));
                             ////BLL
-                            //Response responseManga = await _mangaService.Insert(manga);
+                            Response responseManga = await _AnimeService.Insert(anime);
                         }
                     }
                 }

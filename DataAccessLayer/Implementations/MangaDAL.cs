@@ -35,8 +35,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
-
         public async Task<DataResponse<Manga>> GetByUserCount(int skip, int take)
         {
             try
@@ -55,7 +53,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
         public async Task<DataResponse<Manga>> GetByFavorites(int skip, int take)
         {
             try

@@ -22,6 +22,9 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
             {
                 Id = Convert.ToInt32(item.id),
                 name = item.attributes.slug,
+                createdAt = item.attributes.createdAt,
+                updatedAt = item.attributes.updatedAt,
+                description = item.attributes.description,
                 synopsis = item.attributes.synopsis,
                 AnimeTitles = titles,
                 canonicalTitle = item.attributes.canonicalTitle,
@@ -37,7 +40,7 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
                 youtubeVideoId = item.attributes.youtubeVideoId,
                 AnimePosterImage = item.attributes.posterImage?.original,
                 AnimeCoverImage = item.attributes.coverImage?.original,
-
+                showType = item.attributes.showType,
                 episodeCount = item.attributes.episodeCount,
                 episodeLength = item.attributes.episodeLength,
                 totalLength = item.attributes.totalLength,

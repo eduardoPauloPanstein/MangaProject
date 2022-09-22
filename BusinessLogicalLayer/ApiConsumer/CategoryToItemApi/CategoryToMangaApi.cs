@@ -3,7 +3,7 @@ using Entities.MangaS;
 using Newtonsoft.Json;
 namespace BusinessLogicalLayer.ApiConsumer.MangaApi
 {
-    internal class CategoryApi
+    public class CategoryToMangaApi
     {
         public static async Task<List<Category>> MangaCategory(int Id)
         {
@@ -20,7 +20,7 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
                     {
                         RootMA? mangaRootDTO = JsonConvert.DeserializeObject<RootMA>(jsonString);
                         //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
-                        List<Category> CateReturn = ConverterCategoryMAnga.CovertiMangaCate(mangaRootDTO);
+                        List<Category> CateReturn = ConverterCategoryToItem.CovertiMangaCate(mangaRootDTO);
                         //BLL
                         return CateReturn;
                     }

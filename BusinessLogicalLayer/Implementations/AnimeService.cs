@@ -48,6 +48,17 @@ namespace BusinessLogicalLayer.Implementations
             return await _animeDAL.GetByUserCount(skip,take);
         }
 
+        public async Task<int> GetLastIndexAnime()
+        {
+            return await _animeDAL.GetLastIndexAnime();
+        }
+
+        public async Task<int> GetLastIndexCategory()
+        {
+            return await _animeDAL.GetLastIndexCategory();
+
+        }
+
         public async Task<Response> Insert(Anime Item)
         {
             //Validacoes

@@ -2,7 +2,7 @@
 
 namespace BusinessLogicalLayer.ApiConsumer.MangaApi.MangaCategoryApi
 {
-    internal class ConverterCategoryMAnga
+    public class ConverterCategoryToItem
     {
         public static List<Category> CovertiMangaCate(RootMA Cate)
         {

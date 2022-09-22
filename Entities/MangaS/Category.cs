@@ -13,7 +13,7 @@ namespace Entities.MangaS
         public string Name { get; set; }
         public string Description { get; set; }
         public ICollection<Manga> MangasID { get; set; }
-        public ICollection<Anime>? AnimesID { get; set; }
+        public ICollection<Anime> AnimesID { get; set; }
 
     }
 }

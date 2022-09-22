@@ -16,7 +16,6 @@ namespace Entities.AnimeS
         public string? name { get; set; }
         public string? synopsis { get; set; }
         public string? description { get; set; }
-        public int? AnimeCoverImageTopOffset { get; set; }
         public AnimeSTitles? AnimeTitles { get; set; }
         public string? canonicalTitle { get; set; }
         public string? averageRating { get; set; }
@@ -31,7 +30,6 @@ namespace Entities.AnimeS
         public string? ageRatingGuide { get; set; }
         public string? subtype { get; set; }
         public MangaStatus? status { get; set; }
-        public string? tba { get; set; }
         public string? AnimePosterImage { get; set; }
         public string? AnimeCoverImage { get; set; }
         public int? episodeCount { get; set; }
@@ -39,9 +37,7 @@ namespace Entities.AnimeS
         public int? totalLength { get; set; }
         public string? youtubeVideoId { get; set; }
         public string? showType { get; set; }
-        public bool? nsfw { get; set; }
-        public string? youtubevideo { get; set;}
-        public ICollection<Category>? Categories { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
     }
 }
