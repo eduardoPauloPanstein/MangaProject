@@ -6,14 +6,19 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="profile-container">
-    <img src="~/avatars/@{@Model.CoverImageFileLocation}" class="cover-photo" />
-    <div class="align-profile">
-        <div class="cover-photo">
-            <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="profile-icon" />
-        </div>
-        <div class="profile-name">@Model.Nickname</div>
-        <p class="about">@Model.About</p>
-        <button class="msg-btn">Message</button>
-        <button class="follow-btn">Following</button>
-    </div>
+    <img src="~/covers/@{@Model.CoverImageFileLocation}" class="cover-photo"/>
 </div>
+<div>
+    <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="profile-icon" />
+
+</div>
+<div class="profile-name">@Model.Nickname</div>
+<p class="about">@Model.About</p>
+<button class="follow-btn">Follow</button> @*IMPLEMENTAR*@
+@*<button class="msg-btn">Message</button>*@
+<div>
+    <img src="~/avatars/@{
+                @Model.CoverImageFileLocation
+    }" class="cover-photo" />
+</div>
+

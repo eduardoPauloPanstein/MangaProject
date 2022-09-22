@@ -123,6 +123,7 @@ namespace MvcPresentationLayer.Controllers
             return ResponseFactory.CreateInstance().CreateSuccessResponse();
         }
 
+
         public void DeleteCoverImage(string folder, string fileName)
         {
             string filePath = $"{_filePath}{folder}\\{fileName}";
