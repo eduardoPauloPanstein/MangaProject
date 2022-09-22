@@ -1,5 +1,6 @@
-﻿using DataAccessLayer.Implementations;
-using DataAccessLayer;
+﻿using DataAccessLayer;
+using DataAccessLayer.Implementations;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,21 +9,28 @@ using System.Threading.Tasks;
 
 namespace MangaProjectTests.DataAccessLayerTests
 {
-    public class UserTests
+    public class UserTests : IClassFixture<DbFixture>
     {
-        [Fact]
-        public void GetByFavorites_ReturnNotNull()
+        private ServiceProvider _serviceProvider;
+
+        public UserTests(DbFixture fixture)
         {
-            using (var context = new MangaProjectDbContext())
+            _serviceProvider = fixture.ServiceProvider;
+        }
+
+        [Fact]
+        public void GetUser_ReturnNotNull()
+        {
+            using (var context = _serviceProvider.GetService<MangaProjectDbContext>())
             {
-                UserDAL user = new(context);
+                UserDAL u = new(context);
 
                 // Act  
-                var u = user.Get(1);
+                var response = u.Get(1);
+                var user = response.Result.Data;
 
                 //Assert  
-                //Assert.NotNull(mangas);
-
+                Assert.NotNull(user);
             }
 
         }
