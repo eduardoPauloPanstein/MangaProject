@@ -1,4 +1,5 @@
-﻿using Entities.MangaS;
+﻿using Entities.AnimeS;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -35,6 +36,8 @@ namespace DataAccessLayer
         {
             modelBuilder.Entity<Manga>().Property(c => c.Id).ValueGeneratedNever();
             modelBuilder.Entity<Category>().Property(c => c.ID).ValueGeneratedNever();
+            //modelBuilder.Entity<Anime>().Property(c => c.Id).ValueGeneratedNever();
+
 
             //Assembly no contexto do .NET
             //Carrega os map config que tão criado dentro do projeto (assembly) DAL

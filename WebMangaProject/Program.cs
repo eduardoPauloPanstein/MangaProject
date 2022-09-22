@@ -1,5 +1,7 @@
+using BusinessLogicalLayer.ApiConsumer.AnimeApi;
 using BusinessLogicalLayer.ApiConsumer.CategoryApi;
 using BusinessLogicalLayer.ApiConsumer.MangaApi;
+using BusinessLogicalLayer.ApiConsumer.NovaPasta;
 using BusinessLogicalLayer.Implementations;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
@@ -30,6 +32,7 @@ builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiManga
 
 builder.Services.AddTransient<ICategoryApiConnect, CategoryApiConnect>();
 builder.Services.AddTransient<IApiConnect, ApiConnect>();
+builder.Services.AddTransient<IAnimeApiConnect, AnimeApi>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));

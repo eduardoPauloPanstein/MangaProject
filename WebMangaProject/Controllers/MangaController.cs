@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +9,7 @@ using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
 using Shared.Responses;
+
 
 namespace MvcPresentationLayer.Controllers
 {
@@ -55,13 +55,13 @@ namespace MvcPresentationLayer.Controllers
             return View(manga);
         }
 
-        public class Rootobject
-        {
-            public Datum[] data { get; set; }
-            public string message { get; set; }
-            public bool hasSuccess { get; set; }
-            public object exception { get; set; }
-        }
+        //public class Rootobject
+        //{
+        //    public Datum[] data { get; set; }
+        //    public string message { get; set; }
+        //    public bool hasSuccess { get; set; }
+        //    public object exception { get; set; }
+        //}
 
 
         public async Task<IActionResult> GetSuggestionList(string title)

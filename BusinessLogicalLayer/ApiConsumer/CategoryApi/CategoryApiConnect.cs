@@ -17,13 +17,13 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
             this._mangaDAL = mangaDAL;
             this._mangaService = mangaService;
         }
-        public async Task<int> CovertiCatego()
+        public async Task CovertiCatego()
         {
             int LimitesCategory = 246;
             int Last = await _mangaDAL.GetLastIndexCategory();
             if (LimitesCategory == Last)
             {
-                return Last;
+                return;
             }
             Last++;
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
@@ -48,7 +48,7 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
                         }
                     }
                 }
-                return Last;
+                return;
             }
         }
     }

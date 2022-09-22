@@ -1,15 +1,9 @@
 ﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using DataAccessLayer.Implementations;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using Newtonsoft.Json;
 using Shared;
 using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.ApiConsumer.MangaApi
 {
@@ -19,7 +13,6 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
         // pageLimit Max=20
 
         Uri baseAddress = new Uri("https://kitsu.io/api/edge/");
-        string requestString = $"manga?page[limit]=20&page[offset]=";
 
         private readonly IMangaService _mangaService;
         private readonly IMangaDAL _mangaDAL;
@@ -30,58 +23,45 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
         }
 
 
-        public async Task<DataResponse<Manga>> Consume()
+        public async Task Consume()
         {
-            //1 page get 20 mangas
             int last = await _mangaDAL.GetLastIndexManga();
-            if(last > 10)
-            {
-                last -= 10;
-            }
-            int qtdPages = 800;
-            int qtdMangas = qtdPages * 20;
-            List<Manga> mangasTotal = new();
+            int LimiteManga = 64595;
 
+            if (last >= LimiteManga)
+            {
+                return;
+            }
+            last++;
             using (var httpClient = new HttpClient { BaseAddress = baseAddress })
             {
-                for (int i = last; i <= qtdMangas; i += 20)
+                for (int i = last; i <= LimiteManga; i++)
                 {
-                    using (var response = await httpClient.GetAsync(requestString + i))
+                    using (var response = await httpClient.GetAsync($"manga/{i}"))
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
 
-                        Root? mangaRootDTO = JsonConvert.DeserializeObject<Root>(jsonString);
-
-                        //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
-                        List<Manga> mangas = ConverterToCategory.ConvertDTOToManga(mangaRootDTO);
-                        foreach (var item in mangas)
+                        if (jsonString.Contains("errors"))
                         {
-                            List<Category> Response = await CategoryApi.MangaCategory(Convert.ToInt32(item.Id));
-                            //BLL
-                            item.Categoria = Response;
-                            Response responseManga = await _mangaService.Insert(item);
-                            responseManga.Message = $"{i} :{item.Name}, {responseManga.Message}";
-                            if (responseManga.HasSuccess)
-                            {
-                                mangasTotal.Add(item);
-                            }
                         }
-
+                        else
+                        {
+                            Root? mangaRootDTO = JsonConvert.DeserializeObject<Root>(jsonString);
+                            //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
+                            Manga manga = ConverterToCategory.ConvertDTOToManga(mangaRootDTO);
+                            manga.Categoria = await CategoryApi.MangaCategory(Convert.ToInt32(manga.Id));
+                            //BLL
+                            Response responseManga = await _mangaService.Insert(manga);
+                        }
                     }
                 }
             }
-            if (mangasTotal.Count > 0)
-            {
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangasTotal);
-            }
-
-            return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
+            return;
         }
-        public async Task<Response> DeleteAllDatas()
+        public async Task DeleteAllDatas()
         {
             Response responseManga = await _mangaService.DeleteAllDatas();
-            return responseManga;
-
+            return;
         }
     }
 }

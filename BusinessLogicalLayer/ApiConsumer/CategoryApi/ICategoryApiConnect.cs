@@ -10,7 +10,7 @@ namespace BusinessLogicalLayer.ApiConsumer.CategoryApi
 {
     public interface ICategoryApiConnect
     {
-        Task<int> CovertiCatego();
+        Task CovertiCatego();
         
     }
 }
