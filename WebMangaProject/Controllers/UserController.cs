@@ -41,6 +41,19 @@ namespace MvcPresentationLayer.Controllers
             return View(users);
         }
 
+        public Response ImageFileValidator(IFormFile file)
+        {
+            switch (file.ContentType)
+            {
+                case "image/jpeg": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/bmp": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/gif": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/png": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+
+                default:
+                    return ResponseFactory.CreateInstance().CreateFailedResponse(null);
+            }
+        }
         #region Avatar
         public async Task<Response> SaveAvatarFileAsync(IFormFile file, User user)
         {
@@ -70,19 +83,7 @@ namespace MvcPresentationLayer.Controllers
 
             return ResponseFactory.CreateInstance().CreateSuccessResponse();
         }
-        public Response ImageFileValidator(IFormFile file)
-        {
-            switch (file.ContentType)
-            {
-                case "image/jpeg": return ResponseFactory.CreateInstance().CreateSuccessResponse();
-                case "image/bmp": return ResponseFactory.CreateInstance().CreateSuccessResponse();
-                case "image/gif": return ResponseFactory.CreateInstance().CreateSuccessResponse();
-                case "image/png": return ResponseFactory.CreateInstance().CreateSuccessResponse();
-
-                default:
-                    return ResponseFactory.CreateInstance().CreateFailedResponse(null);
-            }
-        }
+      
         public void DeleteAvatarImage(string folder, string fileName)
         {
             string filePath = $"{_filePath}{folder}\\{fileName}";
@@ -303,6 +304,7 @@ namespace MvcPresentationLayer.Controllers
 
             return View(userUpdate);
         }
+        
         [HttpPost, ValidateAntiForgeryToken, Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,About,AvatarImage,CoverImage")] UserUpdateViewModel userUpdate, IFormFile fileA, IFormFile fileC)
         {

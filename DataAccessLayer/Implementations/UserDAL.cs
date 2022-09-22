@@ -182,6 +182,9 @@ namespace DataAccessLayer.Implementations
 
             if (user.AvatarImageFileLocation != null)
                 userDb.AvatarImageFileLocation = user.AvatarImageFileLocation;
+            if (user.CoverImageFileLocation != null)
+                userDb.CoverImageFileLocation = user.CoverImageFileLocation;
+
 
             try
             {

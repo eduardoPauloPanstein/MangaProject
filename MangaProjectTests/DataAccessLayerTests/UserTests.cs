@@ -1,32 +1,36 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Implementations;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MangaProjectTests.DataAccessLayerTests
 {
-    public class MangaTests : IClassFixture<DbFixture>
+    public class UserTests : IClassFixture<DbFixture>
     {
         private ServiceProvider _serviceProvider;
 
-        public MangaTests(DbFixture fixture)
+        public UserTests(DbFixture fixture)
         {
             _serviceProvider = fixture.ServiceProvider;
         }
 
         [Fact]
-        public void GetByFavorites_ReturnNotNull()
+        public void GetUser_ReturnNotNull()
         {
             using (var context = _serviceProvider.GetService<MangaProjectDbContext>())
             {
-                MangaDAL m = new(context);
+                UserDAL u = new(context);
 
                 // Act  
-                var response = m.GetByFavorites(0, 100);
-                var mangas = response.Result.Data;
+                var response = u.Get(1);
+                var user = response.Result.Data;
 
                 //Assert  
-                Assert.NotNull(mangas);
+                Assert.NotNull(user);
             }
 
         }
