@@ -8,11 +8,6 @@ using Entities.MangaS;
 using Entities.UserS;
 using Shared;
 using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Implementations
 {
@@ -106,6 +101,11 @@ namespace BusinessLogicalLayer.Implementations
         public async Task<DataResponse<Manga>> GetUserRecommendations(int userid)
         {
             return await _userDAL.GetUserRecommendations(userid);
+        }
+
+        public async Task<Response> AddUserAnimeItem(UserAnimeItem item)
+        {
+            return await _userDAL.AddUserAnimeItem(item);
         }
     }
 }

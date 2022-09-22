@@ -199,7 +199,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 Manga? a = _db.Mangas.OrderBy(c => c.Id).LastOrDefault();
-                return  a.Id;
+                return 0;
             }
             catch (Exception ex)
             {

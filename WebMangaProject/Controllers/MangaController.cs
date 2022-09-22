@@ -25,7 +25,20 @@ namespace MvcPresentationLayer.Controllers
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
         }
+        public async Task<IActionResult> Index()
+        {
+            DataResponse<Manga> responseMangas = await _mangaApiService.GetByFavorites(0, 1);
+            if (!responseMangas.HasSuccess)
+            {
+                ViewBag.Errors = responseMangas.Message;
+                return View();
+            }
 
+            List<MangaSelectCatalogViewModel> mangas =
+                _mapper.Map<List<MangaSelectCatalogViewModel>>(responseMangas.Data);
+
+            return View(mangas);
+        }
         public async Task<IActionResult> AllFavorites()
         {
             DataResponse<Manga> responseMangas = await _mangaApiService.GetByFavorites(0, 100);

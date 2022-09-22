@@ -46,8 +46,8 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> ConsumirApi()
         {
             //await _apiService.DeleteAllDatas();
-            await _animeApi.ConsumeAnime();
             await _CateApi.CovertiCatego();
+            await _animeApi.ConsumeAnime();
             await _apiService.Consume();
             
             return RedirectToAction("Index");

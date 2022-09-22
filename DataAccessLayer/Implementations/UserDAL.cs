@@ -256,5 +256,10 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
+
+        public Task<Response> AddUserAnimeItem(UserAnimeItem item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

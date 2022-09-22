@@ -1,0 +1,40 @@
+﻿@model MvcPresentationLayer.Models.AnimeModel.AnimeOnpageViewModel
+
+@{
+
+    ViewData["Title"] = @Model.canonicalTitle;
+    string Img = @Model.AnimeCoverImage;
+    string width = "100%";
+    int height = 400;
+    if (Model.AnimeCoverImage == null)
+    {
+        //width = "25";
+        //height = 400;
+        Img = Model.AnimePosterImage;
+    }
+}
+
+
+<div class="row" id="Banner">
+    <!-- Background image -->
+    <img class="" wwidth="@width" height="@height" src="@Img" alt="Background image">
+</div>
+<!-- Page Content -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="fw-light">Synopsis</h2>
+        <p>@Model.synopsis</p>
+    </div>
+
+    <div class="form-group">
+        <div class="card-item">
+            <a class="custom-link" href="/Anime/UserFavorite/@Model.Id">
+                <input type="submit" value="Favoritar" class="btn btn-primary" />
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
