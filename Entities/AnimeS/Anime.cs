@@ -1,4 +1,5 @@
 ﻿using Entities.Enums;
+using Entities.MangaS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,6 @@ namespace Entities.AnimeS
         public int? favoritesCount { get; set; }
         public string? startDate { get; set; }
         public string? endDate { get; set; }
-        public object? nextRelease { get; set; }
         public int? popularityRank { get; set; }
         public int? ratingRank { get; set; }
         public string? ageRating { get; set; }
@@ -41,6 +41,7 @@ namespace Entities.AnimeS
         public string? showType { get; set; }
         public bool? nsfw { get; set; }
         public string? youtubevideo { get; set;}
+        public ICollection<Category>? Categories { get; set; }
 
     }
 }

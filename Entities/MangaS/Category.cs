@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.AnimeS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,7 @@ namespace Entities.MangaS
         public string Name { get; set; }
         public string Description { get; set; }
         public ICollection<Manga> MangasID { get; set; }
+        public ICollection<Anime>? AnimesID { get; set; }
+
     }
 }

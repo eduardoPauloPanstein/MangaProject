@@ -18,6 +18,7 @@ namespace DataAccessLayer
         public DbSet<User> Users { get; set; }
         public DbSet<UserMangaItem> UserManga { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Anime> Animes { get; set; }
 
         public MangaProjectDbContext(DbContextOptions options) : base(options) { }
         public MangaProjectDbContext()
@@ -36,7 +37,7 @@ namespace DataAccessLayer
         {
             modelBuilder.Entity<Manga>().Property(c => c.Id).ValueGeneratedNever();
             modelBuilder.Entity<Category>().Property(c => c.ID).ValueGeneratedNever();
-            //modelBuilder.Entity<Anime>().Property(c => c.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Anime>().Property(c => c.Id).ValueGeneratedNever();
 
 
             //Assembly no contexto do .NET
