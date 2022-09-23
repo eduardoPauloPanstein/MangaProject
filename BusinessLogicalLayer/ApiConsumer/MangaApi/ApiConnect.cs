@@ -46,6 +46,7 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
                         }
                         else
                         {
+                            
                             Root? mangaRootDTO = JsonConvert.DeserializeObject<Root>(jsonString);
                             //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
                             Manga manga = ConverterToCategory.ConvertDTOToManga(mangaRootDTO);

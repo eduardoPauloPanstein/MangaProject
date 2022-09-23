@@ -47,8 +47,8 @@ namespace MvcPresentationLayer.Controllers
         {
             //await _apiService.DeleteAllDatas();
             await _CateApi.CovertiCatego();
-            await _animeApi.ConsumeAnime();
             await _apiService.Consume();
+            await _animeApi.ConsumeAnime();
             
             return RedirectToAction("Index");
         }

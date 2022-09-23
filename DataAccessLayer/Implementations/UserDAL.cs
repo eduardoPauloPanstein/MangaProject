@@ -7,6 +7,7 @@ using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Responses;
+using System.Reflection;
 
 namespace DataAccessLayer.Implementations
 {
@@ -284,23 +285,56 @@ namespace DataAccessLayer.Implementations
         public async Task<Response> AddUserAnimeItem(UserAnimeItem item, int score)
         {
             AnimeRatingFrequencies selec = _db.AnimeRating.Find(item.AnimeId);
-            if (score == 1)
+            Type myType = selec.GetType();
+            foreach (var nome in myType.GetProperties())
             {
-                selec._1++;
+                if (nome.Name.Contains($"{score}"))
+                {
+                    object propValue = nome.GetValue(selec, null);
+                   
+                }
             }
-            else if (score == 2)
+
+            switch (score)
             {
-                selec._2++;
+                case 1:
+                    selec._1++;
+                    break;
+                case 2:
+                    selec._2++;
+                    break;
+                case 3:
+                    selec._3++;
+                    break;
+                case 4:
+                    selec._4++;
+                    break;
+                case 5:
+                    selec._5++;
+                    break;
             }
-            else if (score == 3)
-            {
-                selec._3++;
-            }
-            else if (score == 4)
-            {
-                selec._4++;
-            }
-            else { selec._5++; }
+
+            //if (score == 1)
+            //{
+            //    selec._1++;
+            //}
+            //else if (score == 2)
+            //{
+            //    selec._2++;
+            //}
+            //else if (score == 3)
+            //{
+            //    selec._3++;
+            //}
+            //else if (score == 4)
+            //{
+            //    selec._4++;
+            //}
+            //else { selec._5++; }
+
+
+
+
             _db.AnimeRating.Update(selec);
 
 

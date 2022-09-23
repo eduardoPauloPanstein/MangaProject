@@ -25,7 +25,7 @@ public class AttributesANI
     public string? canonicalTitle { get; set; }
     public List<string?> abbreviatedTitles { get; set; }
     public string? averageRating { get; set; }
-    public RatingFrequenciesANI? ratingFrequencies { get; set; }
+    public ratingFrequencies? ratingFrequencies { get; set; }
     public int? userCount { get; set; }
     public int? favoritesCount { get; set; }
     public string? startDate { get; set; }
@@ -157,7 +157,7 @@ public class QuotesANI
     public LinksANI? links { get; set; }
 }
 
-public class RatingFrequenciesANI
+public class ratingFrequencies
 {
     public string? _2 { get; set; }
     public string? _3 { get; set; }
