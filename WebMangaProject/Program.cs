@@ -1,10 +1,14 @@
+using BusinessLogicalLayer.ApiConsumer.AnimeApi;
 using BusinessLogicalLayer.ApiConsumer.CategoryApi;
 using BusinessLogicalLayer.ApiConsumer.MangaApi;
+using BusinessLogicalLayer.ApiConsumer.NovaPasta;
 using BusinessLogicalLayer.Implementations;
+using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using DataAccessLayer;
 using DataAccessLayer.Implementations;
+using DataAccessLayer.Interfaces.IAnimeInterfaces;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.Enums;
@@ -23,13 +27,15 @@ builder.Services.AddTransient<IMangaService, MangaService>();
 builder.Services.AddTransient<IMangaDAL, MangaDAL>();
 builder.Services.AddTransient<IUserService, BusinessLogicalLayer.Implementations.UserService>();
 builder.Services.AddTransient<IUserDAL, UserDAL>();
-
+builder.Services.AddTransient<IAnimeDAL, AnimeDAL>();
+builder.Services.AddTransient<IAnimeService, AnimeService>();
 
 builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
 builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiMangaService>();
 
 builder.Services.AddTransient<ICategoryApiConnect, CategoryApiConnect>();
 builder.Services.AddTransient<IApiConnect, ApiConnect>();
+builder.Services.AddTransient<IAnimeApiConnect, AnimeApi>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));

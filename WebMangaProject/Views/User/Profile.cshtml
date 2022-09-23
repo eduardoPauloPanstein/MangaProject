@@ -3,17 +3,48 @@
 @{
     ViewData["Title"] = "Profile";
 }
-<h1>@ViewData["Title"]</h1>
+@*<h1>@ViewData["Title"]</h1>*@
 
+<div class="profile-images">
+    <img src="~/covers/@{
+            @Model.CoverImageFileLocation
+}" class="cover-photo" />
+    <img src="~/avatars/@{
+            @Model.AvatarImageFileLocation
+}" class="profile-icon" />
+</div>
+
+<div class="follow-btn-config">
+    <button class="follow-btn">Follow</button> @*IMPLEMENTAR*@
+</div>
 <div class="profile-container">
-    <img src="~/avatars/@{@Model.CoverImageFileLocation}" class="cover-photo" />
-    <div class="align-profile">
-        <div class="cover-photo">
-            <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="profile-icon" />
-        </div>
+
+    <div class="profile-info">
         <div class="profile-name">@Model.Nickname</div>
-        <p class="about">@Model.About</p>
-        <button class="msg-btn">Message</button>
-        <button class="follow-btn">Following</button>
+
+        <div class="profile-about">
+            <h5>About me:</h5>
+            <hr />
+            <p class="about">@Model.About</p>
+        </div>
+    </div>
+
+    @*<button class="msg-btn">Message</button>*@
+
+    <div class="profile-favorites">
+
+        @*@{
+        foreach (var item in Model)
+        {
+        <div>
+        <a>
+        <li>
+        <img src="" />
+        <span></span>
+        </li>
+        </a>
+        </div>
+        }
+        }*@
     </div>
 </div>

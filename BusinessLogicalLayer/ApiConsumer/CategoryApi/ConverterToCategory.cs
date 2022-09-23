@@ -20,8 +20,7 @@ namespace BusinessLogicalLayer.ApiConsumer
             Category c = new Category();
             c.Name = Cate.data.attributes.title;
             c.Description = Cate.data.attributes.description;
-            c.ApiID = Convert.ToInt32(Cate.data.id);
-
+            c.ID = Convert.ToInt32(Cate.data.id);
 
 
             return c;

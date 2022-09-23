@@ -1,10 +1,5 @@
 ﻿using Entities.MangaS;
 using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces.IMangaInterfaces
 {
@@ -13,5 +8,8 @@ namespace DataAccessLayer.Interfaces.IMangaInterfaces
         Task<DataResponse<Manga>> GetByUserCount(int skip, int take);
         Task<DataResponse<Manga>> GetByFavorites(int skip, int take);
         Task<DataResponse<Manga>> Get(string name);
+        Task<int> GetLastIndexCategory();
+        Task<int> GetLastIndexManga();
+
     }
 }

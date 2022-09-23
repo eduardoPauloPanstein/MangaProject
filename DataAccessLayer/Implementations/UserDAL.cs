@@ -182,6 +182,9 @@ namespace DataAccessLayer.Implementations
 
             if (user.AvatarImageFileLocation != null)
                 userDb.AvatarImageFileLocation = user.AvatarImageFileLocation;
+            if (user.CoverImageFileLocation != null)
+                userDb.CoverImageFileLocation = user.CoverImageFileLocation;
+
 
             try
             {
@@ -255,6 +258,11 @@ namespace DataAccessLayer.Implementations
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
+        }
+
+        public Task<Response> AddUserAnimeItem(UserAnimeItem item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

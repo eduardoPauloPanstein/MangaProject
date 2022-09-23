@@ -18,15 +18,15 @@ namespace DataAccessLayer.Implementations
 
         public async Task<Response> Insert(Manga manga)
         {
-            foreach (var item in manga.Categoria)
-            {
-                _db.Entry<Category>(item).State = EntityState.Detached;
-                //unchanged
-            }
-
-            _db.Mangas.Add(manga);
+            List<Category> Cate = new();
             try
             {
+                foreach (var item in manga.Categoria)
+                {
+                   Cate.Add(await _db.Categories.FindAsync(item.ID));
+                }
+                manga.Categoria = Cate;
+                _db.Mangas.Add(manga);
                 await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
@@ -35,8 +35,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-        
-
         public async Task<DataResponse<Manga>> GetByUserCount(int skip, int take)
         {
             try
@@ -55,7 +53,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
         public async Task<DataResponse<Manga>> GetByFavorites(int skip, int take)
         {
             try
@@ -181,6 +178,32 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
+
+        public async Task<int> GetLastIndexCategory()
+        {
+            try
+            {
+                Category? a = _db.Categories.OrderBy(c => c.ID).LastOrDefault();
+                return a.ID;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<int> GetLastIndexManga()
+        {
+            try
+            {
+                Manga? a = _db.Mangas.OrderBy(c => c.Id).LastOrDefault();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
     }

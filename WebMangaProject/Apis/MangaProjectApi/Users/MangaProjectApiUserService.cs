@@ -161,5 +161,10 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
+        public async Task<Response> AddUserAnimeItem(UserAnimeItem item, string token)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessLogicalLayer.ApiConsumer.AnimeApi;
 using BusinessLogicalLayer.ApiConsumer.CategoryApi;
 using BusinessLogicalLayer.ApiConsumer.MangaApi;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
@@ -16,9 +17,10 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMapper _mapper;
         private readonly IApiConnect _apiService;
         private readonly ICategoryApiConnect _CateApi;
-
-        public MangaDbController(IMangaProjectApiMangaService svc, IMapper mapper, IApiConnect connect, ICategoryApiConnect CateApi)
+        private readonly IAnimeApiConnect _animeApi;
+        public MangaDbController(IMangaProjectApiMangaService svc, IMapper mapper, IApiConnect connect, ICategoryApiConnect CateApi, IAnimeApiConnect animeApi)
         {
+            this._animeApi = animeApi;
             this._CateApi = CateApi;
             this._mangaApiService = svc;
             this._mapper = mapper;
@@ -44,14 +46,10 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> ConsumirApi()
         {
             //await _apiService.DeleteAllDatas();
-            DataResponse<Category> ConsumeApi = await _CateApi.CovertiCatego();
-            DataResponse<Manga> responseMangas = await _apiService.Consume();
-
-            if (!responseMangas.HasSuccess)
-            {
-                ViewBag.Errors = responseMangas.Message;
-                return View();
-            }
+            await _CateApi.CovertiCatego();
+            await _animeApi.ConsumeAnime();
+            await _apiService.Consume();
+            
             return RedirectToAction("Index");
         }
 

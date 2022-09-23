@@ -47,11 +47,10 @@ namespace BusinessLogicalLayer.Implementations
         }
         public async Task<Response> Insert(Manga manga)
         {
-            Response response = new MangaInsertValidator().Validate(manga).ConvertToResponse();
-            if (!response.HasSuccess)
-                return response;
-            response = await _mangaDAL.Insert(manga);
-            return response;
+            //Response response = new MangaInsertValidator().Validate(manga).ConvertToResponse();
+            //if (!response.HasSuccess)
+            //    return response;
+            return await _mangaDAL.Insert(manga);
         }
         public async Task<Response> Update(Manga Item)
         {

@@ -22,6 +22,21 @@ namespace DataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AnimeCategory", b =>
+                {
+                    b.Property<int>("AnimesIDId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriesID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnimesIDId", "CategoriesID");
+
+                    b.HasIndex("CategoriesID");
+
+                    b.ToTable("AnimeCategory");
+                });
+
             modelBuilder.Entity("CategoryManga", b =>
                 {
                     b.Property<int>("CategoriaID")
@@ -37,15 +52,169 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("CategoryManga");
                 });
 
-            modelBuilder.Entity("Entities.MangaS.Category", b =>
+            modelBuilder.Entity("Entities.AnimeS.Anime", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AnimeCoverImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AnimePosterImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("AnimeRatingFrequenciesId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AnimeTitlesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ageRating")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ageRatingGuide")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("averageRating")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("canonicalTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("createdAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("endDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("episodeCount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("episodeLength")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("favoritesCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("popularityRank")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ratingRank")
+                        .HasColumnType("int");
+
+                    b.Property<string>("showType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("startDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("subtype")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("synopsis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("totalLength")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("updatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("userCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("youtubeVideoId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimeRatingFrequenciesId");
+
+                    b.HasIndex("AnimeTitlesId");
+
+                    b.ToTable("Anime", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.AnimeS.AnimeRatingFrequencies", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ApiID")
+                    b.Property<string>("_1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_10")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_5")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_6")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_7")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_8")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_9")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnimeRatingFrequencies");
+                });
+
+            modelBuilder.Entity("Entities.AnimeS.AnimeSTitles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("En")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("En_jp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("En_us")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ja_jp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnimeSTitles");
+                });
+
+            modelBuilder.Entity("Entities.MangaS.Category", b =>
+                {
+                    b.Property<int>("ID")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -322,6 +491,21 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("UserMangaItem", (string)null);
                 });
 
+            modelBuilder.Entity("AnimeCategory", b =>
+                {
+                    b.HasOne("Entities.AnimeS.Anime", null)
+                        .WithMany()
+                        .HasForeignKey("AnimesIDId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.MangaS.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CategoryManga", b =>
                 {
                     b.HasOne("Entities.MangaS.Category", null)
@@ -335,6 +519,21 @@ namespace DataAccessLayer.Migrations
                         .HasForeignKey("MangasIDId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.AnimeS.Anime", b =>
+                {
+                    b.HasOne("Entities.AnimeS.AnimeRatingFrequencies", "AnimeRatingFrequencies")
+                        .WithMany()
+                        .HasForeignKey("AnimeRatingFrequenciesId");
+
+                    b.HasOne("Entities.AnimeS.AnimeSTitles", "AnimeTitles")
+                        .WithMany()
+                        .HasForeignKey("AnimeTitlesId");
+
+                    b.Navigation("AnimeRatingFrequencies");
+
+                    b.Navigation("AnimeTitles");
                 });
 
             modelBuilder.Entity("Entities.MangaS.Manga", b =>
