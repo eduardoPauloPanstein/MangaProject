@@ -57,15 +57,24 @@ namespace MvcPresentationLayer.Controllers
 
         public async Task<IActionResult> MangaOnPage(int id)
         {
-            SingleResponse<Manga> response = await _mangaApiService.Get(id, null);
-            if (!response.HasSuccess)
+            var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
+            SingleResponse<Manga> responseManga = await _mangaApiService.Get(id, null);
+
+            if (!responseManga.HasSuccess || !responseUser.HasSuccess)
             {
                 return NotFound();
             }
 
-            var manga = _mapper.Map<MangaOnPageViewModel>(response.Data);
+            var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Data);
+            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
 
-            return View(manga);
+            MangaItemModalViewModel mangaItemModalViewModel = new()
+            {
+                User = user,
+                Manga = manga
+            };
+
+            return View(mangaItemModalViewModel);
         }
 
         //public class Rootobject

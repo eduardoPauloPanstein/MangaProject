@@ -16,6 +16,7 @@ namespace MvcPresentationLayer.Profiles
 
             CreateMap<MangaOnPageViewModel, Manga>();
             CreateMap<Manga, MangaOnPageViewModel>();
+
         }
     }
 }

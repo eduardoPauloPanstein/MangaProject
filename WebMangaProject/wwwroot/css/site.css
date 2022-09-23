@@ -366,7 +366,7 @@ abbr[title] {
     color: #fff;
     border-radius: 3px;
     cursor: pointer;
-    margin-right:20px;
+    margin-right: 20px;
 }
 .alternate-btn {
     background: #212D40;
@@ -403,7 +403,7 @@ abbr[title] {
 
 
 .profile-container {
-    margin-top:15px;
+    margin-top: 15px;
     display: flex;
     flex-wrap: wrap; 
     border-radius: 5px;
@@ -416,10 +416,11 @@ abbr[title] {
     width: 45%;
     display: flex;
     flex-wrap: wrap;
+    /*flex-direction: column;*/
     border-radius: 5px;
     max-height: 300px;
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
-    overflow:auto;
+    overflow: auto;
 }
 
 .profile-name {
@@ -429,14 +430,16 @@ abbr[title] {
     margin-top: 5px;
 }
 
-.profile-about{
-    margin:15px;
+.profile-about {
+    margin: 15px;
     margin-top: 20px;
     width:100%; 
 }
-.profile-about  h5{
-    font-weight:bold;
-}
+
+    .profile-about h5 {
+        font-weight: bold;
+    }
+
 .about {
     line-height: 21px;
     word-break: break-word;
@@ -598,3 +601,37 @@ abbr[title] {
     color: #fff;
     transition: all 0.5s ease;
 }
+
+/*ModalAddToList*/
+.modalAdd {
+    display: none;
+    position: center;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modalAdd-Content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }

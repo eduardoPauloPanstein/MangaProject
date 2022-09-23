@@ -24,14 +24,16 @@ namespace MvcPresentationLayer.Profiles
             CreateMap<UserLoginViewModel, User>();
             CreateMap<User, UserLoginViewModel>();
 
+            CreateMap<UserFavoriteMangaViewModel, User>();
+            CreateMap<User, UserFavoriteMangaViewModel>();
 
-			CreateMap<UserProfileViewModel, User>();
+            CreateMap<UserProfileViewModel, User>();
 			CreateMap<User, UserProfileViewModel>();
 
 			CreateMap<UserFavoriteMangaViewModel, UserMangaItem>();
             CreateMap<UserFavoriteAnimeViewModel, UserAnimeItem>();
 
-
+            
         }
     }
 }
