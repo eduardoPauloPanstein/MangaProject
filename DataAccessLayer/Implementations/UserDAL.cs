@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using Entities.AnimeS;
 using Entities.Enums;
 using Entities.MangaS;
 using Entities.UserS;
@@ -48,22 +49,6 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex, null);
-            }
-        }
-        public async Task<Response> AddUserMangaItem(UserMangaItem item)
-        {
-            _db.UserManga.Add(item);
-            User? user = await _db.Users.FindAsync(item.UserId);
-            user.FavoritesCount += 1;
-            _db.Users.Update(user);
-            try
-            {
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
@@ -259,10 +244,80 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
-
-        public Task<Response> AddUserAnimeItem(UserAnimeItem item)
+        public async Task<Response> AddUserMangaItem(UserMangaItem item, int score)
         {
-            throw new NotImplementedException();
+            RatingFrequencies selec = _db.MangaRating.Find(item.MangaId);
+            if (score == 1)
+            {
+                selec._1++;
+            }
+            else if (score == 2)
+            {
+                selec._2++;
+            }
+            else if (score == 3)
+            {
+                selec._3++;
+            }
+            else if (score == 4)
+            {
+                selec._4++;
+            }
+            else { selec._5++; }
+            _db.MangaRating.Update(selec);
+
+            _db.UserManga.Add(item);
+            User? user = await _db.Users.FindAsync(item.UserId);
+            user.FavoritesCount += 1;
+
+            _db.Users.Update(user);
+            try
+            {
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
+        public async Task<Response> AddUserAnimeItem(UserAnimeItem item, int score)
+        {
+            AnimeRatingFrequencies selec = _db.AnimeRating.Find(item.AnimeId);
+            if (score == 1)
+            {
+                selec._1++;
+            }
+            else if (score == 2)
+            {
+                selec._2++;
+            }
+            else if (score == 3)
+            {
+                selec._3++;
+            }
+            else if (score == 4)
+            {
+                selec._4++;
+            }
+            else { selec._5++; }
+            _db.AnimeRating.Update(selec);
+
+
+            User? user = await _db.Users.FindAsync(item.UserId);
+            user.FavoritesCount += 1;
+            _db.Users.Update(user);
+
+            _db.UserAnime.Add(item);
+            try
+            {
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
         }
     }
 }

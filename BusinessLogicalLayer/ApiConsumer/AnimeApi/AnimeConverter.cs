@@ -13,6 +13,37 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
                 En_jp = item.attributes.titles.en_jp,
                 Ja_jp = item.attributes.titles.ja_jp,
             };
+            AnimeRatingFrequencies Rating = new();
+
+            Rating.Id = Convert.ToInt32(item.id);
+            
+            Rating._1 = Convert.ToInt32(item.attributes.ratingFrequencies._2) +
+                Convert.ToInt32(item.attributes.ratingFrequencies._3) +
+                Convert.ToInt32(item.attributes.ratingFrequencies._4);
+
+            Rating._2 = Convert.ToInt32(item.attributes.ratingFrequencies._5) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._6) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._7) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._8);
+
+
+            Rating._3 = Convert.ToInt32(item.attributes.ratingFrequencies._9) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._10) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._11) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._12);
+
+
+
+            Rating._4 = Convert.ToInt32(item.attributes.ratingFrequencies._13) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._14) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._15) +
+            Convert.ToInt32(item.attributes.ratingFrequencies._16);
+
+            Rating._5 =
+           Convert.ToInt32(item.attributes.ratingFrequencies._17) +
+           Convert.ToInt32(item.attributes.ratingFrequencies._18) +
+           Convert.ToInt32(item.attributes.ratingFrequencies._19) +
+           Convert.ToInt32(item.attributes.ratingFrequencies._20);
 
             MangaStatus status;
             bool hasStatusParse = Enum.TryParse(item.attributes.status, out status);
@@ -22,29 +53,33 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
             {
                 Id = Convert.ToInt32(item.id),
                 name = item.attributes.slug,
-                createdAt = item.attributes.createdAt,
-                updatedAt = item.attributes.updatedAt,
                 description = item.attributes.description,
                 synopsis = item.attributes.synopsis,
                 AnimeTitles = titles,
                 canonicalTitle = item.attributes.canonicalTitle,
+                createdAt = item.attributes.createdAt,
+                updatedAt = item.attributes.updatedAt,
                 averageRating = item.attributes.averageRating,
-                ratingRank = item.attributes.ratingRank,
-                popularityRank = item.attributes.popularityRank,
+                AnimeRatingFrequencies = Rating,
                 userCount = item.attributes.userCount,
                 favoritesCount = item.attributes.favoritesCount,
+                popularityRank = item.attributes.popularityRank,
                 startDate = item.attributes.startDate,
                 endDate = item.attributes.endDate,
+                ratingRank = item.attributes.ratingRank,
                 ageRating = item.attributes.ageRating,
-                status = status,
-                youtubeVideoId = item.attributes.youtubeVideoId,
+
+                ageRatingGuide = item.attributes.ageRatingGuide,
+                subtype = item.attributes.subtype,
                 AnimePosterImage = item.attributes.posterImage?.original,
                 AnimeCoverImage = item.attributes.coverImage?.original,
-                showType = item.attributes.showType,
                 episodeCount = item.attributes.episodeCount,
                 episodeLength = item.attributes.episodeLength,
                 totalLength = item.attributes.totalLength,
-                subtype = item.attributes.subtype,
+                youtubeVideoId = item.attributes.youtubeVideoId,
+                showType = item.attributes.showType,
+                status = status,
+
 
             };
 

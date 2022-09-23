@@ -21,7 +21,7 @@
                 <select class="form-control" name="Status">
                     @for(int i = 0; i < valores.Length; i++)
                     {
-                        <option value="@i">@valores[i].Replace("_"," ")</option>
+                        <option value="@i">@valores[i].Replace(",","")</option>
                     }    
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
@@ -42,9 +42,9 @@
                     string[] valoresscore = Enum.GetNames<MangaScore>();
                 }
                 <select class="form-control" name="Score">
-                    @for(int i = 0; i < valores.Length; i++)
+                    @for(int i = 0; i < valoresscore.Length; i++)
                     {
-                        <option value="@i">@valoresscore[i].Replace("_"," ")</option>
+                        <option value="@i">@valoresscore[i].Replace(",","")</option>
                     }    
                 </select>
                 <span asp-validation-for="Score" class="text-danger"></span>

@@ -8,7 +8,6 @@ namespace Entities.Enums
 {
     public enum UserRoles
     {
-        SELECT_A_OPTION,
         BigBoss,
         Admin,
         User

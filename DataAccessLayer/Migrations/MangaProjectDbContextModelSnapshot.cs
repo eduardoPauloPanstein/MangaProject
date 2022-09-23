@@ -147,44 +147,26 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("Entities.AnimeS.AnimeRatingFrequencies", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<int?>("_1")
+                        .HasColumnType("int");
 
-                    b.Property<string>("_1")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("_2")
+                        .HasColumnType("int");
 
-                    b.Property<string>("_10")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("_3")
+                        .HasColumnType("int");
 
-                    b.Property<string>("_2")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("_4")
+                        .HasColumnType("int");
 
-                    b.Property<string>("_3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_5")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_6")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_7")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_8")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_9")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("_5")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AnimeRatingFrequencies");
+                    b.ToTable("AnimeRatingFrequencies", (string)null);
                 });
 
             modelBuilder.Entity("Entities.AnimeS.AnimeSTitles", b =>
@@ -195,13 +177,7 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("En")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("En_jp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("En_us")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ja_jp")
@@ -318,9 +294,6 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("En_jp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("En_us")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Ja_jp")
                         .HasColumnType("nvarchar(max)");
 
@@ -332,40 +305,22 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("Entities.MangaS.RatingFrequencies", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<int?>("_1")
+                        .HasColumnType("int");
 
-                    b.Property<string>("_1")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("_2")
+                        .HasColumnType("int");
 
-                    b.Property<string>("_10")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("_3")
+                        .HasColumnType("int");
 
-                    b.Property<string>("_2")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("_4")
+                        .HasColumnType("int");
 
-                    b.Property<string>("_3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_5")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_6")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_7")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_8")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_9")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("_5")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -433,6 +388,62 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.UserS.UserAnimeItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AnimeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Chapter")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Favorite")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Private")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PrivateNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalRereads")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Volume")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserAnimeItem", (string)null);
                 });
 
             modelBuilder.Entity("Entities.UserS.UserMangaItem", b =>
@@ -551,6 +562,26 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Titles");
                 });
 
+            modelBuilder.Entity("Entities.UserS.UserAnimeItem", b =>
+                {
+                    b.HasOne("Entities.AnimeS.Anime", "Anime")
+                        .WithMany()
+                        .HasForeignKey("AnimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.UserS.User", "User")
+                        .WithMany("AnimeList")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_Animeuser");
+
+                    b.Navigation("Anime");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Entities.UserS.UserMangaItem", b =>
                 {
                     b.HasOne("Entities.MangaS.Manga", "Manga")
@@ -573,6 +604,8 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.UserS.User", b =>
                 {
+                    b.Navigation("AnimeList");
+
                     b.Navigation("MangaList");
                 });
 #pragma warning restore 612, 618

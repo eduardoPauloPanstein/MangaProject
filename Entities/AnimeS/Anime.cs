@@ -11,20 +11,20 @@ namespace Entities.AnimeS
     public class Anime
     {
         public int Id { get; set; }
-        public DateTime? createdAt { get; set; }
-        public DateTime? updatedAt { get; set; }
         public string? name { get; set; }
         public string? synopsis { get; set; }
         public string? description { get; set; }
         public AnimeSTitles? AnimeTitles { get; set; }
         public string? canonicalTitle { get; set; }
+        public DateTime? createdAt { get; set; }
+        public DateTime? updatedAt { get; set; }
         public string? averageRating { get; set; }
         public AnimeRatingFrequencies? AnimeRatingFrequencies { get; set; }
         public int? userCount { get; set; }
         public int? favoritesCount { get; set; }
+        public int? popularityRank { get; set; }
         public string? startDate { get; set; }
         public string? endDate { get; set; }
-        public int? popularityRank { get; set; }
         public int? ratingRank { get; set; }
         public string? ageRating { get; set; }
         public string? ageRatingGuide { get; set; }

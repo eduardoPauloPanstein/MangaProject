@@ -10,8 +10,8 @@ namespace DataAccessLayer.Interfaces.IUSerInterfaces
 {
     public interface IUserPost
     {
-        Task<Response> AddUserMangaItem(UserMangaItem item);
-        Task<Response> AddUserAnimeItem(UserAnimeItem item);
+        Task<Response> AddUserMangaItem(UserMangaItem item,int score);
+        Task<Response> AddUserAnimeItem(UserAnimeItem item,int score);
 
     }
 }
