@@ -17,6 +17,11 @@ namespace DataAccessLayer
         public DbSet<Manga> Mangas { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserMangaItem> UserManga { get; set; }
+        public DbSet<UserAnimeItem> UserAnime { get; set; }
+        public DbSet<RatingFrequencies> MangaRating { get; set; }
+        public DbSet<AnimeRatingFrequencies> AnimeRating { get; set; }
+
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Anime> Animes { get; set; }
 
@@ -38,6 +43,10 @@ namespace DataAccessLayer
             modelBuilder.Entity<Manga>().Property(c => c.Id).ValueGeneratedNever();
             modelBuilder.Entity<Category>().Property(c => c.ID).ValueGeneratedNever();
             modelBuilder.Entity<Anime>().Property(c => c.Id).ValueGeneratedNever();
+
+            modelBuilder.Entity<AnimeRatingFrequencies>().Property(c => c.Id).ValueGeneratedNever();
+            modelBuilder.Entity<RatingFrequencies>().Property(c => c.Id).ValueGeneratedNever();
+
 
 
             //Assembly no contexto do .NET

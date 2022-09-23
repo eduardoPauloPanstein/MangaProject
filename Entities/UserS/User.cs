@@ -26,5 +26,7 @@ namespace Entities.UserS
         public string? CoverImageFileLocation { get; set; }
         public bool KeepLogged { get; set; }
         public ICollection<UserMangaItem> MangaList { get; set; }
+        public ICollection<UserAnimeItem> AnimeList { get; set; }
+
     }
 }

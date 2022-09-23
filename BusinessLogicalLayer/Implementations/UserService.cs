@@ -90,7 +90,28 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<Response> AddUserMangaItem(UserMangaItem item)
         {
-            return await _userDAL.AddUserMangaItem(item);
+            int score;
+            if (item.Score.ToString() == "One")
+            {
+                score = 1;
+            }
+            else if (item.Score.ToString() == "Two")
+            {
+                score = 2;
+            }
+            else if (item.Score.ToString() == "Three")
+            {
+                score = 3;
+            }
+            else if (item.Score.ToString() == "Four")
+            {
+                score = 4;
+            }
+            else
+            {
+                score = 5;
+            }
+            return await _userDAL.AddUserMangaItem(item,score);
         }
 
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
@@ -105,7 +126,28 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<Response> AddUserAnimeItem(UserAnimeItem item)
         {
-            return await _userDAL.AddUserAnimeItem(item);
+            int score;
+            if (item.Score.ToString() == "One")
+            {
+                score = 1;
+            }
+            else if (item.Score.ToString() == "Two")
+            {
+                score = 2;
+            }
+            else if (item.Score.ToString() == "Three")
+            {
+                score = 3;
+            }
+            else if (item.Score.ToString() == "Four")
+            {
+                score = 4;
+            }
+            else
+            {
+                score = 5;
+            }
+            return await _userDAL.AddUserAnimeItem(item,score);
         }
     }
 }
