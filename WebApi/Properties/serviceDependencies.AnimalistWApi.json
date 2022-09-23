@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/WebApivault123",
+      "type": "secrets.keyVault",
+      "connectionId": "VaultUri"
+    },
+    "mssql1": {
+      "secretStore": "AzureKeyVault",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/animalistserver/databases/animalistdb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:SqlServerMangaProjectConnection",
+      "dynamicId": null
+    }
+  }
+}
