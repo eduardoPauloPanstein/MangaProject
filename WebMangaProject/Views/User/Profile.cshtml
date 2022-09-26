@@ -7,10 +7,10 @@
 
 <div class="profile-images">
     <img src="~/covers/@{
-            @Model.CoverImageFileLocation
+                                                                                                    @Model.CoverImageFileLocation
 }" class="cover-photo" />
     <img src="~/avatars/@{
-            @Model.AvatarImageFileLocation
+                                                                                                    @Model.AvatarImageFileLocation
 }" class="profile-icon" />
 </div>
 
@@ -33,18 +33,108 @@
 
     <div class="profile-favorites">
 
-        @*@{
-        foreach (var item in Model)
-        {
-        <div>
-        <a>
-        <li>
-        <img src="" />
-        <span></span>
-        </li>
-        </a>
+        <div class="btn-config">
+            <button class="alternate-btn profile-manga-btn">Manga</button> 
+            <button class="alternate-btn profile-anime-btn">Anime</button> 
+            <button class="alternate-btn profile-favorites-btn">Favorites</button> 
+            <hr />
         </div>
-        }
-        }*@
+        
+        <div class="profile-manga-show">
+            @{
+                foreach (var item in Model.MangaList)
+                {
+                    <div>
+                        <a class="" href="/Manga/MangaOnPage/@item.Manga.Id">
+                            <li>
+                                <img src=@item.Manga.PosterImageLink alt="@item.Manga.Titles?.Ja_jp" />
+                                <span>@item.Manga.CanonicalTitle</span>
+                            </li>
+                        </a>
+                    </div>
+                }
+                //<a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                //    <img src=@item.AnimePosterImage alt="@item.AnimeTitles?.Ja_jp" />
+                //    <div class="card-content">
+                //        <h5>@item.canonicalTitle</h5> span
+                //    </div>
+                //</a>
+            }
+        </div>
+        <div class="profile-anime-show"></div>
+        <div class="profile-favorites-show"></div>
     </div>
 </div>
+
+<script>
+    let profileMangaShow = document.querySelector('.profile-manga-show');
+    let profileAnimeShow = document.querySelector('.profile-anime-show');
+    let profileFavoritesShow = document.querySelector('.profile-favorites-show');
+
+    let profileMangaBtn = document.querySelector('.profile-manga-btn');
+    let profileAnimeBtn = document.querySelector('.profile-anime-btn');
+    let profileFavoritesBtn = document.querySelector('.profile-favorites-btn');
+
+    profileMangaBtn.onclick = function () {
+        if (profileAnimeShow.classList.contains('active')) {
+            profileMangaShow.classList.toggle('active')
+            profileAnimeShow.classList.toggle('active')
+        }
+        else if (profileFavoritesShow.classList.contains('active')) {
+            profileFavoritesShow.classList.toggle('active')
+            profileMangaShow.classList.toggle('active')
+        }
+        else {
+            profileMangaShow.classList.toggle('active')
+        }
+    }
+    profileAnimeBtn.onclick = function () {
+        if (profileMangaShow.classList.contains('active')) {
+            profileMangaShow.classList.toggle('active')
+            profileAnimeShow.classList.toggle('active')
+        }
+        else if (profileFavoritesShow.classList.contains('active')) {
+            profileFavoritesShow.classList.toggle('active')
+            profileAnimeShow.classList.toggle('active')
+        }
+        else {
+            profileAnimeShow.classList.toggle('active')
+        }
+    }
+    profileFavoritesBtn.onclick = function () {
+        if (profileAnimeShow.classList.contains('active')) {
+            profileFavoritesShow.classList.toggle('active')
+            profileAnimeShow.classList.toggle('active')
+        }
+        else if (profileMangaShow.classList.contains('active')) {
+            profileMangaShow.classList.toggle('active')
+            profileFavoritesShow.classList.toggle('active')
+        }
+        else {
+            profileFavoritesShow.classList.toggle('active')
+        }
+    }
+
+</script>
+
+@*   mangabtn.onclick = function () {
+        if (sidebar.classList.contains('active')) {
+        mangashow.classList.toggle('active')
+        submenumanga.classList.toggle('rotate')
+        }
+        else{
+        sidebar.classList.toggle('active')
+        mangashow.classList.toggle('active')
+        submenumanga.classList.toggle('rotate')
+        }
+        }
+        animebtn.onclick = function () {
+        if (sidebar.classList.contains('active')) {
+        animeshow.classList.toggle('active')
+        submenuanime.classList.toggle('rotate')
+        } else {
+        sidebar.classList.toggle('active')
+        animeshow.classList.toggle('active')
+        submenuanime.classList.toggle('rotate')
+        }
+        }*@

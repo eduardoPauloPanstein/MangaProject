@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MvcPresentationLayer.Models.AnimeModel.AnimeSelectViewModel>
+﻿@model MvcPresentationLayer.Models.AnimeModel.AnimesForHomeViewModel
 
 
 @{
@@ -22,11 +22,11 @@
         <hr />
         <div class="card-wrapper">
             @{
-                foreach (var item in Model)
+                foreach (var item in Model.AnimesFavorites)
                 {
                     <div class="card-item">
                         <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
-                            <img src=@item.AnimePosterImage alt="@item.AnimeTitles?.Ja_jp" />
+                            <img src=@item.AnimePosterImage />
                             <div class="card-content">
                                 <h5>@item.canonicalTitle</h5>
                             </div>
@@ -36,8 +36,46 @@
             }
         </div>
     </section>
-
-
+     <section class="catalog" id="catalog">
+        <h3>Bycount mangas</h3>
+        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.AnimesByCount)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                            <img src=@item.AnimePosterImage />
+                            <div class="card-content">
+                                <h5>@item.canonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+     <section class="catalog" id="catalog">
+        <h3>Rating mangas</h3>
+        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.AnimesByRating)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                            <img src=@item.AnimePosterImage />
+                            <div class="card-content">
+                                <h5>@item.canonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
 
 </body>
 </html>

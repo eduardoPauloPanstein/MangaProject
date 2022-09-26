@@ -40,12 +40,13 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
                     using (var response = await httpClient.GetAsync($"manga/{i}"))
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
-
+                     
                         if (jsonString.Contains("errors"))
                         {
                         }
                         else
                         {
+                            
                             Root? mangaRootDTO = JsonConvert.DeserializeObject<Root>(jsonString);
                             //Ou pegar em lista ou convert um por um pois ta fazendo lista de um so sempre
                             Manga manga = ConverterToCategory.ConvertDTOToManga(mangaRootDTO);

@@ -21,37 +21,7 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
             //_ = Enum.TryParse(item.attributes.status, out MangaStatus status);
 
             Entities.MangaS.RatingFrequencies Rating = new();
-
-
             Rating.Id = Convert.ToInt32(item.id);
-
-                Rating._1 = Convert.ToInt32(item.attributes.ratingFrequencies._2) +
-                Convert.ToInt32(item.attributes.ratingFrequencies._3) +
-                Convert.ToInt32(item.attributes.ratingFrequencies._4);
-
-            Rating._2 = Convert.ToInt32(item.attributes.ratingFrequencies._5) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._6) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._7) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._8);
-
-
-            Rating._3 = Convert.ToInt32(item.attributes.ratingFrequencies._9) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._10) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._11) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._12);
-
-
-
-            Rating._4 = Convert.ToInt32(item.attributes.ratingFrequencies._13) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._14) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._15) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._16);
-
-            Rating._5 =
-            Convert.ToInt32(item.attributes.ratingFrequencies._17) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._18) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._19) +
-            Convert.ToInt32(item.attributes.ratingFrequencies._20);
 
             Manga manga = new()
             {

@@ -36,8 +36,8 @@ namespace MvcPresentationLayer.Controllers
                 return View();
             }
 
-            List<AnimeSelectViewModel> Animes =
-                _mapper.Map<List<AnimeSelectViewModel>>(responseAnimes.Data);
+            List<AnimeShortViewModel> Animes =
+                _mapper.Map<List<AnimeShortViewModel>>(responseAnimes.Data);
 
             return View(Animes);
         }
@@ -78,19 +78,30 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<Anime> responseAnime = await _AnimeService.GetByFavorites(0, 100);
-            if (!responseAnime.HasSuccess)
+            DataResponse<Anime> responseAnimesFavorites = await _AnimeService.GetByFavorites(0, 6);
+            DataResponse<Anime> responseAnimesByCount = await _AnimeService.GetByUserCount(0, 6);
+            DataResponse<Anime> responseAnimesByRating = await _AnimeService.GetByRating(0, 6);
+
+            if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
-                ViewBag.Errors = responseAnime.Message;
-                return View();
+                return BadRequest(responseAnimesFavorites);
             }
 
-            List<AnimeSelectViewModel> animes =
-                _mapper.Map<List<AnimeSelectViewModel>>(responseAnime.Data);
+            List<AnimeShortViewModel> animesFavorites =
+                _mapper.Map<List<AnimeShortViewModel>>(responseAnimesFavorites.Data);
 
-            return View(animes);
+            List<AnimeShortViewModel> animesByCount =
+                _mapper.Map<List<AnimeShortViewModel>>(responseAnimesByCount.Data);
+
+            List<AnimeShortViewModel> animeesbyrating = _mapper.Map<List<AnimeShortViewModel>>(responseAnimesByRating.Data);
+
+            AnimesForHomeViewModel animesForHomeViewModel = new()
+            {
+                AnimesFavorites = animesFavorites,
+                AnimesByCount = animesByCount,
+               AnimesByRating = animeesbyrating
+            };
+            return View(animesForHomeViewModel);
         }
-
-
     }
 }

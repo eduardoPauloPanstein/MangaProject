@@ -50,6 +50,21 @@ namespace WebApi.Controllers
 
             return Ok(responseUsers);
         }
+        [HttpGet(template: "ByRating/skip/{skip}/take/{take}"), AllowAnonymous]
+        public async Task<IActionResult> GetByRating([FromRoute] int skip = 0, [FromRoute] int take = 25)
+        {
+            if (take >= 100)
+            {
+                return BadRequest("take < 100");
+            }
+            var responseUsers = await _mangaService.GetByRating(skip, take);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
 
         [HttpGet(template: "ByUserCount/skip/{skip}/take/{take}"), AllowAnonymous]
         public async Task<IActionResult> GetByUserCountAsync([FromRoute] int skip = 0, [FromRoute] int take = 25)

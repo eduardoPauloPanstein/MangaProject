@@ -1,16 +1,18 @@
-﻿@model MvcPresentationLayer.Models.MangaModels.MangaOnPageViewModel
+﻿@model MvcPresentationLayer.Models.MangaModels.MangaItemModalViewModel
+@using Entities.Enums
+
 
 @{
 
-    ViewData["Title"] = @Model.CanonicalTitle;
-    string Img = @Model.CoverImageLink;
+    ViewData["Title"] = @Model.Manga.CanonicalTitle;
+    string Img = @Model.Manga.CoverImageLink;
     string width = "100%";
     int height = 400;
-    if (Model.CoverImageLink == null)
+    if (Model.Manga.CoverImageLink == null)
     {
         //width = "25";
         //height = 400;
-        Img = Model.PosterImageLink;
+        Img = Model.Manga.PosterImageLink;
     }
 }
 
@@ -24,14 +26,123 @@
 <section class="py-5">
     <div class="container">
         <h2 class="fw-light">Synopsis</h2>
-        <p>@Model.Synopsis</p>
+        <p>@Model.Manga.Synopsis</p>
+    </div>
+    <!-- Trigger/Open The Modal -->
+    <button id="addList">Add to List</button>
+    <!-- The Modal -->
+    <div id="modalAdd" class="modalAdd">
+        <!-- Modal content -->
+        <div class="modalAdd-Content">
+            <span class="close">&times;</span>
+            <form asp-action="UserFavorite">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.Status" class="control-label"></label>
+                    @{
+                        string[] valores = Enum.GetNames<UserMangaStatus>();
+                    }
+                    <select class="form-control" name="Status">
+                        @for (int i = 0; i < valores.Length; i++)
+                        {
+                            <option value="@i">@valores[i].Replace("_"," ")</option>
+                        }
+                    </select>
+                    <span asp-validation-for="@Model.User.Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.StartDate" class="control-label"></label>
+                    <input asp-for="@Model.User.StartDate" class="form-control" />
+                    <span asp-validation-for="@Model.User.StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.FinishDate" class="control-label"></label>
+                    <input asp-for="@Model.User.FinishDate" class="form-control" />
+                    <span asp-validation-for="@Model.User.FinishDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.Score" class="control-label"></label>
+                    @{
+                        string[] valoresscore = Enum.GetNames<MangaScore>();
+                    }
+                    <select class="form-control" name="Score">
+                        @for (int i = 0; i < valores.Length; i++)
+                        {
+                            <option value="@i">@valoresscore[i].Replace("_"," ")</option>
+                        }
+                    </select>
+                    <span asp-validation-for="@Model.User.Score" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.TotalRereads" class="control-label"></label>
+                    <input asp-for="@Model.User.TotalRereads" class="form-control" />
+                    <span asp-validation-for="@Model.User.TotalRereads" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.Chapter" class="control-label"></label>
+                    <input asp-for="@Model.User.Chapter" class="form-control" />
+                    <span asp-validation-for="@Model.User.Chapter" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.Volume" class="control-label"></label>
+                    <input asp-for="@Model.User.Volume" class="form-control" />
+                    <span asp-validation-for="@Model.User.Volume" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.PrivateNotes" class="control-label"></label>
+                    <input asp-for="@Model.User.PrivateNotes" class="form-control" />
+                    <span asp-validation-for="@Model.User.PrivateNotes" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.User.PublicNotes" class="control-label"></label>
+                    <input asp-for="@Model.User.PublicNotes" class="form-control" />
+                    <span asp-validation-for="@Model.User.PublicNotes" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="@Model.User.Private" /> @Html.DisplayNameFor(model => model.User.Private)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="@Model.User.Favorite" /> @Html.DisplayNameFor(model => model.User.Favorite)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Favorite" class="btn btn-primary" />
+                </div>
+            </form>
+
+        </div>
     </div>
 
-    <div class="form-group">
+ @*   <div class="form-group">
         <div class="card-item">
-            <a class="custom-link" href="/Manga/UserFavorite/@Model.Id">
+            <a class="custom-link" href="/Manga/UserFavorite/@Model.Manga.Id">
                 <input type="submit" value="Favoritar" class="btn btn-primary" />
             </a>
         </div>
-    </div>
+    </div>*@
 </section>
+
+<script>
+    var modal = document.getElementById("modalAdd");
+
+    var btn = document.getElementById("addList");
+
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function(){
+        modal.style.display = "block";
+    }
+
+    span.onclick = function(){
+        modal.style.dsiplay = "none";
+    }
+
+    window.onclick = function(event){
+        if(event.target == modal){
+            modal.style.display = "none";
+        }
+    }
+</script>

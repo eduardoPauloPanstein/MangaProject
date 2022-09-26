@@ -4,6 +4,7 @@ using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using Entities.AnimeS;
 using Newtonsoft.Json;
 using Shared.Responses;
+using System;
 
 namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
 {
@@ -33,13 +34,14 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
                     using (var response = await httpClient.GetAsync($"anime/{i}"))
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
-
+                       
                         if (jsonString.Contains("errors"))
                         {
                         }
                         else
                         {
                             RootANI? mangaRootDTO = JsonConvert.DeserializeObject<RootANI>(jsonString);
+
                             Anime anime = AnimeConverter.ConvertDTOToAnime(mangaRootDTO);
                             anime.Categories = await CategoryToAnime.AnimeCategory(Convert.ToInt32(anime.Id));
                             ////BLL

@@ -8,6 +8,7 @@ namespace DataAccessLayer.Interfaces.IMangaInterfaces
         Task<DataResponse<Manga>> GetByUserCount(int skip, int take);
         Task<DataResponse<Manga>> GetByFavorites(int skip, int take);
         Task<DataResponse<Manga>> Get(string name);
+        Task<DataResponse<Manga>> GetByRating(int skip, int take);
         Task<int> GetLastIndexCategory();
         Task<int> GetLastIndexManga();
 

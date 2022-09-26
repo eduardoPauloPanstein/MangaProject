@@ -90,27 +90,7 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<Response> AddUserMangaItem(UserMangaItem item)
         {
-            int score;
-            if (item.Score.ToString() == "One")
-            {
-                score = 1;
-            }
-            else if (item.Score.ToString() == "Two")
-            {
-                score = 2;
-            }
-            else if (item.Score.ToString() == "Three")
-            {
-                score = 3;
-            }
-            else if (item.Score.ToString() == "Four")
-            {
-                score = 4;
-            }
-            else
-            {
-                score = 5;
-            }
+            int score = ((int)item.Score);
             return await _userDAL.AddUserMangaItem(item,score);
         }
 
@@ -126,28 +106,8 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<Response> AddUserAnimeItem(UserAnimeItem item)
         {
-            int score;
-            if (item.Score.ToString() == "One")
-            {
-                score = 1;
-            }
-            else if (item.Score.ToString() == "Two")
-            {
-                score = 2;
-            }
-            else if (item.Score.ToString() == "Three")
-            {
-                score = 3;
-            }
-            else if (item.Score.ToString() == "Four")
-            {
-                score = 4;
-            }
-            else
-            {
-                score = 5;
-            }
-            return await _userDAL.AddUserAnimeItem(item,score);
+            int score = ((int)item.Score);
+            return await _userDAL.AddUserAnimeItem(item, score);
         }
     }
 }

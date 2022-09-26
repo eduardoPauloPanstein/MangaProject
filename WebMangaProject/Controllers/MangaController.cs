@@ -27,17 +27,30 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<Manga> responseMangas = await _mangaApiService.GetByFavorites(0, 1);
-            if (!responseMangas.HasSuccess)
+            DataResponse<Manga> responseFavorites = await _mangaApiService.GetByFavorites(0, 6);
+            DataResponse<Manga> responseCount = await _mangaApiService.GetByUserCount(0, 6);
+            DataResponse<Manga> responserating = await _mangaApiService.GetByRating(0, 6);
+
+            if (!responseFavorites.HasSuccess || !responseCount.HasSuccess || !responserating.HasSuccess)
             {
-                ViewBag.Errors = responseMangas.Message;
-                return View();
+                return BadRequest(responseFavorites);
             }
 
-            List<MangaSelectCatalogViewModel> mangas =
-                _mapper.Map<List<MangaSelectCatalogViewModel>>(responseMangas.Data);
+            List<MangaShortViewModel> favo =
+                _mapper.Map<List<MangaShortViewModel>>(responseFavorites.Data);
 
-            return View(mangas);
+            List<MangaShortViewModel> Count =
+                _mapper.Map<List<MangaShortViewModel>>(responseCount.Data);
+
+            List<MangaShortViewModel> rating = _mapper.Map<List<MangaShortViewModel>>(responserating.Data);
+
+            MangasForHomeViewModel MangasForHomeViewModel = new()
+            {
+                MangasFavorites = favo,
+                MangasByCount = Count,
+                MangasByRating = rating
+            };
+            return View(MangasForHomeViewModel);
         }
         public async Task<IActionResult> AllFavorites()
         {
@@ -49,23 +62,32 @@ namespace MvcPresentationLayer.Controllers
                 return View();
             }
 
-            List<MangaSelectCatalogViewModel> mangas =
-                _mapper.Map<List<MangaSelectCatalogViewModel>>(responseMangas.Data);
+            List<MangaShortViewModel> mangas =
+                _mapper.Map<List<MangaShortViewModel>>(responseMangas.Data);
 
             return View(mangas);
         }
 
         public async Task<IActionResult> MangaOnPage(int id)
         {
-            SingleResponse<Manga> response = await _mangaApiService.Get(id, null);
-            if (!response.HasSuccess)
+            var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
+            SingleResponse<Manga> responseManga = await _mangaApiService.Get(id, null);
+
+            if (!responseManga.HasSuccess || !responseUser.HasSuccess)
             {
                 return NotFound();
             }
 
-            var manga = _mapper.Map<MangaOnPageViewModel>(response.Data);
+            var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Data);
+            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
 
-            return View(manga);
+            MangaItemModalViewModel mangaItemModalViewModel = new()
+            {
+                User = user,
+                Manga = manga
+            };
+
+            return View(mangaItemModalViewModel);
         }
 
         //public class Rootobject
