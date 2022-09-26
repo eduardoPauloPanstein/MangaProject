@@ -7,10 +7,10 @@
 
 <div class="profile-images">
     <img src="~/covers/@{
-                                                                                                    @Model.CoverImageFileLocation
+                                                                                                            @Model.CoverImageFileLocation
 }" class="cover-photo" />
     <img src="~/avatars/@{
-                                                                                                    @Model.AvatarImageFileLocation
+                                                                                                            @Model.AvatarImageFileLocation
 }" class="profile-icon" />
 </div>
 
@@ -34,35 +34,36 @@
     <div class="profile-favorites">
 
         <div class="btn-config">
-            <button class="alternate-btn profile-manga-btn">Manga</button> 
-            <button class="alternate-btn profile-anime-btn">Anime</button> 
-            <button class="alternate-btn profile-favorites-btn">Favorites</button> 
-            <hr />
+            <button class="alternate-btn profile-manga-btn">Manga</button>
+            <button class="alternate-btn profile-anime-btn">Anime</button>
+            <button class="alternate-btn profile-favorites-btn">Favorites</button>
         </div>
-        
-        <div class="profile-manga-show">
-            @{
-                foreach (var item in Model.MangaList)
-                {
-                    <div>
-                        <a class="" href="/Manga/MangaOnPage/@item.Manga.Id">
-                            <li>
-                                <img src=@item.Manga.PosterImageLink alt="@item.Manga.Titles?.Ja_jp" />
-                                <span>@item.Manga.CanonicalTitle</span>
-                            </li>
-                        </a>
-                    </div>
+        <div class="show">
+
+            <div class="profile-manga-show">
+                @{
+                    foreach (var item in Model.MangaList)
+                    {
+                        <div>
+                            <a class="" href="/Manga/MangaOnPage/@item.Manga.Id">
+                                <li>
+                                    <img src=@item.Manga.PosterImageLink alt="@item.Manga.Titles?.Ja_jp" />
+                                    <span>@item.Manga.CanonicalTitle</span>
+                                </li>
+                            </a>
+                        </div>
+                    }
+                    //<a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                    //    <img src=@item.AnimePosterImage alt="@item.AnimeTitles?.Ja_jp" />
+                    //    <div class="card-content">
+                    //        <h5>@item.canonicalTitle</h5> span
+                    //    </div>
+                    //</a>
                 }
-                //<a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
-                //    <img src=@item.AnimePosterImage alt="@item.AnimeTitles?.Ja_jp" />
-                //    <div class="card-content">
-                //        <h5>@item.canonicalTitle</h5> span
-                //    </div>
-                //</a>
-            }
+            </div>
+            <div class="profile-anime-show"></div>
+            <div class="profile-favorites-show"></div>
         </div>
-        <div class="profile-anime-show"></div>
-        <div class="profile-favorites-show"></div>
     </div>
 </div>
 

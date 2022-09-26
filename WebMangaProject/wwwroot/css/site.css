@@ -359,7 +359,7 @@ abbr[title] {
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
 }
 
-.msg-btn, .follow-btn{
+.msg-btn, .follow-btn {
     background: #212D40;
     border: 1px solid #03bfbc;
     padding: 10px 25px;
@@ -368,6 +368,7 @@ abbr[title] {
     cursor: pointer;
     margin-right: 20px;
 }
+
 .alternate-btn {
     background: #212D40;
     border: 1px solid #03bfbc;
@@ -382,6 +383,7 @@ abbr[title] {
     width: 100%;
     justify-content: flex-end;
 }
+
 .alternate-btn-config {
     display: flex;
     justify-content: space-evenly;
@@ -405,7 +407,7 @@ abbr[title] {
 .profile-container {
     margin-top: 15px;
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     border-radius: 5px;
     justify-content: space-evenly;
 }
@@ -433,7 +435,7 @@ abbr[title] {
 .profile-about {
     margin: 15px;
     margin-top: 20px;
-    width:100%; 
+    width: 100%;
 }
 
     .profile-about h5 {
@@ -449,17 +451,44 @@ abbr[title] {
     background-color: rgba(0,0,0,.50);
     width: 45%;
     display: flex;
-    flex-wrap: wrap;
     border-radius: 5px;
     max-height: 300px;
-    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+    box-shadow: 0 10px 20px -10px rgb(0 0 0 / 75%);
     overflow: auto;
     justify-content: space-evenly;
+    flex-direction: row;
 }
+
 .btn-config {
+    width: 25%;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.show {
     width: 100%;
-    margin: 0 15px;
-    margin-top: 5px;
+    margin: 15px;
+}
+
+.profile-manga-show.active {
+    background-color: white;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.profile-anime-show.active {
+    background-color: red;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.profile-favorites-show.active {
+    background-color: darkgreen;
+    height: 100%;
+    border-radius: 5px;
 }
 
 .profile-manga-show {
