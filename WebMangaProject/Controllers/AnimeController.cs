@@ -2,11 +2,13 @@
 using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.AnimeS;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Models.AnimeModel;
+using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
 using Shared.Responses;
 
@@ -42,17 +44,27 @@ namespace MvcPresentationLayer.Controllers
             return View(Animes);
         }
 
+        [HttpGet, Authorize]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
-            SingleResponse<Anime> response = await _AnimeService.Get(id);
-            if (!response.HasSuccess)
+            var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
+            SingleResponse<Anime> responseAnime = await _AnimeService.Get(id);
+
+            if (!responseAnime.HasSuccess || !responseUser.HasSuccess)
             {
                 return NotFound();
             }
 
-            var manga = _mapper.Map<AnimeOnpageViewModel>(response.Data);
+            var anime = _mapper.Map<AnimeOnpageViewModel>(responseAnime.Data);
 
-            return View(manga);
+            var user = _mapper.Map<UserFavoriteAnimeViewModel>(responseUser.Data);
+
+            AnimeItemModalViewModel animeItemModalViewModel = new()
+            {
+                User = user,
+                Anime = anime
+            };
+            return View(animeItemModalViewModel);
         }
         [HttpGet, Authorize]
         public async Task<ActionResult> UserFavorite()

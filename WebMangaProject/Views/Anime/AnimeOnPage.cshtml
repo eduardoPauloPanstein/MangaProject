@@ -1,16 +1,16 @@
-﻿@model MvcPresentationLayer.Models.AnimeModel.AnimeOnpageViewModel
+﻿@model MvcPresentationLayer.Models.AnimeModel.AnimeItemModalViewModel
 
 @{
 
-    ViewData["Title"] = @Model.canonicalTitle;
-    string Img = @Model.AnimeCoverImage;
+    ViewData["Title"] = @Model.Anime.canonicalTitle;
+    string Img = @Model.Anime.AnimeCoverImage;
     string width = "100%";
     int height = 400;
-    if (Model.AnimeCoverImage == null)
+    if (Model.Anime.AnimeCoverImage == null)
     {
         //width = "25";
         //height = 400;
-        Img = Model.AnimePosterImage;
+        Img = Model.Anime.AnimePosterImage;
     }
 }
 
@@ -23,54 +23,54 @@
 <section class="py-5">
     <div class="container">
         <h2 class="fw-light">Synopsis</h2>
-        <p>@Model.synopsis</p>
+        <p>@Model.Anime.synopsis</p>
     </div>
 
     <div class="form-group">
         <div class="card-item">
-            <a class="custom-link" href="/Anime/UserFavorite/@Model.Id">
+            <a class="custom-link" href="/Anime/UserFavorite/@Model.Anime.Id">
                 <input type="submit" value="Favoritar" class="btn btn-primary" />
             </a>
         </div>
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <div class="card-item">
             <H1>
                 Format
-{@Model.subtype}
+{@Model.Anime.subtype}
 Episodes
-{@Model.episodeCount}
+{@Model.Anime.episodeCount}
 
 Episode Duration
-{@Model.episodeLength}
+{@Model.Anime.episodeLength}
 
 Status
-{@Model.status.ToString()}
+{@Model.Anime.status.ToString()}
 
 Start Date
-{@Model.startDate}
+{@Model.Anime.startDate}
 
 End Date
-{@Model.endDate}
+{@Model.Anime.endDate}
 
 Average Score
-{@Model.averageRating}
+{@Model.Anime.averageRating}
 
 Popularity
 545537
 
 Favorites
-{@Model.favoritesCount}
+{@Model.Anime.favoritesCount}
 
 Genres
-@{foreach (var item in @Model.Categories)
+@{foreach (var item in @Model.Anime.Categories)
                 {
                     <h1>@item.Name</H1>
                 }
 }
             </H1>
         </div>
-    </div>
+    </div>*@
 </section>
 
 

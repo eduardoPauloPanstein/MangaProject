@@ -27,6 +27,9 @@ namespace MvcPresentationLayer.Profiles
             CreateMap<UserFavoriteMangaViewModel, User>();
             CreateMap<User, UserFavoriteMangaViewModel>();
 
+            CreateMap<UserFavoriteAnimeViewModel, User>();
+            CreateMap<User, UserFavoriteAnimeViewModel>();
+
             CreateMap<UserProfileViewModel, User>();
 			CreateMap<User, UserProfileViewModel>();
 
