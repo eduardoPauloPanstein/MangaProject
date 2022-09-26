@@ -9,6 +9,8 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
     {
         Task<SingleResponseWToken<User>> Login(UserLogin user);
         Task<Response> AddUserMangaItem(UserMangaItem item, string token);
+        Task<Response> AddUserAnimeItem(UserAnimeItem item, string token);
+
 
     }
 }

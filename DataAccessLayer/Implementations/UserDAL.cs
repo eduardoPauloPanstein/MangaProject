@@ -286,32 +286,6 @@ namespace DataAccessLayer.Implementations
         public async Task<Response> AddUserAnimeItem(UserAnimeItem item, int score)
         {
             AnimeRatingFrequencies selec = _db.AnimeRating.Find(item.AnimeId);
-            //Type myType = selec.GetType();
-            //foreach (var nome in myType.GetProperties())
-            //{
-            //    if (nome.Name.Contains($"{score}"))
-            //    {
-            //        object propValue = nome.GetValue(selec, null);
-                   
-            //    }
-            //}
-            //if (score == 1)
-            //{
-            //    selec._1++;
-            //}
-            //else if (score == 2)
-            //{
-            //    selec._2++;
-            //}
-            //else if (score == 3)
-            //{
-            //    selec._3++;
-            //}
-            //else if (score == 4)
-            //{
-            //    selec._4++;
-            //}
-            //else { selec._5++; }
 
             switch (score)
             {

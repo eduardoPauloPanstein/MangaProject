@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 
 namespace WebApi.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class AnimeController : ControllerBase
     {
         private readonly IAnimeService _animeService;

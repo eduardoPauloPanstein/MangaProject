@@ -15,6 +15,7 @@ using Entities.Enums;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using MvcPresentationLayer.Apis.MangaProjectApi;
+using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using System.Reflection;
 
@@ -32,6 +33,8 @@ builder.Services.AddTransient<IAnimeService, AnimeService>();
 
 builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
 builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiMangaService>();
+builder.Services.AddSingleton<IAnimeProjectApiMangaService, MangaProjectApiAnimeService>();
+
 
 builder.Services.AddTransient<ICategoryApiConnect, CategoryApiConnect>();
 builder.Services.AddTransient<IApiConnect, ApiConnect>();
