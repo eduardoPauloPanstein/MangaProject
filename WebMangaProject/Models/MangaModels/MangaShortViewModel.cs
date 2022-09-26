@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MvcPresentationLayer.Models.MangaModels
 {
-    public class MangaSelectCatalogViewModel
+    public class MangaShortViewModel
     {
         public int Id { get; set; }
         public MangaTitles? Titles { get; set; }

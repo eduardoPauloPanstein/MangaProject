@@ -33,6 +33,44 @@
             </a>
         </div>
     </div>
+    <div class="form-group">
+        <div class="card-item">
+            <H1>
+                Format
+{@Model.subtype}
+Episodes
+{@Model.episodeCount}
+
+Episode Duration
+{@Model.episodeLength}
+
+Status
+{@Model.status.ToString()}
+
+Start Date
+{@Model.startDate}
+
+End Date
+{@Model.endDate}
+
+Average Score
+{@Model.averageRating}
+
+Popularity
+545537
+
+Favorites
+{@Model.favoritesCount}
+
+Genres
+@{foreach (var item in @Model.Categories)
+                {
+                    <h1>@item.Name</H1>
+                }
+}
+            </H1>
+        </div>
+    </div>
 </section>
 
 

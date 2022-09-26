@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MvcPresentationLayer.Models.MangaModels.MangaSelectCatalogViewModel>
+﻿@model MvcPresentationLayer.Models.MangaModels.MangasForHomeViewModel
 
 
 @{
@@ -17,16 +17,55 @@
 </head>
 <body>
     <section class="catalog" id="catalog">
-        <h3>Manga</h3>
+        <h3>Bycount</h3>
         <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Manga">View All</a>
         <hr />
         <div class="card-wrapper">
             @{
-                foreach (var item in Model)
+                foreach (var item in Model.MangasByCount)
                 {
                     <div class="card-item">
                         <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
-                            <img src=@item.PosterImageLink/>
+                            <img src=@item.PosterImageLink />
+                            <div class="card-content">
+                                <h5>@item.CanonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+     <section class="catalog" id="catalog">
+        <h3>Rating</h3>
+        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Manga">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.MangasByRating)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
+                            <img src=@item.PosterImageLink />
+                            <div class="card-content">
+                                <h5>@item.CanonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section> <section class="catalog" id="catalog">
+        <h3>Favorites</h3>
+        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Manga">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.MangasFavorites)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
+                            <img src=@item.PosterImageLink />
                             <div class="card-content">
                                 <h5>@item.CanonicalTitle</h5>
                             </div>

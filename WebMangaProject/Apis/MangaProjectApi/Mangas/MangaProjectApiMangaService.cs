@@ -171,5 +171,24 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
+        public async Task<DataResponse<Manga>> GetByRating(int skip, int take)
+        {
+            try
+            {
+                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByRating/skip/{skip}/take/{take}");
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
     }
 }

@@ -8,8 +8,8 @@ namespace MvcPresentationLayer.Profiles
     {
         public MangaProfile()
         {
-            CreateMap<MangaSelectCatalogViewModel, Manga>();
-            CreateMap<Manga, MangaSelectCatalogViewModel>();
+            CreateMap<MangaShortViewModel, Manga>();
+            CreateMap<Manga, MangaShortViewModel>();
 
             CreateMap<MangaShortDbViewModel, Manga>();
             CreateMap<Manga, MangaShortDbViewModel>();

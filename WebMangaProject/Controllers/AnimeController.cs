@@ -78,11 +78,11 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<Anime> responseAnimesFavorites = await _AnimeService.GetByFavorites(0, 100);
-            DataResponse<Anime> responseAnimesByCount = await _AnimeService.GetByUserCount(0, 100);
+            DataResponse<Anime> responseAnimesFavorites = await _AnimeService.GetByFavorites(0, 6);
+            DataResponse<Anime> responseAnimesByCount = await _AnimeService.GetByUserCount(0, 6);
+            DataResponse<Anime> responseAnimesByRating = await _AnimeService.GetByRating(0, 6);
 
-
-            if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess)
+            if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
                 return BadRequest(responseAnimesFavorites);
             }
@@ -93,17 +93,15 @@ namespace MvcPresentationLayer.Controllers
             List<AnimeShortViewModel> animesByCount =
                 _mapper.Map<List<AnimeShortViewModel>>(responseAnimesByCount.Data);
 
+            List<AnimeShortViewModel> animeesbyrating = _mapper.Map<List<AnimeShortViewModel>>(responseAnimesByRating.Data);
+
             AnimesForHomeViewModel animesForHomeViewModel = new()
             {
                 AnimesFavorites = animesFavorites,
-                AnimesByCount = animesByCount
-
+                AnimesByCount = animesByCount,
+               AnimesByRating = animeesbyrating
             };
-
-
             return View(animesForHomeViewModel);
         }
-
-
     }
 }

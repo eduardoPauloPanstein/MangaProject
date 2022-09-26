@@ -100,6 +100,25 @@ namespace DataAccessLayer.Implementations
             }
         }
 
+        public async Task<DataResponse<Anime>> GetByRating(int skip, int take)
+        {
+            try
+            {
+                List<Anime> animes = await _db.Animes
+                    .OrderBy(m => m.ratingRank)
+                    .AsNoTracking()
+                    .Skip(skip)
+                    .Take(take)
+                    .ToListAsync();
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(animes);
+
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(ex);
+            }
+        }
+
         public async Task<DataResponse<Anime>> GetByUserCount(int skip, int take)
         {
             try

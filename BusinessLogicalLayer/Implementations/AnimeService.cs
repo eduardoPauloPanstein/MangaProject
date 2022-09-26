@@ -43,6 +43,11 @@ namespace BusinessLogicalLayer.Implementations
 
         }
 
+        public async Task<DataResponse<Anime>> GetByRating(int skip, int take)
+        {
+            return await _animeDAL.GetByRating(skip, take);
+        }
+
         public async Task<DataResponse<Anime>> GetByUserCount(int skip, int take)
         {
             return await _animeDAL.GetByUserCount(skip,take);

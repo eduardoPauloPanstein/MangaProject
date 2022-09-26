@@ -9,5 +9,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         Task<DataResponse<Manga>> Get(string title);
         Task<DataResponse<Manga>> GetByFavorites(int skip = 0, int take = 25);
         Task<DataResponse<Manga>> GetByUserCount(int skip = 0, int take = 25);
+        Task<DataResponse<Manga>> GetByRating(int skip, int take);
+
     }
 }
