@@ -248,23 +248,24 @@ namespace DataAccessLayer.Implementations
         public async Task<Response> AddUserMangaItem(UserMangaItem item, int score)
         {
             RatingFrequencies selec = _db.MangaRating.Find(item.MangaId);
-            if (score == 1)
+            switch (score)
             {
-                selec._1++;
+                case 1:
+                    selec._1++;
+                    break;
+                case 2:
+                    selec._2++;
+                    break;
+                case 3:
+                    selec._3++;
+                    break;
+                case 4:
+                    selec._4++;
+                    break;
+                case 5:
+                    selec._5++;
+                    break;
             }
-            else if (score == 2)
-            {
-                selec._2++;
-            }
-            else if (score == 3)
-            {
-                selec._3++;
-            }
-            else if (score == 4)
-            {
-                selec._4++;
-            }
-            else { selec._5++; }
             _db.MangaRating.Update(selec);
 
             _db.UserManga.Add(item);
@@ -285,15 +286,32 @@ namespace DataAccessLayer.Implementations
         public async Task<Response> AddUserAnimeItem(UserAnimeItem item, int score)
         {
             AnimeRatingFrequencies selec = _db.AnimeRating.Find(item.AnimeId);
-            Type myType = selec.GetType();
-            foreach (var nome in myType.GetProperties())
-            {
-                if (nome.Name.Contains($"{score}"))
-                {
-                    object propValue = nome.GetValue(selec, null);
+            //Type myType = selec.GetType();
+            //foreach (var nome in myType.GetProperties())
+            //{
+            //    if (nome.Name.Contains($"{score}"))
+            //    {
+            //        object propValue = nome.GetValue(selec, null);
                    
-                }
-            }
+            //    }
+            //}
+            //if (score == 1)
+            //{
+            //    selec._1++;
+            //}
+            //else if (score == 2)
+            //{
+            //    selec._2++;
+            //}
+            //else if (score == 3)
+            //{
+            //    selec._3++;
+            //}
+            //else if (score == 4)
+            //{
+            //    selec._4++;
+            //}
+            //else { selec._5++; }
 
             switch (score)
             {
@@ -314,29 +332,7 @@ namespace DataAccessLayer.Implementations
                     break;
             }
 
-            //if (score == 1)
-            //{
-            //    selec._1++;
-            //}
-            //else if (score == 2)
-            //{
-            //    selec._2++;
-            //}
-            //else if (score == 3)
-            //{
-            //    selec._3++;
-            //}
-            //else if (score == 4)
-            //{
-            //    selec._4++;
-            //}
-            //else { selec._5++; }
-
-
-
-
             _db.AnimeRating.Update(selec);
-
 
             User? user = await _db.Users.FindAsync(item.UserId);
             user.FavoritesCount += 1;
