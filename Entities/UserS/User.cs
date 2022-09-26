@@ -15,7 +15,6 @@ namespace Entities.UserS
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public bool EmailConfirmed { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime LastLogin { get; set; }
         public UserRoles Role { get; set; } = UserRoles.User;
         public string? About { get; set; }
