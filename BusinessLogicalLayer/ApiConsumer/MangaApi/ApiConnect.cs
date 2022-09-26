@@ -40,7 +40,8 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
                     using (var response = await httpClient.GetAsync($"manga/{i}"))
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
-
+                        string[] x2 = jsonString.Split("averageRating", 2);
+                        string x1 = x2[1].Remove(0, 10);
                         if (jsonString.Contains("errors"))
                         {
                         }

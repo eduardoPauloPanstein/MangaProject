@@ -206,5 +206,10 @@ namespace DataAccessLayer.Implementations
                 return 0;
             }
         }
+
+        public Task<DataResponse<Manga>> GetByRating(int skip, int take)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

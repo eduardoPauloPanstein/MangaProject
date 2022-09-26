@@ -65,5 +65,10 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.InsertCategory(id);
         }
+
+        public async Task<DataResponse<Manga>> GetByRating(int skip, int take)
+        {
+            return await _mangaDAL.GetByRating(skip, take);
+        }
     }
 }
