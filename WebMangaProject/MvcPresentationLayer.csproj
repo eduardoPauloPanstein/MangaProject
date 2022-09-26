@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\AnimeModel\MangaItemModalViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\MangaDb\UserFavorite.cshtml" />
     <Content Remove="wwwroot\avatars\Edu123Avatar11.png" />
   </ItemGroup>

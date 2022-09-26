@@ -63,12 +63,12 @@
                 <div class="form-group">
                     <label asp-for="@Model.User.Score" class="control-label"></label>
                     @{
-                        string[] valoresscore = Enum.GetNames<MangaScore>();
+                        string[] valoresScore = Enum.GetNames<MangaScore>();
                     }
                     <select class="form-control" name="Score">
-                        @for (int i = 0; i < valores.Length; i++)
+                        @for (int i = 0; i < valoresScore.Length; i++)
                         {
-                            <option value="@i">@valoresscore[i].Replace("_"," ")</option>
+                            <option value="@i">@valoresScore[i].Replace("_"," ")</option>
                         }
                     </select>
                     <span asp-validation-for="@Model.User.Score" class="text-danger"></span>
@@ -133,7 +133,7 @@
     var span = document.getElementsByClassName("close")[0];
 
     btn.onclick = function(){
-        modal.style.display = "block";
+        modal.style.display = "flex";
     }
 
     span.onclick = function(){

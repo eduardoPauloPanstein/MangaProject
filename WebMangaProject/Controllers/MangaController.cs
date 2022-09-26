@@ -79,6 +79,8 @@ namespace MvcPresentationLayer.Controllers
             }
 
             var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Data);
+
+
             var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
 
             MangaItemModalViewModel mangaItemModalViewModel = new()

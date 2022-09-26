@@ -2,11 +2,11 @@
 using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.AnimeS;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
-using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Models.AnimeModel;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
@@ -16,44 +16,55 @@ namespace MvcPresentationLayer.Controllers
 {
     public class AnimeController : Controller
     {
-        private readonly IAnimeProjectApiMangaService _AnimeApiService;
+        private readonly IAnimeService _AnimeService;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserService _userService;
-        public AnimeController(IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService, IAnimeProjectApiMangaService AnimeApiService)
+
+        public AnimeController(IAnimeService AnimeService, IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService)
         {
-            this._AnimeApiService = AnimeApiService;
             this._userService = userService;
             this._userApiService = userApiService;
+            this._AnimeService = AnimeService;
             this._mapper = mapper;
         }
         public async Task<IActionResult> AllFavorites()
         {
-            DataResponse<Anime> responseAnimes = await _AnimeApiService.GetByFavorites(0, 100);
+            DataResponse<Anime> responseAnimes = await _AnimeService.GetByFavorites(0, 100);
 
             if (!responseAnimes.HasSuccess)
             {
-                return BadRequest(responseAnimes);
+                ViewBag.Errors = responseAnimes.Message;
+                return View();
             }
 
             List<AnimeShortViewModel> Animes =
                 _mapper.Map<List<AnimeShortViewModel>>(responseAnimes.Data);
+
             return View(Animes);
         }
 
+        [HttpGet, Authorize]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
-            SingleResponse<Anime> responseAnime = await _AnimeApiService.Get(id, null);
+            SingleResponse<Anime> responseAnime = await _AnimeService.Get(id);
+
             if (!responseAnime.HasSuccess || !responseUser.HasSuccess)
             {
                 return NotFound();
             }
 
             var anime = _mapper.Map<AnimeOnpageViewModel>(responseAnime.Data);
-            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
 
-            return View(anime);
+            var user = _mapper.Map<UserFavoriteAnimeViewModel>(responseUser.Data);
+
+            AnimeItemModalViewModel animeItemModalViewModel = new()
+            {
+                User = user,
+                Anime = anime
+            };
+            return View(animeItemModalViewModel);
         }
         [HttpGet, Authorize]
         public async Task<ActionResult> UserFavorite()
@@ -79,9 +90,9 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<Anime> responseAnimesFavorites = await _AnimeApiService.GetByFavorites(0, 6);
-            DataResponse<Anime> responseAnimesByCount = await _AnimeApiService.GetByUserCount(0, 6);
-            DataResponse<Anime> responseAnimesByRating = await _AnimeApiService.GetByRating(0, 6);
+            DataResponse<Anime> responseAnimesFavorites = await _AnimeService.GetByFavorites(0, 6);
+            DataResponse<Anime> responseAnimesByCount = await _AnimeService.GetByUserCount(0, 6);
+            DataResponse<Anime> responseAnimesByRating = await _AnimeService.GetByRating(0, 6);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
