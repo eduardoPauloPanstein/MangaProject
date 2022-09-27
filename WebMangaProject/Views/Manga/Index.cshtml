@@ -2,7 +2,7 @@
 
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Mangas Home Page";
 }
 
 
@@ -16,9 +16,29 @@
 
 </head>
 <body>
+        <section class="catalog" id="catalog">
+        <h3>Favorites</h3>
+        <a class="custom-link" asp-area="" asp-action="AllByFavorites" asp-controller="Manga">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.MangasFavorites)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
+                            <img src=@item.PosterImageLink />
+                            <div class="card-content">
+                                <h5>@item.CanonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
     <section class="catalog" id="catalog">
         <h3>Bycount</h3>
-        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Manga">View All</a>
+        <a class="custom-link" asp-area="" asp-action="AllByUserCount" asp-controller="Manga">View All</a>
         <hr />
         <div class="card-wrapper">
             @{
@@ -38,7 +58,7 @@
     </section>
      <section class="catalog" id="catalog">
         <h3>Rating</h3>
-        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Manga">View All</a>
+        <a class="custom-link" asp-area="" asp-action="AllByRating" asp-controller="Manga">View All</a>
         <hr />
         <div class="card-wrapper">
             @{
@@ -55,28 +75,7 @@
                 }
             }
         </div>
-    </section> <section class="catalog" id="catalog">
-        <h3>Favorites</h3>
-        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Manga">View All</a>
-        <hr />
-        <div class="card-wrapper">
-            @{
-                foreach (var item in Model.MangasFavorites)
-                {
-                    <div class="card-item">
-                        <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
-                            <img src=@item.PosterImageLink />
-                            <div class="card-content">
-                                <h5>@item.CanonicalTitle</h5>
-                            </div>
-                        </a>
-                    </div>
-                }
-            }
-        </div>
-    </section>
-
-
+    </section> 
 
 </body>
 </html>

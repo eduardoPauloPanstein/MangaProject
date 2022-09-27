@@ -25,11 +25,13 @@ namespace MvcPresentationLayer.Controllers
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
         }
+
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            DataResponse<Manga> responseFavorites = await _mangaApiService.GetByFavorites(0, 6);
-            DataResponse<Manga> responseCount = await _mangaApiService.GetByUserCount(0, 6);
-            DataResponse<Manga> responserating = await _mangaApiService.GetByRating(0, 6);
+            DataResponse<Manga> responseFavorites = await _mangaApiService.GetByFavorites(0, 5);
+            DataResponse<Manga> responseCount = await _mangaApiService.GetByUserCount(0, 5);
+            DataResponse<Manga> responserating = await _mangaApiService.GetByRating(0, 5);
 
             if (!responseFavorites.HasSuccess || !responseCount.HasSuccess || !responserating.HasSuccess)
             {
@@ -52,22 +54,53 @@ namespace MvcPresentationLayer.Controllers
             };
             return View(MangasForHomeViewModel);
         }
-        public async Task<IActionResult> AllFavorites()
-        {
-            DataResponse<Manga> responseMangas = await _mangaApiService.GetByFavorites(0, 100);
 
-            if (!responseMangas.HasSuccess)
+        #region All
+        [HttpGet, AllowAnonymous]
+        public async Task<IActionResult> All(string by)
+        {
+            DataResponse<Manga> response;
+
+            switch (by)
             {
-                ViewBag.Errors = responseMangas.Message;
-                return View();
+                case "ByFavorites":
+                    response = await _mangaApiService.GetByFavorites(0, 99);
+                    break;
+                case "ByRating":
+                    response = await _mangaApiService.GetByRating(0, 99);
+                    break;
+                case "ByUserCount":
+                    response = await _mangaApiService.GetByUserCount(0, 99);
+                    break;
+                default:
+                    response = new("Whereby??", false, null, null);
+                    break;
             }
 
-            List<MangaShortViewModel> mangas =
-                _mapper.Map<List<MangaShortViewModel>>(responseMangas.Data);
 
-            return View(mangas);
+            if (!response.HasSuccess)
+            {
+                return BadRequest(response.Message);
+            }
+
+            List<MangaShortViewModel> mangasView =
+                _mapper.Map<List<MangaShortViewModel>>(response.Data);
+
+            return View(mangasView);
         }
 
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult AllByFavorites() => RedirectToAction("All", new { by = "ByFavorites" });
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult AllByRating() => RedirectToAction("All", new { by = "ByRating" });
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult AllByUserCount() => RedirectToAction("All", new { by = "ByUserCount" });
+        #endregion
+
+        [HttpGet, Authorize]
         public async Task<IActionResult> MangaOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
@@ -91,14 +124,6 @@ namespace MvcPresentationLayer.Controllers
 
             return View(mangaItemModalViewModel);
         }
-
-        //public class Rootobject
-        //{
-        //    public Datum[] data { get; set; }
-        //    public string message { get; set; }
-        //    public bool hasSuccess { get; set; }
-        //    public object exception { get; set; }
-        //}
 
 
         public async Task<IActionResult> GetSuggestionList(string title)

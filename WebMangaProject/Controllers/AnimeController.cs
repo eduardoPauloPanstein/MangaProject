@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
-using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.AnimeS;
-using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,20 +17,20 @@ namespace MvcPresentationLayer.Controllers
     {
         private readonly IMangaProjectApiAnimeService _animeApiService;
         private readonly IAnimeService _AnimeService;
-        private readonly IMangaService _mangaservice;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserService _userService;
 
-        public AnimeController(IAnimeService AnimeService, IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService, IMangaProjectApiAnimeService animeApiService, IMangaService mangaService)
+        public AnimeController(IAnimeService AnimeService, IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService, IMangaProjectApiAnimeService animeApiService)
         {
-            this._mangaservice = mangaService;
             this._animeApiService = animeApiService;
             this._userService = userService;
             this._userApiService = userApiService;
             this._AnimeService = AnimeService;
             this._mapper = mapper;
         }
+
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> AllFavorites()
         {
             DataResponse<Anime> responseAnimes = await _animeApiService.GetByFavorites(0, 100);
@@ -49,6 +47,7 @@ namespace MvcPresentationLayer.Controllers
             return View(Animes);
         }
 
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
@@ -70,6 +69,7 @@ namespace MvcPresentationLayer.Controllers
             };
             return View(animeItemModalViewModel);
         }
+
         [HttpGet, Authorize]
         public async Task<ActionResult> UserFavorite()
         {
@@ -94,14 +94,9 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            MangaComentary abc = new();
-            abc.DataComentary = DateTime.Now;
-            abc.Comentary = "One shit";
-            
-            Response a = await _mangaservice.LeaveComentary(abc);
-            DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 6);
-            DataResponse<Anime> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 6);
-            DataResponse<Anime> responseAnimesByRating = await _animeApiService.GetByRating(0, 6);
+            DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
+            DataResponse<Anime> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
+            DataResponse<Anime> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
