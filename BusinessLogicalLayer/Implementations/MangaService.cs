@@ -83,9 +83,10 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.GetLastIndexCategory();
         }
 
-        public async Task<int> GetLastIndex()
+        public Task<int> GetLastIndex()
         {
-            return await _mangaDAL.GetLastIndexManga();
+            throw new NotImplementedException();
         }
+
     }
 }

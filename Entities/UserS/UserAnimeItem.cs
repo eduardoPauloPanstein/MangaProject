@@ -1,22 +1,25 @@
 ﻿using Entities.AnimeS;
 using Entities.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities.UserS
 {
-    public class UserAnimeItem
+    public class UserAnimeItem : Entity
     {
-        public int Id { get; set; }
+        public UserAnimeItem(Anime anime, User user)
+        {
+            this.Anime = anime;
+            this.User = user;
+        }
+        public UserAnimeItem()
+        {
+
+        }
 
         public Anime Anime { get; set; }
         public int AnimeId { get; set; }
 
         public int UserId { get; set; }
-        public Entities.UserS.User User { get; set; }
+        public User User { get; set; }
 
         public UserMangaStatus Status { get; set; }
         public DateTime StartDate { get; set; }

@@ -2,21 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entities.UserS
 {
-    public class User
+    public class User : Entity
     {
-        public int Id { get; set; }
         public string Nickname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public bool EmailConfirmed { get; set; }
         public DateTime LastLogin { get; set; }
-        public UserRoles Role { get; set; } = UserRoles.User;
+        public UserRoles Role { get; set; }
         public string? About { get; set; }
         //public CivicAddress Address { get; set; }
         public int FavoritesCount { get; set; }
@@ -26,6 +26,12 @@ namespace Entities.UserS
         public bool KeepLogged { get; set; }
         public ICollection<UserMangaItem> MangaList { get; set; }
         public ICollection<UserAnimeItem> AnimeList { get; set; }
+
+        public override void EnableEntity()
+        {
+            base.EnableEntity();
+            this.Role = UserRoles.User;
+        }
 
     }
 }

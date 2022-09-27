@@ -6,29 +6,27 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Entity : AccessControl
+    public abstract class Entity : AccessControl
     {
         public int Id { get; set; }
         public bool Active { get; set; }
         public DateTime CreatedAt { get; set; }
 
-
-        public void EnableEntity()
+        public virtual void EnableEntity()
         {
             this.CreatedAt = DateTime.Now;
             this.Active = true;
         }
 
-        public void DisableEntity()
+        public virtual void DisableEntity()
         {
             this.Active = false;
         }
     }
-    public class AccessControl
+    public abstract class AccessControl
     {
         public int AccessCount { get; set; }
         public int AccessUserId { get; set; }
         public DateTime LastAccess { get; set; }
-
     }
 }
