@@ -35,6 +35,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
         public async Task<DataResponse<Manga>> GetByUserCount(int skip, int take)
         {
             try
@@ -53,6 +54,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
+
         public async Task<DataResponse<Manga>> GetByFavorites(int skip, int take)
         {
             try
@@ -194,8 +196,6 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-       
-
         public async Task<DataResponse<Manga>> GetByRating(int skip, int take)
         {
             try
@@ -248,7 +248,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == ID);
+                Manga? Select = _db.Mangas.Include(c => c.Categoria).Include(t => t.Titles).Include(r => r.RatingFrequencies).FirstOrDefault(m => m.Id == ID);
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
             }
             catch (Exception ex)

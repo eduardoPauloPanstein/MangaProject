@@ -121,7 +121,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                Anime? Select = _db.Animes.Include(c => c.Categories).FirstOrDefault(m => m.Id == ID);
+                Anime? Select = _db.Animes.Include(c => c.Categories).Include(t => t.AnimeTitles).Include(r => r.AnimeRatingFrequencies).FirstOrDefault(m => m.Id == ID);
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Anime>(Select);
             }
             catch (Exception ex)
