@@ -76,5 +76,15 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.LeaveComentary(Leave);
 
         }
+
+        public async Task<int> GetLastIndexCategory()
+        {
+            return await _mangaDAL.GetLastIndexCategory();
+        }
+
+        public async Task<int> GetLastIndex()
+        {
+            return await _mangaDAL.GetLastIndexManga();
+        }
     }
 }

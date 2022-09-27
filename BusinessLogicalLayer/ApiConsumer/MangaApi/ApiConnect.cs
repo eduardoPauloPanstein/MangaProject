@@ -15,17 +15,13 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
         Uri baseAddress = new Uri("https://kitsu.io/api/edge/");
 
         private readonly IMangaService _mangaService;
-        private readonly IMangaDAL _mangaDAL;
-        public ApiConnect(IMangaService mangaService, IMangaDAL mangaDAL)
+        public ApiConnect(IMangaService mangaService)
         {
-            this._mangaDAL = mangaDAL;
             this._mangaService = mangaService;
         }
-
-
         public async Task Consume()
         {
-            int last = await _mangaDAL.GetLastIndexManga();
+            int last = await _mangaService.GetLastIndex();
             int LimiteManga = 64595;
 
             if (last >= LimiteManga)

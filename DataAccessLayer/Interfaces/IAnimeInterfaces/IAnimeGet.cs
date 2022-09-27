@@ -1,15 +1,10 @@
 ﻿using Entities.AnimeS;
+using Shared.Interfaces;
 using Shared.Responses;
 
 namespace DataAccessLayer.Interfaces.IAnimeInterfaces
 {
-    public interface IAnimeGet
+    public interface IAnimeGet : IUsualGetInterfaces<Anime>
     {
-        Task<DataResponse<Anime>> GetByUserCount(int skip, int take);
-        Task<DataResponse<Anime>> GetByFavorites(int skip, int take);
-        Task<DataResponse<Anime>> GetByRating(int skip, int take);
-        Task<DataResponse<Anime>> Get(string name);
-        Task<int> GetLastIndexCategory();
-        Task<int> GetLastIndexAnime();
     }
 }

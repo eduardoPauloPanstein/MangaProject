@@ -19,7 +19,7 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
         }
         public async Task ConsumeAnime()
         {
-            int last = await _AnimeService.GetLastIndexAnime();
+            int last = await _AnimeService.GetLastIndex();
             int LimiteAnimes = 50000;
 
             if (last >= LimiteAnimes)
