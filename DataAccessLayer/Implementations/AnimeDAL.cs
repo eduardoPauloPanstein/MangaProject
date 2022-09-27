@@ -8,7 +8,7 @@ using Shared.Responses;
 
 namespace DataAccessLayer.Implementations
 {
-    public class AnimeDAL :IAnimeDAL
+    public class AnimeDAL : IAnimeDAL
     {
         private readonly MangaProjectDbContext _db;
         public AnimeDAL(MangaProjectDbContext db)
@@ -56,7 +56,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                Anime? Select = _db.Animes.Include(c=> c.Categories).FirstOrDefault(m => m.Id == id);
+                Anime? Select = _db.Animes.Include(c => c.Categories).FirstOrDefault(m => m.Id == id);
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Anime>(Select);
             }
             catch (Exception ex)
@@ -239,5 +239,5 @@ namespace DataAccessLayer.Implementations
             }
         }
     }
-    }
+
 }

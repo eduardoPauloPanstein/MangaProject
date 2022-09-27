@@ -38,6 +38,5 @@ namespace Entities.AnimeS
         public string? youtubeVideoId { get; set; }
         public string? showType { get; set; }
         public ICollection<Category> Categories { get; set; }
-
     }
 }

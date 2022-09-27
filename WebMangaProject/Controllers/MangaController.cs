@@ -31,7 +31,6 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            DataResponse<Manga> a = await aaa.GetByCategory(236);
             DataResponse<Manga> responseFavorites = await _mangaApiService.GetByFavorites(0, 5);
             DataResponse<Manga> responseCount = await _mangaApiService.GetByUserCount(0, 5);
             DataResponse<Manga> responserating = await _mangaApiService.GetByRating(0, 5);
