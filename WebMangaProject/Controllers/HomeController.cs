@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
-using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using Entities.AnimeS;
-using Entities.MangaS;
-using Microsoft.AspNetCore.Mvc;
-using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
-using MvcPresentationLayer.Models.AnimeModel;
-using MvcPresentationLayer.Models.MangaModels;
-using Shared.Responses;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebMangaProject.Models;
 
@@ -17,7 +8,7 @@ namespace WebMangaProject.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Index","Anime");
+            return RedirectToAction("Index","Manga");
         }
         public IActionResult AboutUs()
         {

@@ -1,6 +1,4 @@
-﻿using MvcPresentationLayer.Utilities;
-using System.Net.Http.Headers;
-using System.Security.Claims;
+﻿using System.Net.Http.Headers;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi
 {
@@ -10,7 +8,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
 
         public MangaProjectApiBase()
         {
-            client.BaseAddress = new Uri("https://localhost:7164/api/");
+            client.BaseAddress = new Uri("https://animalistwebapiservice.azurewebsites.net/api/");
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

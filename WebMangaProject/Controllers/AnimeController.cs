@@ -2,13 +2,11 @@
 using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.AnimeS;
-using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Models.AnimeModel;
-using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
 using Shared.Responses;
 
@@ -28,6 +26,8 @@ namespace MvcPresentationLayer.Controllers
             this._AnimeService = AnimeService;
             this._mapper = mapper;
         }
+
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> AllFavorites()
         {
             DataResponse<Anime> responseAnimes = await _AnimeService.GetByFavorites(0, 100);
@@ -44,7 +44,7 @@ namespace MvcPresentationLayer.Controllers
             return View(Animes);
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
@@ -66,6 +66,7 @@ namespace MvcPresentationLayer.Controllers
             };
             return View(animeItemModalViewModel);
         }
+
         [HttpGet, Authorize]
         public async Task<ActionResult> UserFavorite()
         {
@@ -90,9 +91,9 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<Anime> responseAnimesFavorites = await _AnimeService.GetByFavorites(0, 6);
-            DataResponse<Anime> responseAnimesByCount = await _AnimeService.GetByUserCount(0, 6);
-            DataResponse<Anime> responseAnimesByRating = await _AnimeService.GetByRating(0, 6);
+            DataResponse<Anime> responseAnimesFavorites = await _AnimeService.GetByFavorites(0, 5);
+            DataResponse<Anime> responseAnimesByCount = await _AnimeService.GetByUserCount(0, 5);
+            DataResponse<Anime> responseAnimesByRating = await _AnimeService.GetByRating(0, 5);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
