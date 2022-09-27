@@ -47,7 +47,7 @@ namespace MvcPresentationLayer.Controllers
             return View(Animes);
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet, Authorize]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));

@@ -473,26 +473,68 @@ abbr[title] {
     margin: 15px;
 }
 
+].profile-manga-show {
+}
+
 .profile-manga-show.active {
     background-color: white;
     height: 100%;
     border-radius: 5px;
 }
 
-.profile-anime-show.active {
-    background-color: red;
-    height: 100%;
-    border-radius: 5px;
+.profile-anime-show {
 }
 
-.profile-favorites-show.active {
-    background-color: darkgreen;
-    height: 100%;
-    border-radius: 5px;
+    .profile-anime-show.active {
+        background-color: red;
+        height: 100%;
+        border-radius: 5px;
+    }
+
+.profile-favorites-show {
 }
 
-.profile-manga-show {
+    .profile-favorites-show.active {
+        background-color: darkgreen;
+        height: 100%;
+        border-radius: 5px;
+    }
+
+.profile-geral-list {
+    background-color: rgba(0,0,0,.50);
+    width: 90%;
+    margin-top: 3%;
+    display: flex;
+    border-radius: 5px;
+    max-height: 500px;
+    box-shadow: 0 10px 20px -10px rgb(0 0 0 / 75%);
+    overflow: auto;
+    justify-content: space-between;
+    flex-direction: row;
 }
+
+    .profile-geral-list .display-list {
+        margin: 3%;
+        width: 50%;
+    }
+
+        .profile-geral-list .display-list div {
+            margin: 3%;
+        }
+
+.dp-list-card {
+    text-decoration: none;
+}
+.dp-list-card li {
+    list-style: none;
+}
+.dp-list-card li img {
+    border-radius: 5px;
+    height: 80px;
+    width: 65px;
+}
+
+]
 /*Search Bar*/
 .wrapper {
     z-index: 2;
@@ -501,14 +543,14 @@ abbr[title] {
     max-width: 400px;
 }
 
-    .wrapper .search-input {
-        position: relative;
-        background-color: #fff;
-        width: 100%;
-        color: #333;
-        border-radius: 8px;
-        box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
-    }
+.wrapper .search-input {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+}
 
 .search-input input {
     height: 45px;
@@ -633,16 +675,16 @@ abbr[title] {
 
 /*ModalAddToList*/
 .modalAdd {
-   display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 .modalAdd-Content {
@@ -651,7 +693,7 @@ abbr[title] {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    height:100%;
+    height: 100%;
     /*color:#222;*/
 }
 
