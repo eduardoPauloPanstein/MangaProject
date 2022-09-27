@@ -13,34 +13,60 @@ namespace BusinessLogicalLayer.Implementations
         {
             this._animeDAL = animeDAL;
         }
+        public async Task<Response> Insert(Anime Item)
+        {
+            //Validacoes
+            return await _animeDAL.Insert(Item);
+        }
+
+        public async Task<Response> Update(Anime Item)
+        {
+            return await _animeDAL.Update(Item);
+        }
+
         public async Task<Response> Delete(int id)
         {
             return await _animeDAL.Delete(id);
-
         }
 
         public async Task<SingleResponse<Anime>> Get(int id)
         {
             return await _animeDAL.Get(id);
-
         }
 
         public async Task<DataResponse<Anime>> Get(int skip, int take)
         {
             return await _animeDAL.Get(skip, take);
-
         }
 
         public async Task<DataResponse<Anime>> Get(string name)
         {
             return await _animeDAL.Get(name);
+        }
 
+        public async Task<SingleResponse<Anime>> GetComplete(int ID)
+        {
+            return await _animeDAL.GetComplete(ID);
+        }
+
+        public async Task<int> GetLastIndex()
+        {
+            return await _animeDAL.GetLastIndex();
+        }
+
+        public async Task<int> GetLastIndexCategory()
+        {
+            return await _animeDAL.GetLastIndexCategory();
+        }
+
+        public async Task<Response> LeaveComentary(AnimeComentary Class)
+        {
+            return await _animeDAL.LeaveComentary(Class);
         }
 
         public async Task<DataResponse<Anime>> GetByFavorites(int skip, int take)
         {
             return await _animeDAL.GetByFavorites(skip, take);
-
         }
 
         public async Task<DataResponse<Anime>> GetByRating(int skip, int take)
@@ -51,39 +77,6 @@ namespace BusinessLogicalLayer.Implementations
         public async Task<DataResponse<Anime>> GetByUserCount(int skip, int take)
         {
             return await _animeDAL.GetByUserCount(skip,take);
-        }
-
-        public async Task<int> GetLastIndex()
-        {
-            throw new NotImplementedException();
-            //return await _animeDAL.GetLastIndexAnime();
-        }
-
-        public Task<int> GetLastIndexAnime()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> GetLastIndexCategory()
-        {
-            return await _animeDAL.GetLastIndexCategory();
-
-        }
-
-        public async Task<Response> Insert(Anime Item)
-        {
-            //Validacoes
-            return await _animeDAL.Insert(Item);
-        }
-
-        public async Task<Response> LeaveComentary(AnimeComentary Class)
-        {
-            return await _animeDAL.LeaveComentary(Class);
-        }
-
-        public async Task<Response> Update(Anime Item)
-        {
-            return await _animeDAL.Update(Item);
         }
     }
 }

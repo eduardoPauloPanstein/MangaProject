@@ -47,7 +47,6 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
                         else
                         {
                             RootANI? mangaRootDTO = JsonConvert.DeserializeObject<RootANI>(jsonString);
-
                             Anime anime = AnimeConverter.ConvertDTOToAnime(mangaRootDTO);
                             anime.Categories = await CategoryToAnime.AnimeCategory(Convert.ToInt32(anime.Id));
                             ////BLL

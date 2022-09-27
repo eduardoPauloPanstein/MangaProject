@@ -13,6 +13,7 @@ namespace Shared.Interfaces
         Task<DataResponse<T>> GetByFavorites(int skip, int take);
         Task<DataResponse<T>> GetByRating(int skip, int take);
         Task<DataResponse<T>> Get(string name);
+        Task<SingleResponse<T>> GetComplete(int ID);
         Task<int> GetLastIndexCategory();
         Task<int> GetLastIndex();
     }

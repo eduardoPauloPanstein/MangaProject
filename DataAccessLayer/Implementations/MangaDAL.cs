@@ -246,5 +246,18 @@ namespace DataAccessLayer.Implementations
         {
             throw new NotImplementedException();
         }
+
+        public async Task<SingleResponse<Manga>> GetComplete(int ID)
+        {
+            try
+            {
+                Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == ID);
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex, null);
+            }
+        }
     }
 }
