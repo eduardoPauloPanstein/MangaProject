@@ -55,7 +55,13 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<int> GetLastIndex()
         {
-            return await _animeDAL.GetLastIndexAnime();
+            throw new NotImplementedException();
+            //return await _animeDAL.GetLastIndexAnime();
+        }
+
+        public Task<int> GetLastIndexAnime()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<int> GetLastIndexCategory()

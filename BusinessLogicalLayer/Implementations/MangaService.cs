@@ -73,7 +73,8 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<Response> LeaveComentary(MangaComentary Leave)
         {
-            return await _mangaDAL.LeaveComentary(Leave);
+            throw new NotImplementedException();
+            //return await _mangaDAL.LeaveComentary(Leave);
 
         }
 

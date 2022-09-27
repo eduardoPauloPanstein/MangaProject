@@ -241,5 +241,10 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
+        public Task<int> GetLastIndex()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
