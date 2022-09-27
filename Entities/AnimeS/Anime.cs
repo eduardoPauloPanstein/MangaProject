@@ -1,5 +1,4 @@
 ﻿using Entities.Enums;
-using Entities.MangaS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Entities.AnimeS
 {
-    public class Anime
+    public class Anime : Entity
     {
-        public int Id { get; set; }
         public string? name { get; set; }
         public string? synopsis { get; set; }
         public string? description { get; set; }

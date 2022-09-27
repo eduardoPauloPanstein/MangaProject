@@ -1,11 +1,12 @@
 ﻿using Entities.AnimeS;
+using Entities.MangaS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.MangaS
+namespace Entities
 {
     public class Category
     {

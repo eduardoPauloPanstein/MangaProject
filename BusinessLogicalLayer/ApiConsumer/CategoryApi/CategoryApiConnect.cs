@@ -1,6 +1,6 @@
 ﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
-using Entities.MangaS;
+using Entities;
 using Newtonsoft.Json;
 using Shared.Responses;
 

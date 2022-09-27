@@ -1,6 +1,6 @@
-﻿using Entities.AnimeS;
+﻿using Entities;
+using Entities.AnimeS;
 using Entities.Enums;
-using Entities.MangaS;
 
 namespace MvcPresentationLayer.Models.AnimeModel
 {

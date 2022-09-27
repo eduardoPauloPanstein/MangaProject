@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Interfaces.IAnimeInterfaces;
+using Entities;
 using Entities.AnimeS;
-using Entities.MangaS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Responses;

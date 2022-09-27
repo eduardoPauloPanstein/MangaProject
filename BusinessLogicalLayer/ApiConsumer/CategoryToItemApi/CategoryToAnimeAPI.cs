@@ -1,5 +1,5 @@
 ﻿using BusinessLogicalLayer.ApiConsumer.MangaApi.MangaCategoryApi;
-using Entities.MangaS;
+using Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

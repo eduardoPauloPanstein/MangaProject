@@ -1,4 +1,5 @@
-﻿using Entities.MangaS;
+﻿using Entities;
+using Entities.MangaS;
 using Shared.Responses;
 using System;
 using System.Collections.Generic;
