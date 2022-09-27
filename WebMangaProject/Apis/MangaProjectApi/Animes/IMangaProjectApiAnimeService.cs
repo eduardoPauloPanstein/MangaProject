@@ -3,7 +3,7 @@ using Shared.Responses;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
 {
-    public interface IAnimeProjectApiMangaService : IMangaProjectApiService<Anime>
+    public interface IMangaProjectApiAnimeService : IMangaProjectApiService<Anime>
     {
         Task<DataResponse<Anime>> Get(string title);
         Task<DataResponse<Anime>> GetByFavorites(int skip = 0, int take = 25);

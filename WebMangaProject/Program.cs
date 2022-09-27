@@ -33,7 +33,7 @@ builder.Services.AddTransient<IAnimeService, AnimeService>();
 
 builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
 builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiMangaService>();
-builder.Services.AddSingleton<IAnimeProjectApiMangaService, MangaProjectApiAnimeService>();
+builder.Services.AddSingleton<IMangaProjectApiAnimeService, MangaProjectApiAnimeService>();
 
 
 builder.Services.AddTransient<ICategoryApiConnect, CategoryApiConnect>();

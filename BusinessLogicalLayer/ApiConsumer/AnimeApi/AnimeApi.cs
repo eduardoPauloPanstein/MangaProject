@@ -20,7 +20,7 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
         public async Task ConsumeAnime()
         {
             int last = await _AnimeService.GetLastIndexAnime();
-            int LimiteAnimes = 14277;
+            int LimiteAnimes = 50000;
 
             if (last >= LimiteAnimes)
             {
@@ -31,6 +31,12 @@ namespace BusinessLogicalLayer.ApiConsumer.NovaPasta
             {
                 for (int i = last; i <= LimiteAnimes; i++)
                 {
+                    if (i == 20000)
+                    {
+                    }
+                    else if(i == 30000)
+                    {
+                    }
                     using (var response = await httpClient.GetAsync($"anime/{i}"))
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();

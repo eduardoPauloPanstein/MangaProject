@@ -70,6 +70,11 @@ namespace BusinessLogicalLayer.Implementations
             return await _animeDAL.Insert(Item);
         }
 
+        public async Task<Response> LeaveComentary(AnimeComentary Class)
+        {
+            return await _animeDAL.LeaveComentary(Class);
+        }
+
         public async Task<Response> Update(Anime Item)
         {
             return await _animeDAL.Update(Item);
