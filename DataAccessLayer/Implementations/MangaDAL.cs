@@ -225,5 +225,21 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
+
+        public async Task<Response> LeaveComentary(MangaComentary Leave)
+        {
+            Leave.Manga = await _db.Mangas.FindAsync(4);
+            Leave.User = await _db.Users.FindAsync(1);
+            try
+            {
+                _db.MangaComentaries.Add(Leave);
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
     }
 }

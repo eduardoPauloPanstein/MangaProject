@@ -184,9 +184,21 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public Task<Response> LeaveComentary(AnimeComentary Leave)
+        public async Task<Response> LeaveComentary(AnimeComentary Leave)
         {
-            throw new NotImplementedException();
+            Leave.Anime = await _db.Animes.FindAsync(3);
+            Leave.User = await _db.Users.FindAsync(1);
+
+            try
+            {
+                _db.AnimeComentaries.Add(Leave);
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
         }
 
         public async Task<Response> Update(Anime Item)

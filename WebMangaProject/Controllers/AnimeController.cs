@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
+using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.AnimeS;
 using Entities.MangaS;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Models.AnimeModel;
-using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
 using Shared.Responses;
 
@@ -19,12 +19,14 @@ namespace MvcPresentationLayer.Controllers
     {
         private readonly IMangaProjectApiAnimeService _animeApiService;
         private readonly IAnimeService _AnimeService;
+        private readonly IMangaService _mangaservice;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserService _userService;
 
-        public AnimeController(IAnimeService AnimeService, IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService, IMangaProjectApiAnimeService animeApiService)
+        public AnimeController(IAnimeService AnimeService, IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService, IMangaProjectApiAnimeService animeApiService, IMangaService mangaService)
         {
+            this._mangaservice = mangaService;
             this._animeApiService = animeApiService;
             this._userService = userService;
             this._userApiService = userApiService;
@@ -92,6 +94,11 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            MangaComentary abc = new();
+            abc.DataComentary = DateTime.Now;
+            abc.Comentary = "One shit";
+            
+            Response a = await _mangaservice.LeaveComentary(abc);
             DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 6);
             DataResponse<Anime> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 6);
             DataResponse<Anime> responseAnimesByRating = await _animeApiService.GetByRating(0, 6);

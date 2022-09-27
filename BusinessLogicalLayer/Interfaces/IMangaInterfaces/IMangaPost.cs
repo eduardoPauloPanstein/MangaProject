@@ -12,5 +12,6 @@ namespace BusinessLogicalLayer.Interfaces.IMangaInterfaces
     {
         Task<Response> DeleteAllDatas();
         Task<Response> InsertCategory(Category id);
+        Task<Response> LeaveComentary(MangaComentary Leave);
     }
 }

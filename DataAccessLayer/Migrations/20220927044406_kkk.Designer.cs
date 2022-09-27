@@ -4,6 +4,7 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MangaProjectDbContext))]
-    partial class MangaProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220927044406_kkk")]
+    partial class kkk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,36 +310,6 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("TitlesId");
 
                     b.ToTable("Mangas", (string)null);
-                });
-
-            modelBuilder.Entity("Entities.MangaS.MangaComentary", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Comentary")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataComentary")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MangaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MangaId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MangaComentary", (string)null);
                 });
 
             modelBuilder.Entity("Entities.MangaS.MangaTitles", b =>
@@ -636,25 +608,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("RatingFrequencies");
 
                     b.Navigation("Titles");
-                });
-
-            modelBuilder.Entity("Entities.MangaS.MangaComentary", b =>
-                {
-                    b.HasOne("Entities.MangaS.Manga", "Manga")
-                        .WithMany()
-                        .HasForeignKey("MangaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.UserS.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Manga");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entities.UserS.UserAnimeItem", b =>

@@ -70,5 +70,11 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.GetByRating(skip, take);
         }
+
+        public async Task<Response> LeaveComentary(MangaComentary Leave)
+        {
+            return await _mangaDAL.LeaveComentary(Leave);
+
+        }
     }
 }
