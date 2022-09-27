@@ -52,6 +52,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex, null);
             }
         }
+
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
         {
             List<Manga> mangas = new();
@@ -64,15 +65,14 @@ namespace DataAccessLayer.Implementations
                     mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
                 }
 
-
                 return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
-
             }
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
+
         public async Task<DataResponse<Manga>> GetUserList(int userid)
         {
             List<Manga> mangas = new();
@@ -91,6 +91,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
+
         public async Task<Response> Insert(User user)
         {
             _db.Users.Add(user);
@@ -104,6 +105,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
         public async Task<SingleResponse<User>> Login(UserLogin user)
         {
             try
@@ -123,6 +125,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
         }
+
         public async Task<SingleResponse<User>> Get(int id)
         {
             try
@@ -139,6 +142,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
             }
         }
+
         public async Task<DataResponse<User>> Get(int skip, int take)
         {
             try
@@ -156,6 +160,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(ex);
             }
         }
+
         public async Task<Response> Update(User user)
         {
             //_db.Users.Update(user);
@@ -182,6 +187,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
         public async void UpdateLastLoginAsync(int id)
         {
             User? userDb = await _db.Users.FindAsync(id);
@@ -195,6 +201,7 @@ namespace DataAccessLayer.Implementations
             {
             }
         }
+
         public async Task<DataResponse<Manga>> GetUserRecommendations(int userid)
         {
 
@@ -245,6 +252,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
+
         public async Task<Response> AddUserMangaItem(UserMangaItem item, int score)
         {
             RatingFrequencies selec = _db.MangaRating.Find(item.MangaId);
@@ -283,6 +291,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
         public async Task<Response> AddUserAnimeItem(UserAnimeItem item, int score)
         {
             AnimeRatingFrequencies selec = _db.AnimeRating.Find(item.AnimeId);

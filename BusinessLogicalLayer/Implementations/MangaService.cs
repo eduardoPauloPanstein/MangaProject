@@ -98,5 +98,10 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.DeleteAllDatas();
         }
+
+        public async Task<DataResponse<Manga>> GetByCategory(int ID)
+        {
+            return await _mangaDAL.GetByCategory(ID);
+        }
     }
 }

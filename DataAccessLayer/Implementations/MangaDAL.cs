@@ -256,5 +256,18 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex, null);
             }
         }
+
+        public async Task<DataResponse<Manga>> GetByCategory(int ID)
+        {
+            try
+            {
+                Category? Select = _db.Categories.Include(c => c.MangasID).FirstOrDefault(m => m.ID == ID);
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(Select.MangasID.ToList());
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
     }
 }

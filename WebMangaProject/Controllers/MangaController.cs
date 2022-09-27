@@ -18,9 +18,11 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly IMangaProjectApiUserService _userApiService;
+        private readonly IMangaService aaa;
 
-        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService)
+        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService, IMangaService mangaService)
         {
+            this.aaa = mangaService;
             this._userApiService = userService;
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
@@ -29,6 +31,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            DataResponse<Manga> a = await aaa.GetByCategory(236);
             DataResponse<Manga> responseFavorites = await _mangaApiService.GetByFavorites(0, 5);
             DataResponse<Manga> responseCount = await _mangaApiService.GetByUserCount(0, 5);
             DataResponse<Manga> responserating = await _mangaApiService.GetByRating(0, 5);

@@ -4,11 +4,7 @@ using Entities.MangaS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DataAccessLayer.Implementations
 {
@@ -229,5 +225,19 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(ex);
             }
         }
+
+        public async Task<DataResponse<Anime>> GetByCategory(int ID)
+        {
+            try
+            {
+                Category? Select = _db.Categories.Include(c => c.AnimesID).FirstOrDefault(m => m.ID == ID);
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Anime>(Select.AnimesID.ToList());
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(ex);
+            }
+        }
+    }
     }
 }

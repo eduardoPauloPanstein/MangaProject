@@ -78,5 +78,10 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _animeDAL.GetByUserCount(skip,take);
         }
+
+        public async Task<DataResponse<Anime>> GetByCategory(int ID)
+        {
+            return await _animeDAL.GetByCategory(ID);
+        }
     }
 }
