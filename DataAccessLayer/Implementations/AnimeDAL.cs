@@ -130,12 +130,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public Task<int> GetLastIndex()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> GetLastIndexAnime()
+        public async Task<int> GetLastIndex()
         {
             try
             {

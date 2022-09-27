@@ -194,18 +194,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<int> GetLastIndexManga()
-        {
-            try
-            {
-                Manga? a = _db.Mangas.OrderBy(c => c.Id).LastOrDefault();
-                return a.Id;
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
-        }
+       
 
         public async Task<DataResponse<Manga>> GetByRating(int skip, int take)
         {
@@ -242,9 +231,17 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public Task<int> GetLastIndex()
+        public async Task<int> GetLastIndex()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Manga? a = _db.Mangas.OrderBy(c => c.Id).LastOrDefault();
+                return a.Id;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public async Task<SingleResponse<Manga>> GetComplete(int ID)
