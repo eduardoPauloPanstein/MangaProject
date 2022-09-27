@@ -15,15 +15,17 @@ namespace DataAccessLayer
     {
         //SQL para a tabela a partir dessa propriedade.
         public DbSet<Manga> Mangas { get; set; }
+        public DbSet<Anime> Animes { get; set; }
         public DbSet<User> Users { get; set; }
+        
         public DbSet<UserMangaItem> UserManga { get; set; }
         public DbSet<UserAnimeItem> UserAnime { get; set; }
+
         public DbSet<RatingFrequencies> MangaRating { get; set; }
         public DbSet<AnimeRatingFrequencies> AnimeRating { get; set; }
 
-
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Anime> Animes { get; set; }
+        public DbSet<AnimeComentary> Comentaries { get; set; }
 
         public MangaProjectDbContext(DbContextOptions options) : base(options) { }
         public MangaProjectDbContext()
@@ -46,8 +48,8 @@ namespace DataAccessLayer
 
             modelBuilder.Entity<AnimeRatingFrequencies>().Property(c => c.Id).ValueGeneratedNever();
             modelBuilder.Entity<RatingFrequencies>().Property(c => c.Id).ValueGeneratedNever();
-
-
+            modelBuilder.Entity<AnimeComentary>().Property(c => c.ID).ValueGeneratedNever();
+            
 
             //Assembly no contexto do .NET
             //Carrega os map config que tão criado dentro do projeto (assembly) DAL

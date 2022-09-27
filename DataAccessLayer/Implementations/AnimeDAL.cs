@@ -184,6 +184,11 @@ namespace DataAccessLayer.Implementations
             }
         }
 
+        public Task<Response> LeaveComentary(AnimeComentary Leave)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response> Update(Anime Item)
         {
             Anime? AnimeDB = await _db.Animes.FindAsync(Item.Id);

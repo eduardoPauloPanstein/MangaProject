@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
 {
-    public class MangaProjectApiAnimeService : MangaProjectApiBase, IAnimeProjectApiMangaService
+    public class MangaProjectApiAnimeService : MangaProjectApiBase, IMangaProjectApiAnimeService
     {
         public async Task<Response> Delete(int? id, string token)
         {

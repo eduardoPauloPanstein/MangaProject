@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entities.AnimeS;
+using Shared.Responses;
 
 namespace BusinessLogicalLayer.Interfaces.IAnimeInterfaces
 {
     public interface IAnimePost
     {
+        Task<Response> LeaveComentary(AnimeComentary Leave);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entities.AnimeS;
+using Shared.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,6 @@ namespace DataAccessLayer.Interfaces.IAnimeInterfaces
 {
     public interface IAnimePost
     {
+        Task<Response> LeaveComentary(AnimeComentary leave);
     }
 }

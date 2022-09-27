@@ -7,6 +7,7 @@ using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
+using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Models.AnimeModel;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
@@ -16,13 +17,15 @@ namespace MvcPresentationLayer.Controllers
 {
     public class AnimeController : Controller
     {
+        private readonly IMangaProjectApiAnimeService _animeApiService;
         private readonly IAnimeService _AnimeService;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserService _userService;
 
-        public AnimeController(IAnimeService AnimeService, IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService)
+        public AnimeController(IAnimeService AnimeService, IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService, IMangaProjectApiAnimeService animeApiService)
         {
+            this._animeApiService = animeApiService;
             this._userService = userService;
             this._userApiService = userApiService;
             this._AnimeService = AnimeService;
@@ -30,7 +33,7 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> AllFavorites()
         {
-            DataResponse<Anime> responseAnimes = await _AnimeService.GetByFavorites(0, 100);
+            DataResponse<Anime> responseAnimes = await _animeApiService.GetByFavorites(0, 100);
 
             if (!responseAnimes.HasSuccess)
             {
@@ -44,11 +47,10 @@ namespace MvcPresentationLayer.Controllers
             return View(Animes);
         }
 
-        [HttpGet, Authorize]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
-            SingleResponse<Anime> responseAnime = await _AnimeService.Get(id);
+            SingleResponse<Anime> responseAnime = await _animeApiService.Get(id,null);
 
             if (!responseAnime.HasSuccess || !responseUser.HasSuccess)
             {
@@ -90,9 +92,9 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<Anime> responseAnimesFavorites = await _AnimeService.GetByFavorites(0, 6);
-            DataResponse<Anime> responseAnimesByCount = await _AnimeService.GetByUserCount(0, 6);
-            DataResponse<Anime> responseAnimesByRating = await _AnimeService.GetByRating(0, 6);
+            DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 6);
+            DataResponse<Anime> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 6);
+            DataResponse<Anime> responseAnimesByRating = await _animeApiService.GetByRating(0, 6);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
