@@ -20,14 +20,55 @@
 
 <div class="row" id="Banner">
     <!-- Background image -->
-    <img class="" wwidth="@width" height="@height" src="@Img" alt="Background image">
+    <img class="" width="@width" height="@height" src="@Img" alt="Background image">
 </div>
 <!-- Page Content -->
 <section class="py-5">
     <div class="container">
-        <h2 class="fw-light">Synopsis</h2>
+        <h2 class="fw-light manga-and-anime-on-page">@Model.Manga.CanonicalTitle</h2>
+        <h5 class="manga-and-anime-on-page">Synopsis:</h5>
         <p>@Model.Manga.Synopsis</p>
     </div>
+
+    <div class="form-group">
+    <div class="card-item">
+    <p>
+    Format</p>
+    <p>Manga</p>
+    Episodes
+    {@Model.Manga.}
+
+    Volume Count
+    {@Model.Manga.VolumeCount}
+
+    Status
+    {@Model.Manga.Status.ToString()}
+
+    Start Date
+    {@Model.Manga.StartDate}
+
+    End Date
+    {@Model.Manga.EndDate}
+
+    Average Score
+    {@Model.Manga.}
+
+    Popularity
+    545537
+
+    Favorites
+    {@Model.Manga.FavoritesCount}
+
+    Genres
+    @{foreach (var item in @Model.Manga.)
+    {
+    <h1>@item.Name</H1>
+    }
+    }
+    </H1>
+    </div>
+    </div>
+
     <!-- Trigger/Open The Modal -->
     <button id="addList">Add to List</button>
     <!-- The Modal -->

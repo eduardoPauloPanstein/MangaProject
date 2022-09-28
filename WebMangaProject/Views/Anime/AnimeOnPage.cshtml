@@ -17,12 +17,13 @@
 
 <div class="row" id="Banner">
     <!-- Background image -->
-    <img class="" wwidth="@width" height="@height" src="@Img" alt="Background image">
+    <img class="" width="@width" height="@height" src="@Img" alt="Background image">
 </div>
 <!-- Page Content -->
 <section class="py-5">
     <div class="container">
-        <h2 class="fw-light">Synopsis</h2>
+        <h2 class="fw-light">@Model.Anime.canonicalTitle</h2>
+        <h5>Synopsis:</h5>
         <p>@Model.Anime.synopsis</p>
     </div>
 

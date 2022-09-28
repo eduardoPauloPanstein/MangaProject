@@ -321,6 +321,10 @@ abbr[title] {
     padding-left: 3px;
 }
 
+.manga-and-anime-on-page{
+    font-weight:bold;
+}
+
 .align-about-us {
     justify-content: center;
 }
@@ -473,7 +477,7 @@ abbr[title] {
     margin: 15px;
 }
 
-].profile-manga-show {
+.profile-manga-show {
 }
 
 .profile-manga-show.active {
@@ -534,7 +538,7 @@ abbr[title] {
     width: 65px;
 }
 
-]
+
 /*Search Bar*/
 .wrapper {
     z-index: 2;
