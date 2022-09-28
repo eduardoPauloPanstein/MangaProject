@@ -21,11 +21,11 @@ namespace DataAccessLayer.Implementations
             List<Category> Cate = new();
             try
             {
-                foreach (var item in manga.Categoria)
+                foreach (var item in manga.Genres)
                 {
                    Cate.Add(await _db.Categories.FindAsync(item.ID));
                 }
-                manga.Categoria = Cate;
+                manga.Genres = Cate;
                 _db.Mangas.Add(manga);
                 await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
@@ -248,7 +248,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                Manga? Select = _db.Mangas.Include(c => c.Categoria).Include(t => t.Titles).Include(r => r.RatingFrequencies).FirstOrDefault(m => m.Id == ID);
+                Manga? Select = _db.Mangas.Include(c => c.Genres).Include(t => t.Titles).Include(r => r.RatingFrequencies).FirstOrDefault(m => m.Id == ID);
                 return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
             }
             catch (Exception ex)

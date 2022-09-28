@@ -18,12 +18,14 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly IMangaProjectApiUserService _userApiService;
+        private readonly IMangaService _mangaService;
 
-        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService)
+        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService, IMangaService mangaService)
         {
             this._userApiService = userService;
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
+            this._mangaService = mangaService;
         }
 
         [HttpGet, AllowAnonymous]
@@ -110,7 +112,7 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> MangaOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
-            SingleResponse<Manga> responseManga = await _mangaApiService.Get(id, null);
+            SingleResponse<Manga> responseManga = await _mangaService.GetComplete(id);
 
             if (!responseManga.HasSuccess || !responseUser.HasSuccess)
             {
@@ -121,6 +123,9 @@ namespace MvcPresentationLayer.Controllers
 
 
             var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
+
+            user.StartDate = DateTime.Now.Date;
+            user.FinishDate = DateTime.Now.Date;
 
             MangaItemModalViewModel mangaItemModalViewModel = new()
             {

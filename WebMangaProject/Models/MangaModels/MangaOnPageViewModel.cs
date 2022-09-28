@@ -22,9 +22,11 @@ namespace MvcPresentationLayer.Models.MangaModels
         public string? AgeRatingGuide { get; set; } 
         public MangaStatus? Status { get; set; }
         public int? VolumeCount { get; set; }
+        public int? ChapterCount { get; set; }
         public string? Serialization { get; set; } 
         public string? CoverImageLink { get; set; }
         public string? PosterImageLink { get; set; }
-
+        public ICollection<Category> Genres { get; set; }
+        public string? Subtype { get; set; }
     }
 }

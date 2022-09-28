@@ -6,8 +6,6 @@
 
     ViewData["Title"] = @Model.Manga.CanonicalTitle;
     string Img = @Model.Manga.CoverImageLink;
-    string width = "100%";
-    int height = 400;
     if (Model.Manga.CoverImageLink == null)
     {
         //width = "25";
@@ -18,55 +16,49 @@
 
 
 
-<div class="row" id="Banner">
+<div class="mop-images" id="Banner">
     <!-- Background image -->
-    <img class="" width="@width" height="@height" src="@Img" alt="Background image">
+    <img class="mop-banner"  src="@Model.Manga.CoverImageLink"/>
+    <img class="mop-poster" src="@Model.Manga.PosterImageLink"/>
+    <h2 class="maaop">@Model.Manga.CanonicalTitle</h2>
 </div>
 <!-- Page Content -->
-<section class="py-5">
-    <div class="container">
-        <h2 class="fw-light manga-and-anime-on-page">@Model.Manga.CanonicalTitle</h2>
-        <h5 class="manga-and-anime-on-page">Synopsis:</h5>
+<section class="">
+    <div class="mop-ts">
+       
+        <h5 class="">Synopsis:</h5>
         <p>@Model.Manga.Synopsis</p>
     </div>
 
     <div class="form-group">
-    <div class="card-item">
-    <p>
-    Format</p>
-    <p>Manga</p>
-    Episodes
-    {@Model.Manga.}
+        <div class="card-item">
+            <p><a class="manga-info">Format:</a> @Model.Manga.Subtype</p>
+            <p><a class="manga-info">Chapters:</a> @Model.Manga.ChapterCount</p>
+            <p><a class="manga-info">Volumes:</a> @Model.Manga.VolumeCount</p>
+            <p><a class="manga-info">Status:</a> @Model.Manga.Status.ToString()</p>
+            <p><a class="manga-info">Start Date:</a> @Model.Manga.StartDate</p>
+            <p><a class="manga-info"> Date:</a> @Model.Manga.EndDate</p>
+            <p><a class="manga-info">Average Score:</a> @Model.Manga.AverageRating</p>
+            <p><a class="manga-info">Popularity:</a> @Model.Manga.PopularityRank</p>
+            <p><a class="manga-info">Favorites:</a> @Model.Manga.FavoritesCount</p>
+            <p>
+                Genres:
+                <ul>
+                    @{
+                        foreach (var item in @Model.Manga.Genres)
+                        {
+                            <li>
+                                <p>@item.Name</p>
+                            </li>
+                        }
+                    }
+                </ul>
+            </p>
 
-    Volume Count
-    {@Model.Manga.VolumeCount}
 
-    Status
-    {@Model.Manga.Status.ToString()}
 
-    Start Date
-    {@Model.Manga.StartDate}
-
-    End Date
-    {@Model.Manga.EndDate}
-
-    Average Score
-    {@Model.Manga.}
-
-    Popularity
-    545537
-
-    Favorites
-    {@Model.Manga.FavoritesCount}
-
-    Genres
-    @{foreach (var item in @Model.Manga.)
-    {
-    <h1>@item.Name</H1>
-    }
-    }
-    </H1>
-    </div>
+            </H1>
+        </div>
     </div>
 
     <!-- Trigger/Open The Modal -->
@@ -76,7 +68,7 @@
         <!-- Modal content -->
         <div class="modalAdd-Content">
             <span class="close">&times;</span>
-            <form asp-action="UserFavorite">
+            <form method="post" action="/Manga/UserFavorite/">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="@Model.User.Status" class="control-label"></label>
@@ -157,13 +149,6 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="card-item">
-            <a class="custom-link" href="/manga/userfavorite/@Model.Manga.Id">
-                <input type="submit" value="favoritar" class="btn btn-primary" />
-            </a>
-        </div>
-    </div>
 </section>
 
 <script>
@@ -173,16 +158,16 @@
 
     var span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function(){
+    btn.onclick = function () {
         modal.style.display = "flex";
     }
 
-    span.onclick = function(){
+    span.onclick = function () {
         modal.style.dsiplay = "none";
     }
 
-    window.onclick = function(event){
-        if(event.target == modal){
+    window.onclick = function (event) {
+        if (event.target == modal) {
             modal.style.display = "none";
         }
     }

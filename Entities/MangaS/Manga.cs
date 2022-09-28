@@ -29,8 +29,8 @@ namespace Entities.MangaS
         public string? Serialization { get; set; } //Ver generos
         public string PosterImageLink { get; set; }
         public string? CoverImageLink { get; set; }
-        public string? subtype { get; set; }
+        public string? Subtype { get; set; }
         public int? ChapterCount { get; set; }
-        public ICollection<Category> Categoria { get; set; }
+        public ICollection<Category> Genres { get; set; }
     }
 }
