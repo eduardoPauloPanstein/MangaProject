@@ -44,6 +44,8 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
                 Serialization = item.attributes.serialization,
                 PosterImageLink = item.attributes.posterImage?.original,
                 CoverImageLink = item.attributes.coverImage?.original,
+                subtype = item.attributes.subtype,
+                ChapterCount = item.attributes.chapterCount
             };
 
             return manga;
