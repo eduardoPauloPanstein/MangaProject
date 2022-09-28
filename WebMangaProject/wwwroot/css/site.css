@@ -23,6 +23,7 @@ abbr[title] {
     border-bottom: none;
     text-decoration: none;
 }
+
 /*Sidebar*/
 .sidebar {
     position: fixed;
@@ -516,12 +517,13 @@ abbr[title] {
 }
 
     .profile-geral-list .display-list {
-        margin: 3%;
+        margin: 1%;
         width: 50%;
     }
 
         .profile-geral-list .display-list div {
-            margin: 3%;
+            margin: 1%;
+            padding: 2%;
         }
 
 .dp-list-card {
@@ -529,9 +531,16 @@ abbr[title] {
 }
 
     .dp-list-card li {
+        color: #fff;
         list-style: none;
+        padding: 8px 12px;
+        width: 100%;
+        border-radius: 3%;
     }
-
+        .dp-list-card li:hover {
+            background-color: #fff;
+            color: #222;
+        }
         .dp-list-card li img {
             border-radius: 5px;
             height: 80px;

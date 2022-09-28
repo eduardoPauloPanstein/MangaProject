@@ -6,12 +6,8 @@
 @*<h1>@ViewData["Title"]</h1>*@
 
 <div class="profile-images">
-    <img src="~/covers/@{
-                @Model.CoverImageFileLocation
-}" class="cover-photo" />
-    <img src="~/avatars/@{
-                @Model.AvatarImageFileLocation
-}" class="profile-icon" />
+    <img src="~/covers/@{@Model.CoverImageFileLocation}" class="cover-photo" />
+    <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="profile-icon" />
 </div>
 
 <div class="follow-btn-config">
@@ -91,16 +87,7 @@
                         <span>One Piece</span>
                     </li>
                 </a>
-            </div>
-            <div>
-                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
-                    <li>
-                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
-                        <span>One Piece</span>
-                    </li>
-                </a>
-            </div>
-            <div>
+            </div><div>
                 <a class="dp-list-card" href="/Manga/MangaOnPage/38">
                     <li>
                         <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
