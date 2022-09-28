@@ -190,5 +190,76 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
+
+        public async Task<DataResponse<Manga>> GetByPopularity(int skip, int take)
+        {
+            try
+            {
+                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByPopularity/skip/{skip}/take/{take}");
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
+
+        public async Task<DataResponse<Manga>> GetByCategory(int ID)
+        {
+            try
+            {
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByCategory/{ID}");
+
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
+
+        public async Task<SingleResponse<Manga>> GetComplete(int ID)
+        {
+            try
+            {
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ById/{ID}");
+
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(null, null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<SingleResponse<Manga>>(data);
+                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex, null);
+            }
+        }
+
+        public Task<int> GetLastIndexCategory()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetLastIndex()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

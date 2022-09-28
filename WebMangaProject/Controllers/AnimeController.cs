@@ -70,6 +70,57 @@ namespace MvcPresentationLayer.Controllers
             return View(animeItemModalViewModel);
         }
 
+        #region All
+        [HttpGet, AllowAnonymous]
+        public async Task<IActionResult> All(string by)
+        {
+            DataResponse<Anime> response;
+
+            switch (by)
+            {
+                case "ByFavorites":
+                    response = await _animeApiService.GetByFavorites(0, 99);
+                    break;
+                case "ByRating":
+                    response = await _animeApiService.GetByRating(0, 99);
+                    break;
+                case "ByUserCount":
+                    response = await _animeApiService.GetByUserCount(0, 99);
+                    break;
+                case "ByPopularity":
+                    response = await _animeApiService.GetByFavorites(0, 99);
+                    break;
+                default:
+                    response = new("Whereby??", false, null, null);
+                    break;
+            }
+
+
+            if (!response.HasSuccess)
+            {
+                return BadRequest(response.Message);
+            }
+
+            List<AnimeShortViewModel> mangasView =
+                _mapper.Map<List<AnimeShortViewModel>>(response.Data);
+
+            return View(mangasView);
+        }
+
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult AllByFavorites() => RedirectToAction("All", new { by = "ByFavorites" });
+        [HttpGet, AllowAnonymous]
+        public IActionResult AllByPopularity() => RedirectToAction("All", new { by = "ByPopularity" });
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult AllByRating() => RedirectToAction("All", new { by = "ByRating" });
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult AllByUserCount() => RedirectToAction("All", new { by = "ByUserCount" });
+        #endregion
+
+
         [HttpGet, Authorize]
         public async Task<ActionResult> UserFavorite()
         {

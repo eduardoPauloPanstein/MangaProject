@@ -103,5 +103,10 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.GetByCategory(ID);
         }
+
+        public async Task<DataResponse<Manga>> GetByPopularity(int skip, int take)
+        {
+            return await _mangaDAL.GetByPopularity(skip, take);
+        }
     }
 }

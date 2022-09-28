@@ -83,5 +83,10 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _animeDAL.GetByCategory(ID);
         }
+
+        public async Task<DataResponse<Anime>> GetByPopularity(int skip, int take)
+        {
+            return await _animeDAL.GetByPopularity(skip, take);
+        }
     }
 }

@@ -79,6 +79,20 @@ namespace WebApi.Controllers
 
             return Ok(responseUsers);
         }
+        [HttpGet(template: "ByPopularity/skip/{skip}/take/{take}"), AllowAnonymous]
+        public async Task<IActionResult> GetByPopularityAsync([FromRoute] int skip = 0, [FromRoute] int take = 25)
+        {
+            if (take >= 100)
+            {
+                return BadRequest("take < 100");
+            }
+            var responseUsers = await _animeService.GetByPopularity(skip, take);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+            return Ok(responseUsers);
+        }
 
         [HttpGet("ByName/{title}"), AllowAnonymous]
         public async Task<IActionResult> GetByNameAsync([FromRoute] string title)

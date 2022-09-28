@@ -18,11 +18,9 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly IMangaProjectApiUserService _userApiService;
-        private readonly IMangaService aaa;
 
-        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService, IMangaService mangaService)
+        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService)
         {
-            this.aaa = mangaService;
             this._userApiService = userService;
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
@@ -74,6 +72,9 @@ namespace MvcPresentationLayer.Controllers
                 case "ByUserCount":
                     response = await _mangaApiService.GetByUserCount(0, 99);
                     break;
+                case "ByPopularity":
+                    response = await _mangaApiService.GetByFavorites(0, 99);
+                    break;
                 default:
                     response = new("Whereby??", false, null, null);
                     break;
@@ -94,6 +95,9 @@ namespace MvcPresentationLayer.Controllers
 
         [HttpGet, AllowAnonymous]
         public IActionResult AllByFavorites() => RedirectToAction("All", new { by = "ByFavorites" });
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult AllByPopularity() => RedirectToAction("All", new { by = "ByPopularity" });
 
         [HttpGet, AllowAnonymous]
         public IActionResult AllByRating() => RedirectToAction("All", new { by = "ByRating" });

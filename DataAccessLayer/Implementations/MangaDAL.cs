@@ -269,5 +269,23 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
             }
         }
+
+        public async Task<DataResponse<Manga>> GetByPopularity(int skip, int take)
+        {
+            try
+            {
+                List<Manga> mangas = await _db.Mangas
+                    .OrderBy(m => m.PopularityRank)
+                    .AsNoTracking()
+                    .Skip(skip)
+                    .Take(take)
+                    .ToListAsync();
+                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+            }
+        }
     }
 }

@@ -1,9 +1,4 @@
 ﻿using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shared.Interfaces
 {
@@ -12,6 +7,7 @@ namespace Shared.Interfaces
         Task<DataResponse<T>> GetByUserCount(int skip, int take);
         Task<DataResponse<T>> GetByFavorites(int skip, int take);
         Task<DataResponse<T>> GetByRating(int skip, int take);
+        Task<DataResponse<T>> GetByPopularity(int skip, int take);
         Task<DataResponse<T>> GetByCategory(int ID);
         Task<DataResponse<T>> Get(string name);
         Task<SingleResponse<T>> GetComplete(int ID);
