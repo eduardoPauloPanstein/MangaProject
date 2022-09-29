@@ -24,7 +24,7 @@ abbr[title] {
     text-decoration: none;
 }
 
-/*Sidebar*/
+/*#region Sidebar */
 .sidebar {
     position: fixed;
     top: 0px;
@@ -250,8 +250,9 @@ abbr[title] {
     width: calc(100% - 240px);
     left: 240px;
 }
+/*#endregion */
 
-/*Customizations */
+/*#region Customizations */
 .custom-logo {
     vertical-align: bottom;
     height: 40px;
@@ -327,8 +328,9 @@ abbr[title] {
 .align-about-us {
     justify-content: center;
 }
+/*#endregion */
 
-/*Profile*/
+/*#region Profile */
 .profile-images {
     margin: 15px auto;
     border-radius: 5px;
@@ -537,18 +539,20 @@ abbr[title] {
         width: 100%;
         border-radius: 3%;
     }
+
         .dp-list-card li:hover {
             background-color: #fff;
             color: #222;
         }
+
         .dp-list-card li img {
             border-radius: 5px;
             height: 80px;
             width: 65px;
         }
+/*#endregion */
 
-
-/*Search Bar*/
+/*#region Search Bar */
 .wrapper {
     z-index: 2;
     right: 1rem;
@@ -658,10 +662,9 @@ abbr[title] {
     background-color: #212D40;
     color: #fff;
 }
+/*#endregion */
 
-
-/*IDs*/
-
+/*#region IDs */
 #githubId {
     display: flex;
     justify-content: center;
@@ -685,8 +688,181 @@ abbr[title] {
     color: #fff;
     transition: all 0.5s ease;
 }
+/*#endregion */
 
-/*MangaOnPage*/
+/*#region MangaOnPage */
+.mop-banner {
+    background-position: 50% 35%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+}
+.mop-header {
+    position: relative;
+}
+
+@media (min-width: 1040px) and (max-width: 1540px) {
+
+    .mop-container {
+        max-width: 1140px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+.mop-container {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-template-columns: 215px auto;
+    min-height: 250px;
+    margin: 0 auto;
+    min-width: 320px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.cover-wrap.overlap-banner {
+    margin-top: -125px;
+}
+
+.cover-wrap {
+    position: relative;
+}
+
+.mop-poster {
+    /*height: 275px;*/
+    /*width: 185px;*/
+    border-radius: 2px;
+    /*position: absolute;*/
+    /*bottom: -110px;*/
+    /*left: 100px;*/
+    box-shadow: 0 0 29px rgb(49 54 68 / 25%);
+    margin-top: 15px;
+    width: 100%;
+}
+
+
+.mop-actions {
+    display: grid;
+    grid-template-columns: auto 35px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    grid-gap: 15px;
+}
+
+.mop-list {
+    align-items: center;
+    background: red;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-size: 1.4rem;
+    height: 35px;
+    justify-content: center;
+    line-height: 1.3rem;
+}
+
+    .mop-list .addList {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 10px;
+        width: calc(100% - 34px);
+        font-size: 16px;
+    }
+
+    .mop-list .dropdown {
+        background: rgba(var(--color-white),.14);
+        border-radius: 0 3px 3px 0;
+        color: rgba(var(--color-white),.8);
+        width: 34px;
+        height: 100%;
+    }
+
+        .mop-list .dropdown .el-dropdown-link {
+            align-items: center;
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            padding-right: 4px;
+            width: 100%;
+            outline: 0;
+        }
+
+.el-dropdown {
+    display: inline-block;
+    position: relative;
+    color: #606266;
+    font-size: 14px;
+}
+
+.mop-favourite {
+    align-items: center;
+    background: red;
+    border-radius: 5px;
+    color: rgb(var(--color-white));
+    cursor: pointer;
+    display: flex;
+    font-size: 1.4rem;
+    font-family: Overpass,-apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-weight: 800;
+    height: 35px;
+    justify-content: center;
+    padding-left: 1px;
+    transition: .2s;
+    padding: 0 14px;
+}
+.mop-content {
+    display: inline-grid;
+    grid-template-rows: -webkit-min-content -webkit-min-content auto;
+    grid-template-rows: min-content min-content auto;
+    padding-top: 25px;
+}
+.mop-content h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.9rem;
+    font-weight: 400;
+}
+.mop-description {
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 900px;
+    padding: 15px 0;
+    transition: .2s;
+}
+.mop-description-length-toggle{
+    /*background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));*/
+    color: rgb(var(--color-text-lighter));
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: -35px;
+    max-width: 900px;
+    opacity:0;
+    padding-bottom: 5px;
+    padding-top: 20px;
+    text-align: center;
+    transition: .2s;
+}
+.mop-description-length-toggle:hover {
+    opacity:1;
+}
+
+
+
+
+
+
+
+
 
 .mop-images {
     width: 100%;
@@ -699,21 +875,6 @@ abbr[title] {
     align-items: flex-end;
 }
 
-.mop-banner {
-    width: 100%;
-    height: 400px;
-    border-radius: 5px;
-}
-
-.mop-poster {
-    height: 250px;
-    width: 185px;
-    border: 3px;
-    position: absolute;
-    bottom: -110px;
-    left: 100px;
-    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
-}
 
 .maaop {
     position: absolute;
@@ -722,6 +883,22 @@ abbr[title] {
     left: 300px;
     text-shadow: 2px 0 #333, -2px 0 #333, 0 2px #333, 0 -2px #333, 1px 1px #333, -1px -1px #333, 1px -1px #333, -1px 1px #333;
 }
+
+.mop-syn {
+    display: flex;
+    flex-direction: column;
+}
+
+    .mop-syn h5 {
+        left: 365px;
+        position: absolute;
+    }
+
+    .mop-syn p {
+        left: 300px;
+        top: 35px;
+        position: relative;
+    }
 
 .manga-info {
     font-weight: bold;
@@ -733,8 +910,9 @@ abbr[title] {
         text-decoration: none;
         color: #fff;
     }
+/*#endregion */
 
-/*ModalAddToList*/
+/*#region ModalAddToList */
 .modalAdd {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -771,3 +949,4 @@ abbr[title] {
         text-decoration: none;
         cursor: pointer;
     }
+/*#endregion */
