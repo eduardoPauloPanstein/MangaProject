@@ -1,10 +1,8 @@
 ﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using Entities.Enums;
 using Entities.MangaS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Shared;
 
 namespace WebApi.Controllers
 {

@@ -1,5 +1,4 @@
 ﻿using Entities.AnimeS;
-using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using Newtonsoft.Json;
 using Shared;
 using Shared.Responses;

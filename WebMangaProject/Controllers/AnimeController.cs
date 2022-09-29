@@ -47,13 +47,13 @@ namespace MvcPresentationLayer.Controllers
             return View(Animes);
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
             SingleResponse<Anime> responseAnime = await _animeApiService.Get(id,null);
 
-            if (!responseAnime.HasSuccess || !responseUser.HasSuccess)
+            if (!responseAnime.HasSuccess)
             {
                 return NotFound();
             }
@@ -61,6 +61,17 @@ namespace MvcPresentationLayer.Controllers
             var anime = _mapper.Map<AnimeOnpageViewModel>(responseAnime.Data);
 
             var user = _mapper.Map<UserFavoriteAnimeViewModel>(responseUser.Data);
+            if (user != null)
+            {
+                if (user.StartDate != null)
+                {
+                    user.StartDate = DateTime.Now.Date;
+                }
+                if (user.FinishDate != null)
+                {
+                    user.FinishDate = DateTime.Now.Date;
+                }
+            }
 
             AnimeItemModalViewModel animeItemModalViewModel = new()
             {
@@ -121,11 +132,7 @@ namespace MvcPresentationLayer.Controllers
         #endregion
 
 
-        [HttpGet, Authorize]
-        public async Task<ActionResult> UserFavorite()
-        {
-            return View();
-        }
+      
         [HttpPost, Authorize]
         public async Task<IActionResult> UserFavorite(UserFavoriteAnimeViewModel fav,int id)
         {

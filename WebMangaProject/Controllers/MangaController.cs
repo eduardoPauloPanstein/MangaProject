@@ -108,13 +108,13 @@ namespace MvcPresentationLayer.Controllers
         public IActionResult AllByUserCount() => RedirectToAction("All", new { by = "ByUserCount" });
         #endregion
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<IActionResult> MangaOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
-            SingleResponse<Manga> responseManga = await _mangaService.GetComplete(id);
+            SingleResponse<Manga> responseManga = await _mangaApiService.Get(id,null);
 
-            if (!responseManga.HasSuccess || !responseUser.HasSuccess)
+            if (!responseManga.HasSuccess)
             {
                 return NotFound();
             }
@@ -122,9 +122,18 @@ namespace MvcPresentationLayer.Controllers
             var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Data);
 
             var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
+            if (user != null)
+            {
+                if(user.StartDate != null)
+                {
+                    user.StartDate = DateTime.Now.Date;
+                }
+                if(user.FinishDate != null)
+                {
+                    user.FinishDate = DateTime.Now.Date;
 
-            user.StartDate = DateTime.Now.Date;
-            user.FinishDate = DateTime.Now.Date;
+                }
+            }
 
             MangaItemModalViewModel mangaItemModalViewModel = new()
             {
