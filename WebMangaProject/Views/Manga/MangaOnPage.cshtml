@@ -12,11 +12,58 @@
         //height = 400;
         Img = Model.Manga.PosterImageLink;
     }
+    string Synopsys = @Model.Manga.Synopsis;
+
 }
 
 
 
-<div class="mop-images" id="Banner">
+<div class="mop-banner" style="background-image: url('@Model.Manga.CoverImageLink')">
+</div>
+
+<div class="mop-header">
+    <div class="mop-container">
+        <div class="cover-wrap overlap-banner">
+            <div class="cover-wrap-inner">
+                <img class="mop-poster" src="@Model.Manga.PosterImageLink" />
+                <div class="mop-actions">
+                    <div class="mop-list">
+                        <div class="addList" id="addList">Add to List</div>
+                        <div class="dropdown el-dropdown">
+                            <span class="el-dropdown-link el-dropdown-selfdefine"
+                             <i class="uil uil-caret-right"></i>
+                        </div>
+                    </div>
+                    <div class="mop-favourite">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mop-content">
+            <h1>@Model.Manga.CanonicalTitle</h1>
+
+            <p class="mop-description">
+
+                @if (@Synopsys.Length > 700)
+                {
+                    @Synopsys.Substring(0, 700)
+                    ;
+                }
+                else
+                {
+                    @Synopsys.ToString()
+                    ;
+                }
+
+            </p>
+            @if (@Synopsys.Length > 700)
+            {
+                <span class="mop-description-length-toggle">Read More</span>
+            }
+        </div>
+    </div>
+</div>
+@*<div class="mop-images" id="Banner">
     <!-- Background image -->
     <img class="mop-banner"  src="@Model.Manga.CoverImageLink"/>
     <img class="mop-poster" src="@Model.Manga.PosterImageLink"/>
@@ -24,132 +71,131 @@
 </div>
 <!-- Page Content -->
 <section class="">
-    <div class="mop-ts">
-       
+    <div class="mop-syn">
+
         <h5 class="">Synopsis:</h5>
         <p>@Model.Manga.Synopsis</p>
-    </div>
+    </div>*@
 
-    <div class="form-group">
-        <div class="card-item">
-            <p><a class="manga-info">Format:</a> @Model.Manga.Subtype</p>
-            <p><a class="manga-info">Chapters:</a> @Model.Manga.ChapterCount</p>
-            <p><a class="manga-info">Volumes:</a> @Model.Manga.VolumeCount</p>
-            <p><a class="manga-info">Status:</a> @Model.Manga.Status.ToString()</p>
-            <p><a class="manga-info">Start Date:</a> @Model.Manga.StartDate</p>
-            <p><a class="manga-info"> Date:</a> @Model.Manga.EndDate</p>
-            <p><a class="manga-info">Average Score:</a> @Model.Manga.AverageRating</p>
-            <p><a class="manga-info">Popularity:</a> @Model.Manga.PopularityRank</p>
-            <p><a class="manga-info">Favorites:</a> @Model.Manga.FavoritesCount</p>
-            <p>
-                Genres:
-                <ul>
-                    @{
-                        foreach (var item in @Model.Manga.Genres)
-                        {
-                            <li>
-                                <p>@item.Name</p>
-                            </li>
-                        }
+<div class="form-group">
+    <div class="card-item">
+        <p><a class="manga-info">Format:</a> @Model.Manga.Subtype</p>
+        <p><a class="manga-info">Chapters:</a> @Model.Manga.ChapterCount</p>
+        <p><a class="manga-info">Volumes:</a> @Model.Manga.VolumeCount</p>
+        <p><a class="manga-info">Status:</a> @Model.Manga.Status.ToString()</p>
+        <p><a class="manga-info">Start Date:</a> @Model.Manga.StartDate</p>
+        <p><a class="manga-info"> Date:</a> @Model.Manga.EndDate</p>
+        <p><a class="manga-info">Average Score:</a> @Model.Manga.AverageRating</p>
+        <p><a class="manga-info">Popularity:</a> @Model.Manga.PopularityRank</p>
+        <p><a class="manga-info">Favorites:</a> @Model.Manga.FavoritesCount</p>
+        <p>
+            Genres:
+            <ul>
+                @{
+                    foreach (var item in @Model.Manga.Genres)
+                    {
+                        <li>
+                            <p>@item.Name</p>
+                        </li>
                     }
-                </ul>
-            </p>
+                }
+            </ul>
+        </p>
 
 
 
-            </H1>
-        </div>
+        </H1>
     </div>
+</div>
 
-    <!-- Trigger/Open The Modal -->
-    <button id="addList">Add to List</button>
-    <!-- The Modal -->
-    <div id="modalAdd" class="modalAdd">
-        <!-- Modal content -->
-        <div class="modalAdd-Content">
-            <span class="close">&times;</span>
-            <form method="post" action="/Manga/UserFavorite/">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.Status" class="control-label"></label>
-                    @{
-                        string[] valores = Enum.GetNames<UserMangaStatus>();
+<!-- Trigger/Open The Modal -->
+@*<button id="addList">Add to List</button>*@
+<!-- The Modal -->
+<div id="modalAdd" class="modalAdd">
+    <!-- Modal content -->
+    <div class="modalAdd-Content">
+        <span class="close">&times;</span>
+        <form method="post" action="/Manga/UserFavorite/">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.User.Status" class="control-label"></label>
+                @{
+                    string[] valores = Enum.GetNames<UserMangaStatus>();
+                }
+                <select class="form-control" name="Status">
+                    @for (int i = 0; i < valores.Length; i++)
+                    {
+                        <option value="@i">@valores[i].Replace("_"," ")</option>
                     }
-                    <select class="form-control" name="Status">
-                        @for (int i = 0; i < valores.Length; i++)
-                        {
-                            <option value="@i">@valores[i].Replace("_"," ")</option>
-                        }
-                    </select>
-                    <span asp-validation-for="@Model.User.Status" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.StartDate" class="control-label"></label>
-                    <input asp-for="@Model.User.StartDate" class="form-control" />
-                    <span asp-validation-for="@Model.User.StartDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.FinishDate" class="control-label"></label>
-                    <input asp-for="@Model.User.FinishDate" class="form-control" />
-                    <span asp-validation-for="@Model.User.FinishDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.Score" class="control-label"></label>
-                    @{
-                        string[] valoresScore = Enum.GetNames<MangaScore>();
+                </select>
+                <span asp-validation-for="@Model.User.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.StartDate" class="control-label"></label>
+                <input asp-for="@Model.User.StartDate" class="form-control" />
+                <span asp-validation-for="@Model.User.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.FinishDate" class="control-label"></label>
+                <input asp-for="@Model.User.FinishDate" class="form-control" />
+                <span asp-validation-for="@Model.User.FinishDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.Score" class="control-label"></label>
+                @{
+                    string[] valoresScore = Enum.GetNames<MangaScore>();
+                }
+                <select class="form-control" name="Score">
+                    @for (int i = 0; i < valoresScore.Length; i++)
+                    {
+                        <option value="@i">@valoresScore[i].Replace("_"," ")</option>
                     }
-                    <select class="form-control" name="Score">
-                        @for (int i = 0; i < valoresScore.Length; i++)
-                        {
-                            <option value="@i">@valoresScore[i].Replace("_"," ")</option>
-                        }
-                    </select>
-                    <span asp-validation-for="@Model.User.Score" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.TotalRereads" class="control-label"></label>
-                    <input asp-for="@Model.User.TotalRereads" class="form-control" />
-                    <span asp-validation-for="@Model.User.TotalRereads" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.Chapter" class="control-label"></label>
-                    <input asp-for="@Model.User.Chapter" class="form-control" />
-                    <span asp-validation-for="@Model.User.Chapter" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.Volume" class="control-label"></label>
-                    <input asp-for="@Model.User.Volume" class="form-control" />
-                    <span asp-validation-for="@Model.User.Volume" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.PrivateNotes" class="control-label"></label>
-                    <input asp-for="@Model.User.PrivateNotes" class="form-control" />
-                    <span asp-validation-for="@Model.User.PrivateNotes" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.User.PublicNotes" class="control-label"></label>
-                    <input asp-for="@Model.User.PublicNotes" class="form-control" />
-                    <span asp-validation-for="@Model.User.PublicNotes" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="@Model.User.Private" /> @Html.DisplayNameFor(model => model.User.Private)
-                    </label>
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="@Model.User.Favorite" /> @Html.DisplayNameFor(model => model.User.Favorite)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Favorite" class="btn btn-primary" />
-                </div>
-            </form>
+                </select>
+                <span asp-validation-for="@Model.User.Score" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.TotalRereads" class="control-label"></label>
+                <input asp-for="@Model.User.TotalRereads" class="form-control" />
+                <span asp-validation-for="@Model.User.TotalRereads" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.Chapter" class="control-label"></label>
+                <input asp-for="@Model.User.Chapter" class="form-control" />
+                <span asp-validation-for="@Model.User.Chapter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.Volume" class="control-label"></label>
+                <input asp-for="@Model.User.Volume" class="form-control" />
+                <span asp-validation-for="@Model.User.Volume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.PrivateNotes" class="control-label"></label>
+                <input asp-for="@Model.User.PrivateNotes" class="form-control" />
+                <span asp-validation-for="@Model.User.PrivateNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.PublicNotes" class="control-label"></label>
+                <input asp-for="@Model.User.PublicNotes" class="form-control" />
+                <span asp-validation-for="@Model.User.PublicNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="@Model.User.Private" /> @Html.DisplayNameFor(model => model.User.Private)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="@Model.User.Favorite" /> @Html.DisplayNameFor(model => model.User.Favorite)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Favorite" class="btn btn-primary" />
+            </div>
+        </form>
 
-        </div>
     </div>
+</div>
 
-</section>
 
 <script>
     var modal = document.getElementById("modalAdd");
