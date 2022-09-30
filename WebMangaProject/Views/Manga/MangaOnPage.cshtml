@@ -28,13 +28,15 @@
                 <img class="mop-poster" src="@Model.Manga.PosterImageLink" />
                 <div class="mop-actions">
                     <div class="mop-list">
+                        <!-- Trigger/Open The Modal -->
                         <div class="addList" id="addList">Add to List</div>
                         <div class="dropdown el-dropdown">
                             <span class="el-dropdown-link el-dropdown-selfdefine"
-                             <i class="uil uil-caret-right"></i>
+                             <i class="uil uil-angle-down"></i>
                         </div>
                     </div>
                     <div class="mop-favourite">
+                        <i class="uil uil-heart-alt"></i>
                     </div>
                 </div>
             </div>
@@ -45,7 +47,7 @@
             @if (Synopsys.Length > 700)
             {
                 <p class="mop-description">
-                    @Synopsys.Substring(0, 700);
+                    @Synopsys.Substring(0, 700)...
                 </p>
                 <p class="mop-full-description">
                     @Synopsys;
@@ -60,23 +62,15 @@
             @if (@Synopsys.Length > 700)
             {
                 <span class="mop-read-more">Read More</span>
+                <span class="mop-read-less">Read Less</span>
+
             }
         </div>
     </div>
 </div>
-@*<div class="mop-images" id="Banner">
-    <!-- Background image -->
-    <img class="mop-banner"  src="@Model.Manga.CoverImageLink"/>
-    <img class="mop-poster" src="@Model.Manga.PosterImageLink"/>
-    <h2 class="maaop">@Model.Manga.CanonicalTitle</h2>
-</div>
-<!-- Page Content -->
-<section class="">
-    <div class="mop-syn">
 
-        <h5 class="">Synopsis:</h5>
-        <p>@Model.Manga.Synopsis</p>
-    </div>*@
+<!-- Page Content -->
+
 
 <div class="form-group">
     <div class="card-item">
@@ -95,9 +89,9 @@
                 @{
                     foreach (var item in @Model.Manga.Genres)
                     {
-                            <li>
-                                <p>@item.Name</p>
-                            </li>
+                        <li>
+                            <p>@item.Name</p>
+                        </li>
                     }
                 }
             </ul>
@@ -106,8 +100,7 @@
     </div>
 </div>
 
-<!-- Trigger/Open The Modal -->
-@*<button id="addList">Add to List</button>*@
+
 <!-- The Modal -->
 <div id="modalAdd" class="modalAdd">
     <!-- Modal content -->
@@ -215,13 +208,23 @@
         }
     }
 
-    var mop-description = document.querySelector('.mop-description');
-    var mop-full = document.querySelector('.mop-full-description');
-    var mop-read = document.querySelector('.mop-read-more');
+    let description = document.querySelector('.mop-description')
+    let full = document.querySelector('.mop-full-description')
+    let more = document.querySelector('.mop-read-more')
+    let less = document.querySelector('.mop-read-less')
 
-    mop-read.onclick = function (){
-        mop-full.classList.toggle('active')
-        mop-description.classList.toggle('active')
+    more.onclick = function () {
+        description.classList.toggle('active')
+        full.classList.toggle('active')
+        less.classList.toggle('active')
+        more.classList.toggle('active')
+    }
+
+    less.onclick = function () {
+        description.classList.toggle('active')
+        full.classList.toggle('active')
+        more.classList.toggle('active')
+        less.classList.toggle('active')
     }
 
 

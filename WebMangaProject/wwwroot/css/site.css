@@ -840,13 +840,13 @@ abbr[title] {
     margin: 0;
     max-width: 900px;
     padding: 15px 0;
-    opacity: 1;
+    display: block;
     transition: .2s;
 }
 
-.mop-description {
-    opacity: 0;
-}
+    .mop-description.active {
+        display: none;
+    }
 
 .mop-full-description {
     color: #fff;
@@ -856,18 +856,17 @@ abbr[title] {
     max-width: 900px;
     padding: 15px 0;
     transition: .2s;
-    opacity: 0;
+    display: none;
 }
 
     .mop-full-description.active {
-        opacity: 1;
+        display: block;
     }
 
 .mop-read-more {
-    /*background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));*/
-    color: rgb(var(--color-text-lighter));
+    color: #fff;
     cursor: pointer;
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: 500;
     margin-top: -35px;
     max-width: 900px;
@@ -876,10 +875,39 @@ abbr[title] {
     padding-top: 20px;
     text-align: center;
     transition: .2s;
+    display: block
 }
+
+    .mop-read-more.active {
+        display: none;
+    }
 
     .mop-read-more:hover {
         opacity: 1;
+    }
+
+.mop-read-less {
+    background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: -35px;
+    max-width: 900px;
+    opacity: 0;
+    padding-bottom: 5px;
+    padding-top: 20px;
+    text-align: center;
+    transition: .2s;
+    display: none;
+}
+
+    .mop-read-less.active{
+        display:block;
+    }
+    .mop-read-less:hover {
+        opacity: 1;
+        background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));
     }
 
 
@@ -887,19 +915,16 @@ abbr[title] {
 
 
 
-
-
-
-.mop-images {
-    width: 100%;
-    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
-    position: relative;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
+    .mop-images {
+        width: 100%;
+        box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+        position: relative;
+        top: 0px;
+        left: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
 
 
 .maaop {
