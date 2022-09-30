@@ -130,8 +130,6 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public IActionResult AllByUserCount() => RedirectToAction("All", new { by = "ByUserCount" });
         #endregion
-
-
       
         [HttpPost, Authorize]
         public async Task<IActionResult> UserFavorite(UserFavoriteAnimeViewModel fav,int id)

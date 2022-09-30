@@ -150,12 +150,6 @@ namespace MvcPresentationLayer.Controllers
             DataResponse<Manga> response = await _mangaApiService.Get(title);
             return Json(new { resultado = response.Data });
         }
-
-        [HttpGet, Authorize]
-        public async Task<ActionResult> UserFavorite()
-        {
-            return View();
-        }
         [HttpPost, Authorize]
         public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel fav)
         {

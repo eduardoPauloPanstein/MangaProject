@@ -36,6 +36,69 @@ namespace DataAccessLayer.Implementations
             }
         }
 
+        public async Task<Response> Update(Manga Item)
+        {
+            Manga? MangaDB = await _db.Mangas.FindAsync(Item.Id);
+            if (MangaDB == null)
+                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
+            try
+            {
+                _db.Mangas.Update(Item);
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
+
+        public async Task<Response> Delete(int id)
+        {
+            Manga? MangaDB = await _db.Mangas.FindAsync(id);
+            if (MangaDB == null)
+                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
+            try
+            {
+                _db.Mangas.Remove(MangaDB);
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
+        public async Task<SingleResponse<Manga>> Get(int id)
+        {
+            try
+            {
+                Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Manga>(Select);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<Manga>(ex);
+            }
+        }
+
+        public async Task<DataResponse<Manga>> Get(int skip, int take)
+        {
+            try
+            {
+                List<Manga> mangas = await _db.Mangas
+                    .AsNoTracking()
+                    .Skip(skip)
+                    .Take(take)
+                    .ToListAsync();
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
+
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+            }
+        }
         public async Task<DataResponse<Manga>> GetByUserCount(int skip, int take)
         {
             try
@@ -87,87 +150,6 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<SingleResponse<Manga>> Get(int id)
-        {
-            try
-            {
-                Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
-                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Manga>(Select);
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<Manga>(ex);
-            }
-        }
-
-        public async Task<DataResponse<Manga>> Get(int skip, int take)
-        {
-            try
-            {
-                List<Manga> mangas = await _db.Mangas
-                    .AsNoTracking()
-                    .Skip(skip)
-                    .Take(take)
-                    .ToListAsync();
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
-
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
-            }
-        }
-
-        public async Task<Response> Update(Manga Item)
-        {
-            Manga? MangaDB = await _db.Mangas.FindAsync(Item.Id);
-            if (MangaDB == null)
-                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
-            try
-            {
-                _db.Mangas.Update(Item);
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
-        }
-
-        public async Task<Response> Delete(int id)
-        {
-            Manga? MangaDB = await _db.Mangas.FindAsync(id);
-            if (MangaDB == null)
-                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
-            try
-            {
-                _db.Mangas.Remove(MangaDB);
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
-        }
-
-        public async Task<Response> DeleteAllDatas()
-        {
-            //var tableNames = db.Model.GetEntityTypes()
-            //                         .Select(t => t.GetTableName())
-            //                         .Distinct()
-            //                         .ToList();
-            try
-            {
-                _db.Database.ExecuteSqlRaw($"DELETE FROM MangasRatingFrequencies; DELETE FROM MANGAS; DELETE FROM MangaTitles");
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
-        }
 
         public async Task<Response> InsertCategory(Category id)
         {
@@ -215,7 +197,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<Response> LeaveComentary(MangaComentary Leave)
+        public async Task<Response> InsertComentary(MangaComentary Leave)
         {
             Leave.Manga = await _db.Mangas.FindAsync(4);
             Leave.User = await _db.Users.FindAsync(1);
@@ -285,6 +267,23 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+            }
+        }
+
+        public async Task<Response> DeleteComentary(int id)
+        {
+            MangaComentary? comentary = await _db.MangaComentaries.FindAsync(id);
+            if (comentary == null)
+                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
+            try
+            {
+                _db.MangaComentaries.Remove(comentary);
+                await _db.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
     }

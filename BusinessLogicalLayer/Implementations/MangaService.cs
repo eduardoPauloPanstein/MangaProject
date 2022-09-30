@@ -1,15 +1,8 @@
-﻿using BLL.Extensions;
-using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using BusinessLogicalLayer.Validators.Manga;
+﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities;
 using Entities.MangaS;
 using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Implementations
 {
@@ -74,9 +67,9 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.GetByRating(skip, take);
         }
 
-        public async Task<Response> LeaveComentary(MangaComentary Leave)
+        public async Task<Response> InsertComentary(MangaComentary Leave)
         {
-            return await _mangaDAL.LeaveComentary(Leave);
+            return await _mangaDAL.InsertComentary(Leave);
         }
 
         public async Task<int> GetLastIndexCategory()
@@ -94,11 +87,6 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.GetComplete(ID);
         }
 
-        public async Task<Response> DeleteAllDatas()
-        {
-            return await _mangaDAL.DeleteAllDatas();
-        }
-
         public async Task<DataResponse<Manga>> GetByCategory(int ID)
         {
             return await _mangaDAL.GetByCategory(ID);
@@ -107,6 +95,11 @@ namespace BusinessLogicalLayer.Implementations
         public async Task<DataResponse<Manga>> GetByPopularity(int skip, int take)
         {
             return await _mangaDAL.GetByPopularity(skip, take);
+        }
+
+        public async Task<Response> DeleteComentary(int id)
+        {
+            return await _mangaDAL.DeleteComentary(id);
         }
     }
 }
