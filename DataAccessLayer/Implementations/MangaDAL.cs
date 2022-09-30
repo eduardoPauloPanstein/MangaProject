@@ -249,11 +249,11 @@ namespace DataAccessLayer.Implementations
             try
             {
                 Manga? Select = _db.Mangas.Include(c => c.Genres).Include(t => t.Titles).Include(r => r.RatingFrequencies).FirstOrDefault(m => m.Id == ID);
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Manga>(Select);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Manga>(ex);
             }
         }
 
@@ -262,11 +262,11 @@ namespace DataAccessLayer.Implementations
             try
             {
                 Category? Select = _db.Categories.Include(c => c.MangasID).FirstOrDefault(m => m.ID == ID);
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(Select.MangasID.ToList());
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(Select.MangasID.ToList());
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
 
@@ -280,11 +280,11 @@ namespace DataAccessLayer.Implementations
                     .Skip(skip)
                     .Take(take)
                     .ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
     }

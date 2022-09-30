@@ -114,14 +114,14 @@ namespace MvcPresentationLayer.Controllers
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
             SingleResponse<Manga> responseManga = await _mangaApiService.Get(id,null);
 
-            if (!responseManga.HasSuccess)
+            if (!responseManga.NotFound)
             {
                 return NotFound();
             }
 
             var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Item);
 
-            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
+            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Item);
             if (user != null)
             {
                 if(user.StartDate != null)

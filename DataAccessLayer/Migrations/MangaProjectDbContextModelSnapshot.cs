@@ -308,6 +308,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("Subtype")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Synopsis")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -323,9 +326,6 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<int?>("VolumeCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("subtype")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -126,7 +126,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
                 {
                     return ResponseFactory.CreateInstance().CreateSuccessResponse();
                 }
-                return ResponseFactory.CreateInstance().CreateFailedResponse(null, response.Message);
+                return ResponseFactory.CreateInstance().CreateFailedResponse(response.Message);
             }
             catch (Exception ex)
             {
@@ -179,15 +179,15 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Anime/ByRating/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(null);
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Anime>>(data);
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(ex);
             }
         }
 
@@ -198,15 +198,15 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Anime/ByPopularity/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(null);
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Anime>>(data);
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(ex);
             }
         }
 
@@ -238,15 +238,15 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
 
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Anime>(null, null);
+                    return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Anime>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<SingleResponse<Anime>>(data);
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Anime>(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse(dataResponse.Item);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Anime>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Anime>(ex);
             }
         }
 

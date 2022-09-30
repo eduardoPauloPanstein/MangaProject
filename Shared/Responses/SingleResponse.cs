@@ -8,9 +8,8 @@
         }
         public SingleResponse()
         {
-                
-        }
 
+        }
         public T Item { get; set; }
         public bool NotFound { get { return this.Item == null; } }
     }

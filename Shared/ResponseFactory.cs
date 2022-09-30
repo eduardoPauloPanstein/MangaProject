@@ -166,13 +166,7 @@ namespace Shared
                     Message = "Data not found."
                 };
             }
-            return new DataResponse<T>()
-            {
-                Data = data,
-                Exception = null,
-                HasSuccess = true,
-                Message = "Data collected successfully."
-            };
+            return new DataResponse<T>("Data collected successfully.", true, data);
         }
         public DataResponse<T> CreateFailedDataResponse<T>(string message, Exception? ex = null)
         {

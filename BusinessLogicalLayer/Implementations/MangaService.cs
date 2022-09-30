@@ -1,15 +1,8 @@
-﻿using BLL.Extensions;
-using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using BusinessLogicalLayer.Validators.Manga;
+﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities;
 using Entities.MangaS;
 using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Implementations
 {
@@ -25,6 +18,7 @@ namespace BusinessLogicalLayer.Implementations
             //Response response = new MangaInsertValidator().Validate(manga).ConvertToResponse();
             //if (!response.HasSuccess)
             //    return response;
+            manga.EnableEntity();
             return await _mangaDAL.Insert(manga);
         }
 

@@ -118,7 +118,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByFavorites/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
@@ -198,15 +198,15 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByPopularity/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
 
@@ -219,15 +219,15 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Manga>(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
 
@@ -240,15 +240,15 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(null, null);
+                    return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Manga>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<SingleResponse<Manga>>(data);
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse(dataResponse.Item);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Manga>(ex);
             }
         }
 
