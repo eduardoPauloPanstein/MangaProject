@@ -55,10 +55,5 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
             }
             return;
         }
-        public async Task DeleteAllDatas()
-        {
-            Response responseManga = await _mangaService.DeleteAllDatas();
-            return;
-        }
     }
 }

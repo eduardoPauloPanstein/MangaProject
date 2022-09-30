@@ -16,7 +16,5 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
         /// <param></param>
         /// <returns></returns>
         Task Consume();
-        Task DeleteAllDatas();
-
     }
 }
