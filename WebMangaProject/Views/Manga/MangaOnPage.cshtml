@@ -42,23 +42,24 @@
         <div class="mop-content">
             <h1>@Model.Manga.CanonicalTitle</h1>
 
-            <p class="mop-description">
-
-                @if (@Synopsys.Length > 700)
-                {
-                    @Synopsys.Substring(0, 700)
-                    ;
-                }
-                else
-                {
-                    @Synopsys.ToString()
-                    ;
-                }
-
-            </p>
+            @if (Synopsys.Length > 700)
+            {
+                <p class="mop-description">
+                    @Synopsys.Substring(0, 700);
+                </p>
+                <p class="mop-full-description">
+                    @Synopsys;
+                </p>
+            }
+            else
+            {
+                <p class="mop-description">
+                    @Synopsys.ToString();
+                </p>
+            }
             @if (@Synopsys.Length > 700)
             {
-                <span class="mop-description-length-toggle">Read More</span>
+                <span class="mop-read-more">Read More</span>
             }
         </div>
     </div>
@@ -94,17 +95,14 @@
                 @{
                     foreach (var item in @Model.Manga.Genres)
                     {
-                        <li>
-                            <p>@item.Name</p>
-                        </li>
+                            <li>
+                                <p>@item.Name</p>
+                            </li>
                     }
                 }
             </ul>
         </p>
 
-
-
-        </H1>
     </div>
 </div>
 
@@ -198,10 +196,9 @@
 
 
 <script>
+
     var modal = document.getElementById("modalAdd");
-
     var btn = document.getElementById("addList");
-
     var span = document.getElementsByClassName("close")[0];
 
     btn.onclick = function () {
@@ -209,7 +206,7 @@
     }
 
     span.onclick = function () {
-        modal.style.dsiplay = "none";
+        modal.style.display = "none";
     }
 
     window.onclick = function (event) {
@@ -217,4 +214,16 @@
             modal.style.display = "none";
         }
     }
+
+    var mop-description = document.querySelector('.mop-description');
+    var mop-full = document.querySelector('.mop-full-description');
+    var mop-read = document.querySelector('.mop-read-more');
+
+    mop-read.onclick = function (){
+        mop-full.classList.toggle('active')
+        mop-description.classList.toggle('active')
+    }
+
+
+
 </script>
