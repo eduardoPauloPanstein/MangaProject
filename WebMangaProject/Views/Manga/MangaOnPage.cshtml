@@ -62,7 +62,6 @@
             {
                 <span class="mop-read-more">Read More</span>
                 <span class="mop-read-less">Read Less</span>
-
             }
         </div>
     </div>
@@ -139,7 +138,7 @@
                 <select class="form-control" name="Score">
                     @for (int i = 0; i < valoresScore.Length; i++)
                     {
-                        <option value="@i">@valoresScore[i].Replace("_"," ")</option>
+                        <option value="@i + 1">@valoresScore[i].Replace("_"," ")</option>
                     }
                 </select>
                 <span asp-validation-for="@Model.User.Score" class="text-danger"></span>
