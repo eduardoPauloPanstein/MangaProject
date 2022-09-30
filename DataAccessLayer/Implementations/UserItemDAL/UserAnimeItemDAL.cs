@@ -1,17 +1,17 @@
-﻿using DataAccessLayer.Interfaces;
+﻿using DataAccessLayer.Interfaces.IUserItem;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Responses;
 
-namespace DataAccessLayer.Implementations
+namespace DataAccessLayer.Implementations.UserItemDAL
 {
     internal class UserAnimeItemDAL : IUserAnimeItemDAL
     {
         private readonly MangaProjectDbContext _db;
         public UserAnimeItemDAL(MangaProjectDbContext db)
         {
-            this._db = db;
+            _db = db;
         }
         public async Task<Response> Delete(int id)
         {

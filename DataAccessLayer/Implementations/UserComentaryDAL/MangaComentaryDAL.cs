@@ -1,26 +1,26 @@
-﻿using DataAccessLayer.Interfaces;
-using Entities.UserS;
+﻿using DataAccessLayer.Interfaces.IUserComentary;
+using Entities.MangaS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Responses;
 
-namespace DataAccessLayer.Implementations
+namespace DataAccessLayer.Implementations.UserComentaryDAL
 {
-    internal class UserMangaItemDAL : IUserMangaItemDAL
+    internal class MangaComentaryDAL : IMangaComentaryDAL
     {
         private readonly MangaProjectDbContext _db;
-        public UserMangaItemDAL(MangaProjectDbContext db)
+        public MangaComentaryDAL(MangaProjectDbContext db)
         {
-            this._db = db;
+            _db = db;
         }
         public async Task<Response> Delete(int id)
         {
-            UserMangaItem? MangaDB = await _db.UserManga.FindAsync(id);
+            MangaComentary? MangaDB = await _db.MangaComentaries.FindAsync(id);
             if (MangaDB == null)
                 return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             try
             {
-                _db.UserManga.Remove(MangaDB);
+                _db.MangaComentaries.Remove(MangaDB);
                 await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
@@ -30,24 +30,24 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<SingleResponse<UserMangaItem>> Get(int id)
+        public async Task<SingleResponse<MangaComentary>> Get(int id)
         {
             try
             {
-                UserMangaItem? Select = _db.UserManga.FirstOrDefault(m => m.Id == id);
-                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<UserMangaItem>(Select);
+                MangaComentary? Select = _db.MangaComentaries.FirstOrDefault(m => m.Id == id);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<MangaComentary>(Select);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<UserMangaItem>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<MangaComentary>(ex);
             }
         }
 
-        public async Task<DataResponse<UserMangaItem>> Get(int skip, int take)
+        public async Task<DataResponse<MangaComentary>> Get(int skip, int take)
         {
             try
             {
-                List<UserMangaItem> mangas = await _db.UserManga
+                List<MangaComentary> mangas = await _db.MangaComentaries
                     .AsNoTracking()
                     .Skip(skip)
                     .Take(take)
@@ -56,15 +56,15 @@ namespace DataAccessLayer.Implementations
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<UserMangaItem>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaComentary>(ex);
             }
         }
 
-        public async Task<Response> Insert(UserMangaItem Item)
+        public async Task<Response> Insert(MangaComentary Item)
         {
             try
             {
-                _db.UserManga.Add(Item);
+                _db.MangaComentaries.Add(Item);
                 await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
@@ -74,14 +74,14 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<Response> Update(UserMangaItem Item)
+        public async Task<Response> Update(MangaComentary Item)
         {
-            UserMangaItem? MangaDB = await _db.UserManga.FindAsync(Item.Id);
+            MangaComentary? MangaDB = await _db.MangaComentaries.FindAsync(Item.Id);
             if (MangaDB == null)
                 return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             try
             {
-                _db.UserManga.Update(Item);
+                _db.MangaComentaries.Update(Item);
                 await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicalLayer.Interfaces
+namespace DataAccessLayer.Interfaces.IUserItem
 {
-    public interface IUserAnimeItemService :ICRUD<UserAnimeItem>
+    public interface IUserAnimeItemDAL : ICRUD<UserAnimeItem>
     {
     }
 }

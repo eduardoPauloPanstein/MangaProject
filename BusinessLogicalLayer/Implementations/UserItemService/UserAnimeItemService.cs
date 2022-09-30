@@ -1,16 +1,16 @@
-﻿using BusinessLogicalLayer.Interfaces;
-using DataAccessLayer.Interfaces;
+﻿using BusinessLogicalLayer.Interfaces.IUserItemService;
+using DataAccessLayer.Interfaces.IUserItem;
 using Entities.UserS;
 using Shared.Responses;
 
-namespace BusinessLogicalLayer.Implementations
+namespace BusinessLogicalLayer.Implementations.UserItemService
 {
     public class UserAnimeItemService : IUserAnimeItemService
     {
         private readonly IUserAnimeItemDAL _UserAnimeItemDAL;
         public UserAnimeItemService(IUserAnimeItemDAL UserAnimeItemDAL)
         {
-            this._UserAnimeItemDAL = UserAnimeItemDAL;
+            _UserAnimeItemDAL = UserAnimeItemDAL;
         }
         public async Task<Response> Delete(int id)
         {
