@@ -909,58 +909,6 @@ abbr[title] {
         opacity: 1;
         background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));
     }
-
-
-
-
-
-
-    .mop-images {
-        width: 100%;
-        box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
-        position: relative;
-        top: 0px;
-        left: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-    }
-
-
-.maaop {
-    position: absolute;
-    font-weight: bold;
-    bottom: 0px;
-    left: 300px;
-    text-shadow: 2px 0 #333, -2px 0 #333, 0 2px #333, 0 -2px #333, 1px 1px #333, -1px -1px #333, 1px -1px #333, -1px 1px #333;
-}
-
-.mop-syn {
-    display: flex;
-    flex-direction: column;
-}
-
-    .mop-syn h5 {
-        left: 365px;
-        position: absolute;
-    }
-
-    .mop-syn p {
-        left: 300px;
-        top: 35px;
-        position: relative;
-    }
-
-.manga-info {
-    font-weight: bold;
-    text-decoration: none;
-    color: #fff;
-}
-
-    .manga-info:hover {
-        text-decoration: none;
-        color: #fff;
-    }
 /*#endregion */
 
 /*#region ModalAddToList */
