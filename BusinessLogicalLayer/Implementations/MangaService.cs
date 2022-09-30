@@ -18,6 +18,7 @@ namespace BusinessLogicalLayer.Implementations
             //Response response = new MangaInsertValidator().Validate(manga).ConvertToResponse();
             //if (!response.HasSuccess)
             //    return response;
+            manga.EnableEntity();
             return await _mangaDAL.Insert(manga);
         }
 

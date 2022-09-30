@@ -114,7 +114,7 @@ namespace MvcPresentationLayer.Controllers
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
             SingleResponse<Manga> responseManga = await _mangaApiService.Get(id,null);
 
-            if (!responseManga.HasSuccess)
+            if (!responseManga.NotFound)
             {
                 return NotFound();
             }

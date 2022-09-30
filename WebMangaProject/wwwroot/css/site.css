@@ -7,7 +7,6 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-
 body {
     position: relative;
     min-height: 100vh;
@@ -698,6 +697,7 @@ abbr[title] {
     background-size: cover;
     height: 400px;
 }
+
 .mop-header {
     position: relative;
 }
@@ -818,18 +818,21 @@ abbr[title] {
     transition: .2s;
     padding: 0 14px;
 }
+
 .mop-content {
     display: inline-grid;
     grid-template-rows: -webkit-min-content -webkit-min-content auto;
     grid-template-rows: min-content min-content auto;
     padding-top: 25px;
 }
-.mop-content h1 {
-    margin: 0;
-    padding: 0;
-    font-size: 1.9rem;
-    font-weight: 400;
-}
+
+    .mop-content h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 1.9rem;
+        font-weight: 400;
+    }
+
 .mop-description {
     color: #fff;
     font-size: 1rem;
@@ -837,47 +840,91 @@ abbr[title] {
     margin: 0;
     max-width: 900px;
     padding: 15px 0;
+    display: block;
     transition: .2s;
 }
-.mop-description-length-toggle{
-    /*background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));*/
-    color: rgb(var(--color-text-lighter));
+
+    .mop-description.active {
+        display: none;
+    }
+
+.mop-full-description {
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 900px;
+    padding: 15px 0;
+    transition: .2s;
+    display: none;
+}
+
+    .mop-full-description.active {
+        display: block;
+    }
+
+.mop-read-more {
+    color: #fff;
     cursor: pointer;
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: 500;
     margin-top: -35px;
     max-width: 900px;
-    opacity:0;
+    opacity: 0;
     padding-bottom: 5px;
     padding-top: 20px;
     text-align: center;
     transition: .2s;
-}
-.mop-description-length-toggle:hover {
-    opacity:1;
+    display: block
 }
 
+    .mop-read-more.active {
+        display: none;
+    }
 
+    .mop-read-more:hover {
+        opacity: 1;
+    }
 
+.mop-read-less {
+    background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: -35px;
+    max-width: 900px;
+    opacity: 0;
+    padding-bottom: 5px;
+    padding-top: 20px;
+    text-align: center;
+    transition: .2s;
+    display: none;
+}
+.div-manga-info {
+    background: rgb(var(--color-foreground));
+    border-radius: 3px;
+    padding: 18px;
+}
 
-
-
-
-
-
-.mop-images {
-    width: 100%;
-    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
-    position: relative;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+.manga-info-items {
+    padding-bottom: 14px;
 }
 
 
-.maaop {
+.type {
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding-bottom: 5px;
+}
+
+.info-result {
+    color: rgb(var(--color-text-lighter));
+    font-size: 1.2rem;
+    line-height: 1.3;
+}
+
+    .maaop {
     position: absolute;
     font-weight: bold;
     bottom: 0px;
@@ -901,13 +948,22 @@ abbr[title] {
         position: relative;
     }
 
+    .mop-read-less.active{
+        display:block;
+    }
+    .mop-read-less:hover {
+        opacity: 1;
+        background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));
 .manga-info {
+    margin-left: 175px;
+}
+.manga-info-a {
     font-weight: bold;
     text-decoration: none;
     color: #fff;
 }
 
-    .manga-info:hover {
+    .manga-info-a:hover {
         text-decoration: none;
         color: #fff;
     }

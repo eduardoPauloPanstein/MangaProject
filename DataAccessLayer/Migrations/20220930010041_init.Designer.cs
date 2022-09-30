@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MangaProjectDbContext))]
-    [Migration("20220928183153_renomeandoGenre")]
-    partial class renomeandoGenre
+    [Migration("20220930010041_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,6 +59,15 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<int>("AccessCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccessUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("AnimeCoverImage")
                         .HasColumnType("nvarchar(max)");
 
@@ -71,6 +80,15 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("AnimeTitlesId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastAccess")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ageRating")
                         .HasColumnType("nvarchar(max)");
 
@@ -82,9 +100,6 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("canonicalTitle")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("createdAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
@@ -127,9 +142,6 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<int?>("totalLength")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("updatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<int?>("userCount")
                         .HasColumnType("int");
@@ -220,7 +232,7 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("AnimeSTitles");
                 });
 
-            modelBuilder.Entity("Entities.MangaS.Category", b =>
+            modelBuilder.Entity("Entities.Category", b =>
                 {
                     b.Property<int>("ID")
                         .HasColumnType("int");
@@ -243,11 +255,14 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("AgeRating")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AccessCount")
+                        .HasColumnType("int");
 
-                    b.Property<string>("AgeRatingGuide")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AccessUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<string>("AverageRating")
                         .HasColumnType("nvarchar(max)");
@@ -261,15 +276,17 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("CoverImageLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("EndDate")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FavoritesCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("LastAccess")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("PopularityRank")
                         .HasColumnType("int");
@@ -293,6 +310,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("Subtype")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Synopsis")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -300,14 +320,14 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("TitlesId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("UserCount")
                         .HasColumnType("int");
 
                     b.Property<int?>("VolumeCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("subtype")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -425,7 +445,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("CoverImageFileLocation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -465,6 +485,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
@@ -493,7 +516,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("Chapter")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Favorite")
@@ -526,6 +549,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("TotalRereads")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -549,13 +575,28 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AccessCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccessUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("Chapter")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Favorite")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastAccess")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("MangaId")
@@ -582,6 +623,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("TotalRereads")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -605,7 +649,7 @@ namespace DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.MangaS.Category", null)
+                    b.HasOne("Entities.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoriesID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -614,7 +658,7 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("CategoryManga", b =>
                 {
-                    b.HasOne("Entities.MangaS.Category", null)
+                    b.HasOne("Entities.Category", null)
                         .WithMany()
                         .HasForeignKey("GenresID")
                         .OnDelete(DeleteBehavior.Cascade)

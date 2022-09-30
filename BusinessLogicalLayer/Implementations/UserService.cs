@@ -33,6 +33,7 @@ namespace BusinessLogicalLayer.Implementations
 
                 Role = UserRoles.Admin,
             };
+            adm.EnableEntity();
             _userDAL.CreateAdmin(adm);
         }
         public async Task<Response> Delete(int id)
@@ -52,6 +53,8 @@ namespace BusinessLogicalLayer.Implementations
                 return response;
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
             //Tirar ConfirmPassword
+
+            user.EnableEntity();
             response = await _userDAL.Insert(user);
             return response;
         }

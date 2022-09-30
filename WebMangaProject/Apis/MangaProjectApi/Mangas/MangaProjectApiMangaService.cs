@@ -118,7 +118,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByFavorites/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
@@ -198,7 +198,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByPopularity/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
@@ -219,7 +219,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
@@ -240,11 +240,11 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<Manga>();
+                    return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Manga>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<SingleResponse<Manga>>(data);
-                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Manga>(dataResponse.Item);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse(dataResponse.Item);
             }
             catch (Exception ex)
             {

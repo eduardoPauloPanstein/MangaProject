@@ -242,7 +242,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<SingleResponse<Anime>>(data);
-                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Anime>(dataResponse.Item);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse(dataResponse.Item);
             }
             catch (Exception ex)
             {

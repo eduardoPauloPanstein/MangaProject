@@ -232,7 +232,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 Category? Select = _db.Categories.Include(c => c.AnimesID).FirstOrDefault(m => m.ID == ID);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Anime>(Select.AnimesID.ToList());
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(Select.AnimesID.ToList());
             }
             catch (Exception ex)
             {
@@ -260,4 +260,3 @@ namespace DataAccessLayer.Implementations
         }
     }
 }
-

@@ -15,7 +15,8 @@ namespace BusinessLogicalLayer.Implementations
         }
         public async Task<Response> Insert(Anime Item)
         {
-            //Validacoes
+            //Validate
+            Item.EnableEntity();
             return await _animeDAL.Insert(Item);
         }
 

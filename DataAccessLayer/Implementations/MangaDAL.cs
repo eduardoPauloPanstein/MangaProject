@@ -244,7 +244,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 Category? Select = _db.Categories.Include(c => c.MangasID).FirstOrDefault(m => m.ID == ID);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Manga>(Select.MangasID.ToList());
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(Select.MangasID.ToList());
             }
             catch (Exception ex)
             {

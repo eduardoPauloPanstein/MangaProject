@@ -1,7 +1,6 @@
 ﻿@model MvcPresentationLayer.Models.MangaModels.MangaItemModalViewModel
 @using Entities.Enums
 
-
 @{
 
     ViewData["Title"] = @Model.Manga.CanonicalTitle;
@@ -28,13 +27,15 @@
                 <img class="mop-poster" src="@Model.Manga.PosterImageLink" />
                 <div class="mop-actions">
                     <div class="mop-list">
+                        <!-- Trigger/Open The Modal -->
                         <div class="addList" id="addList">Add to List</div>
                         <div class="dropdown el-dropdown">
                             <span class="el-dropdown-link el-dropdown-selfdefine"
-                             <i class="uil uil-caret-right"></i>
+                             <i class="uil uil-angle-down"></i>
                         </div>
                     </div>
                     <div class="mop-favourite">
+                        <i class="uil uil-heart-alt"></i>
                     </div>
                 </div>
             </div>
@@ -42,52 +43,46 @@
         <div class="mop-content">
             <h1>@Model.Manga.CanonicalTitle</h1>
 
-            <p class="mop-description">
-
-                @if (@Synopsys.Length > 700)
-                {
-                    @Synopsys.Substring(0, 700)
-                    ;
-                }
-                else
-                {
-                    @Synopsys.ToString()
-                    ;
-                }
-
-            </p>
+            @if (Synopsys.Length > 700)
+            {
+                <p class="mop-description">
+                    @Synopsys.Substring(0, 700)...
+                </p>
+                <p class="mop-full-description">
+                    @Synopsys;
+                </p>
+            }
+            else
+            {
+                <p class="mop-description">
+                    @Synopsys.ToString();
+                </p>
+            }
             @if (@Synopsys.Length > 700)
             {
-                <span class="mop-description-length-toggle">Read More</span>
+                <span class="mop-read-more">Read More</span>
+                <span class="mop-read-less">Read Less</span>
+
             }
         </div>
     </div>
 </div>
-@*<div class="mop-images" id="Banner">
-    <!-- Background image -->
-    <img class="mop-banner"  src="@Model.Manga.CoverImageLink"/>
-    <img class="mop-poster" src="@Model.Manga.PosterImageLink"/>
-    <h2 class="maaop">@Model.Manga.CanonicalTitle</h2>
-</div>
-<!-- Page Content -->
-<section class="">
-    <div class="mop-syn">
 
-        <h5 class="">Synopsis:</h5>
-        <p>@Model.Manga.Synopsis</p>
-    </div>*@
+<!-- Page Content -->
+
+
 
 <div class="form-group">
     <div class="card-item">
-        <p><a class="manga-info">Format:</a> @Model.Manga.Subtype</p>
-        <p><a class="manga-info">Chapters:</a> @Model.Manga.ChapterCount</p>
-        <p><a class="manga-info">Volumes:</a> @Model.Manga.VolumeCount</p>
-        <p><a class="manga-info">Status:</a> @Model.Manga.Status.ToString()</p>
-        <p><a class="manga-info">Start Date:</a> @Model.Manga.StartDate</p>
-        <p><a class="manga-info"> Date:</a> @Model.Manga.EndDate</p>
-        <p><a class="manga-info">Average Score:</a> @Model.Manga.AverageRating</p>
-        <p><a class="manga-info">Popularity:</a> @Model.Manga.PopularityRank</p>
-        <p><a class="manga-info">Favorites:</a> @Model.Manga.FavoritesCount</p>
+        <p class="manga-info"><a class="manga-info-a">Format:</a> @Model.Manga.Subtype</p>
+        <p class="manga-info"><a class="manga-info-a">Chapters:</a> @Model.Manga.ChapterCount</p>
+        <p class="manga-info"><a class="manga-info-a">Volumes:</a> @Model.Manga.VolumeCount</p>
+        <p class="manga-info"><a class="manga-info-a">Status:</a> @Model.Manga.Status.ToString()</p>
+        <p class="manga-info"><a class="manga-info-a">Start Date:</a> @Model.Manga.StartDate</p>
+        <p class="manga-info"><a class="manga-info-a"> Date:</a> @Model.Manga.EndDate</p>
+        <p class="manga-info"><a class="manga-info-a">Average Score:</a> @Model.Manga.AverageRating</p>
+        <p class="manga-info"><a class="manga-info-a">Popularity:</a> @Model.Manga.PopularityRank</p>
+        <p class="manga-info"><a class="manga-info-a">Favorites:</a> @Model.Manga.FavoritesCount</p>
         <p>
             Genres:
             <ul>
@@ -102,14 +97,10 @@
             </ul>
         </p>
 
-
-
-        </H1>
     </div>
 </div>
 
-<!-- Trigger/Open The Modal -->
-@*<button id="addList">Add to List</button>*@
+
 <!-- The Modal -->
 <div id="modalAdd" class="modalAdd">
     <!-- Modal content -->
@@ -198,10 +189,9 @@
 
 
 <script>
+
     var modal = document.getElementById("modalAdd");
-
     var btn = document.getElementById("addList");
-
     var span = document.getElementsByClassName("close")[0];
 
     btn.onclick = function () {
@@ -209,7 +199,7 @@
     }
 
     span.onclick = function () {
-        modal.style.dsiplay = "none";
+        modal.style.display = "none";
     }
 
     window.onclick = function (event) {
@@ -217,4 +207,26 @@
             modal.style.display = "none";
         }
     }
+
+    let description = document.querySelector('.mop-description')
+    let full = document.querySelector('.mop-full-description')
+    let more = document.querySelector('.mop-read-more')
+    let less = document.querySelector('.mop-read-less')
+
+    more.onclick = function () {
+        description.classList.toggle('active')
+        full.classList.toggle('active')
+        less.classList.toggle('active')
+        more.classList.toggle('active')
+    }
+
+    less.onclick = function () {
+        description.classList.toggle('active')
+        full.classList.toggle('active')
+        more.classList.toggle('active')
+        less.classList.toggle('active')
+    }
+
+
+
 </script>

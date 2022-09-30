@@ -186,6 +186,8 @@ namespace DataAccessLayer.Migrations
                     Serialization = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PosterImageLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CoverImageLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Subtype = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChapterCount = table.Column<int>(type: "int", nullable: true),
                     AccessCount = table.Column<int>(type: "int", nullable: false),
                     AccessUserId = table.Column<int>(type: "int", nullable: false),
                     LastAccess = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -307,15 +309,15 @@ namespace DataAccessLayer.Migrations
                 name: "CategoryManga",
                 columns: table => new
                 {
-                    CategoriaID = table.Column<int>(type: "int", nullable: false),
+                    GenresID = table.Column<int>(type: "int", nullable: false),
                     MangasIDId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryManga", x => new { x.CategoriaID, x.MangasIDId });
+                    table.PrimaryKey("PK_CategoryManga", x => new { x.GenresID, x.MangasIDId });
                     table.ForeignKey(
-                        name: "FK_CategoryManga_Category_CategoriaID",
-                        column: x => x.CategoriaID,
+                        name: "FK_CategoryManga_Category_GenresID",
+                        column: x => x.GenresID,
                         principalTable: "Category",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
