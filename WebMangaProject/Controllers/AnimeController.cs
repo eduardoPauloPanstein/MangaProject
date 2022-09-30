@@ -60,7 +60,7 @@ namespace MvcPresentationLayer.Controllers
 
             var anime = _mapper.Map<AnimeOnpageViewModel>(responseAnime.Item);
 
-            var user = _mapper.Map<UserFavoriteAnimeViewModel>(responseUser.Data);
+            var user = _mapper.Map<UserFavoriteAnimeViewModel>(responseUser.Item);
             if (user != null)
             {
                 if (user.StartDate != null)

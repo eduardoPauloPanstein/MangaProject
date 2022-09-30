@@ -8,7 +8,7 @@ namespace WebMangaProject.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("ConsumirApi", "MangaDb");
+            return RedirectToAction("Index", "Manga");
         }
         public IActionResult AboutUs()
         {

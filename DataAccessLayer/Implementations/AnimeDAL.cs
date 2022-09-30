@@ -58,7 +58,7 @@ namespace DataAccessLayer.Implementations
             {
                 //Anime? Select = _db.Animes.Include(c=> c.Categories).FirstOrDefault(m => m.Id == id);
                 Anime? Select = _db.Animes.FirstOrDefault(m => m.Id == id);
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Anime>(Select);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Anime>(Select);
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace DataAccessLayer.Implementations
         {
             Anime? AnimeDB = await _db.Animes.FindAsync(id);
             if (AnimeDB == null)
-                return ResponseFactory.CreateInstance().CreateNotFoundIdResponse();
+                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             try
             {
                 _db.Animes.Remove(AnimeDB);
@@ -119,11 +119,11 @@ namespace DataAccessLayer.Implementations
             try
             {
                 Anime? Select = _db.Animes.Include(c => c.Categories).Include(t => t.AnimeTitles).Include(r => r.AnimeRatingFrequencies).FirstOrDefault(m => m.Id == ID);
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Anime>(Select);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Anime>(Select);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Anime>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Anime>(ex);
             }
         }
 
@@ -232,11 +232,11 @@ namespace DataAccessLayer.Implementations
             try
             {
                 Category? Select = _db.Categories.Include(c => c.AnimesID).FirstOrDefault(m => m.ID == ID);
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Anime>(Select.AnimesID.ToList());
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Anime>(Select.AnimesID.ToList());
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(ex);
             }
         }
 
@@ -250,31 +250,14 @@ namespace DataAccessLayer.Implementations
                     .Skip(skip)
                     .Take(take)
                     .ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(Animes);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(Animes);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Anime>(ex);
-            }
-        }
-    }
-
-        public async Task<Response> Update(Anime Item)
-        {
-            Anime? AnimeDB = await _db.Animes.FindAsync(Item.Id);
-            if (AnimeDB == null)
-                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
-            try
-            {
-                _db.Animes.Update(Item);
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(ex);
             }
         }
     }
 }
+

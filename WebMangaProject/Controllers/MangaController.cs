@@ -121,7 +121,7 @@ namespace MvcPresentationLayer.Controllers
 
             var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Item);
 
-            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
+            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Item);
             if (user != null)
             {
                 if(user.StartDate != null)
