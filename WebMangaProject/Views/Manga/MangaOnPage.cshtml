@@ -30,8 +30,9 @@
                         <!-- Trigger/Open The Modal -->
                         <div class="addList" id="addList">Add to List</div>
                         <div class="dropdown el-dropdown">
-                            <span class="el-dropdown-link el-dropdown-selfdefine"
+                            <span class="el-dropdown-link el-dropdown-selfdefine">
                              <i class="uil uil-angle-down"></i>
+                            </span>
                         </div>
                     </div>
                     <div class="mop-favourite">
@@ -71,19 +72,47 @@
 
 
 
-<div class="form-group">
-    <div class="card-item">
-        <p class="manga-info"><a class="manga-info-a">Format:</a> @Model.Manga.Subtype</p>
-        <p class="manga-info"><a class="manga-info-a">Chapters:</a> @Model.Manga.ChapterCount</p>
-        <p class="manga-info"><a class="manga-info-a">Volumes:</a> @Model.Manga.VolumeCount</p>
-        <p class="manga-info"><a class="manga-info-a">Status:</a> @Model.Manga.Status.ToString()</p>
-        <p class="manga-info"><a class="manga-info-a">Start Date:</a> @Model.Manga.StartDate</p>
-        <p class="manga-info"><a class="manga-info-a"> Date:</a> @Model.Manga.EndDate</p>
-        <p class="manga-info"><a class="manga-info-a">Average Score:</a> @Model.Manga.AverageRating</p>
-        <p class="manga-info"><a class="manga-info-a">Popularity:</a> @Model.Manga.PopularityRank</p>
-        <p class="manga-info"><a class="manga-info-a">Favorites:</a> @Model.Manga.FavoritesCount</p>
-        <p>
-            Genres:
+
+<div class="div-manga-info">
+    <div class="manga-info-items">
+        <div class="info-type">Format:</div>
+        <div class="info-result">@Model.Manga.Subtype</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">Chapters:</div>
+        <div class="info-result">@Model.Manga.ChapterCount</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">Volumes:</div>
+        <div class="info-result">@Model.Manga.VolumeCount</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">Status:</div>
+        <div class="info-result">@Model.Manga.Status.ToString()</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">Start Date:</div>
+        <div class="info-result">@Model.Manga.StartDate</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">End Date:</div>
+        <div class="info-result">@Model.Manga.EndDate</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">Average Score:</div>
+        <div class="info-result">@Model.Manga.AverageRating</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">Popularity:</div>
+        <div class="info-result">@Model.Manga.PopularityRank</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">Favorites:</div>
+        <div class="info-result">@Model.Manga.FavoritesCount</div>
+    </div>
+    <div class="manga-info-items">
+        <div class="info-type">Genres:</div>
+        <div class="info-result">
             <ul>
                 @{
                     foreach (var item in @Model.Manga.Genres)
@@ -94,11 +123,9 @@
                     }
                 }
             </ul>
-        </p>
-
+        </div>
     </div>
 </div>
-
 
 <!-- The Modal -->
 <div id="modalAdd" class="modalAdd">
@@ -225,7 +252,4 @@
         more.classList.toggle('active')
         less.classList.toggle('active')
     }
-
-
-
 </script>
