@@ -111,24 +111,24 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> MangaOnPage(int id)
         {
-            var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
-            SingleResponse<Manga> responseManga = await _mangaApiService.Get(id,null);
+            SingleResponse<User> responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
+            SingleResponse<Manga> responseManga = await _mangaApiService.Get(id, null);
 
-            if (!responseManga.NotFound)
+            if (responseManga.NotFound)
             {
                 return NotFound();
             }
 
-            var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Item);
+            MangaOnPageViewModel manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Item);
 
-            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Item);
+            UserFavoriteMangaViewModel user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Item);
             if (user != null)
             {
-                if(user.StartDate != null)
+                if (user.StartDate != null)
                 {
                     user.StartDate = DateTime.Now.Date;
                 }
-                if(user.FinishDate != null)
+                if (user.FinishDate != null)
                 {
                     user.FinishDate = DateTime.Now.Date;
 
@@ -151,9 +151,8 @@ namespace MvcPresentationLayer.Controllers
             return Json(new { resultado = response.Data });
         }
         [HttpPost, Authorize]
-        public async Task<IActionResult> UserFavorite(UserFavoriteMangaViewModel fav)
+        public async Task<IActionResult> UserFavorite(MangaItemModalViewModel fav)
         {
-           
             UserMangaItem item = this._mapper.Map<UserMangaItem>(fav);
 
             item.UserId = UserService.GetId(HttpContext);
@@ -165,7 +164,7 @@ namespace MvcPresentationLayer.Controllers
             {
                 return BadRequest(Response);
             }
-            return RedirectToAction("MangaOnPage", "Manga", new {id = fav.Id});
+            return RedirectToAction("MangaOnPage", "Manga", new { id = fav.Manga.Id });
         }
     }
 

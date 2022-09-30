@@ -148,6 +148,7 @@ namespace MvcPresentationLayer.Controllers
             }
             return RedirectToAction("AnimeOnPage", "Anime", new { id = fav.Id });
         }
+
         public async Task<IActionResult> Index()
         {
             DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
