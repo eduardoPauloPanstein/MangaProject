@@ -58,7 +58,7 @@ namespace MvcPresentationLayer.Controllers
                 return NotFound();
             }
 
-            var anime = _mapper.Map<AnimeOnpageViewModel>(responseAnime.Data);
+            var anime = _mapper.Map<AnimeOnpageViewModel>(responseAnime.Item);
 
             var user = _mapper.Map<UserFavoriteAnimeViewModel>(responseUser.Data);
             if (user != null)

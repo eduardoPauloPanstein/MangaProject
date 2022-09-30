@@ -26,7 +26,6 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
             Manga manga = new()
             {
                 Id = Convert.ToInt32(item.id),
-                Name = item.attributes.slug,
                 Synopsis = item.attributes.synopsis,
                 Titles = titles,
                 CanonicalTitle = item.attributes.canonicalTitle,
@@ -38,7 +37,6 @@ namespace BusinessLogicalLayer.ApiConsumer.MangaApi
                 FavoritesCount = item.attributes.favoritesCount,
                 StartDate = item.attributes.startDate,
                 EndDate = item.attributes.endDate,
-                AgeRating = item.attributes.ageRating,
                 Status = status,
                 VolumeCount = item.attributes.volumeCount,
                 Serialization = item.attributes.serialization,

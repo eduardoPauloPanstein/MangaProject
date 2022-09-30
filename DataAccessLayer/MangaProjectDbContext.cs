@@ -1,4 +1,5 @@
-﻿using Entities.AnimeS;
+﻿using Entities;
+using Entities.AnimeS;
 using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;

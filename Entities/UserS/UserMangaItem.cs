@@ -3,10 +3,18 @@ using Entities.MangaS;
 
 namespace Entities.UserS
 {
-    public class UserMangaItem
+    public class UserMangaItem : Entity
     {
-        public int Id { get; set; }
+        public UserMangaItem(Manga manga, User user)
+        {
+            Manga = manga;
+            User = user;
+        }
 
+        public UserMangaItem()
+        {
+
+        }
 
         public Manga Manga { get; set; }
         public int MangaId { get; set; }

@@ -58,10 +58,6 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<SingleResponse<User>> Get(int id)
         {
-            if (id == null)
-            {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, "Id is null.");
-            }
 
             return await _userDAL.Get(id);
         }
@@ -73,7 +69,10 @@ namespace BusinessLogicalLayer.Implementations
 
         public async Task<Response> Update(User user)
         {
-            //validar
+            Response response = new UserUpdateValidator().Validate(user).ConvertToResponse();
+            if (!response.HasSuccess)
+                return response;
+
             return await _userDAL.Update(user);
         }
 

@@ -19,54 +19,180 @@ namespace Shared
         private ResponseFactory() { }
         #endregion Singleton
 
-        public  Response CreateSuccessResponse()
+        #region Responses
+
+        //Success
+        public Response CreateSuccessResponse()
         {
-            return new Response("Operação realizada com sucesso.", true,null);
+            return new Response("Operation performed successfully.", true);
         }
-        public  SingleResponse<T> CreateSingleSuccessResponse<T>(T item)
+        public  Response CreateSuccessResponse(string mensagem)
         {
-            return new SingleResponse<T>("Dado coletado com sucesso", true,item,null);
+            return new Response()
+            {
+                HasSuccess = true,
+                Message = mensagem
+            };
         }
-        public DataResponse<T> CreateDataSuccessResponse<T>(List<T> item)
+
+        //Failed
+        public Response CreateFailedResponse(string mensagem, Exception? ex = null)
         {
-            return new DataResponse<T>("Dados coletados com sucesso", true,item,null);
+            return new Response(mensagem, false, ex);
+        }
+        public Response CreateFailedResponse(Exception? ex = null)
+        {
+            return new Response("Operation failed.", false, ex);
+        }
+
+        public Response CreateFailedResponseZeroRowsUpdatedOnDatabase()
+        {
+            return new Response()
+            {
+                HasSuccess = false,
+                Message = "No records have been changed for the record in question."
+            };
+        }
+
+        public static Response CreateFailedPermissionResponse()
+        {
+            return new Response()
+            {
+                HasSuccess = false,
+                Message = "Permission not granted for the operation."
+            };
+        }
+
+        public Response CreateFailedResponseNotFoundId()
+        {
+            return new Response("Not found Id.", false);
+        }
+
+        #endregion
+
+        #region SingleResponses
+
+        //Success
+        public SingleResponse<T> CreateSuccessSingleResponse<T>(T item)
+        {
+            return new SingleResponse<T>("Data collected successfully", true,item);
+        }
+        public static SingleResponse<T> CreateSuccessSingleResponse<T>(string message)
+        {
+            return new SingleResponse<T>()
+            {
+                HasSuccess = true,
+                Message = message
+            };
+        }
+
+        public SingleResponseWToken<T> CreateSuccessSingleResponseWToken<T>(string token, T? item, Exception? ex = null)
+        {
+            return new SingleResponseWToken<T>("Data collected successfully", true, item, token, ex);
         }
 
 
-
-        public Response CreateFailedResponse(Exception ex)
+        //Failed
+        public SingleResponse<T> CreateFailedSingleResponse<T>(string mensagem, Exception? ex = null)
         {
-            return new Response("Erro no banco de dados, contate o administrador.", false,ex);
+            return new SingleResponse<T>()
+            {
+                HasSuccess = false,
+                Message = mensagem,
+                Exception = ex,
+            };
         }
-        public Response CreateFailedResponse(Exception ex, string message)
+        public SingleResponse<T> CreateFailedSingleResponse<T>(Exception? ex = null)
         {
-            return new Response(message, false, ex);
-        }
-        public Response CreateNotFoundIdResponse()
-        {
-            return new Response("Not found ID.", false, null);
-        }
-
-
-
-        public SingleResponse<T> CreateSingleNotFoundIdResponse<T>(T item)
-        {
-            return new SingleResponse<T>("Not found ID on database.", false, item, null);
-        }
-        public SingleResponse<T> CreateSingleFailedResponse<T>(Exception ex,T item)
-        {
-            return new SingleResponse<T>("Erro no banco, contate o administrador.", false,item,ex);
-        }
-        public SingleResponse<T> CreateSingleFailedResponse<T>(Exception ex, T item, string message)
-        {
-            return new SingleResponse<T>(message, false, item, ex);
+            return new SingleResponse<T>()
+            {
+                HasSuccess = false,
+                Message = "Operation failed.",
+                Exception = ex,
+            };
         }
 
-
-
-        public DataResponse<T> CreateDataFailedResponse<T>(Exception ex)
+        public SingleResponse<T> CreateFailedSingleResponseNotFoundItem<T>(Exception? ex = null)
         {
-            return new DataResponse<T>("Erro no banco, contate o administrador.", false, null,ex);
+            return new SingleResponse<T>()
+            {
+                HasSuccess = false,
+                Message = "Item not found.",
+                Exception = ex
+            };
         }
+
+        public SingleResponseWToken<T> CreateFailedSingleResponseWToken<T>(String message, Exception? ex = null)
+        {
+            return new SingleResponseWToken<T>()
+            {
+                HasSuccess = false,
+                Message = message,
+                Exception = ex,
+            };
+        }
+        public SingleResponseWToken<T> CreateFailedSingleResponseWToken<T>(Exception? ex = null)
+        {
+            return new SingleResponseWToken<T>()
+            {
+                HasSuccess = false,
+                Message = "Operation failed.",
+                Exception = ex,
+            };
+        }
+
+
+        #endregion
+
+        #region DataResponses
+
+        public DataResponse<T> CreateSuccessDataResponse<T>(string message)
+        {
+            return new DataResponse<T>()
+            {
+                HasSuccess = true,
+                Message = message
+            };
+        }
+        public DataResponse<T> CreateResponseBasedOnCollectionData<T>(List<T> data)
+        {
+            if (data == null || data.Count == 0)
+            {
+                return new DataResponse<T>()
+                {
+                    Data = new List<T>(),
+                    Exception = null,
+                    HasSuccess = false,
+                    Message = "Data not found."
+                };
+            }
+            return new DataResponse<T>()
+            {
+                Data = data,
+                Exception = null,
+                HasSuccess = true,
+                Message = "Data collected successfully."
+            };
+        }
+        public DataResponse<T> CreateFailedDataResponse<T>(string message, Exception? ex = null)
+        {
+            return new DataResponse<T>()
+            {
+                HasSuccess = false,
+                Message = message,
+                Exception = ex
+            };
+        }
+        public DataResponse<T> CreateFailedDataResponse<T>(Exception? ex = null)
+        {
+            return new DataResponse<T>()
+            {
+                HasSuccess = false,
+                Message = "Operation failed.",
+                Exception = ex
+            };
+        }
+
+        #endregion
     }
 }

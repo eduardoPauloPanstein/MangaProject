@@ -46,12 +46,12 @@ namespace DataAccessLayer.Implementations
                     .Skip(skip)
                     .Take(take)
                     .ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
 
@@ -65,12 +65,12 @@ namespace DataAccessLayer.Implementations
                     .Skip(skip)
                     .Take(take)
                     .ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
 
@@ -79,11 +79,11 @@ namespace DataAccessLayer.Implementations
             try
             {
                 List<Manga> mangas = await _db.Mangas.Where(M => M.CanonicalTitle.Contains(name)).ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse<Manga>(mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Manga>(mangas);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
 
@@ -92,11 +92,11 @@ namespace DataAccessLayer.Implementations
             try
             {
                 Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<Manga>(Select);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Manga>(Select);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<Manga>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<Manga>(ex);
             }
         }
 
@@ -109,12 +109,12 @@ namespace DataAccessLayer.Implementations
                     .Skip(skip)
                     .Take(take)
                     .ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
 
@@ -122,7 +122,7 @@ namespace DataAccessLayer.Implementations
         {
             Manga? MangaDB = await _db.Mangas.FindAsync(Item.Id);
             if (MangaDB == null)
-                return ResponseFactory.CreateInstance().CreateNotFoundIdResponse();
+                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             try
             {
                 _db.Mangas.Update(Item);
@@ -139,7 +139,7 @@ namespace DataAccessLayer.Implementations
         {
             Manga? MangaDB = await _db.Mangas.FindAsync(id);
             if (MangaDB == null)
-                return ResponseFactory.CreateInstance().CreateNotFoundIdResponse();
+                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             try
             {
                 _db.Mangas.Remove(MangaDB);
@@ -206,12 +206,12 @@ namespace DataAccessLayer.Implementations
                     .Skip(skip)
                     .Take(take)
                     .ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
 

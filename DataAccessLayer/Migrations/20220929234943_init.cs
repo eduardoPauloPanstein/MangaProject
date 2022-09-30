@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class NewDb : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -94,7 +94,6 @@ namespace DataAccessLayer.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     About = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -102,7 +101,13 @@ namespace DataAccessLayer.Migrations
                     ReviewsCount = table.Column<int>(type: "int", nullable: false),
                     AvatarImageFileLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CoverImageFileLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    KeepLogged = table.Column<bool>(type: "bit", nullable: false)
+                    KeepLogged = table.Column<bool>(type: "bit", nullable: false),
+                    AccessCount = table.Column<int>(type: "int", nullable: false),
+                    AccessUserId = table.Column<int>(type: "int", nullable: false),
+                    LastAccess = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -119,8 +124,6 @@ namespace DataAccessLayer.Migrations
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AnimeTitlesId = table.Column<int>(type: "int", nullable: true),
                     canonicalTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    createdAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    updatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     averageRating = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AnimeRatingFrequenciesId = table.Column<int>(type: "int", nullable: true),
                     userCount = table.Column<int>(type: "int", nullable: true),
@@ -139,7 +142,13 @@ namespace DataAccessLayer.Migrations
                     episodeLength = table.Column<int>(type: "int", nullable: true),
                     totalLength = table.Column<int>(type: "int", nullable: true),
                     youtubeVideoId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    showType = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    showType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AccessCount = table.Column<int>(type: "int", nullable: false),
+                    AccessUserId = table.Column<int>(type: "int", nullable: false),
+                    LastAccess = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -161,7 +170,6 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Synopsis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TitlesId = table.Column<int>(type: "int", nullable: true),
                     CanonicalTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -173,13 +181,17 @@ namespace DataAccessLayer.Migrations
                     FavoritesCount = table.Column<int>(type: "int", nullable: true),
                     StartDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EndDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AgeRating = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AgeRatingGuide = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: true),
                     VolumeCount = table.Column<int>(type: "int", nullable: true),
                     Serialization = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PosterImageLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CoverImageLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CoverImageLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AccessCount = table.Column<int>(type: "int", nullable: false),
+                    AccessUserId = table.Column<int>(type: "int", nullable: false),
+                    LastAccess = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -221,6 +233,34 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AnimeComentary",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AnimeId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Comentary = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DataComentary = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnimeComentary", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AnimeComentary_Anime_AnimeId",
+                        column: x => x.AnimeId,
+                        principalTable: "Anime",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AnimeComentary_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserAnimeItem",
                 columns: table => new
                 {
@@ -238,7 +278,13 @@ namespace DataAccessLayer.Migrations
                     PrivateNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PublicNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Private = table.Column<bool>(type: "bit", nullable: false),
-                    Favorite = table.Column<bool>(type: "bit", nullable: false)
+                    Favorite = table.Column<bool>(type: "bit", nullable: false),
+                    AccessCount = table.Column<int>(type: "int", nullable: false),
+                    AccessUserId = table.Column<int>(type: "int", nullable: false),
+                    LastAccess = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -282,6 +328,34 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MangaComentary",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MangaId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Comentary = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DataComentary = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MangaComentary", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MangaComentary_Mangas_MangaId",
+                        column: x => x.MangaId,
+                        principalTable: "Mangas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MangaComentary_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserMangaItem",
                 columns: table => new
                 {
@@ -299,7 +373,13 @@ namespace DataAccessLayer.Migrations
                     PrivateNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PublicNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Private = table.Column<bool>(type: "bit", nullable: false),
-                    Favorite = table.Column<bool>(type: "bit", nullable: false)
+                    Favorite = table.Column<bool>(type: "bit", nullable: false),
+                    AccessCount = table.Column<int>(type: "int", nullable: false),
+                    AccessUserId = table.Column<int>(type: "int", nullable: false),
+                    LastAccess = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -334,9 +414,29 @@ namespace DataAccessLayer.Migrations
                 column: "CategoriesID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AnimeComentary_AnimeId",
+                table: "AnimeComentary",
+                column: "AnimeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnimeComentary_UserId",
+                table: "AnimeComentary",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CategoryManga_MangasIDId",
                 table: "CategoryManga",
                 column: "MangasIDId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MangaComentary_MangaId",
+                table: "MangaComentary",
+                column: "MangaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MangaComentary_UserId",
+                table: "MangaComentary",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Mangas_RatingFrequenciesId",
@@ -375,7 +475,13 @@ namespace DataAccessLayer.Migrations
                 name: "AnimeCategory");
 
             migrationBuilder.DropTable(
+                name: "AnimeComentary");
+
+            migrationBuilder.DropTable(
                 name: "CategoryManga");
+
+            migrationBuilder.DropTable(
+                name: "MangaComentary");
 
             migrationBuilder.DropTable(
                 name: "UserAnimeItem");

@@ -1,4 +1,4 @@
-﻿using Entities.MangaS;
+﻿using Entities;
 
 namespace BusinessLogicalLayer.ApiConsumer.MangaApi.MangaCategoryApi
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shared.Responses
+﻿namespace Shared.Responses
 {
     public class DataResponse<T> : Response
     {
@@ -12,7 +6,12 @@ namespace Shared.Responses
         {
             Data = dados;
         }
+        public DataResponse()
+        {
+
+        }
 
         public List<T> Data { get; set; }
+        public bool IsEmptyData { get { return this.Data == null || this.Data.Count > 0; } }
     }
 }

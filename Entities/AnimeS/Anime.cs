@@ -1,23 +1,14 @@
 ﻿using Entities.Enums;
-using Entities.MangaS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities.AnimeS
 {
-    public class Anime
+    public class Anime : Entity
     {
-        public int Id { get; set; }
         public string? name { get; set; }
         public string? synopsis { get; set; }
         public string? description { get; set; }
         public AnimeSTitles? AnimeTitles { get; set; }
         public string? canonicalTitle { get; set; }
-        public DateTime? createdAt { get; set; }
-        public DateTime? updatedAt { get; set; }
         public string? averageRating { get; set; }
         public AnimeRatingFrequencies? AnimeRatingFrequencies { get; set; }
         public int? userCount { get; set; }
