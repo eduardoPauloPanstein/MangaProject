@@ -34,46 +34,60 @@
             </a>
         </div>
     </div>
-    @*<div class="form-group">
-        <div class="card-item">
-            <H1>
-                Format
-{@Model.Anime.subtype}
-Episodes
-{@Model.Anime.episodeCount}
 
-Episode Duration
-{@Model.Anime.episodeLength}
-
-Status
-{@Model.Anime.status.ToString()}
-
-Start Date
-{@Model.Anime.startDate}
-
-End Date
-{@Model.Anime.endDate}
-
-Average Score
-{@Model.Anime.averageRating}
-
-Popularity
-545537
-
-Favorites
-{@Model.Anime.favoritesCount}
-
-Genres
-@{foreach (var item in @Model.Anime.Categories)
-                {
-                    <h1>@item.Name</H1>
-                }
-}
-            </H1>
+    <div class="div-manga-info">
+        <div class="manga-info-items">
+            <div class="info-type">Format:</div>
+            <div class="info-result">@Model.Anime.subtype</div>
         </div>
-    </div>*@
-</section>
-
+        <div class="manga-info-items">
+            <div class="info-type">Episodes:</div>
+            <div class="info-result">@Model.Anime.episodeCount</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Episode Duration:</div>
+            <div class="info-result">@Model.Anime.episodeLength</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Status:</div>
+            <div class="info-result">@Model.Anime.status.ToString()</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Start Date:</div>
+            <div class="info-result">@Model.Anime.startDate</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">End Date:</div>
+            <div class="info-result">@Model.Anime.endDate</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Average Score:</div>
+            <div class="info-result">@Model.Anime.averageRating</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Popularity:</div>
+            <div class="info-result">@Model.Anime.popularityRank</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Favorites:</div>
+            <div class="info-result">@Model.Anime.favoritesCount</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Genres:</div>
+            <div class="info-result">
+                <ul>
+                    @{
+                        foreach (var item in @Model.Anime.Categories)
+                        {
+                            <li>
+                                <p>@item.Name</p>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
 
