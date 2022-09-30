@@ -17,10 +17,12 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 using HttpResponseMessage responseHttp = await client.DeleteAsync($"User/{id}");
+
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null);
+                    return ResponseFactory.CreateInstance().CreateFailedResponse();
                 }
+
                 return JsonConvert.DeserializeObject<Response>(await responseHttp.Content.ReadAsStringAsync());
             }
             catch (Exception ex)
@@ -44,7 +46,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
                 {
                     return ResponseFactory.CreateInstance().CreateSuccessResponse();
                 }
-                return ResponseFactory.CreateInstance().CreateFailedResponse(null, response.Message);
+                return ResponseFactory.CreateInstance().CreateFailedResponse(response.Message);
             }
             catch (Exception ex)
             {
@@ -56,21 +58,17 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
         {
             try
             {
-                string serialized = JsonConvert.SerializeObject(userLogin);
-                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User/LoginA", serialized);
-
-                var response = JsonConvert.DeserializeObject<SingleResponseWToken<User>>(responseHttp.Content.ReadAsStringAsync().Result);
+                //string serialized = JsonConvert.SerializeObject(userLogin);
+                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User/Authenticate", userLogin);
 
                 if (responseHttp.IsSuccessStatusCode)
-                {
+                    return JsonConvert.DeserializeObject<SingleResponseWToken<User>>(responseHttp.Content.ReadAsStringAsync().Result);
 
-                    return response;
-                }
-                return response;
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponseWToken<User>();
             }
             catch (Exception ex)
             {
-                return new("Fail", false, null, null, ex);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponseWToken<User>(ex);
             }
         }
 
@@ -83,15 +81,15 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
 
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null);
+                    return ResponseFactory.CreateInstance().CreateFailedSingleResponse<User>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<SingleResponse<User>>(data);
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<User>(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<User>(dataResponse.Item);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponse<User>(ex);
             }
         }
 
@@ -104,15 +102,15 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
                 using HttpResponseMessage responseHttp = await client.GetAsync($"User/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<User>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<User>>(data);
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<User>(ex);
             }
         }
 
@@ -131,7 +129,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
                 {
                     return ResponseFactory.CreateInstance().CreateSuccessResponse();
                 }
-                return ResponseFactory.CreateInstance().CreateFailedResponse(null, response.Message);
+                return ResponseFactory.CreateInstance().CreateFailedResponse(response.Message);
             }
             catch (Exception ex)
             {
@@ -154,7 +152,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
                 {
                     return ResponseFactory.CreateInstance().CreateSuccessResponse();
                 }
-                return ResponseFactory.CreateInstance().CreateFailedResponse(null, response.Message);
+                return ResponseFactory.CreateInstance().CreateFailedResponse(response.Message);
             }
             catch (Exception ex)
             {
@@ -177,7 +175,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
                 {
                     return ResponseFactory.CreateInstance().CreateSuccessResponse();
                 }
-                return ResponseFactory.CreateInstance().CreateFailedResponse(null, response.Message);
+                return ResponseFactory.CreateInstance().CreateFailedResponse(response.Message);
             }
             catch (Exception ex)
             {

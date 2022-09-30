@@ -26,7 +26,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IMangaService, MangaService>();
 builder.Services.AddTransient<IMangaDAL, MangaDAL>();
-builder.Services.AddTransient<IUserService, BusinessLogicalLayer.Implementations.UserService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUserDAL, UserDAL>();
 builder.Services.AddTransient<IAnimeDAL, AnimeDAL>();
 builder.Services.AddTransient<IAnimeService, AnimeService>();

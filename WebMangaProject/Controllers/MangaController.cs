@@ -111,10 +111,10 @@ namespace MvcPresentationLayer.Controllers
                 return NotFound();
             }
 
-            var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Data);
+            var manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Item);
 
 
-            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Data);
+            var user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Item);
 
             MangaItemModalViewModel mangaItemModalViewModel = new()
             {

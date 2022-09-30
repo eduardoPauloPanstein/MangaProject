@@ -22,7 +22,7 @@ namespace Test.DataAccessLayerTest
 
                 // Act  
                 var response = u.Get(1);
-                var user = response.Result.Data;
+                var user = response.Result.Item;
 
                 //Assert  
                 Assert.NotNull(user);
@@ -39,7 +39,7 @@ namespace Test.DataAccessLayerTest
 
                 // Act  
                 var response = u.Get(1);
-                var user = response.Result.Data;
+                var user = response.Result.Item;
                 var mangaList = user.MangaList;
 
                 //Assert  

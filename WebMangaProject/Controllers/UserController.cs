@@ -195,7 +195,7 @@ namespace MvcPresentationLayer.Controllers
 
             if (response.HasSuccess)
             {
-                _ = AuthenticationAsync(response.Data, response.Token);
+                _ = AuthenticationAsync(response.Item, response.Token);
                 return RedirectToAction("Index", "Home");
 
             }
@@ -252,7 +252,7 @@ namespace MvcPresentationLayer.Controllers
 
 			SingleResponse<User> response = await _userApiService.Get(id, UserService.GetToken(ctx));
 
-			var user = _mapper.Map<UserProfileViewModel>(response.Data);
+			var user = _mapper.Map<UserProfileViewModel>(response.Item);
 
 
 			if (!response.HasSuccess)
@@ -299,7 +299,7 @@ namespace MvcPresentationLayer.Controllers
             {
                 return NotFound();
             }
-            User user = userSelectResponse.Data;
+            User user = userSelectResponse.Item;
             UserUpdateViewModel userUpdate = _mapper.Map<UserUpdateViewModel>(user);
 
             return View(userUpdate);

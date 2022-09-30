@@ -1,16 +1,11 @@
 ﻿using FluentValidation;
 using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Validators.User
 {
     internal class UserValidator : AbstractValidator<Entities.UserS.User>
     {
-        public void ValidateID()
+        public void ValidateId()
         {
             RuleFor(u => u.Id)
                 .NotNull().WithMessage(LocationConstants.IdNotNullMessage);
@@ -27,7 +22,7 @@ namespace BusinessLogicalLayer.Validators.User
         public void ValidateEmail()
         {
             RuleFor(u => u.Email)
-                .EmailAddress(); //so confere @ mas...
+                .Must(CommonValidations.IsValidEmail).WithMessage("Invalid email."); 
         }
 
         public void ValidatePassword()
@@ -36,7 +31,7 @@ namespace BusinessLogicalLayer.Validators.User
                 .NotNull().WithMessage(LocationConstants.Password.NotNullMessage)
                 .MinimumLength(LocationConstants.Password.MinLength).WithMessage(LocationConstants.Password.MinLengthMessage)
                 .MaximumLength(LocationConstants.Password.MaxLength).WithMessage(LocationConstants.Password.MaxLengthMessage)
-                .Must(CommonValidations.HasValidPassword).WithMessage(LocationConstants.Password.InvalidPasswordMessage);
+                .Must(CommonValidations.HasDigit).WithMessage("Password needs at least one digit");
         }
 
         public void ValidateConfirmPassword()

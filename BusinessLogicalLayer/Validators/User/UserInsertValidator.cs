@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessLogicalLayer.Validators.User
+﻿namespace BusinessLogicalLayer.Validators.User
 {
     internal class UserInsertValidator : UserValidator
     {
@@ -17,11 +11,14 @@ namespace BusinessLogicalLayer.Validators.User
         }
     }
 
-    internal class UsesUpdateValidator : UserValidator
+    internal class UserUpdateValidator : UserValidator
     {
-        public UsesUpdateValidator()
+        public UserUpdateValidator()
         {
             base.ValidateNickname();
+            base.ValidateId();
+            base.ValidateEmail();
+            base.ValidatePassword();
             //validate about?
         }
     }

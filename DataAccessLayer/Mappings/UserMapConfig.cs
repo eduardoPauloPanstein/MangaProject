@@ -1,13 +1,7 @@
-﻿using Entities;
-using Entities.UserS;
+﻿using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Mappings
 {

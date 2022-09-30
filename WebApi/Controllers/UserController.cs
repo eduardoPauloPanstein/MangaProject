@@ -5,6 +5,7 @@ using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Shared;
 using Shared.Responses;
 using WebApi.Services;
 
@@ -130,28 +131,31 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpPost("LoginA"), AllowAnonymous]
-        public async Task<IActionResult> AuthenticateAsync([FromBody] string value)
+        [HttpPost("Authenticate"), AllowAnonymous]
+        public async Task<IActionResult> AuthenticateAsync(UserLogin user)
         {
-            if (UserService.IsAuthenticated(HttpContext))
-                return BadRequest();
+            //mvc need a SingleResponseWToken return 
 
-            var user = JsonConvert.DeserializeObject<UserLogin>(value);
+            if (UserService.IsAuthenticated(HttpContext))
+                return BadRequest("User is authenticated");
+
+            //var user = JsonConvert.DeserializeObject<UserLogin>(value);
 
             var response = await _userService.Login(user);
 
             if (!response.HasSuccess)
             {
-                return BadRequest(new SingleResponseWToken<User>(response.Message, response.HasSuccess, response.Data, null, null));
+
+                if (response.IsInfrastructureError)
+                    return BadRequest(response.Exception);
+                //return BadRequest(ResponseFactory.CreateInstance().CreateFailedSingleResponseWToken<User>(response.Message));
+                else
+                    return Unauthorized();
             }
 
-            var token = TokenService.GenerateToken(response.Data);
+            var token = TokenService.GenerateToken(response.Item);
 
-            //test
-            SingleResponseWToken<User> responseWToken = new(response.Message, response.HasSuccess, response.Data, token, null);
-
-            //Return user + token
-            return Ok(responseWToken);
+            return Ok(ResponseFactory.CreateInstance().CreateSuccessSingleResponseWToken(token, response.Item));
         }
 
     }

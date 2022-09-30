@@ -1,13 +1,11 @@
-﻿using DataAccessLayer.Interfaces;
+﻿using DataAccessLayer.ErrorHandling;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.AnimeS;
-using Entities.Enums;
 using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Responses;
-using System.Reflection;
 
 namespace DataAccessLayer.Implementations
 {
@@ -49,7 +47,7 @@ namespace DataAccessLayer.Implementations
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
@@ -65,12 +63,12 @@ namespace DataAccessLayer.Implementations
                 }
 
 
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
         public async Task<DataResponse<Manga>> GetUserList(int userid)
@@ -84,11 +82,11 @@ namespace DataAccessLayer.Implementations
                 {
                     mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
                 }
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
         public async Task<Response> Insert(User user)
@@ -101,7 +99,7 @@ namespace DataAccessLayer.Implementations
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+                return UserDbFailed.Handle(ex);
             }
         }
         public async Task<SingleResponse<User>> Login(UserLogin user)
@@ -111,16 +109,16 @@ namespace DataAccessLayer.Implementations
                 User? userLogged = await _db.Users.FirstOrDefaultAsync(u => (u.Email == user.EmailOrNickname || u.Nickname == user.EmailOrNickname) && u.Password == user.Password);
                 if (userLogged == null)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(null, null, "User not found");
+                    return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<User>();
                 }
 
                 UpdateLastLoginAsync(userLogged.Id);
 
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse<User>(userLogged);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse(userLogged);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponse<User>(ex);
             }
         }
         public async Task<SingleResponse<User>> Get(int id)
@@ -130,13 +128,13 @@ namespace DataAccessLayer.Implementations
                 User? user = await _db.Users.FindAsync(id);
                 if (user == null)
                 {
-                    return ResponseFactory.CreateInstance().CreateSingleNotFoundIdResponse<User>(user);
+                    return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<User>();
                 }
-                return ResponseFactory.CreateInstance().CreateSingleSuccessResponse(user);
+                return ResponseFactory.CreateInstance().CreateSuccessSingleResponse(user);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateSingleFailedResponse<User>(ex, null);
+                return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<User>(ex);
             }
         }
         public async Task<DataResponse<User>> Get(int skip, int take)
@@ -148,12 +146,12 @@ namespace DataAccessLayer.Implementations
                     .Skip(skip)
                     .Take(take)
                     .ToListAsync();
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(users);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(users);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<User>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<User>(ex);
             }
         }
         public async Task<Response> Update(User user)
@@ -162,7 +160,7 @@ namespace DataAccessLayer.Implementations
 
             User? userDb = await _db.Users.FindAsync(user.Id);
             if (userDb == null)
-                return ResponseFactory.CreateInstance().CreateNotFoundIdResponse();
+                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             userDb.Nickname = user.Nickname;
             userDb.About = user.About;
 
@@ -179,7 +177,7 @@ namespace DataAccessLayer.Implementations
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+                return UserDbFailed.Handle(ex);
             }
         }
         public async void UpdateLastLoginAsync(int id)
@@ -238,11 +236,11 @@ namespace DataAccessLayer.Implementations
                     Mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
                 }
 
-                return ResponseFactory.CreateInstance().CreateDataSuccessResponse(Mangas);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(Mangas);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateDataFailedResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
         public async Task<Response> AddUserMangaItem(UserMangaItem item, int score)
