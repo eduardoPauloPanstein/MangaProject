@@ -8,13 +8,10 @@ namespace MvcPresentationLayer.Models.AnimeModel
     public class UserFavoriteAnimeViewModel
     {
         public int Id { get; set; }
-
         public Anime Anime { get; set; }
         public int AnimeId { get; set; }
-
         public int UserId { get; set; }
         public Entities.UserS.User User { get; set; }
-
         public UserMangaStatus Status { get; set; }
         [DataType(DataType.Date)]
         [DisplayName("Start Date")]
@@ -23,10 +20,9 @@ namespace MvcPresentationLayer.Models.AnimeModel
         [DisplayName("Finish Date")]
         public DateTime FinishDate { get; set; }
         public MangaScore? Score { get; set; }
-        [DisplayName("Total Rereads")]
-        public int? TotalRereads { get; set; }
-        public int? Chapter { get; set; }
-        public int? Volume { get; set; }
+        [DisplayName("Total ReWatches")]
+        public int? TotalReWatches{ get; set; }
+        public int? Episode { get; set; }
         [DisplayName("Private Notes")]
         public string? PrivateNotes { get; set; }
         [DisplayName("Public Notes")]

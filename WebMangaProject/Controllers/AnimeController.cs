@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IUserItemService;
 using Entities.AnimeS;
-using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Models.AnimeModel;
-using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
 using Shared.Responses;
 
@@ -21,7 +19,7 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserAnimeItemService _userAnimeItem;
 
-        public AnimeController(IMapper mapper,IMangaProjectApiUserService userApiService, IMangaProjectApiAnimeService animeApiService, IUserAnimeItemService userAnimeItem)
+        public AnimeController(IAnimeService AnimeService, IMapper mapper, IMangaProjectApiUserService userApiService, IUserService userService, IMangaProjectApiAnimeService animeApiService)
         {
             this._animeApiService = animeApiService;
             this._userApiService = userApiService;
@@ -49,32 +47,43 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
-            var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
             SingleResponse<Anime> responseAnime = await _animeApiService.Get(id, null);
-
-            if (!responseAnime.HasSuccess)
+            if (responseAnime.NotFound)
             {
                 return NotFound();
             }
+            AnimeOnpageViewModel anime = _mapper.Map<AnimeOnpageViewModel>(responseAnime.Item);
 
-            var anime = _mapper.Map<AnimeOnpageViewModel>(responseAnime.Item);
-
-            var user = _mapper.Map<UserFavoriteAnimeViewModel>(responseUser.Item);
-            if (user != null)
+            SingleResponse<User> responseUser = new();
+            if (User.Identity.IsAuthenticated)
             {
-                if (user.StartDate != null)
+                responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
+            }
+
+            UserFavoriteAnimeViewModel userAnimeItem = new();
+            bool hasItem = false;
+
+            if (responseUser.HasSuccess && responseUser.Item.AnimeList != null)
+            {
+                foreach (var item in responseUser.Item.AnimeList)
                 {
-                    user.StartDate = DateTime.Now.Date;
+                    if (item.AnimeId == id)
+                    {
+                        userAnimeItem = _mapper.Map<UserFavoriteAnimeViewModel>(item);
+                        hasItem = true;
+                    }
                 }
-                if (user.FinishDate != null)
-                {
-                    user.FinishDate = DateTime.Now.Date;
-                }
+            }
+
+            if (!hasItem)
+            {
+                userAnimeItem.StartDate = DateTime.Now.Date;
+                userAnimeItem.FinishDate = DateTime.Now.Date;
             }
 
             AnimeItemModalViewModel animeItemModalViewModel = new()
             {
-                UserAnimeItem = user,
+                User = userAnimeItem,
                 Anime = anime
             };
             return View(animeItemModalViewModel);
@@ -129,23 +138,23 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public IActionResult AllByUserCount() => RedirectToAction("All", new { by = "ByUserCount" });
         #endregion
-      
-        [HttpPost, Authorize]
-        public async Task<IActionResult> UserFavorite(UserFavoriteAnimeViewModel fav)
-        {
 
-            UserAnimeItem item = this._mapper.Map<UserAnimeItem>(fav);
+        [HttpPost, Authorize]
+        public async Task<IActionResult> UserFavorite(AnimeItemModalViewModel fav)
+        {
+            fav.User.AnimeId = fav.Anime.Id;
+            UserAnimeItem item = this._mapper.Map<UserAnimeItem>(fav.User);
 
             item.UserId = UserService.GetId(HttpContext);
-            item.AnimeId = item.Id;
-            item.Id = 0;
+            //item.AnimeId = item.Id;
+            //item.Id = 0;
 
             Response Response = await _userAnimeItem.Insert(item);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
             }
-            return RedirectToAction("AnimeOnPage", "Anime", new { id = fav.Id });
+            return RedirectToAction("AnimeOnPage", "Anime", new { id = fav.Anime.Id });
         }
 
         public async Task<IActionResult> Index()
@@ -171,7 +180,7 @@ namespace MvcPresentationLayer.Controllers
             {
                 AnimesFavorites = animesFavorites,
                 AnimesByCount = animesByCount,
-               AnimesByRating = animeesbyrating
+                AnimesByRating = animeesbyrating
             };
 
          

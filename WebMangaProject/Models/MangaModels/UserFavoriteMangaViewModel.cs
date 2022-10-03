@@ -23,7 +23,7 @@ namespace MvcPresentationLayer.Models.MangaModels
         [DataType(DataType.Date)]
         [DisplayName("Finish Date")]
         public DateTime FinishDate { get; set; } 
-        public MangaScore? Score { get; set; }
+        public MangaScore Score { get; set; }
         [DisplayName("Total Rereads")]
         public int? TotalRereads { get; set; }
         public int? Chapter { get; set; }

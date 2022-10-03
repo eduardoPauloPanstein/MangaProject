@@ -119,13 +119,12 @@ namespace MvcPresentationLayer.Controllers
             }
             MangaOnPageViewModel manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Item);
 
+
             SingleResponse<User> responseUser = new();
             if (User.Identity.IsAuthenticated)
             {
                 responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
-
             }
-
             UserFavoriteMangaViewModel userMangaItem = new();
             bool hasItem = false;
 
@@ -135,11 +134,12 @@ namespace MvcPresentationLayer.Controllers
                 {
                     if (item.MangaId == id)
                     {
-                        userMangaItem = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Item);
+                        userMangaItem = _mapper.Map<UserFavoriteMangaViewModel>(item);
                         hasItem = true;
                     }
                 }
             }
+
 
             if (!hasItem)
             {
@@ -171,6 +171,7 @@ namespace MvcPresentationLayer.Controllers
             item.UserId = UserService.GetId(HttpContext);
             //item.MangaId = item.Id;
             //item.Id = 0;
+
             Response Response = await _userApiService.AddUserMangaItem(item, UserService.GetToken(HttpContext));
             if (!Response.HasSuccess)
             {
