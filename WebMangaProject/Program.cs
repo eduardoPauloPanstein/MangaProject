@@ -3,14 +3,22 @@ using BusinessLogicalLayer.ApiConsumer.CategoryApi;
 using BusinessLogicalLayer.ApiConsumer.MangaApi;
 using BusinessLogicalLayer.ApiConsumer.NovaPasta;
 using BusinessLogicalLayer.Implementations;
+using BusinessLogicalLayer.Implementations.UserComentaryService;
+using BusinessLogicalLayer.Implementations.UserItemService;
 using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
+using BusinessLogicalLayer.Interfaces.IUserComentaryService;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
+using BusinessLogicalLayer.Interfaces.IUserItemService;
 using DataAccessLayer;
 using DataAccessLayer.Implementations;
+using DataAccessLayer.Implementations.UserComentaryDAL;
+using DataAccessLayer.Implementations.UserItemDAL;
 using DataAccessLayer.Interfaces.IAnimeInterfaces;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
+using DataAccessLayer.Interfaces.IUserComentary;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using DataAccessLayer.Interfaces.IUserItem;
 using Entities.Enums;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +38,19 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUserDAL, UserDAL>();
 builder.Services.AddTransient<IAnimeDAL, AnimeDAL>();
 builder.Services.AddTransient<IAnimeService, AnimeService>();
+
+builder.Services.AddTransient<IUserMangaItemService, UserMangaItemService>();
+builder.Services.AddTransient<IUserMangaItemDAL, UserMangaItemDAL>();
+
+
+builder.Services.AddTransient<IMangaComentary, MangaComentaryService>();
+builder.Services.AddTransient<IMangaComentaryDAL, MangaComentaryDAL>();
+
+
+builder.Services.AddTransient<IAnimeComentary, AnimeComentaryService>();
+builder.Services.AddTransient<IAnimeComentaryDAL, AnimeComentaryDAL>();
+builder.Services.AddTransient<IUserAnimeItemService, UserAnimeItemService>();
+builder.Services.AddTransient<IUserAnimeItemDAL, UserAnimeItemDAL>();
 
 builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
 builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiMangaService>();

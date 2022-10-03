@@ -6,7 +6,7 @@ using Shared.Responses;
 
 namespace DataAccessLayer.Implementations.UserItemDAL
 {
-    internal class UserMangaItemDAL : IUserMangaItemDAL
+    public class UserMangaItemDAL : IUserMangaItemDAL
     {
         private readonly MangaProjectDbContext _db;
         public UserMangaItemDAL(MangaProjectDbContext db)

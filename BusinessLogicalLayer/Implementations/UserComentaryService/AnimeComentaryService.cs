@@ -5,7 +5,7 @@ using Shared.Responses;
 
 namespace BusinessLogicalLayer.Implementations.UserComentaryService
 {
-    internal class AnimeComentaryService : IAnimeComentary
+    public class AnimeComentaryService : IAnimeComentary
     {
         private readonly IAnimeComentaryDAL _AnimeComentaryDAL;
         public AnimeComentaryService(IAnimeComentaryDAL AnimeComentaryDAL)

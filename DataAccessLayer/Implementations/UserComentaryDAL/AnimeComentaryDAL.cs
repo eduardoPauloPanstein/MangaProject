@@ -6,7 +6,7 @@ using Shared.Responses;
 
 namespace DataAccessLayer.Implementations.UserComentaryDAL
 {
-    internal class AnimeComentaryDAL : IAnimeComentaryDAL
+    public class AnimeComentaryDAL : IAnimeComentaryDAL
     {
         private readonly MangaProjectDbContext _db;
         public AnimeComentaryDAL(MangaProjectDbContext db)

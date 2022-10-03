@@ -5,10 +5,10 @@ using Shared.Responses;
 
 namespace BusinessLogicalLayer.Implementations.UserComentaryService
 {
-    internal class MangaComentaryService : IMangaComentary
+    public class MangaComentaryService : IMangaComentary
     {
-        private readonly IMangaComentary _MangaComentaryDAL;
-        public MangaComentaryService(IMangaComentary MangaComentaryDAL)
+        private readonly IMangaComentaryDAL _MangaComentaryDAL;
+        public MangaComentaryService(IMangaComentaryDAL MangaComentaryDAL)
         {
             this._MangaComentaryDAL = MangaComentaryDAL;
         }
