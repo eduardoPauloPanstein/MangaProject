@@ -3,12 +3,14 @@ using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserItemService;
 using Entities.AnimeS;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Models.AnimeModel;
+using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
 using Shared.Responses;
 
@@ -173,6 +175,9 @@ namespace MvcPresentationLayer.Controllers
                 AnimesByCount = animesByCount,
                AnimesByRating = animeesbyrating
             };
+
+         
+
             return View(animesForHomeViewModel);
         }
     }
