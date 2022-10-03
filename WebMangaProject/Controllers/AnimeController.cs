@@ -52,7 +52,7 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> AnimeOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
-            SingleResponse<Anime> responseAnime = await _animeApiService.Get(id,null);
+            SingleResponse<Anime> responseAnime = await _animeApiService.Get(id, null);
 
             if (!responseAnime.HasSuccess)
             {

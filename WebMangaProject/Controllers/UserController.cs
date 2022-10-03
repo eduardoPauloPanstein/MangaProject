@@ -288,7 +288,7 @@ namespace MvcPresentationLayer.Controllers
 
 
         [HttpGet, Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (!IsAmMyself(id))
                 return RedirectIfImNotMe();
