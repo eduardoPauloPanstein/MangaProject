@@ -24,7 +24,11 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
+using MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.AnimeComentary;
+using MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.MangaComentary;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
+using MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserAnimeItem;
+using MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserMangaItem;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,29 +36,41 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<IMangaService, MangaService>();
-builder.Services.AddTransient<IMangaDAL, MangaDAL>();
+#region Services
+
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IMangaService, MangaService>();
+builder.Services.AddTransient<IAnimeService, AnimeService>();
+builder.Services.AddTransient<IUserMangaItemService, UserMangaItemService>();
+builder.Services.AddTransient<IMangaComentary, MangaComentaryService>();
+builder.Services.AddTransient<IAnimeComentary, AnimeComentaryService>();
+builder.Services.AddTransient<IUserAnimeItemService, UserAnimeItemService>();
+
+#endregion
+#region DAL
+
+builder.Services.AddTransient<IMangaDAL, MangaDAL>();
 builder.Services.AddTransient<IUserDAL, UserDAL>();
 builder.Services.AddTransient<IAnimeDAL, AnimeDAL>();
-builder.Services.AddTransient<IAnimeService, AnimeService>();
-
-builder.Services.AddTransient<IUserMangaItemService, UserMangaItemService>();
 builder.Services.AddTransient<IUserMangaItemDAL, UserMangaItemDAL>();
-
-
-builder.Services.AddTransient<IMangaComentary, MangaComentaryService>();
 builder.Services.AddTransient<IMangaComentaryDAL, MangaComentaryDAL>();
-
-
-builder.Services.AddTransient<IAnimeComentary, AnimeComentaryService>();
 builder.Services.AddTransient<IAnimeComentaryDAL, AnimeComentaryDAL>();
-builder.Services.AddTransient<IUserAnimeItemService, UserAnimeItemService>();
 builder.Services.AddTransient<IUserAnimeItemDAL, UserAnimeItemDAL>();
+
+#endregion
+
+#region MvcApi
 
 builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
 builder.Services.AddSingleton<IMangaProjectApiMangaService, MangaProjectApiMangaService>();
 builder.Services.AddSingleton<IMangaProjectApiAnimeService, MangaProjectApiAnimeService>();
+builder.Services.AddSingleton<IMangaProjectApiAnimeComentary, MangaProjectApiAnimeComentary>();
+builder.Services.AddSingleton<IMangaProjectApiMangaComentary, MangaProjectApiMangaComentary>();
+builder.Services.AddSingleton<IMangaProjectApiAnimeItem, MangaProjectApiAnimeItem>();
+builder.Services.AddSingleton<IMangaProjectApiMangaItem, MangaProjectApiMangaItem>();
+
+#endregion
+
 
 
 builder.Services.AddTransient<ICategoryApiConnect, CategoryApiConnect>();

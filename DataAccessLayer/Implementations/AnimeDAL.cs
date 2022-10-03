@@ -57,7 +57,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 //Anime? Select = _db.Animes.Include(c=> c.Categories).FirstOrDefault(m => m.Id == id);
-                Anime? Select = _db.Animes.FirstOrDefault(m => m.Id == id);
+                Anime? Select = await _db.Animes.FindAsync(id);
                 return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Anime>(Select);
             }
             catch (Exception ex)

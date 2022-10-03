@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
+using BusinessLogicalLayer.Interfaces.IUserItemService;
 using Entities.AnimeS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
@@ -16,18 +17,16 @@ namespace MvcPresentationLayer.Controllers
     public class AnimeController : Controller
     {
         private readonly IMangaProjectApiAnimeService _animeApiService;
-        private readonly IAnimeService _AnimeService;
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiUserService _userApiService;
-        private readonly IUserService _userService;
+        private readonly IUserAnimeItemService _userAnimeItem;
 
-        public AnimeController(IAnimeService AnimeService, IMapper mapper,IMangaProjectApiUserService userApiService,IUserService userService, IMangaProjectApiAnimeService animeApiService)
+        public AnimeController(IMapper mapper,IMangaProjectApiUserService userApiService, IMangaProjectApiAnimeService animeApiService, IUserAnimeItemService userAnimeItem)
         {
             this._animeApiService = animeApiService;
-            this._userService = userService;
             this._userApiService = userApiService;
-            this._AnimeService = AnimeService;
             this._mapper = mapper;
+            this._userAnimeItem = userAnimeItem;
         }
 
         [HttpGet, AllowAnonymous]
@@ -141,7 +140,7 @@ namespace MvcPresentationLayer.Controllers
             item.AnimeId = item.Id;
             item.Id = 0;
 
-            Response Response = await _userService.AddUserAnimeItem(item);
+            Response Response = await _userAnimeItem.Insert(item);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);

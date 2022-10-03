@@ -19,16 +19,14 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly IMangaProjectApiUserService _userApiService;
-        private readonly IMangaService _mangaService;
         private readonly IUserMangaItemService _userMangaItem;
 
-        public MangaController(IMangaService svc, IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService, IMangaService mangaService,IUserMangaItemService userMangaItem)
+        public MangaController(IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService,IUserMangaItemService userMangaItem)
         {
             this._userMangaItem = userMangaItem;
             this._userApiService = userService;
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
-            this._mangaService = mangaService;
         }
 
         [HttpGet, AllowAnonymous]
@@ -154,7 +152,7 @@ namespace MvcPresentationLayer.Controllers
             return Json(new { resultado = response.Data });
         }
         [HttpPost, Authorize]
-        public async Task<IActionResult> UserFavorite(MangaItemModalViewModel fav,int id)
+        public async Task<IActionResult> UserFavorite(MangaItemModalViewModel fav)
         {
             UserMangaItem item = this._mapper.Map<UserMangaItem>(fav);
             string s = ";";
@@ -162,7 +160,6 @@ namespace MvcPresentationLayer.Controllers
             item.MangaId = item.Id;
             item.Id = 0;
             Response Response = await _userMangaItem.Insert(item);
-            //Response Response = await _userApiService.AddUserMangaItem(item, UserService.GetToken(HttpContext));
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
