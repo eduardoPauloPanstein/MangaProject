@@ -25,20 +25,26 @@
         <div class="cover-wrap overlap-banner">
             <div class="cover-wrap-inner">
                 <img class="mop-poster" src="@Model.Manga.PosterImageLink" />
-                <div class="mop-actions">
-                    <div class="mop-list">
-                        <!-- Trigger/Open The Modal -->
-                        <div class="addList" id="addList">Add to List</div>
-                        <div class="dropdown el-dropdown">
-                            <span class="el-dropdown-link el-dropdown-selfdefine">
-                             <i class="uil uil-angle-down"></i>
-                            </span>
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="mop-actions">
+                            <div class="mop-list">
+                                <!-- Trigger/Open The Modal -->
+                                <div class="addList" id="addList">Add to List</div>
+                                <div class="dropdown el-dropdown">
+                                    <span class="el-dropdown-link el-dropdown-selfdefine">
+                                        <i class="uil uil-angle-down"></i>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="mop-favourite">
+                                <i class="uil uil-heart-alt"></i>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mop-favourite">
-                        <i class="uil uil-heart-alt"></i>
-                    </div>
-                </div>
+                    }
+                }
             </div>
         </div>
         <div class="mop-content">
@@ -134,75 +140,78 @@
         <span class="close">&times;</span>
         <form method="post" action="/Manga/UserFavorite/">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="@Model.Manga.Id" />
             <div class="form-group">
-                <label asp-for="@Model.User.Status" class="control-label"></label>
+
+                <label asp-for="@Model.UserMangaItem.Status" class="control-label"></label>
                 @{
                     string[] valores = Enum.GetNames<UserMangaStatus>();
                 }
-                <select class="form-control" name="Status">
+                <select class="form-control" asp-for="@Model.UserMangaItem.Status">
                     @for (int i = 0; i < valores.Length; i++)
                     {
                         <option value="@i">@valores[i].Replace("_"," ")</option>
                     }
                 </select>
-                <span asp-validation-for="@Model.User.Status" class="text-danger"></span>
+                <span asp-validation-for="@Model.UserMangaItem.Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.StartDate" class="control-label"></label>
-                <input asp-for="@Model.User.StartDate" class="form-control" />
-                <span asp-validation-for="@Model.User.StartDate" class="text-danger"></span>
+                <label asp-for="@Model.UserMangaItem.StartDate" class="control-label"></label>
+                <input asp-for="@Model.UserMangaItem.StartDate" class="form-control" />
+                <span asp-validation-for="@Model.UserMangaItem.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.FinishDate" class="control-label"></label>
-                <input asp-for="@Model.User.FinishDate" class="form-control" />
-                <span asp-validation-for="@Model.User.FinishDate" class="text-danger"></span>
+                <label asp-for="@Model.UserMangaItem.FinishDate" class="control-label"></label>
+                <input asp-for="@Model.UserMangaItem.FinishDate" class="form-control" />
+                <span asp-validation-for="@Model.UserMangaItem.FinishDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.Score" class="control-label"></label>
+                <label asp-for="@Model.UserMangaItem.Score" class="control-label"></label>
                 @{
                     string[] valoresScore = Enum.GetNames<MangaScore>();
                 }
-                <select class="form-control" name="Score">
+                <select class="form-control" asp-for="@Model.UserMangaItem.Score">
                     @for (int i = 0; i < valoresScore.Length; i++)
                     {
-                        <option value="@i + 1">@valoresScore[i].Replace("_"," ")</option>
+                        int j = i + 1;
+                        <option value="@j">@valoresScore[i].Replace("_"," ")</option>
                     }
                 </select>
-                <span asp-validation-for="@Model.User.Score" class="text-danger"></span>
+                <span asp-validation-for="@Model.UserMangaItem.Score" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.TotalRereads" class="control-label"></label>
-                <input asp-for="@Model.User.TotalRereads" class="form-control" />
-                <span asp-validation-for="@Model.User.TotalRereads" class="text-danger"></span>
+                <label asp-for="@Model.UserMangaItem.TotalRereads" class="control-label"></label>
+                <input asp-for="@Model.UserMangaItem.TotalRereads" class="form-control" />
+                <span asp-validation-for="@Model.UserMangaItem.TotalRereads" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.Chapter" class="control-label"></label>
-                <input asp-for="@Model.User.Chapter" class="form-control" />
-                <span asp-validation-for="@Model.User.Chapter" class="text-danger"></span>
+                <label asp-for="@Model.UserMangaItem.Chapter" class="control-label"></label>
+                <input asp-for="@Model.UserMangaItem.Chapter" class="form-control" />
+                <span asp-validation-for="@Model.UserMangaItem.Chapter" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.Volume" class="control-label"></label>
-                <input asp-for="@Model.User.Volume" class="form-control" />
-                <span asp-validation-for="@Model.User.Volume" class="text-danger"></span>
+                <label asp-for="@Model.UserMangaItem.Volume" class="control-label"></label>
+                <input asp-for="@Model.UserMangaItem.Volume" class="form-control" />
+                <span asp-validation-for="@Model.UserMangaItem.Volume" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.PrivateNotes" class="control-label"></label>
-                <input asp-for="@Model.User.PrivateNotes" class="form-control" />
-                <span asp-validation-for="@Model.User.PrivateNotes" class="text-danger"></span>
+                <label asp-for="@Model.UserMangaItem.PrivateNotes" class="control-label"></label>
+                <input asp-for="@Model.UserMangaItem.PrivateNotes" class="form-control" />
+                <span asp-validation-for="@Model.UserMangaItem.PrivateNotes" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.PublicNotes" class="control-label"></label>
-                <input asp-for="@Model.User.PublicNotes" class="form-control" />
-                <span asp-validation-for="@Model.User.PublicNotes" class="text-danger"></span>
+                <label asp-for="@Model.UserMangaItem.PublicNotes" class="control-label"></label>
+                <input asp-for="@Model.UserMangaItem.PublicNotes" class="form-control" />
+                <span asp-validation-for="@Model.UserMangaItem.PublicNotes" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="@Model.User.Private" /> @Html.DisplayNameFor(model => model.User.Private)
+                    <input class="form-check-input" asp-for="@Model.UserMangaItem.Private" /> @Html.DisplayNameFor(model => model.UserMangaItem.Private)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="@Model.User.Favorite" /> @Html.DisplayNameFor(model => model.User.Favorite)
+                    <input class="form-check-input" asp-for="@Model.UserMangaItem.Favorite" /> @Html.DisplayNameFor(model => model.UserMangaItem.Favorite)
                 </label>
             </div>
             <div class="form-group">

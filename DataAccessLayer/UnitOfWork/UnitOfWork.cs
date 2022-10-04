@@ -1,37 +1,49 @@
-﻿namespace DataAccessLayer.UnitOfWork
+﻿using DataAccessLayer.Implementations;
+using DataAccessLayer.Interfaces.IUSerInterfaces;
+
+namespace DataAccessLayer.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private MangaProjectDbContext context;
-        public UnitOfWork(MangaProjectDbContext context)
+        private readonly MangaProjectDbContext _dbContext;
+        private UserDAL? userRepository = null;
+
+        public UnitOfWork()
         {
-            this.context = context;
-            Address = new AddressRepository(this.context);
-            Email = new EmailRepository(this.context);
-            Person = new PersonRepository(this.context);
+            _dbContext = new MangaProjectDbContext();
         }
-        public IAdressRepository Address
+        public void Commit()
         {
-            get;
-            private set;
+            _dbContext.SaveChanges();
         }
-        public IEmailRepository Email
+        public IUserDAL UserRepository
         {
-            get;
-            private set;
+            get
+            {
+                if (userRepository == null)
+                {
+                    userRepository = new UserDAL(_dbContext);
+                }
+                return userRepository;
+            }
         }
-        public IPersonRepository Person
+
+        private bool disposed = false;
+        protected virtual void Dispose(bool disposing)
         {
-            get;
-            private set;
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _dbContext.Dispose();
+                }
+            }
+            this.disposed = true;
         }
         public void Dispose()
         {
-            context.Dispose();
-        }
-        public int Save()
-        {
-            return context.SaveChanges();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

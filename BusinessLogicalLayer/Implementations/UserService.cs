@@ -3,6 +3,7 @@ using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using DataAccessLayer.UnitOfWork;
 using Entities.Enums;
 using Entities.MangaS;
 using Entities.UserS;
@@ -13,11 +14,11 @@ namespace BusinessLogicalLayer.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly IUserDAL _userDAL;
+        private readonly UnitOfWork _unitOfWork;
 
-        public UserService(IUserDAL userDAL)
+        public UserService(UnitOfWork unitOfWork)
         {
-            this._userDAL = userDAL;
+            this._unitOfWork = unitOfWork;
         }
 
         public void CreateAdmin()
@@ -34,7 +35,7 @@ namespace BusinessLogicalLayer.Implementations
                 Role = UserRoles.Admin,
             };
             adm.EnableEntity();
-            _userDAL.CreateAdmin(adm);
+            _unitOfWork.UserRepository.CreateAdmin(adm);
         }
         public async Task<Response> Delete(int id)
         {
@@ -43,7 +44,7 @@ namespace BusinessLogicalLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedResponse(null);
             }
 
-            return await _userDAL.Delete((int)id);
+            return await _unitOfWork.UserRepository.Delete((int)id);
         }
 
         public async Task<Response> Insert(User user)
@@ -55,19 +56,19 @@ namespace BusinessLogicalLayer.Implementations
             //Tirar ConfirmPassword
 
             user.EnableEntity();
-            response = await _userDAL.Insert(user);
+            response = await _unitOfWork.UserRepository.Insert(user);
             return response;
         }
 
         public async Task<SingleResponse<User>> Get(int id)
         {
 
-            return await _userDAL.Get(id);
+            return await _unitOfWork.UserRepository.Get(id);
         }
 
         public async Task<DataResponse<User>> Get(int skip, int take)
         {
-            return await _userDAL.Get(skip, take);
+            return await _unitOfWork.UserRepository.Get(skip, take);
         }
 
         public async Task<Response> Update(User user)
@@ -76,40 +77,40 @@ namespace BusinessLogicalLayer.Implementations
             if (!response.HasSuccess)
                 return response;
 
-            return await _userDAL.Update(user);
+            return await _unitOfWork.UserRepository.Update(user);
         }
 
         public async Task<SingleResponse<User>> Login(UserLogin user)
         {
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
-            return await _userDAL.Login(user);
+            return await _unitOfWork.UserRepository.Login(user);
         }
 
         public async Task<DataResponse<Manga>> GetUserList(int userid)
         {
-            return await _userDAL.GetUserList(userid);
+            return await _unitOfWork.UserRepository.GetUserList(userid);
         }
 
         public async Task<Response> AddUserMangaItem(UserMangaItem item)
         {
             int score = ((int)item.Score);
-            return await _userDAL.AddUserMangaItem(item,score);
+            return await _unitOfWork.UserRepository.AddUserMangaItem(item,score);
         }
 
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
         {
-            return await _userDAL.GetUserFavorites(userid);
+            return await _unitOfWork.UserRepository.GetUserFavorites(userid);
         }
 
         public async Task<DataResponse<Manga>> GetUserRecommendations(int userid)
         {
-            return await _userDAL.GetUserRecommendations(userid);
+            return await _unitOfWork.UserRepository.GetUserRecommendations(userid);
         }
 
         public async Task<Response> AddUserAnimeItem(UserAnimeItem item)
         {
             int score = ((int)item.Score);
-            return await _userDAL.AddUserAnimeItem(item, score);
+            return await _unitOfWork.UserRepository.AddUserAnimeItem(item, score);
         }
     }
 }
