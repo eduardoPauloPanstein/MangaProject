@@ -42,9 +42,9 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IMangaService, MangaService>();
 builder.Services.AddTransient<IAnimeService, AnimeService>();
 builder.Services.AddTransient<IUserMangaItemService, UserMangaItemService>();
+builder.Services.AddTransient<IUserAnimeItemService, UserAnimeItemService>();
 builder.Services.AddTransient<IMangaComentary, MangaComentaryService>();
 builder.Services.AddTransient<IAnimeComentary, AnimeComentaryService>();
-builder.Services.AddTransient<IUserAnimeItemService, UserAnimeItemService>();
 
 #endregion
 #region DAL

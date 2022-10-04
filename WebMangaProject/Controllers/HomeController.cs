@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using WebMangaProject.Models;
 
-namespace WebMangaProject.Controllers
+namespace MvcPresentationLayer.Controllers
 {
     public class HomeController : Controller
     {

@@ -26,8 +26,6 @@ namespace MvcPresentationLayer.Controllers
             this._mapper = mapper;
             this._apiService = connect;
         }
-
-        //ONCE YOU GO THREAD YOU NEVER GO BACK
         public async Task<IActionResult> Index()
         {
             DataResponse<Manga> responseMangas = await _mangaApiService.Get(null, 01, 99);
@@ -45,7 +43,6 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> ConsumirApi()
         {
-            //await _apiService.DeleteAllDatas();
             await _CateApi.CovertiCatego();
             await _animeApi.ConsumeAnime();
             await _apiService.Consume();

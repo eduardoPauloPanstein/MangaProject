@@ -1,20 +1,25 @@
 using BusinessLogicalLayer.Implementations;
+using BusinessLogicalLayer.Implementations.UserComentaryService;
+using BusinessLogicalLayer.Implementations.UserItemService;
 using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
 using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
+using BusinessLogicalLayer.Interfaces.IUserComentaryService;
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
+using BusinessLogicalLayer.Interfaces.IUserItemService;
 using DataAccessLayer;
 using DataAccessLayer.Implementations;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Implementations.UserComentaryDAL;
+using DataAccessLayer.Implementations.UserItemDAL;
 using DataAccessLayer.Interfaces.IAnimeInterfaces;
 using DataAccessLayer.Interfaces.IMangaInterfaces;
+using DataAccessLayer.Interfaces.IUserComentary;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using DataAccessLayer.Interfaces.IUserItem;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
 using WebApi;
-using WebApi.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +34,17 @@ builder.Services.AddTransient<IUserDAL, UserDAL>();
 
 builder.Services.AddTransient<IAnimeService, AnimeService>();
 builder.Services.AddTransient<IAnimeDAL, AnimeDAL>();
+
+builder.Services.AddTransient<IMangaComentary, MangaComentaryService>();
+builder.Services.AddTransient<IAnimeComentary, AnimeComentaryService>();
+builder.Services.AddTransient<IUserMangaItemService, UserMangaItemService>();
+builder.Services.AddTransient<IUserAnimeItemService, UserAnimeItemService>();
+
+builder.Services.AddTransient<IUserMangaItemDAL, UserMangaItemDAL>();
+builder.Services.AddTransient<IMangaComentaryDAL, MangaComentaryDAL>();
+builder.Services.AddTransient<IAnimeComentaryDAL, AnimeComentaryDAL>();
+builder.Services.AddTransient<IUserAnimeItemDAL, UserAnimeItemDAL>();
+
 
 
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
-using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserItemService;
 using Entities.AnimeS;
 using Entities.UserS;
@@ -131,7 +129,7 @@ namespace MvcPresentationLayer.Controllers
         #endregion
       
         [HttpPost, Authorize]
-        public async Task<IActionResult> UserFavorite(UserFavoriteAnimeViewModel fav,int id)
+        public async Task<IActionResult> UserFavorite(UserFavoriteAnimeViewModel fav)
         {
 
             UserAnimeItem item = this._mapper.Map<UserAnimeItem>(fav);

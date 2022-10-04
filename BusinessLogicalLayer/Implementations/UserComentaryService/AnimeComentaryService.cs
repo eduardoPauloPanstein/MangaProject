@@ -27,6 +27,12 @@ namespace BusinessLogicalLayer.Implementations.UserComentaryService
             return await _AnimeComentaryDAL.Get(skip,take);
         }
 
+        public async Task<DataResponse<AnimeComentary>> GetByUser(int userid)
+        {
+            return await _AnimeComentaryDAL.GetByUser(userid);
+
+        }
+
         public async Task<Response> Insert(AnimeComentary Item)
         {
             return await _AnimeComentaryDAL.Insert(Item);

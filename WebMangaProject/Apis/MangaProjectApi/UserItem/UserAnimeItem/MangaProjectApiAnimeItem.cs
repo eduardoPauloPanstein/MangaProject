@@ -13,7 +13,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserAnimeItem
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                using HttpResponseMessage responseHttp = await client.DeleteAsync($"AnimeItem/{id}");
+                using HttpResponseMessage responseHttp = await client.DeleteAsync($"AnimeItem/anime/{id}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
                     return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Entities.UserS.UserAnimeItem>();

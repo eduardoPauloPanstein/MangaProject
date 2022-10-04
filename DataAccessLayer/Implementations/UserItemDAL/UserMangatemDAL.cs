@@ -60,6 +60,20 @@ namespace DataAccessLayer.Implementations.UserItemDAL
             }
         }
 
+        public async Task<DataResponse<UserMangaItem>> GetByUser(int userid)
+        {
+            try
+            {
+                List<UserMangaItem> user = await _db.UserManga.Where(u => u.UserId == userid).ToListAsync();
+
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(user);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<UserMangaItem>(ex);
+            }
+        }
+
         public async Task<Response> Insert(UserMangaItem Item)
         {
             try

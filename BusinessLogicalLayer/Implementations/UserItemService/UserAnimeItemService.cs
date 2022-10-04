@@ -27,6 +27,11 @@ namespace BusinessLogicalLayer.Implementations.UserItemService
             return await _UserAnimeItemDAL.Get(skip, take);
         }
 
+        public async Task<DataResponse<UserAnimeItem>> GetByUser(int userid)
+        {
+            return await _UserAnimeItemDAL.GetByUser(userid);
+
+        }
         public async Task<Response> Insert(UserAnimeItem Item)
         {
             return await _UserAnimeItemDAL.Insert(Item);
