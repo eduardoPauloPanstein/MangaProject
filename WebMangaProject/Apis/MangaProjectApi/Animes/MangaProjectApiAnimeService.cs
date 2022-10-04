@@ -69,7 +69,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
             }
         }
 
-        public async Task<SingleResponse<Anime>> Get(int? id, string? token)
+        public async Task<SingleResponse<Anime>> Get(int id, string? token)
         {
             try
             {

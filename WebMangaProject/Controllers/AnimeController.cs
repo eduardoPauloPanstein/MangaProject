@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IUserItemService;
 using Entities.AnimeS;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Models.AnimeModel;
+using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
 using Shared.Responses;
 
@@ -48,7 +50,7 @@ namespace MvcPresentationLayer.Controllers
         public async Task<IActionResult> AnimeOnPage(int id)
         {
             var responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
-            SingleResponse<Anime> responseAnime = await _animeApiService.Get(id,null);
+            SingleResponse<Anime> responseAnime = await _animeApiService.Get(id, null);
 
             if (!responseAnime.HasSuccess)
             {
@@ -171,6 +173,9 @@ namespace MvcPresentationLayer.Controllers
                 AnimesByCount = animesByCount,
                AnimesByRating = animeesbyrating
             };
+
+         
+
             return View(animesForHomeViewModel);
         }
     }

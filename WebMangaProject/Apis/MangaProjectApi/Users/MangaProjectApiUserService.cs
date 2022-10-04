@@ -72,7 +72,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<SingleResponse<User>> Get(int? id, string token)
+        public async Task<SingleResponse<User>> Get(int id, string token)
         {
             try
             {
