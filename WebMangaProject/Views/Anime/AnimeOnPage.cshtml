@@ -115,9 +115,9 @@
                 @{
                     foreach (var item in @Model.Anime.Categories)
                     {
-                            <li>
-                                <p>@item.Name</p>
-                            </li>
+                        <li>
+                            <p>@item.Name</p>
+                        </li>
                     }
                 }
             </ul>
@@ -161,7 +161,7 @@
                 @{
                     string[] valoresscore = Enum.GetNames<MangaScore>();
                 }
-                <select class="form-control" name="Score">
+                <select class="form-control" asp-for="@Model.User.Score">
                     @for (int i = 0; i < valoresscore.Length; i++)
                     {
                             <option value="@i">@valoresscore[i].Replace(",","")</option>
@@ -175,33 +175,38 @@
                 <span asp-validation-for="@Model.User.TotalRereads" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.User.Chapter" class="control-label"></label>
-                <input asp-for="@Model.User.Chapter" class="form-control" />
-                <span asp-validation-for="@Model.User.Chapter" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="@Model.User.Volume" class="control-label"></label>
                 <input asp-for="@Model.User.Volume" class="form-control" />
                 <span asp-validation-for="@Model.User.Volume" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                <label asp-for="@Model.User.Chapter" class="control-label"></label>
                 <label asp-for="@Model.User.PrivateNotes" class="control-label"></label>
                 <input asp-for="@Model.User.PrivateNotes" class="form-control" />
                 <span asp-validation-for="@Model.User.PrivateNotes" class="text-danger"></span>
-            </div>
             <div class="form-group">
+                <label asp-for="@Model.User.Volume" class="control-label"></label>
                 <label asp-for="@Model.User.PublicNotes" class="control-label"></label>
                 <input asp-for="@Model.User.PublicNotes" class="form-control" />
                 <span asp-validation-for="@Model.User.PublicNotes" class="text-danger"></span>
+          
+            <div class="form-group">
+                <label asp-for="@Model.UserAnimeItem.PrivateNotes" class="control-label"></label>
+                    <input class="form-check-input" asp-for="@Model.User.Private" /> @Html.DisplayNameFor(model => model.User.Private)
+                <span asp-validation-for="@Model.UserAnimeItem.PrivateNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.UserAnimeItem.PublicNotes" class="control-label"></label>
+                    <input class="form-check-input" asp-for="@Model.User.Favorite" /> @Html.DisplayNameFor(model => model.User.Favorite)
+                <span asp-validation-for="@Model.UserAnimeItem.PublicNotes" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="@Model.User.Private" /> @Html.DisplayNameFor(model => model.User.Private)
+                    <input class="form-check-input" asp-for="@Model.UserAnimeItem.Private" /> @Html.DisplayNameFor(model => model.UserAnimeItem.Private)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="@Model.User.Favorite" /> @Html.DisplayNameFor(model => model.User.Favorite)
+                    <input class="form-check-input" asp-for="@Model.UserAnimeItem.Favorite" /> @Html.DisplayNameFor(model => model.UserAnimeItem.Favorite)
                 </label>
             </div>
             <div class="form-group">

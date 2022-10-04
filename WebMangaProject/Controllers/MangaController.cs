@@ -112,33 +112,44 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> MangaOnPage(int id)
         {
-            SingleResponse<User> responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
             SingleResponse<Manga> responseManga = await _mangaApiService.Get(id, null);
-
             if (responseManga.NotFound)
             {
                 return NotFound();
             }
-
             MangaOnPageViewModel manga = _mapper.Map<MangaOnPageViewModel>(responseManga.Item);
 
-            UserFavoriteMangaViewModel user = _mapper.Map<UserFavoriteMangaViewModel>(responseUser.Item);
-            if (user != null)
-            {
-                if (user.StartDate != null)
-                {
-                    user.StartDate = DateTime.Now.Date;
-                }
-                if (user.FinishDate != null)
-                {
-                    user.FinishDate = DateTime.Now.Date;
 
+            SingleResponse<User> responseUser = new();
+            if (User.Identity.IsAuthenticated)
+            {
+                responseUser = await _userApiService.Get(UserService.GetId(HttpContext), UserService.GetToken(HttpContext));
+            }
+            UserFavoriteMangaViewModel userMangaItem = new();
+            bool hasItem = false;
+
+            if (responseUser.HasSuccess && responseUser.Item.MangaList != null)
+            {
+                foreach (var item in responseUser.Item.MangaList)
+                {
+                    if (item.MangaId == id)
+                    {
+                        userMangaItem = _mapper.Map<UserFavoriteMangaViewModel>(item);
+                        hasItem = true;
+                    }
                 }
+            }
+
+
+            if (!hasItem)
+            {
+                userMangaItem.StartDate = DateTime.Now.Date;
+                userMangaItem.FinishDate = DateTime.Now.Date;
             }
 
             MangaItemModalViewModel mangaItemModalViewModel = new()
             {
-                User = user,
+                UserMangaItem = userMangaItem,
                 Manga = manga
             };
 
@@ -154,12 +165,14 @@ namespace MvcPresentationLayer.Controllers
         [HttpPost, Authorize]
         public async Task<IActionResult> UserFavorite(MangaItemModalViewModel fav)
         {
-            UserMangaItem item = this._mapper.Map<UserMangaItem>(fav);
-            string s = ";";
+            fav.UserMangaItem.MangaId = fav.Manga.Id;
+            UserMangaItem item = this._mapper.Map<UserMangaItem>(fav.UserMangaItem);
+
             item.UserId = UserService.GetId(HttpContext);
-            item.MangaId = item.Id;
-            item.Id = 0;
-            Response Response = await _userMangaItem.Insert(item);
+            //item.MangaId = item.Id;
+            //item.Id = 0;
+
+            Response Response = await _userApiService.AddUserMangaItem(item, UserService.GetToken(HttpContext));
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
