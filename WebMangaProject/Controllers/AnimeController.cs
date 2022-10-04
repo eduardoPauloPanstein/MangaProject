@@ -74,7 +74,7 @@ namespace MvcPresentationLayer.Controllers
 
             AnimeItemModalViewModel animeItemModalViewModel = new()
             {
-                User = user,
+                UserAnimeItem = user,
                 Anime = anime
             };
             return View(animeItemModalViewModel);
