@@ -1,6 +1,5 @@
 ﻿using Entities.Enums;
 using Entities.MangaS;
-using System.Security.Cryptography;
 
 namespace Entities.UserS
 {
