@@ -19,7 +19,7 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserAnimeItemService _userAnimeItem;
 
-        public AnimeController(IAnimeService AnimeService, IMapper mapper, IMangaProjectApiUserService userApiService, IUserService userService, IMangaProjectApiAnimeService animeApiService)
+        public AnimeController(IMapper mapper, IMangaProjectApiUserService userApiService, IMangaProjectApiAnimeService animeApiService, IUserAnimeItemService userAnimeItem)
         {
             this._animeApiService = animeApiService;
             this._userApiService = userApiService;
@@ -83,7 +83,7 @@ namespace MvcPresentationLayer.Controllers
 
             AnimeItemModalViewModel animeItemModalViewModel = new()
             {
-                User = userAnimeItem,
+                UserAnimeItem = userAnimeItem,
                 Anime = anime
             };
             return View(animeItemModalViewModel);
@@ -142,8 +142,8 @@ namespace MvcPresentationLayer.Controllers
         [HttpPost, Authorize]
         public async Task<IActionResult> UserFavorite(AnimeItemModalViewModel fav)
         {
-            fav.User.AnimeId = fav.Anime.Id;
-            UserAnimeItem item = this._mapper.Map<UserAnimeItem>(fav.User);
+            fav.UserAnimeItem.AnimeId = fav.Anime.Id;
+            UserAnimeItem item = this._mapper.Map<UserAnimeItem>(fav.UserAnimeItem);
 
             item.UserId = UserService.GetId(HttpContext);
             //item.AnimeId = item.Id;
