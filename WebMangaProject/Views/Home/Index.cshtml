@@ -1,1 +1,60 @@
-﻿
+﻿@model MvcPresentationLayer.Models.HomePage.HomePageViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/homeStyles.css" asp-append-version="true" />
+
+</head>
+<body>
+    <section class="catalog" id="catalog">
+        <h3>Favorite Manga</h3>
+        <a class="custom-link" asp-area="" asp-action="AllByFavorites" asp-controller="Manga">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.MangasFavorites)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
+                            <img src=@item.PosterImageLink />
+                            <div class="card-content">
+                                <h5>@item.CanonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+    <section class="catalog" id="catalog">
+        <h3>Favorite Animes</h3>
+        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.AnimesFavorites)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                            <img src=@item.AnimePosterImage />
+                            <div class="card-content">
+                                <h5>@item.canonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 {
     public class MangaItemModalViewModel
     {
-        public UserFavoriteMangaViewModel User { get; set; }
+        public UserFavoriteMangaViewModel UserMangaItem { get; set; }
         public MangaOnPageViewModel Manga { get; set; }
     }
 }
