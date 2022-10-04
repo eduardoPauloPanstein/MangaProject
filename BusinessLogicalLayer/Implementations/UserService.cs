@@ -14,9 +14,9 @@ namespace BusinessLogicalLayer.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(UnitOfWork unitOfWork)
+        public UserService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
         }
@@ -36,6 +36,7 @@ namespace BusinessLogicalLayer.Implementations
             };
             adm.EnableEntity();
             _unitOfWork.UserRepository.CreateAdmin(adm);
+            _unitOfWork.Commit();
         }
         public async Task<Response> Delete(int id)
         {

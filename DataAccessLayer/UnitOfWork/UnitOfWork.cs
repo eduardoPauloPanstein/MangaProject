@@ -6,7 +6,7 @@ namespace DataAccessLayer.UnitOfWork
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly MangaProjectDbContext _dbContext;
-        private UserDAL? userRepository = null;
+        private IUserDAL? userRepository = null;
 
         public UnitOfWork()
         {

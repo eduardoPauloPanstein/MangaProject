@@ -15,6 +15,7 @@ using DataAccessLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Interfaces.IUserComentary;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
 using DataAccessLayer.Interfaces.IUserItem;
+using DataAccessLayer.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -44,6 +45,10 @@ builder.Services.AddTransient<IUserMangaItemDAL, UserMangaItemDAL>();
 builder.Services.AddTransient<IMangaComentaryDAL, MangaComentaryDAL>();
 builder.Services.AddTransient<IAnimeComentaryDAL, AnimeComentaryDAL>();
 builder.Services.AddTransient<IUserAnimeItemDAL, UserAnimeItemDAL>();
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+
 
 
 
