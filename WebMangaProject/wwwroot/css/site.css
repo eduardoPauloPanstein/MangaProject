@@ -913,12 +913,13 @@ abbr[title] {
 
 .div-manga-info {
     background: rgb(var(--color-foreground));
-    border-radius: 3px;
+    border-radius: 8px;
     padding: 18px;
     background-color: #212D40;
     margin-left: 160px;
-    width: 240px;
+    width: 17%;
 }
+
 
 
 .div-anime-info {
@@ -926,7 +927,7 @@ abbr[title] {
     border-radius: 3px;
     padding: 18px;
     background-color: #212D40;
-    margin-left: 160px;
+    margin-left: 10%;
     width: 240px;
 }
 
@@ -1003,4 +1004,71 @@ abbr[title] {
         text-decoration: none;
         cursor: pointer;
     }
+/*#endregion */
+
+/*#region HomePage*/
+.homepage-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.homepage-banner {
+    background-color: #fff;
+    border-radius: 60px;
+    width: 85%;
+    height: 600px;
+}
+
+.banner-grid {
+    display: grid;
+    grid-gap: 70px 60px;
+    grid-template-columns: repeat(2,minmax(300px,400px));
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 65px;
+}
+
+.banner-info {
+    color: #212D40;
+    display: grid;
+    grid-template-columns: 315px auto;
+    grid-gap: 40px;
+}
+
+.phrase {
+    margin-top: 25px;
+    color: #212D40;
+    display:flex;
+    justify-content: center;
+}
+
+.subphrase {
+    margin-top: 10px;
+    color: #212D40;
+    display: flex;
+    justify-content: center;
+}
+
+.infos {
+    display: grid;
+    grid-template-columns: 80px auto;
+}
+
+.info-title {
+    color: #212D40;
+    font-size: 1.8rem;
+    margin: 0;
+    margin-bottom: 8px;
+    padding: 0;
+}
+.description {
+    font-size: 1rem;
+    line-height: 146%;
+}
+
+.teste {
+    color: #212D40;
+    font-size: 65px;
+}
 /*#endregion */

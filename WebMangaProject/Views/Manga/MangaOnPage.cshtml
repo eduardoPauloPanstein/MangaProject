@@ -79,56 +79,58 @@
 
 
 
-<div class="div-manga-info">
-    <div class="manga-info-items">
-        <div class="info-type">Format:</div>
-        <div class="info-result">@Model.Manga.Subtype</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">Chapters:</div>
-        <div class="info-result">@Model.Manga.ChapterCount</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">Volumes:</div>
-        <div class="info-result">@Model.Manga.VolumeCount</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">Status:</div>
-        <div class="info-result">@Model.Manga.Status.ToString()</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">Start Date:</div>
-        <div class="info-result">@Model.Manga.StartDate</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">End Date:</div>
-        <div class="info-result">@Model.Manga.EndDate</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">Average Score:</div>
-        <div class="info-result">@Model.Manga.AverageRating</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">Popularity:</div>
-        <div class="info-result">@Model.Manga.PopularityRank</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">Favorites:</div>
-        <div class="info-result">@Model.Manga.FavoritesCount</div>
-    </div>
-    <div class="manga-info-items">
-        <div class="info-type">Genres:</div>
-        <div class="info-result">
-            <ul>
-                @{
-                    foreach (var item in @Model.Manga.Genres)
-                    {
-                        <li>
-                            <p>@item.Name</p>
-                        </li>
+<div class="mop-div-info">
+    <div class="div-manga-info">
+        <div class="manga-info-items">
+            <div class="info-type">Format:</div>
+            <div class="info-result">@Model.Manga.Subtype</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Chapters:</div>
+            <div class="info-result">@Model.Manga.ChapterCount</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Volumes:</div>
+            <div class="info-result">@Model.Manga.VolumeCount</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Status:</div>
+            <div class="info-result">@Model.Manga.Status.ToString()</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Start Date:</div>
+            <div class="info-result">@Model.Manga.StartDate</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">End Date:</div>
+            <div class="info-result">@Model.Manga.EndDate</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Average Score:</div>
+            <div class="info-result">@Model.Manga.AverageRating</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Popularity:</div>
+            <div class="info-result">@Model.Manga.PopularityRank</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Favorites:</div>
+            <div class="info-result">@Model.Manga.FavoritesCount</div>
+        </div>
+        <div class="manga-info-items">
+            <div class="info-type">Genres:</div>
+            <div class="info-result">
+                <ul>
+                    @{
+                        foreach (var item in @Model.Manga.Genres)
+                        {
+                            <li>
+                                <p>@item.Name</p>
+                            </li>
+                        }
                     }
-                }
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
