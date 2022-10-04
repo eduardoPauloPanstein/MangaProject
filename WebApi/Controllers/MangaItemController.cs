@@ -97,16 +97,5 @@ namespace WebApi.Controllers
 
             return Ok(response);
         }
-        [HttpGet("ByUser/{id}"), AllowAnonymous]
-        public async Task<IActionResult> GetByUserAsync(int id)
-        {
-            var responseUsers = await _MangaItem.GetByUser(id);
-            if (!responseUsers.HasSuccess)
-            {
-                return BadRequest(responseUsers);
-            }
-
-            return Ok(responseUsers);
-        }
     }
 }

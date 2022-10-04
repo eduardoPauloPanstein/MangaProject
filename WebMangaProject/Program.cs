@@ -19,6 +19,7 @@ using DataAccessLayer.Interfaces.IMangaInterfaces;
 using DataAccessLayer.Interfaces.IUserComentary;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
 using DataAccessLayer.Interfaces.IUserItem;
+using DataAccessLayer.UnitOfWork;
 using Entities.Enums;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
@@ -71,6 +72,7 @@ builder.Services.AddSingleton<IMangaProjectApiMangaItem, MangaProjectApiMangaIte
 
 #endregion
 
+builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
 
 
 builder.Services.AddTransient<ICategoryApiConnect, CategoryApiConnect>();
