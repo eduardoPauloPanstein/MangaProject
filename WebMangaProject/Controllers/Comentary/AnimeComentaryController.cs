@@ -67,5 +67,14 @@ namespace MvcPresentationLayer.Controllers.Comentary
             }
             return RedirectToAction("Index", "Home");
         }
+        public async Task<IActionResult> GetByUser(int id)
+        {
+            Response Response = await _AnimeComentary.GetByUser(id);
+            if (!Response.HasSuccess)
+            {
+                return BadRequest(Response);
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
