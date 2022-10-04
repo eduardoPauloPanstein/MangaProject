@@ -54,7 +54,46 @@
             }
         </div>
     </section>
-
+    <section class="catalog" id="catalog">
+        <h3>Manga by Rating</h3>
+        <a class="custom-link" asp-area="" asp-action="AllByRating" asp-controller="Manga">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.MangasByRating)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
+                            <img src=@item.PosterImageLink />
+                            <div class="card-content">
+                                <h5>@item.CanonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+    <section class="catalog" id="catalog">
+        <h3>Animes by Rating</h3>
+        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+        <hr />
+        <div class="card-wrapper">
+            @{
+                foreach (var item in Model.AnimesByRating)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                            <img src=@item.AnimePosterImage />
+                            <div class="card-content">
+                                <h5>@item.canonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
 
 </body>
 </html>
