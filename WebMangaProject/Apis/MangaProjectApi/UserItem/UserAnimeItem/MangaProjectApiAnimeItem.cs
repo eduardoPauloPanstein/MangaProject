@@ -25,8 +25,28 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserAnimeItem
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+        public async Task<DataResponse<Entities.UserS.UserAnimeItem>> Get(string? token, int skip = 0, int take = 25)
+        {
+            try
+            {
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        public async Task<SingleResponse<Entities.UserS.UserAnimeItem>> Get(int? id, string? token)
+                using HttpResponseMessage responseHttp = await client.GetAsync($"AnimeItem/skip/{skip}/take/{take}");
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.UserS.UserAnimeItem>(null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Entities.UserS.UserAnimeItem>>(data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.UserS.UserAnimeItem>(ex);
+            }
+        }
+
+        public async Task<SingleResponse<Entities.UserS.UserAnimeItem>> Get(int id, string? token)
         {
             try
             {
@@ -47,20 +67,20 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserAnimeItem
             }
         }
 
-        public async Task<DataResponse<Entities.UserS.UserAnimeItem>> Get(string? token, int skip = 0, int take = 25)
+        public async Task<DataResponse<Entities.UserS.UserAnimeItem>> GetByUser(int userid)
         {
             try
             {
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                using HttpResponseMessage responseHttp = await client.GetAsync($"AnimeItem/ByUser/{userid}");
 
-                using HttpResponseMessage responseHttp = await client.GetAsync($"AnimeItem/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.UserS.UserAnimeItem>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.UserS.UserAnimeItem>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Entities.UserS.UserAnimeItem>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Entities.UserS.UserAnimeItem>(dataResponse.Data);
             }
             catch (Exception ex)
             {

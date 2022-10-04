@@ -103,6 +103,17 @@ namespace WebApi.Controllers
 
             return Ok(responseUsers);
         }
+        [HttpGet("MangaOnPage/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByOnPage(int id)
+        {
+            var responseUsers = await _mangaService.GetComplete(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
 
         [HttpPost, Authorize(Policy = "Admin")]
         public async Task<IActionResult> PostAsync([FromBody] string value)

@@ -44,6 +44,17 @@ namespace WebApi.Controllers
 
             return Ok(responseUsers);
         }
+        [HttpGet("ByUser/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByUserAsync(int id)
+        {
+            var responseUsers = await _MangaItem.GetByUser(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
 
         [HttpPost, AllowAnonymous]
         public async Task<IActionResult> PostAsync([FromBody] string value)
@@ -85,6 +96,17 @@ namespace WebApi.Controllers
             }
 
             return Ok(response);
+        }
+        [HttpGet("ByUser/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByUserAsync(int id)
+        {
+            var responseUsers = await _MangaItem.GetByUser(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
         }
     }
 }

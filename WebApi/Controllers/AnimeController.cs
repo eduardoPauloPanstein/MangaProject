@@ -117,6 +117,18 @@ namespace WebApi.Controllers
 
             return Ok(responseUsers);
         }
+        [HttpGet("AnimeOnPage/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByOnPageAsync(int id)
+        {
+            var responseUsers = await _animeService.GetComplete(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
+
 
         [HttpPost, Authorize(Policy = "Admin")]
         public async Task<IActionResult> PostAsync([FromBody] string value)

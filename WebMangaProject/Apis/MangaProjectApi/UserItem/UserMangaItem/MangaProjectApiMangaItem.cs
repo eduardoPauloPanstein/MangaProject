@@ -25,8 +25,28 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserMangaItem
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+        public async Task<DataResponse<Entities.UserS.UserMangaItem>> Get(string? token, int skip = 0, int take = 25)
+        {
+            try
+            {
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        public async Task<SingleResponse<Entities.UserS.UserMangaItem>> Get(int? id, string? token)
+                using HttpResponseMessage responseHttp = await client.GetAsync($"MangaItem/skip/{skip}/take/{take}");
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.UserS.UserMangaItem>(null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Entities.UserS.UserMangaItem>>(data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.UserS.UserMangaItem>(ex);
+            }
+        }
+
+        public async Task<SingleResponse<Entities.UserS.UserMangaItem>> Get(int id, string? token)
         {
             try
             {
@@ -47,13 +67,11 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserMangaItem
             }
         }
 
-        public async Task<DataResponse<Entities.UserS.UserMangaItem>> Get(string? token, int skip = 0, int take = 25)
+        public async Task<DataResponse<Entities.UserS.UserMangaItem>> GetByUser(int userid)
         {
             try
             {
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                using HttpResponseMessage responseHttp = await client.GetAsync($"MangaItem/skip/{skip}/take/{take}");
+                using HttpResponseMessage responseHttp = await client.GetAsync($"MangaItem/ByUser/{userid}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
                     return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.UserS.UserMangaItem>(null);

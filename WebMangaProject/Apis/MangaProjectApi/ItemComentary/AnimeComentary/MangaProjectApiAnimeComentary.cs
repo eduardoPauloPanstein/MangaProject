@@ -26,7 +26,27 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.AnimeComentary
             }
         }
 
-        public async Task<SingleResponse<Entities.AnimeS.AnimeComentary>> Get(int? id, string? token)
+        public async Task<DataResponse<Entities.AnimeS.AnimeComentary>> Get(string? token, int skip = 0, int take = 25)
+        {
+            try
+            {
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                using HttpResponseMessage responseHttp = await client.GetAsync($"AnimeComentary/skip/{skip}/take/{take}");
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.AnimeS.AnimeComentary>(null);
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Entities.AnimeS.AnimeComentary>>(data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.AnimeS.AnimeComentary>(ex);
+            }
+        }
+
+        public async Task<SingleResponse<Entities.AnimeS.AnimeComentary>> Get(int id, string? token)
         {
             try
             {
@@ -47,20 +67,20 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.AnimeComentary
             }
         }
 
-        public async Task<DataResponse<Entities.AnimeS.AnimeComentary>> Get(string? token, int skip = 0, int take = 25)
+        public async Task<DataResponse<Entities.AnimeS.AnimeComentary>> GetByUser(int userid)
         {
             try
             {
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                using HttpResponseMessage responseHttp = await client.GetAsync($"AnimeComentary/ByUser/{userid}");
 
-                using HttpResponseMessage responseHttp = await client.GetAsync($"AnimeComentary/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.AnimeS.AnimeComentary>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.AnimeS.AnimeComentary>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Entities.AnimeS.AnimeComentary>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Entities.AnimeS.AnimeComentary>(dataResponse.Data);
             }
             catch (Exception ex)
             {

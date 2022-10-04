@@ -1,6 +1,10 @@
-﻿namespace MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.MangaComentary
+﻿using Shared.Responses;
+
+namespace MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.MangaComentary
 {
     public interface IMangaProjectApiMangaComentary : IMangaProjectApiService<Entities.MangaS.MangaComentary>
     {
+        Task<DataResponse<Entities.MangaS.MangaComentary>> GetByUser(int userid);
+
     }
 }

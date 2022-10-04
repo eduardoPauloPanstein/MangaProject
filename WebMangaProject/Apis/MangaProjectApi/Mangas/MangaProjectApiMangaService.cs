@@ -236,7 +236,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             try
             {
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ById/{ID}");
+                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/MangaOnPage/{ID}");
 
                 if (!responseHttp.IsSuccessStatusCode)
                 {
