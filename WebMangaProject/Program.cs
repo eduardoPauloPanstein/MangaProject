@@ -47,6 +47,8 @@ builder.Services.AddTransient<IUserAnimeItemService, UserAnimeItemService>();
 builder.Services.AddTransient<IMangaComentary, MangaComentaryService>();
 builder.Services.AddTransient<IAnimeComentary, AnimeComentaryService>();
 
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
 #endregion
 #region DAL
 
@@ -59,7 +61,6 @@ builder.Services.AddTransient<IAnimeComentaryDAL, AnimeComentaryDAL>();
 builder.Services.AddTransient<IUserAnimeItemDAL, UserAnimeItemDAL>();
 
 #endregion
-
 #region MvcApi
 
 builder.Services.AddSingleton<IMangaProjectApiUserService, MangaProjectApiUserService>();
@@ -71,9 +72,6 @@ builder.Services.AddSingleton<IMangaProjectApiAnimeItem, MangaProjectApiAnimeIte
 builder.Services.AddSingleton<IMangaProjectApiMangaItem, MangaProjectApiMangaItem>();
 
 #endregion
-
-builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
-
 
 builder.Services.AddTransient<ICategoryApiConnect, CategoryApiConnect>();
 builder.Services.AddTransient<IApiConnect, ApiConnect>();

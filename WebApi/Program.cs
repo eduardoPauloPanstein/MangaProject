@@ -49,9 +49,6 @@ builder.Services.AddTransient<IUserAnimeItemDAL, UserAnimeItemDAL>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 
-
-
-
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));
 
 

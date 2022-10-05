@@ -14,7 +14,7 @@ namespace DataAccessLayer.Implementations
         private readonly MangaProjectDbContext _db;
         public UserDAL(MangaProjectDbContext db)
         {
-            this._db = db;
+            this._db = db;  
         }
 
         public UserDAL()
@@ -27,28 +27,29 @@ namespace DataAccessLayer.Implementations
             if (user == null)
             {
                 _db.Add(adm);
-                _db.SaveChanges();
+                //_db.SaveChanges();
             }
         }
 
-        public async Task<Response> Delete(int id)
+        public async Task<Response> Delete(int? id)
         {
             User? user = await _db.Users.FindAsync(id);
             if (user == null)
             {
-                return new Response("Usuario não encontrado no banco de dados.", false, null);
+                return ResponseFactory.CreateInstance().CreateFailedResponse("User not found.");
             }
 
             _db.Users.Remove(user);
-            try
-            {
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
+            return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            //try
+            //{
+            //    await _db.SaveChangesAsync();
+            //    return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            //}
+            //catch (Exception ex)
+            //{
+            //    return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            //}
         }
 
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
@@ -94,16 +95,17 @@ namespace DataAccessLayer.Implementations
 
         public async Task<Response> Insert(User user)
         {
-            _db.Users.Add(user);
-            try
-            {
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return UserDbFailed.Handle(ex);
-            }
+            _db.Users.Add(user); //Isso pode dar exeção?
+            return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            //try
+            //{
+            //    await _db.SaveChangesAsync();
+            //    return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            //}
+            //catch (Exception ex)
+            //{
+            //    return UserDbFailed.Handle(ex);
+            //}
         }
 
         public async Task<SingleResponse<User>> Login(UserLogin user)
@@ -126,7 +128,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<SingleResponse<User>> Get(int id)
+        public async Task<SingleResponse<User>> Get(int? id)
         {
             try
             {

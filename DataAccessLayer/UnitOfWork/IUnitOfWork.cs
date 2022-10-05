@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Interfaces.IUSerInterfaces;
+using Shared.Responses;
 
 namespace DataAccessLayer.UnitOfWork
 {
@@ -6,6 +7,6 @@ namespace DataAccessLayer.UnitOfWork
     {
         IUserDAL UserRepository { get; }
 
-        void Commit();
+        Task<Response> Commit();
     }
 }
