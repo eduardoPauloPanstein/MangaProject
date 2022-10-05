@@ -2,7 +2,6 @@
 using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
-using DataAccessLayer.Interfaces.IUSerInterfaces;
 using DataAccessLayer.UnitOfWork;
 using Entities.Enums;
 using Entities.MangaS;
@@ -31,7 +30,6 @@ namespace BusinessLogicalLayer.Implementations
                 Password = password,
                 ConfirmPassword = password,
                 Email = "admin@gmail.com",
-
                 Role = UserRoles.Admin,
             };
             adm.EnableEntity();
@@ -40,12 +38,15 @@ namespace BusinessLogicalLayer.Implementations
         }
         public async Task<Response> Delete(int id)
         {
-            if (id == null)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(null);
-            }
+            if (id < 0)
+                return ResponseFactory.CreateInstance().CreateFailedResponse();
+   
 
-            return await _unitOfWork.UserRepository.Delete((int)id);
+            var response = await _unitOfWork.UserRepository.Delete((int)id);
+            if (!response.HasSuccess)
+                return response;
+
+            return await _unitOfWork.Commit();
         }
 
         public async Task<Response> Insert(User user)
@@ -58,6 +59,7 @@ namespace BusinessLogicalLayer.Implementations
 
             user.EnableEntity();
             response = await _unitOfWork.UserRepository.Insert(user);
+
             return response;
         }
 

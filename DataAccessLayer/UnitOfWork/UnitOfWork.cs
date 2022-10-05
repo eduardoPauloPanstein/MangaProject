@@ -1,21 +1,34 @@
 ﻿using DataAccessLayer.Implementations;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
+using Shared;
+using Shared.Responses;
 
 namespace DataAccessLayer.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly MangaProjectDbContext _dbContext;
-        private IUserDAL? userRepository = null;
+        private IUserDAL userRepository = null;
 
-        public UnitOfWork()
+        public UnitOfWork(MangaProjectDbContext dbContext)
         {
-            _dbContext = new MangaProjectDbContext();
+            this._dbContext = dbContext;
         }
-        public void Commit()
+        //public async Task Commit() => _ = await _dbContext.SaveChangesAsync();
+
+        public async Task<Response> Commit()
         {
-            _dbContext.SaveChanges();
-        }
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        } 
+
         public IUserDAL UserRepository
         {
             get

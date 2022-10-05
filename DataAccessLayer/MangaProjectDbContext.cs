@@ -30,7 +30,7 @@ namespace DataAccessLayer
         public DbSet<AnimeComentary> AnimeComentaries { get; set; }
         public DbSet<MangaComentary> MangaComentaries { get; set; }
 
-        public MangaProjectDbContext(DbContextOptions options) : base(options) { }
+        public MangaProjectDbContext(DbContextOptions<MangaProjectDbContext> options) : base(options) { }
         public MangaProjectDbContext()
         {
 
