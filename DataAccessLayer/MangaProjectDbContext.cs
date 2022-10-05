@@ -3,12 +3,9 @@ using Entities.AnimeS;
 using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Shared;
+using Shared.Responses;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -56,7 +53,7 @@ namespace DataAccessLayer
             //Carrega os map config que tão criado dentro do projeto (assembly) DAL
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
-
         }
+
     }
 }

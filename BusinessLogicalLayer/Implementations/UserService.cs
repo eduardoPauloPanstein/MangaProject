@@ -38,9 +38,18 @@ namespace BusinessLogicalLayer.Implementations
         }
         public async Task<Response> Delete(int id)
         {
+            User? user;
             if (id < 0)
                 return ResponseFactory.CreateInstance().CreateFailedResponse();
-   
+
+            var responseGet = await _unitOfWork.UserRepository.Get(id);
+            if (responseGet.HasSuccess)
+                user = responseGet.Item;
+            else if (responseGet.NotFound)
+            {
+                return new Response("Usuario não encontrado no banco de dados.", false, null);
+            }
+
 
             var response = await _unitOfWork.UserRepository.Delete((int)id);
             if (!response.HasSuccess)

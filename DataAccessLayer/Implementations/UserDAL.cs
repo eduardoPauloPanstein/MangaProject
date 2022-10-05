@@ -24,32 +24,20 @@ namespace DataAccessLayer.Implementations
         public void CreateAdmin(User adm)
         {
             var user = _db.Users.Where(u => u.Id > -1).FirstOrDefault();
-            string s = "";
             if (user == null)
             {
                 _db.Add(adm);
-                _db.SaveChanges();
             }
         }
-
-        public async Task<Response> Delete(int id)
+        public async Task<Response> Insert(User user)
         {
-            User? user = await _db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return new Response("Usuario não encontrado no banco de dados.", false, null);
-            }
-
+            await _db.Users.AddAsync(user);
+            return ResponseFactory.CreateInstance().CreateSuccessResponse();
+        }
+        public async Task<Response> Delete(User user)
+        {
             _db.Users.Remove(user);
-            try
-            {
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
+            return ResponseFactory.CreateInstance().CreateSuccessResponse();
         }
 
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
@@ -63,7 +51,6 @@ namespace DataAccessLayer.Implementations
                 {
                     mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
                 }
-
 
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
@@ -93,19 +80,6 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<Response> Insert(User user)
-        {
-            try
-            {
-                _db.Users.Add(user);
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return UserDbFailed.Handle(ex);
-            }
-        }
 
         public async Task<SingleResponse<User>> Login(UserLogin user)
         {
@@ -177,16 +151,6 @@ namespace DataAccessLayer.Implementations
             if (user.CoverImageFileLocation != null)
                 userDb.CoverImageFileLocation = user.CoverImageFileLocation;
 
-
-            try
-            {
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return UserDbFailed.Handle(ex);
-            }
         }
 
         public async void UpdateLastLoginAsync(int id)
@@ -252,6 +216,16 @@ namespace DataAccessLayer.Implementations
             {
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
+        }
+
+        public Task<Response> AddUserMangaItem(UserMangaItem item, int score)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response> AddUserAnimeItem(UserAnimeItem item, int score)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TypeRepository\**" />
+    <EmbeddedResource Remove="TypeRepository\**" />
+    <None Remove="TypeRepository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Interfaces\IMangaGet - Cópia.cs" />
     <Compile Remove="Mappings\UserToMangaMapConfig.cs" />
   </ItemGroup>
@@ -22,10 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TypeRepository\" />
   </ItemGroup>
 
 </Project>

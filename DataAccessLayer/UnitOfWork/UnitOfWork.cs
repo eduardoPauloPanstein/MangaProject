@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Implementations;
+﻿using DataAccessLayer.ErrorHandling;
+using DataAccessLayer.Implementations;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Shared;
 using Shared.Responses;
@@ -14,7 +15,6 @@ namespace DataAccessLayer.UnitOfWork
         {
             this._dbContext = dbContext;
         }
-        //public async Task Commit() => _ = await _dbContext.SaveChangesAsync();
 
         public async Task<Response> Commit()
         {
@@ -27,7 +27,19 @@ namespace DataAccessLayer.UnitOfWork
             {
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
-        } 
+        }
+        public async Task<Response> CommitForUser()
+        {
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return UserDbFailed.Handle(ex);
+            }
+        }
 
         public IUserDAL UserRepository
         {
