@@ -1,4 +1,5 @@
-﻿using Entities.UserS;
+﻿using Entities.MangaS;
+using Entities.UserS;
 using Shared;
 using Shared.Responses;
 using System;
@@ -9,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Interfaces.IUserItemService
 {
-    public interface IUserMangaItemService : ICRUD<UserMangaItem>
+    public interface IUserMangaItemService : ICrudUserItem<UserMangaItem,Manga>
     {
-        Task<DataResponse<UserMangaItem>> GetByUser(int userid);
 
     }
 }

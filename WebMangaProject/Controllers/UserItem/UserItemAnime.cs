@@ -50,7 +50,7 @@ namespace MvcPresentationLayer.Controllers.UserItem
         [HttpPost, Authorize]
         public async Task<IActionResult> Get(int skp, int take)
         {
-            DataResponse<UserAnimeItem> Response = await _AnimeApiItem.Get(null, skp, take);
+            DataResponse<UserAnimeItem> Response = await _AnimeApiItem.Get(skp, take,null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
@@ -68,7 +68,7 @@ namespace MvcPresentationLayer.Controllers.UserItem
         }
         public async Task<IActionResult> GetByUser(int id)
         {
-            Response Response = await _AnimeApiItem.GetByUser(id);
+            Response Response = await _AnimeApiItem.GetByUser(id,null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);

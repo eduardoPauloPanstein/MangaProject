@@ -62,8 +62,9 @@ namespace WebApi.Controllers
             //if (IsAuthenticated())
 
             var manga = JsonConvert.DeserializeObject<UserMangaItem>(value);
+            int score = ((int)manga.Score);
 
-            var response = await _MangaItem.Insert(manga);
+            var response = await _MangaItem.Insert(manga,score);
             if (!response.HasSuccess)
             {
                 return BadRequest(response);
@@ -97,5 +98,40 @@ namespace WebApi.Controllers
 
             return Ok(response);
         }
+       
+        [HttpGet("UserList/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByUserListAsync(int id)
+        {
+            var responseUsers = await _MangaItem.GetUserList(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
+        [HttpGet("UserFavorites/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByUserFavoritesAsync(int id)
+        {
+            var responseUsers = await _MangaItem.GetUserFavorites(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
+        [HttpGet("UserRecommendations/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByUserRecommendationsAsync(int id)
+        {
+            var responseUsers = await _MangaItem.GetUserRecommendations(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
+
     }
 }

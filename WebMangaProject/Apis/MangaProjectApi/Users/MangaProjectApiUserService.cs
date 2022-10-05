@@ -136,51 +136,5 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
-        public async Task<Response> AddUserMangaItem(UserMangaItem item, string token)
-        {
-            try
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                string serialized = JsonConvert.SerializeObject(item);
-                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User/AddUserMangaItem", serialized);
-
-                var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
-
-                if (responseHttp.IsSuccessStatusCode)
-                {
-                    return ResponseFactory.CreateInstance().CreateSuccessResponse();
-                }
-                return ResponseFactory.CreateInstance().CreateFailedResponse(response.Message);
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
-        }
-
-        public async Task<Response> AddUserAnimeItem(UserAnimeItem item, string token)
-        {
-            try
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                string serialized = JsonConvert.SerializeObject(item);
-                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User/AddUserAnimeItem", serialized);
-
-                var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
-
-                if (responseHttp.IsSuccessStatusCode)
-                {
-                    return ResponseFactory.CreateInstance().CreateSuccessResponse();
-                }
-                return ResponseFactory.CreateInstance().CreateFailedResponse(response.Message);
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
-        }
     }
 }

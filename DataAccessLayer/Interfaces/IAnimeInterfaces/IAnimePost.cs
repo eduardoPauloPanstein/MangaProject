@@ -10,6 +10,5 @@ namespace DataAccessLayer.Interfaces.IAnimeInterfaces
 {
     public interface IAnimePost
     {
-        Task<Response> LeaveComentary(AnimeComentary leave);
     }
 }

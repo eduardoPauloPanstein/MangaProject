@@ -1,12 +1,13 @@
-﻿using Entities.UserS;
+﻿using Entities.AnimeS;
+using Entities.UserS;
 using Shared.Interfaces;
 using Shared.Responses;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserAnimeItem
 {
-    public interface IMangaProjectApiAnimeItem : IMangaProjectApiService<Entities.UserS.UserAnimeItem>
+    public interface IMangaProjectApiAnimeItem : IMangaProjectUserItemApi<Entities.UserS.UserAnimeItem,Anime>
     {
-        Task<DataResponse<Entities.UserS.UserAnimeItem>> GetByUser(int userid);
+       
 
     }
 }

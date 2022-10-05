@@ -24,6 +24,7 @@ namespace DataAccessLayer.Implementations
         public void CreateAdmin(User adm)
         {
             var user = _db.Users.Where(u => u.Id > -1).FirstOrDefault();
+            string s = "";
             if (user == null)
             {
                 _db.Add(adm);
@@ -94,9 +95,9 @@ namespace DataAccessLayer.Implementations
 
         public async Task<Response> Insert(User user)
         {
-            _db.Users.Add(user);
             try
             {
+                _db.Users.Add(user);
                 await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
@@ -250,86 +251,6 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
-            }
-        }
-
-        public async Task<Response> AddUserMangaItem(UserMangaItem item, int score)
-        {
-            RatingFrequencies selec = _db.MangaRating.Find(item.MangaId);
-            switch (score)
-            {
-                case 1:
-                    selec._1++;
-                    break;
-                case 2:
-                    selec._2++;
-                    break;
-                case 3:
-                    selec._3++;
-                    break;
-                case 4:
-                    selec._4++;
-                    break;
-                case 5:
-                    selec._5++;
-                    break;
-            }
-            _db.MangaRating.Update(selec);
-
-            _db.UserManga.Add(item);
-            User? user = await _db.Users.FindAsync(item.UserId);
-            user.FavoritesCount += 1;
-
-            _db.Users.Update(user);
-            try
-            {
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
-        }
-
-        public async Task<Response> AddUserAnimeItem(UserAnimeItem item, int score)
-        {
-            AnimeRatingFrequencies selec = _db.AnimeRating.Find(item.AnimeId);
-
-            switch (score)
-            {
-                case 1:
-                    selec._1++;
-                    break;
-                case 2:
-                    selec._2++;
-                    break;
-                case 3:
-                    selec._3++;
-                    break;
-                case 4:
-                    selec._4++;
-                    break;
-                case 5:
-                    selec._5++;
-                    break;
-            }
-
-            _db.AnimeRating.Update(selec);
-
-            User? user = await _db.Users.FindAsync(item.UserId);
-            user.FavoritesCount += 1;
-            _db.Users.Update(user);
-
-            _db.UserAnime.Add(item);
-            try
-            {
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
     }

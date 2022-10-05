@@ -73,7 +73,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                Manga Select = _db.Mangas.FirstOrDefault(m => m.Id == id);
+                Manga Select = _db.Mangas.AsNoTracking().FirstOrDefault(m => m.Id == id);
                 return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Manga>(Select);
             }
             catch (Exception ex)
@@ -141,7 +141,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas.Where(M => M.CanonicalTitle.Contains(name)).ToListAsync();
+                List<Manga> mangas = await _db.Mangas.AsNoTracking().Where(M => M.CanonicalTitle.Contains(name)).ToListAsync();
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Manga>(mangas);
             }
             catch (Exception ex)
@@ -196,23 +196,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
-
-        public async Task<Response> InsertComentary(MangaComentary Leave)
-        {
-            Leave.Manga = await _db.Mangas.FindAsync(4);
-            Leave.User = await _db.Users.FindAsync(1);
-            try
-            {
-                _db.MangaComentaries.Add(Leave);
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
-        }
-
         public async Task<int> GetLastIndex()
         {
             try
@@ -238,7 +221,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedSingleResponse<Manga>(ex);
             }
         }
-
         public async Task<DataResponse<Manga>> GetByCategory(int ID)
         {
             try
@@ -251,7 +233,6 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
-
         public async Task<DataResponse<Manga>> GetByPopularity(int skip, int take)
         {
             try
@@ -267,23 +248,6 @@ namespace DataAccessLayer.Implementations
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
-            }
-        }
-
-        public async Task<Response> DeleteComentary(int id)
-        {
-            MangaComentary? comentary = await _db.MangaComentaries.FindAsync(id);
-            if (comentary == null)
-                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
-            try
-            {
-                _db.MangaComentaries.Remove(comentary);
-                await _db.SaveChangesAsync();
-                return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
     }

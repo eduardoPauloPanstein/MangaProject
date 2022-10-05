@@ -148,8 +148,8 @@ namespace MvcPresentationLayer.Controllers
             item.UserId = UserService.GetId(HttpContext);
             //item.AnimeId = item.Id;
             //item.Id = 0;
-
-            Response Response = await _userAnimeItem.Insert(item);
+            int score = ((int)item.Score);
+            Response Response = await _userAnimeItem.Insert(item,score);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);

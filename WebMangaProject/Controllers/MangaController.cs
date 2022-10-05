@@ -172,11 +172,11 @@ namespace MvcPresentationLayer.Controllers
             //item.MangaId = item.Id;
             //item.Id = 0;
 
-            Response Response = await _userApiService.AddUserMangaItem(item, UserService.GetToken(HttpContext));
-            if (!Response.HasSuccess)
-            {
-                return BadRequest(Response);
-            }
+            //Response Response = await _userApiService.AddUserMangaItem(item, UserService.GetToken(HttpContext));
+            //if (!Response.HasSuccess)
+            //{
+            //    return BadRequest(Response);
+            //}
             return RedirectToAction("MangaOnPage", "Manga", new { id = fav.Manga.Id });
         }
     }

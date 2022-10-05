@@ -6,8 +6,6 @@ namespace BusinessLogicalLayer.Interfaces.IUserInterfaces
 {
     public interface IUserGet
     {
-        Task<DataResponse<Manga>> GetUserList(int userid);
-        Task<DataResponse<Manga>> GetUserFavorites(int userid);
-        Task<DataResponse<Manga>> GetUserRecommendations(int userid);
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Interfaces.IUserItem;
+using Entities.AnimeS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
@@ -74,11 +75,128 @@ namespace DataAccessLayer.Implementations.UserItemDAL
             }
         }
 
-        public async Task<Response> Insert(UserAnimeItem Item)
+        public async Task<DataResponse<Anime>> GetUserFavorites(int userid)
         {
+            List<Anime> anime = new();
             try
             {
-                _db.UserAnime.Add(Item);
+                List<UserAnimeItem> user = await _db.UserAnime.Where(u => u.UserId == userid && u.Favorite == true).ToListAsync();
+
+                foreach (UserAnimeItem item in user)
+                {
+                    anime.Add(_db.Animes.FirstOrDefault(m => m.Id == item.AnimeId));
+                }
+
+
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(anime);
+
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(ex);
+            }
+        }
+
+        public async Task<DataResponse<Anime>> GetUserList(int userid)
+        {
+            List<Anime> anime = new();
+            try
+            {
+                List<UserAnimeItem> user = await _db.UserAnime.Where(u => u.UserId == userid).ToListAsync();
+
+                foreach (UserAnimeItem item in user)
+                {
+                    anime.Add(_db.Animes.FirstOrDefault(m => m.Id == item.AnimeId));
+                }
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(anime);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(ex);
+            }
+        }
+
+        public async Task<DataResponse<Anime>> GetUserRecommendations(int userid)
+        {
+            List<int> IdsUsuarios = new();
+            List<UserAnimeItem> Fav = new();
+            List<Anime> Anime = new();
+            try
+            {
+                List<UserAnimeItem> userFav = await _db.UserAnime.Where(u => u.UserId == userid && u.Favorite == true).ToListAsync();
+                foreach (UserAnimeItem item in userFav)
+                {
+                    UserAnimeItem user = _db.UserAnime.FirstOrDefault(m => m.AnimeId == item.AnimeId && m.UserId != userid);
+                    if (user == null)
+                    {
+
+                    }
+                    else
+                    {
+                        if (IdsUsuarios.Contains(user.UserId))
+                        {
+
+                        }
+                        else
+                        {
+                            IdsUsuarios.Add(user.UserId);
+                        }
+                    }
+                }
+
+                foreach (int item in IdsUsuarios)
+                {
+                    List<UserAnimeItem> user = _db.UserAnime.Where(u => u.UserId == item).ToList();
+                    foreach (UserAnimeItem i in user)
+                    {
+                        Fav.Add(i);
+                    }
+                }
+
+                foreach (UserAnimeItem item in Fav)
+                {
+                    Anime.Add(_db.Animes.FirstOrDefault(m => m.Id == item.AnimeId));
+                }
+
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(Anime);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Anime>(ex);
+            }
+        }
+
+
+        public async Task<Response> Insert(UserAnimeItem Item, int score)
+        {
+            AnimeRatingFrequencies selec = _db.AnimeRating.Find(Item.AnimeId);
+            switch (score)
+            {
+                case 1:
+                    selec._1++;
+                    break;
+                case 2:
+                    selec._2++;
+                    break;
+                case 3:
+                    selec._3++;
+                    break;
+                case 4:
+                    selec._4++;
+                    break;
+                case 5:
+                    selec._5++;
+                    break;
+            }
+            _db.AnimeRating.Update(selec);
+
+            _db.UserAnime.Add(Item);
+            User? user = await _db.Users.FindAsync(Item.UserId);
+            user.FavoritesCount += 1;
+
+            _db.Users.Update(user);
+            try
+            {
                 await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }

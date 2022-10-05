@@ -48,7 +48,7 @@ namespace MvcPresentationLayer.Controllers.UserItem
         [HttpPost, Authorize]
         public async Task<IActionResult> Get(int skp, int take)
         {
-            DataResponse<UserMangaItem> Response = await _MangaItem.Get(null, skp, take);
+            DataResponse<UserMangaItem> Response = await _MangaItem.Get(skp, take,null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
@@ -66,7 +66,7 @@ namespace MvcPresentationLayer.Controllers.UserItem
         }
         public async Task<IActionResult> GetByUser(int id)
         {
-            Response Response = await _MangaItem.GetByUser(id);
+            Response Response = await _MangaItem.GetByUser(id,null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);

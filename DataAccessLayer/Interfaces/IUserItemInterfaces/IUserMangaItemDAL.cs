@@ -1,17 +1,11 @@
-﻿using Entities.UserS;
+﻿using Entities.MangaS;
+using Entities.UserS;
 using Shared;
-using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces.IUserItem
 {
-    public interface IUserMangaItemDAL : ICRUD<UserMangaItem>
+    public interface IUserMangaItemDAL : ICrudUserItem<UserMangaItem,Manga>
     {
-        Task<DataResponse<UserMangaItem>> GetByUser(int userid);
 
     }
 }

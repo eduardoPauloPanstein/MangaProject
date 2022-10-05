@@ -72,24 +72,6 @@ namespace WebApi.Controllers
 
             return Ok(response);
         }
-
-
-        [HttpPost("AddUserMangaItem"), Authorize]
-        public async Task<IActionResult> AddUserMangaItemAsync([FromBody] string value)
-        {
-            //if (IsAuthenticated())
-
-            var mangaItem = JsonConvert.DeserializeObject<UserMangaItem>(value);
-
-            var response = await _userService.AddUserMangaItem(mangaItem);
-            if (!response.HasSuccess)
-            {
-                return BadRequest(response);
-            }
-
-            return Ok(response);
-        }
-
         [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> PutAsync(int id, [FromBody] string value)
         {

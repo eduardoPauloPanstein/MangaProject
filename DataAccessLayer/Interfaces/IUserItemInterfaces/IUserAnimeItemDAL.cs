@@ -1,16 +1,12 @@
-﻿using Entities.UserS;
+﻿using Entities.AnimeS;
+using Entities.UserS;
 using Shared;
 using Shared.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces.IUserItem
 {
-    public interface IUserAnimeItemDAL : ICRUD<UserAnimeItem>
+    public interface IUserAnimeItemDAL : ICrudUserItem<UserAnimeItem,Anime>
     {
-        Task<DataResponse<UserAnimeItem>> GetByUser(int userid);
+       
     }
 }

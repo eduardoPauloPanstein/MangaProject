@@ -63,9 +63,9 @@ namespace WebApi.Controllers
         {
             //if (IsAuthenticated())
 
-            var manga = JsonConvert.DeserializeObject<UserAnimeItem>(value);
-
-            var response = await _AnimeItem.Insert(manga);
+            var anime = JsonConvert.DeserializeObject<UserAnimeItem>(value);
+            int score = ((int)anime.Score);
+            var response = await _AnimeItem.Insert(anime, score);
             if (!response.HasSuccess)
             {
                 return BadRequest(response);
@@ -98,6 +98,39 @@ namespace WebApi.Controllers
             }
 
             return Ok(response);
+        }
+        [HttpGet("UserList/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByUserListAsync(int id)
+        {
+            var responseUsers = await _AnimeItem.GetUserList(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
+        [HttpGet("UserFavorites/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByUserFavoritesAsync(int id)
+        {
+            var responseUsers = await _AnimeItem.GetUserFavorites(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
+        }
+        [HttpGet("UserRecommendations/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByUserRecommendationsAsync(int id)
+        {
+            var responseUsers = await _AnimeItem.GetUserRecommendations(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
+
+            return Ok(responseUsers);
         }
     }
 }

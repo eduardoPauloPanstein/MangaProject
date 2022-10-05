@@ -1,10 +1,10 @@
-﻿using Shared.Responses;
+﻿using Entities.MangaS;
+using Shared.Responses;
 
 namespace MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserMangaItem
 {
-    public interface IMangaProjectApiMangaItem : IMangaProjectApiService<Entities.UserS.UserMangaItem>
+    public interface IMangaProjectApiMangaItem : IMangaProjectUserItemApi<Entities.UserS.UserMangaItem,Manga>
     {
-        Task<DataResponse<Entities.UserS.UserMangaItem>> GetByUser(int userid);
 
     }
 }

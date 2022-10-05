@@ -86,32 +86,5 @@ namespace BusinessLogicalLayer.Implementations
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
             return await _unitOfWork.UserRepository.Login(user);
         }
-
-        public async Task<DataResponse<Manga>> GetUserList(int userid)
-        {
-            return await _unitOfWork.UserRepository.GetUserList(userid);
-        }
-
-        public async Task<Response> AddUserMangaItem(UserMangaItem item)
-        {
-            int score = ((int)item.Score);
-            return await _unitOfWork.UserRepository.AddUserMangaItem(item,score);
-        }
-
-        public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
-        {
-            return await _unitOfWork.UserRepository.GetUserFavorites(userid);
-        }
-
-        public async Task<DataResponse<Manga>> GetUserRecommendations(int userid)
-        {
-            return await _unitOfWork.UserRepository.GetUserRecommendations(userid);
-        }
-
-        public async Task<Response> AddUserAnimeItem(UserAnimeItem item)
-        {
-            int score = ((int)item.Score);
-            return await _unitOfWork.UserRepository.AddUserAnimeItem(item, score);
-        }
     }
 }

@@ -23,24 +23,24 @@ namespace Test.DataAccessLayerTest
         [Fact]
         public void GetAnime_ReturnNotNull()
         {
-            using (var context = _serviceProvider.GetService<MangaProjectDbContext>())
-            {
-                AnimeDAL dal = new(context);
-                AnimeComentary a = new();
-                a.DataComentary = DateTime.Now;
-                a.Comentary = "One shit";
+            //using (var context = _serviceProvider.GetService<MangaProjectDbContext>())
+            //{
+            //    AnimeDAL dal = new(context);
+            //    AnimeComentary a = new();
+            //    a.DataComentary = DateTime.Now;
+            //    a.Comentary = "One shit";
 
 
-                // Act  
-                var response = dal.LeaveComentary(a);
+            //    // Act  
+            //    var response = dal.LeaveComentary(a);
 
 
 
-                //var user = response.Result.Data;
+            //    //var user = response.Result.Data;
 
-                //Assert  
-                Assert.NotNull(a);
-            }
+            //    //Assert  
+            //    Assert.NotNull(a);
+            //}
 
         }
     }

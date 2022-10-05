@@ -59,12 +59,6 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _animeDAL.GetLastIndexCategory();
         }
-
-        public async Task<Response> LeaveComentary(AnimeComentary Class)
-        {
-            return await _animeDAL.LeaveComentary(Class);
-        }
-
         public async Task<DataResponse<Anime>> GetByFavorites(int skip, int take)
         {
             return await _animeDAL.GetByFavorites(skip, take);

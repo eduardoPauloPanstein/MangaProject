@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Interfaces.IUserItem;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
@@ -74,11 +75,127 @@ namespace DataAccessLayer.Implementations.UserItemDAL
             }
         }
 
-        public async Task<Response> Insert(UserMangaItem Item)
+        public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
         {
+            List<Manga> mangas = new();
             try
             {
-                _db.UserManga.Add(Item);
+                List<UserMangaItem> user = await _db.UserManga.Where(u => u.UserId == userid && u.Favorite == true).ToListAsync();
+
+                foreach (UserMangaItem item in user)
+                {
+                    mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
+                }
+
+
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
+
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+            }
+        }
+
+        public async Task<DataResponse<Manga>> GetUserList(int userid)
+        {
+            List<Manga> mangas = new();
+            try
+            {
+                List<UserMangaItem> user = await _db.UserManga.Where(u => u.UserId == userid).ToListAsync();
+
+                foreach (UserMangaItem item in user)
+                {
+                    mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
+                }
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+            }
+        }
+
+        public async Task<DataResponse<Manga>> GetUserRecommendations(int userid)
+        {
+            List<int> IdsUsuarios = new();
+            List<UserMangaItem> Fav = new();
+            List<Manga> Mangas = new();
+            try
+            {
+                List<UserMangaItem> userFav = await _db.UserManga.Where(u => u.UserId == userid && u.Favorite == true).ToListAsync();
+                foreach (UserMangaItem item in userFav)
+                {
+                    UserMangaItem user = _db.UserManga.FirstOrDefault(m => m.MangaId == item.MangaId && m.UserId != userid);
+                    if (user == null)
+                    {
+
+                    }
+                    else
+                    {
+                        if (IdsUsuarios.Contains(user.UserId))
+                        {
+
+                        }
+                        else
+                        {
+                            IdsUsuarios.Add(user.UserId);
+                        }
+                    }
+                }
+
+                foreach (int item in IdsUsuarios)
+                {
+                    List<UserMangaItem> user = _db.UserManga.Where(u => u.UserId == item).ToList();
+                    foreach (UserMangaItem i in user)
+                    {
+                        Fav.Add(i);
+                    }
+                }
+
+                foreach (UserMangaItem item in Fav)
+                {
+                    Mangas.Add(_db.Mangas.FirstOrDefault(m => m.Id == item.MangaId));
+                }
+
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(Mangas);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+            }
+        }
+
+        public async Task<Response> Insert(UserMangaItem Item,int score)
+        {
+            RatingFrequencies selec = _db.MangaRating.Find(Item.MangaId);
+            switch (score)
+            {
+                case 1:
+                    selec._1++;
+                    break;
+                case 2:
+                    selec._2++;
+                    break;
+                case 3:
+                    selec._3++;
+                    break;
+                case 4:
+                    selec._4++;
+                    break;
+                case 5:
+                    selec._5++;
+                    break;
+            }
+            _db.MangaRating.Update(selec);
+
+            _db.UserManga.Add(Item);
+            User? user = await _db.Users.FindAsync(Item.UserId);
+            user.FavoritesCount += 1;
+
+            _db.Users.Update(user);
+            try
+            {
                 await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
@@ -87,7 +204,6 @@ namespace DataAccessLayer.Implementations.UserItemDAL
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
         public async Task<Response> Update(UserMangaItem Item)
         {
             UserMangaItem? MangaDB = await _db.UserManga.FindAsync(Item.Id);
