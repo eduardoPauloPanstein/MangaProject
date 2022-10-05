@@ -1018,6 +1018,7 @@ abbr[title] {
     border-radius: 60px;
     width: 85%;
     height: 600px;
+    margin-top: 1.5%;
 }
 
 .banner-grid {
@@ -1032,20 +1033,20 @@ abbr[title] {
 .banner-info {
     color: #212D40;
     display: grid;
-    grid-template-columns: 315px auto;
-    grid-gap: 40px;
+    grid-template-columns: 400px auto;
+    
 }
 
-.phrase {
+.banner-title {
     margin-top: 25px;
-    color: #212D40;
+    color: #7F0799;
     display:flex;
     justify-content: center;
 }
 
-.subphrase {
+.banner-phrase {
     margin-top: 10px;
-    color: #212D40;
+    color: #4A367F;
     display: flex;
     justify-content: center;
 }
@@ -1056,7 +1057,7 @@ abbr[title] {
 }
 
 .info-title {
-    color: #212D40;
+    color: #650d9f;
     font-size: 1.8rem;
     margin: 0;
     margin-bottom: 8px;
@@ -1065,10 +1066,36 @@ abbr[title] {
 .description {
     font-size: 1rem;
     line-height: 146%;
+    color: #212D40;
 }
 
-.teste {
-    color: #212D40;
-    font-size: 65px;
+.banner-icon {
+    color: #4A367F;
+    font-size: 60px;
+    position: absolute;
+}
+
+.banner-image {
+    height: 12%;
+    position: absolute;
+    margin-left: -13px;
+    opacity: 80%;
+}
+
+.section-title {
+    margin-top: 5%;
+}
+
+.alh-div{
+
+}
+
+.alh-aam {
+    display: grid;
+    grid-gap: 70px 60px;
+    grid-template-columns: repeat(2,minmax(300px,400px));
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 65px;
 }
 /*#endregion */
