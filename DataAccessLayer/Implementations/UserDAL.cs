@@ -31,7 +31,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<Response> Delete(int? id)
+        public async Task<Response> Delete(int id)
         {
             User? user = await _db.Users.FindAsync(id);
             if (user == null)
@@ -128,7 +128,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<SingleResponse<User>> Get(int? id)
+        public async Task<SingleResponse<User>> Get(int id)
         {
             try
             {

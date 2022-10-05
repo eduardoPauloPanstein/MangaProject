@@ -36,9 +36,9 @@ namespace BusinessLogicalLayer.Implementations
             _unitOfWork.UserRepository.CreateAdmin(adm);
             _unitOfWork.Commit();
         }
-        public async Task<Response> Delete(int? id)
+        public async Task<Response> Delete(int id)
         {
-            if (id == null)
+            if (id < 0)
                 return ResponseFactory.CreateInstance().CreateFailedResponse();
    
 
@@ -63,7 +63,7 @@ namespace BusinessLogicalLayer.Implementations
             return response;
         }
 
-        public async Task<SingleResponse<User>> Get(int? id)
+        public async Task<SingleResponse<User>> Get(int id)
         {
 
             return await _unitOfWork.UserRepository.Get(id);
