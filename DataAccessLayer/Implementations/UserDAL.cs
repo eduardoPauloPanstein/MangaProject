@@ -1,10 +1,9 @@
-﻿using DataAccessLayer.ErrorHandling;
-using DataAccessLayer.Interfaces.IUSerInterfaces;
-using Entities.AnimeS;
+﻿using DataAccessLayer.Interfaces.IUSerInterfaces;
 using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Models.User;
 using Shared.Responses;
 
 namespace DataAccessLayer.Implementations
@@ -31,13 +30,44 @@ namespace DataAccessLayer.Implementations
         }
         public async Task<Response> Insert(User user)
         {
-            await _db.Users.AddAsync(user);
-            return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            try
+            {
+                await _db.Users.AddAsync(user);
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
         }
-        public async Task<Response> Delete(User user)
+        public async Task<Response> Delete(int id)
         {
-            _db.Users.Remove(user);
-            return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            try
+            {
+                User? user = await _db.Users.FindAsync(id);
+                if (user == null)
+                    return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
+
+                _db.Users.Remove(user);
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
+        }
+
+        public async Task<Response> Update(User user)
+        {
+            try
+            {
+                _db.Users.Update(user);
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
+            }
         }
 
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)
@@ -136,22 +166,6 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<Response> Update(User user)
-        {
-            //_db.Users.Update(user);
-
-            User? userDb = await _db.Users.FindAsync(user.Id);
-            if (userDb == null)
-                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
-            userDb.Nickname = user.Nickname;
-            userDb.About = user.About;
-
-            if (user.AvatarImageFileLocation != null)
-                userDb.AvatarImageFileLocation = user.AvatarImageFileLocation;
-            if (user.CoverImageFileLocation != null)
-                userDb.CoverImageFileLocation = user.CoverImageFileLocation;
-
-        }
 
         public async void UpdateLastLoginAsync(int id)
         {
@@ -224,6 +238,11 @@ namespace DataAccessLayer.Implementations
         }
 
         public Task<Response> AddUserAnimeItem(UserAnimeItem item, int score)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response> Insert(UserCreate userCreate)
         {
             throw new NotImplementedException();
         }

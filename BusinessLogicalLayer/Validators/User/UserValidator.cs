@@ -34,10 +34,10 @@ namespace BusinessLogicalLayer.Validators.User
                 .Must(CommonValidations.HasDigit).WithMessage("Password needs at least one digit");
         }
 
-        public void ValidateConfirmPassword()
-        {
-            RuleFor(u => u.ConfirmPassword)
-               .Equal(u => u.Password).WithMessage(LocationConstants.Password.ConfirmPasswordMessage);
-        }
+        //public void ValidateConfirmPassword()
+        //{
+        //    RuleFor(u => u.ConfirmPassword)
+        //       .Equal(u => u.Password).WithMessage(LocationConstants.Password.ConfirmPasswordMessage);
+        //}
     }
 }

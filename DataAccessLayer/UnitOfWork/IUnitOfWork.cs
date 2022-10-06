@@ -8,5 +8,6 @@ namespace DataAccessLayer.UnitOfWork
         IUserDAL UserRepository { get; }
 
         Task<Response> Commit();
+        Task<Response> CommitForUser();
     }
 }

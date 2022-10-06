@@ -7,7 +7,7 @@
             base.ValidateNickname();
             base.ValidateEmail();
             base.ValidatePassword();
-            base.ValidateConfirmPassword();
+            //base.ValidateConfirmPassword();
         }
     }
 

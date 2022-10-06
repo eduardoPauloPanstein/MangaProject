@@ -1,6 +1,7 @@
 ﻿using Entities.UserS;
 using Newtonsoft.Json;
 using Shared;
+using Shared.Models.User;
 using Shared.Responses;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -31,14 +32,14 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             }
         }
 
-        public async Task<Response> Insert(User user, string token)
+        public async Task<Response> Insert(UserCreate userCreate, string token)
         {
             try
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                string serialized = JsonConvert.SerializeObject(user);
-                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User", serialized);
+                //string serialized = JsonConvert.SerializeObject(user);
+                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("User", userCreate);
 
                 var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
 
@@ -120,8 +121,8 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                string serialized = JsonConvert.SerializeObject(user);
-                using HttpResponseMessage responseHttp = await client.PutAsJsonAsync($"User/{user.Id}", serialized);
+                //string serialized = JsonConvert.SerializeObject(user);
+                using HttpResponseMessage responseHttp = await client.PutAsJsonAsync($"User/{user.Id}", user);
 
                 var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
 
@@ -135,6 +136,11 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             {
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
+        }
+
+        public Task<Response> Insert(User item, string token)
+        {
+            throw new NotImplementedException();
         }
     }
 }

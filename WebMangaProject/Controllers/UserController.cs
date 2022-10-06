@@ -9,6 +9,7 @@ using MvcPresentationLayer.Models.User;
 using MvcPresentationLayer.Models.UserModel;
 using MvcPresentationLayer.Utilities;
 using Shared;
+using Shared.Models.User;
 using Shared.Responses;
 using System.Security.Claims;
 
@@ -273,11 +274,11 @@ namespace MvcPresentationLayer.Controllers
             return View();
         }
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
-        public async Task<IActionResult> Create(UserInsertViewModel viewModel)
+        public async Task<IActionResult> Create(UserCreate userCreate)
         {
-            User user = _mapper.Map<User>(viewModel);
+            //User user = _mapper.Map<User>(viewModel);
 
-            var response = await _userApiService.Insert(user, UserService.GetToken(HttpContext));
+            var response = await _userApiService.Insert(userCreate, UserService.GetToken(HttpContext));
 
             if (response.HasSuccess)
                 return RedirectToAction("Index");

@@ -1,5 +1,6 @@
 ﻿using Entities.UserS;
 using Shared;
+using Shared.Models.User;
 using Shared.Responses;
 
 namespace BusinessLogicalLayer.Interfaces.IUserInterfaces

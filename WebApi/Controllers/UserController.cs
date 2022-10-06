@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using BusinessLogicalLayer.Interfaces.IUserInterfaces;
-using Entities.Enums;
+﻿using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Shared;
+using Shared.Models.User;
 using Shared.Responses;
 using WebApi.Services;
 
@@ -58,13 +56,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPost, AllowAnonymous]
-        public async Task<IActionResult> PostAsync([FromBody] string value)
+        public async Task<IActionResult> PostAsync(UserCreate userCreate)
         {
             //if (IsAuthenticated())
 
-            var user = JsonConvert.DeserializeObject<User>(value);
+            //var user = JsonConvert.DeserializeObject<User>(value);
 
-            var response = await _userService.Insert(user);
+            var response = await _userService.Insert(userCreate);
             if (!response.HasSuccess)
             {
                 return BadRequest(response);
@@ -73,16 +71,15 @@ namespace WebApi.Controllers
             return Ok(response);
         }
         [HttpPut("{id}"), Authorize]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] string value)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] User user)
         {
             if (!UserService.IsAdmin(HttpContext))
             {
                 if (!UserService.IsAmMyself(HttpContext, id))
                     return BadRequest();
             }
-           
 
-            var user = JsonConvert.DeserializeObject<User>(value);
+            //var user = JsonConvert.DeserializeObject<User>(value);
 
             var response = await _userService.Update(user);
             if (!response.HasSuccess)

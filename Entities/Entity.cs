@@ -23,5 +23,11 @@
         public int AccessCount { get; set; }
         public int AccessUserId { get; set; }
         public DateTime LastAccess { get; set; }
+
+        public virtual void AccessEntity()
+        {
+            LastAccess = DateTime.Now;
+            AccessCount++;
+        }
     }
 }

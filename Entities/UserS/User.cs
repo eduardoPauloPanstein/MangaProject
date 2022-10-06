@@ -4,11 +4,12 @@ namespace Entities.UserS
 {
     public class User : Entity
     {
+
         public string Nickname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
-        public bool EmailConfirmed { get; set; }
+        //public string ConfirmPassword { get; set; }
+        //public bool EmailConfirmed { get; set; }
         public DateTime LastLogin { get; set; }
         public UserRoles Role { get; set; }
         public string? About { get; set; }
@@ -27,5 +28,6 @@ namespace Entities.UserS
             this.Role = UserRoles.User;
         }
 
+        
     }
 }

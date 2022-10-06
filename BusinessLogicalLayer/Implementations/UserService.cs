@@ -4,10 +4,11 @@ using BusinessLogicalLayer.Utilities;
 using BusinessLogicalLayer.Validators.User;
 using DataAccessLayer.UnitOfWork;
 using Entities.Enums;
-using Entities.MangaS;
 using Entities.UserS;
 using Shared;
+using Shared.Models.User;
 using Shared.Responses;
+using System.Reflection;
 
 namespace BusinessLogicalLayer.Implementations
 {
@@ -28,34 +29,36 @@ namespace BusinessLogicalLayer.Implementations
             {
                 Nickname = "admin",
                 Password = password,
-                ConfirmPassword = password,
                 Email = "admin@gmail.com",
                 Role = UserRoles.Admin,
+                Active = true,
             };
-            adm.EnableEntity();
             _unitOfWork.UserRepository.CreateAdmin(adm);
             _unitOfWork.Commit();
         }
         public async Task<Response> Delete(int id)
         {
-            User? user;
             if (id < 0)
                 return ResponseFactory.CreateInstance().CreateFailedResponse();
 
-            var responseGet = await _unitOfWork.UserRepository.Get(id);
-            if (responseGet.HasSuccess)
-                user = responseGet.Item;
-            else if (responseGet.NotFound)
-            {
-                return new Response("Usuario não encontrado no banco de dados.", false, null);
-            }
-
-
-            var response = await _unitOfWork.UserRepository.Delete((int)id);
+            var response = await _unitOfWork.UserRepository.Delete(id);
             if (!response.HasSuccess)
                 return response;
 
             return await _unitOfWork.Commit();
+        }
+        public Task<Response> Insert(UserCreate userCreate)
+        {
+            if (!userCreate.PasswordHasBeenConfirmed)
+                ResponseFactory.CreateInstance().CreateFailedResponse("passwords do not match");
+            User user = new()
+            {
+                Nickname=userCreate.Nickname,
+                Password=userCreate.Password,
+                Email=userCreate.Email,
+            };
+
+            return Insert(user);
         }
 
         public async Task<Response> Insert(User user)
@@ -64,17 +67,18 @@ namespace BusinessLogicalLayer.Implementations
             if (!response.HasSuccess)
                 return response;
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
-            //Tirar ConfirmPassword
 
             user.EnableEntity();
             response = await _unitOfWork.UserRepository.Insert(user);
+            if (!response.HasSuccess)
+                return response;
 
-            return response;
+            return await _unitOfWork.Commit();
+
         }
 
         public async Task<SingleResponse<User>> Get(int id)
         {
-
             return await _unitOfWork.UserRepository.Get(id);
         }
 
@@ -89,7 +93,23 @@ namespace BusinessLogicalLayer.Implementations
             if (!response.HasSuccess)
                 return response;
 
-            return await _unitOfWork.UserRepository.Update(user);
+            var responseGetUser = await _unitOfWork.UserRepository.Get(user.Id);
+            user.AccessEntity();
+
+            if (!responseGetUser.HasSuccess)
+                return responseGetUser;
+
+            User userDb = responseGetUser.Item;
+
+            userDb.Nickname = user.Nickname;
+            userDb.About = user.About;
+
+            if (user.AvatarImageFileLocation != null)
+                userDb.AvatarImageFileLocation = user.AvatarImageFileLocation;
+            if (user.CoverImageFileLocation != null)
+                userDb.CoverImageFileLocation = user.CoverImageFileLocation;
+
+            return await _unitOfWork.CommitForUser();
         }
 
         public async Task<SingleResponse<User>> Login(UserLogin user)
@@ -97,5 +117,6 @@ namespace BusinessLogicalLayer.Implementations
             user.Password = HashGenerator.ComputeSha256Hash(user.Password);
             return await _unitOfWork.UserRepository.Login(user);
         }
+
     }
 }
