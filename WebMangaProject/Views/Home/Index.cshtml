@@ -76,88 +76,118 @@
 
     <div class="alh-div">
         <div class="alh-aam">
-        <section class="catalog" id="catalog">
-            <h3 class=" section-title">Favorite Manga</h3>
-            <a class="custom-link" asp-area="" asp-action="AllByFavorites" asp-controller="Manga">View All</a>
-            <hr />
-            <div class="card-wrapper">
-                @{
-                    foreach (var item in Model.MangasFavorites)
-                    {
-                        <div class="card-item">
-                            <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
-                                <img src=@item.PosterImageLink />
-                                <div class="card-content">
-                                    <h5>@item.CanonicalTitle</h5>
+            <div class="catalog alh-grid" id="catalog">
+                <h3 class=" section-title">Favorite Manga</h3>
+                <a class="custom-link alh-va" asp-area="" asp-action="AllByFavorites" asp-controller="Manga">View All</a>
+                <hr />
+                <div class="alh-grid-config">
+                    <div class="card-wrapper">
+                        @{
+                            foreach (var item in Model.MangasFavorites)
+                            {
+                                <div class="card-item">
+                                    <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
+                                        <img src=@item.PosterImageLink />
+                                        <div class="card-content">
+                                            @if (item.CanonicalTitle.Length > 12)
+                                            {
+                                                <h5>@item.CanonicalTitle.Substring(0,12)</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>@item.CanonicalTitle</h5>
+                                            }
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
-                    }
-                }
+                            }
+                        }
+                    </div>
+                </div>
             </div>
-        </section>
-        <section class="catalog" id="catalog">
-            <h3>Favorite Animes</h3>
-            <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
-            <hr />
-            <div class="card-wrapper">
-                @{
-                    foreach (var item in Model.AnimesFavorites)
-                    {
-                        <div class="card-item">
-                            <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
-                                <img src=@item.AnimePosterImage />
-                                <div class="card-content">
-                                    <h5>@item.canonicalTitle</h5>
-                                </div>
-                            </a>
-                        </div>
+            <div class="catalog alh-grid" id="catalog">
+                <h3 class=" section-title">Favorite Animes</h3>
+                <a class="custom-link alh-va" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+                <hr />
+                <div class="card-wrapper">
+                    @{
+                        foreach (var item in Model.AnimesFavorites)
+                        {
+                            <div class="card-item">
+                                <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                                    <img src=@item.AnimePosterImage />
+                                    <div class="card-content">
+                                         @if (item.canonicalTitle.Length > 12)
+                                            {
+                                                <h5>@item.canonicalTitle.Substring(0,12)</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>@item.canonicalTitle</h5>
+                                            }
+                                    </div>
+                                </a>
+                            </div>
+                        }
                     }
-                }
+                </div>
             </div>
-        </section>
-        <section class="catalog" id="catalog">
-            <h3>Manga by Rating</h3>
-            <a class="custom-link" asp-area="" asp-action="AllByRating" asp-controller="Manga">View All</a>
-            <hr />
-            <div class="card-wrapper">
-                @{
-                    foreach (var item in Model.MangasByRating)
-                    {
-                        <div class="card-item">
-                            <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
-                                <img src=@item.PosterImageLink />
-                                <div class="card-content">
-                                    <h5>@item.CanonicalTitle</h5>
-                                </div>
-                            </a>
-                        </div>
+            <div class="catalog alh-grid" id="catalog">
+                <h3 class=" section-title">Manga by Rating</h3>
+                <a class="custom-link alh-va" asp-area="" asp-action="AllByRating" asp-controller="Manga">View All</a>
+                <hr />
+                <div class="card-wrapper">
+                    @{
+                        foreach (var item in Model.MangasByRating)
+                        {
+                            <div class="card-item">
+                                <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
+                                    <img src=@item.PosterImageLink />
+                                    <div class="card-content">
+                                        @if (item.CanonicalTitle.Length > 12)
+                                            {
+                                                <h5>@item.CanonicalTitle.Substring(0,12)</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>@item.CanonicalTitle</h5>
+                                            }
+                                    </div>
+                                </a>
+                            </div>
+                        }
                     }
-                }
+                </div>
             </div>
-        </section>
-        <section class="catalog" id="catalog">
-            <h3>Animes by Rating</h3>
-            <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
-            <hr />
-            <div class="card-wrapper">
-                @{
-                    foreach (var item in Model.AnimesByRating)
-                    {
-                        <div class="card-item">
-                            <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
-                                <img src=@item.AnimePosterImage />
-                                <div class="card-content">
-                                    <h5>@item.canonicalTitle</h5>
-                                </div>
-                            </a>
-                        </div>
+            <div class="catalog alh-grid" id="catalog">
+                <h3 class=" section-title">Animes by Rating</h3>
+                <a class="custom-link alh-va" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+                <hr />
+                <div class="card-wrapper">
+                    @{
+                        foreach (var item in Model.AnimesByRating)
+                        {
+                            <div class="card-item">
+                                <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                                    <img src=@item.AnimePosterImage />
+                                    <div class="card-content">
+                                         @if (item.canonicalTitle.Length > 12)
+                                            {
+                                                <h5>@item.canonicalTitle.Substring(0,12)</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>@item.canonicalTitle</h5>
+                                            }
+                                    </div>
+                                </a>
+                            </div>
+                        }
                     }
-                }
+                </div>
             </div>
-        </section>
-    </div>
         </div>
+    </div>
 
 </body>
 </html>

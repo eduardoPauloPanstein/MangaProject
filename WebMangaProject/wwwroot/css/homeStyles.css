@@ -3,8 +3,7 @@
     padding: 100px;
 }
 
-section .card-wrapper {
-    display: grid;
+.card-wrapper {
     padding: 0px;
     grid-gap: 28px 30px;
     display: flex;
@@ -13,7 +12,7 @@ section .card-wrapper {
     grid-template-columns: repeat(auto-fill,185px);
 }
 
-section .card-item {
+.card-item {
     display: flex;
     grid-template-rows: -webkit-min-content auto;
     grid-template-rows: min-content auto;

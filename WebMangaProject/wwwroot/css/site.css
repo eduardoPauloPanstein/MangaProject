@@ -418,14 +418,14 @@ abbr[title] {
 
 
 .profile-info {
-    background-color: rgba(0,0,0,.50);
     width: 45%;
     display: flex;
     flex-wrap: wrap;
     /*flex-direction: column;*/
     border-radius: 5px;
-    max-height: 300px;
+    background-color: rgba(0,0,0,.50);
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+    max-height: 300px;
     overflow: auto;
 }
 
@@ -1076,14 +1076,21 @@ abbr[title] {
 }
 
 .banner-image {
-    height: 12%;
+    height: 11%;
     position: absolute;
-    margin-left: -13px;
     opacity: 80%;
+    margin-left: -1.4%;
+    margin-top: -1%;
 }
 
 .section-title {
     margin-top: 5%;
+    margin-left: 5%;
+}
+
+
+.alh-va {
+    margin-left:5%;
 }
 
 .alh-div{
@@ -1092,10 +1099,23 @@ abbr[title] {
 
 .alh-aam {
     display: grid;
-    grid-gap: 70px 60px;
-    grid-template-columns: repeat(2,minmax(300px,400px));
+    grid-template-columns: repeat(4,minmax(300px,400px));
     justify-content: center;
     margin: 0 auto;
     margin-top: 65px;
+    justify-content: space-around;
 }
+
+.alh-grid {
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.50);
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+}
+
+.alh-grid-config{
+    display: flex;
+    justify-content: center;
+
+}
+
 /*#endregion */
