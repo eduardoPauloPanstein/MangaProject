@@ -156,8 +156,8 @@ namespace DataAccessLayer.Implementations
             try
             {
                 List<Anime> animes = await _db.Animes
-                    .OrderByDescending(m => m.favoritesCount)
                     .AsNoTracking()
+                    .OrderByDescending(m => m.favoritesCount)
                     .Skip(skip)
                     .Take(take)
                     .ToListAsync();

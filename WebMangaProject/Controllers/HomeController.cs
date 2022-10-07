@@ -35,9 +35,12 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
-            DataResponse<Anime> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
-            DataResponse<Anime> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
+            DataResponse<Anime> responseAnimesFavorites = await _AnimeService.Get(0, 5);
+            DataResponse<Anime> responseAnimesByCount = await _AnimeService.Get(0, 5);
+            DataResponse<Anime> responseAnimesByRating = await _AnimeService.Get(0, 5);
+            //DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
+            //DataResponse<Anime> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
+            //DataResponse<Anime> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
