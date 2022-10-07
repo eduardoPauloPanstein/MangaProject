@@ -8,6 +8,7 @@ using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Models.AnimeModel;
 using MvcPresentationLayer.Utilities;
+using Shared.Models.Anime;
 using Shared.Responses;
 
 namespace MvcPresentationLayer.Controllers
@@ -30,7 +31,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public async Task<IActionResult> AllFavorites()
         {
-            DataResponse<Anime> responseAnimes = await _animeApiService.GetByFavorites(0, 100);
+            DataResponse<AnimeCatalog> responseAnimes = await _animeApiService.GetByFavorites(0, 100);
 
             if (!responseAnimes.HasSuccess)
             {
@@ -93,7 +94,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public async Task<IActionResult> All(string by)
         {
-            DataResponse<Anime> response;
+            DataResponse<AnimeCatalog> response;
 
             switch (by)
             {
@@ -107,7 +108,7 @@ namespace MvcPresentationLayer.Controllers
                     response = await _animeApiService.GetByUserCount(0, 99);
                     break;
                 case "ByPopularity":
-                    response = await _animeApiService.GetByFavorites(0, 99);
+                    response = await _animeApiService.GetByPopularity(0, 99);
                     break;
                 default:
                     response = new("Whereby??", false, null, null);
@@ -159,9 +160,9 @@ namespace MvcPresentationLayer.Controllers
 
         public async Task<IActionResult> Index()
         {
-            DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
-            DataResponse<Anime> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
-            DataResponse<Anime> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
+            DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
+            DataResponse<AnimeCatalog> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
+            DataResponse<AnimeCatalog> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {

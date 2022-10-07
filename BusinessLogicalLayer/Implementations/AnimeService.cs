@@ -2,6 +2,7 @@
 using DataAccessLayer.Interfaces.IAnimeInterfaces;
 using Entities.AnimeS;
 using Entities.MangaS;
+using Shared.Models.Anime;
 using Shared.Responses;
 
 namespace BusinessLogicalLayer.Implementations
@@ -59,17 +60,17 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _animeDAL.GetLastIndexCategory();
         }
-        public async Task<DataResponse<Anime>> GetByFavorites(int skip, int take)
+        public async Task<DataResponse<AnimeCatalog>> GetByFavorites(int skip, int take)
         {
             return await _animeDAL.GetByFavorites(skip, take);
         }
 
-        public async Task<DataResponse<Anime>> GetByRating(int skip, int take)
+        public async Task<DataResponse<AnimeCatalog>> GetByRating(int skip, int take)
         {
             return await _animeDAL.GetByRating(skip, take);
         }
 
-        public async Task<DataResponse<Anime>> GetByUserCount(int skip, int take)
+        public async Task<DataResponse<AnimeCatalog>> GetByUserCount(int skip, int take)
         {
             return await _animeDAL.GetByUserCount(skip,take);
         }
@@ -79,7 +80,7 @@ namespace BusinessLogicalLayer.Implementations
             return await _animeDAL.GetByCategory(ID);
         }
 
-        public async Task<DataResponse<Anime>> GetByPopularity(int skip, int take)
+        public async Task<DataResponse<AnimeCatalog>> GetByPopularity(int skip, int take)
         {
             return await _animeDAL.GetByPopularity(skip, take);
         }

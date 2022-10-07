@@ -6,9 +6,6 @@ namespace MvcPresentationLayer.Models.AnimeModel
     public class AnimeShortViewModel
     {
         public int Id { get; set; }
-        public AnimeSTitles? AnimeTitles { get; set; }
-
-        [Display(Name = "Title")]
         public string canonicalTitle { get; set; }
         public string? AnimePosterImage { get; set; }
     }

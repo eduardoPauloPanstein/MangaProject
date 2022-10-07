@@ -1,6 +1,7 @@
 ﻿using Entities.MangaS;
 using Newtonsoft.Json;
 using Shared;
+using Shared.Models.Manga;
 using Shared.Responses;
 using System.Net.Http.Headers;
 
@@ -111,41 +112,41 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             }
         }
 
-        public async Task<DataResponse<Manga>> GetByFavorites(int skip = 0, int take = 25)
+        public async Task<DataResponse<MangaCatalog>> GetByFavorites(int skip = 0, int take = 25)
         {
             try
             {
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByFavorites/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(ex);
             }
         }
 
-        public async Task<DataResponse<Manga>> GetByUserCount(int skip = 0, int take = 25)
+        public async Task<DataResponse<MangaCatalog>> GetByUserCount(int skip = 0, int take = 25)
         {
             try
             {
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByUserCount/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(null);
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(ex);
             }
         }
 
@@ -172,41 +173,41 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
             }
         }
 
-        public async Task<DataResponse<Manga>> GetByRating(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByRating(int skip, int take)
         {
             try
             {
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByRating/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(null);
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(null);
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(ex);
             }
         }
 
-        public async Task<DataResponse<Manga>> GetByPopularity(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByPopularity(int skip, int take)
         {
             try
             {
                 using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByPopularity/skip/{skip}/take/{take}");
                 if (!responseHttp.IsSuccessStatusCode)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>();
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(ex);
             }
         }
 

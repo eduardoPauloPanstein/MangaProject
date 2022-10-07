@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.AnimeS;
 using MvcPresentationLayer.Models.AnimeModel;
+using Shared.Models.Anime;
 
 namespace MvcPresentationLayer.Profiles
 {
@@ -8,8 +9,8 @@ namespace MvcPresentationLayer.Profiles
     {
         public AnimeProfile()
         {
-            CreateMap<AnimeShortViewModel, Anime>();
-            CreateMap<Anime, AnimeShortViewModel>();
+            CreateMap<AnimeShortViewModel, AnimeCatalog>();
+            CreateMap<AnimeCatalog, AnimeShortViewModel>();
 
             //CreateMap<MangaShortDbViewModel, Anime>();
             //CreateMap<Manga, MangaShortDbViewModel>();

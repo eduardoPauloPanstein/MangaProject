@@ -9,6 +9,7 @@ using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
+using Shared.Models.Manga;
 using Shared.Responses;
 
 
@@ -32,9 +33,9 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            DataResponse<Manga> responseFavorites = await _mangaApiService.GetByFavorites(0, 5);
-            DataResponse<Manga> responseCount = await _mangaApiService.GetByUserCount(0, 5);
-            DataResponse<Manga> responserating = await _mangaApiService.GetByRating(0, 5);
+            DataResponse<MangaCatalog> responseFavorites = await _mangaApiService.GetByFavorites(0, 5);
+            DataResponse<MangaCatalog> responseCount = await _mangaApiService.GetByUserCount(0, 5);
+            DataResponse<MangaCatalog> responserating = await _mangaApiService.GetByRating(0, 5);
 
             if (!responseFavorites.HasSuccess || !responseCount.HasSuccess || !responserating.HasSuccess)
             {
@@ -62,7 +63,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public async Task<IActionResult> All(string by)
         {
-            DataResponse<Manga> response;
+            DataResponse<MangaCatalog> response;
 
             switch (by)
             {
@@ -76,7 +77,7 @@ namespace MvcPresentationLayer.Controllers
                     response = await _mangaApiService.GetByUserCount(0, 99);
                     break;
                 case "ByPopularity":
-                    response = await _mangaApiService.GetByFavorites(0, 99);
+                    response = await _mangaApiService.GetByPopularity(0, 99);
                     break;
                 default:
                     response = new("Whereby??", false, null, null);

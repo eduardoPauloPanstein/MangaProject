@@ -4,6 +4,7 @@ using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Models.Manga;
 using Shared.Responses;
 
 namespace DataAccessLayer.Implementations
@@ -99,41 +100,43 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
-        public async Task<DataResponse<Manga>> GetByUserCount(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByUserCount(int skip, int take)
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas
+                List<MangaCatalog> mangas = await _db.Mangas
                     .OrderByDescending(m => m.UserCount)
                     .AsNoTracking()
                     .Skip(skip)
                     .Take(take)
+                    .Select(MangaCatalog.Projection)
                     .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(ex);
             }
         }
 
-        public async Task<DataResponse<Manga>> GetByFavorites(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByFavorites(int skip, int take)
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas
+                List<MangaCatalog> mangas = await _db.Mangas
                     .OrderByDescending(m => m.FavoritesCount)
                     .AsNoTracking()
                     .Skip(skip)
                     .Take(take)
+                    .Select(MangaCatalog.Projection)
                     .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(ex);
             }
         }
 
@@ -178,22 +181,23 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public async Task<DataResponse<Manga>> GetByRating(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByRating(int skip, int take)
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas
+                List<MangaCatalog> mangas = await _db.Mangas
                     .OrderByDescending(m => m.RatingRank)
                     .AsNoTracking()
                     .Skip(skip)
                     .Take(take)
+                    .Select(MangaCatalog.Projection)
                     .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
 
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(ex);
             }
         }
         public async Task<int> GetLastIndex()
@@ -233,21 +237,22 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
-        public async Task<DataResponse<Manga>> GetByPopularity(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByPopularity(int skip, int take)
         {
             try
             {
-                List<Manga> mangas = await _db.Mangas
+                List<MangaCatalog> mangas = await _db.Mangas
                     .OrderBy(m => m.PopularityRank)
                     .AsNoTracking()
                     .Skip(skip)
                     .Take(take)
+                    .Select(MangaCatalog.Projection)
                     .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(ex);
             }
         }
     }

@@ -2,6 +2,7 @@
 using DataAccessLayer.Interfaces.IMangaInterfaces;
 using Entities;
 using Entities.MangaS;
+using Shared.Models.Manga;
 using Shared.Responses;
 
 namespace BusinessLogicalLayer.Implementations
@@ -67,17 +68,17 @@ namespace BusinessLogicalLayer.Implementations
         {
             return await _mangaDAL.GetComplete(ID);
         }
-        public async Task<DataResponse<Manga>> GetByFavorites(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByFavorites(int skip, int take)
         {
             return await _mangaDAL.GetByFavorites(skip, take);
         }
 
-        public async Task<DataResponse<Manga>> GetByUserCount(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByUserCount(int skip, int take)
         {
             return await _mangaDAL.GetByUserCount(skip, take);
         }
 
-        public async Task<DataResponse<Manga>> GetByRating(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByRating(int skip, int take)
         {
             return await _mangaDAL.GetByRating(skip, take);
         }
@@ -87,7 +88,7 @@ namespace BusinessLogicalLayer.Implementations
             return await _mangaDAL.GetByCategory(ID);
         }
 
-        public async Task<DataResponse<Manga>> GetByPopularity(int skip, int take)
+        public async Task<DataResponse<MangaCatalog>> GetByPopularity(int skip, int take)
         {
             return await _mangaDAL.GetByPopularity(skip, take);
         }

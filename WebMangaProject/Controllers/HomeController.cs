@@ -14,6 +14,8 @@ using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using Entities.MangaS;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Models.HomePage;
+using Shared.Models.Anime;
+using Shared.Models.Manga;
 
 namespace MvcPresentationLayer.Controllers
 {
@@ -35,9 +37,9 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<Anime> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
-            DataResponse<Anime> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
-            DataResponse<Anime> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
+            DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
+            DataResponse<AnimeCatalog> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
+            DataResponse<AnimeCatalog> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
@@ -53,9 +55,9 @@ namespace MvcPresentationLayer.Controllers
             List<AnimeShortViewModel> animesByRating = _mapper.Map<List<AnimeShortViewModel>>(responseAnimesByRating.Data);
 
 
-            DataResponse<Manga> responseMangaFavorites = await _mangaApiService.GetByFavorites(0, 5);
-            DataResponse<Manga> responseMangaCount = await _mangaApiService.GetByUserCount(0, 5);
-            DataResponse<Manga> responseMangaRating = await _mangaApiService.GetByRating(0, 5);
+            DataResponse<MangaCatalog> responseMangaFavorites = await _mangaApiService.GetByFavorites(0, 5);
+            DataResponse<MangaCatalog> responseMangaCount = await _mangaApiService.GetByUserCount(0, 5);
+            DataResponse<MangaCatalog> responseMangaRating = await _mangaApiService.GetByRating(0, 5);
 
             if (!responseMangaFavorites.HasSuccess || !responseMangaCount.HasSuccess || !responseMangaRating.HasSuccess)
             {
