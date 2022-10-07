@@ -156,6 +156,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
+
                 List<AnimeCatalog> animes = await _db.Animes
                     .OrderByDescending(m => m.favoritesCount)
                     .AsNoTracking()
@@ -163,15 +164,6 @@ namespace DataAccessLayer.Implementations
                     .Take(take)
                     .Select(AnimeCatalog.Projection)
                     .ToListAsync();
-
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animes);
-
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeCatalog>(ex);
-            }
-        }
 
         public async Task<DataResponse<AnimeCatalog>> GetByRating(int skip, int take)
         {

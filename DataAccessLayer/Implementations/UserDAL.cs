@@ -59,15 +59,8 @@ namespace DataAccessLayer.Implementations
 
         public async Task<Response> Update(User user)
         {
-            try
-            {
                 _db.Users.Update(user);
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
-            }
         }
 
         public async Task<DataResponse<Manga>> GetUserFavorites(int userid)

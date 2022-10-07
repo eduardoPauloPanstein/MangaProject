@@ -11,7 +11,7 @@ namespace DataAccessLayer.UnitOfWork
         private readonly MangaProjectDbContext _dbContext;
         private IUserDAL userRepository = null;
 
-        public UnitOfWork(MangaProjectDbContext dbContext)
+        public UnitOfWork(MangaProjectDbContext dbContext, IUserDAL userDAL)
         {
             this._dbContext = dbContext;
         }
@@ -41,6 +41,9 @@ namespace DataAccessLayer.UnitOfWork
             }
         }
 
+
+        private bool disposed = false;
+
         public IUserDAL UserRepository
         {
             get
@@ -53,7 +56,6 @@ namespace DataAccessLayer.UnitOfWork
             }
         }
 
-        private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
