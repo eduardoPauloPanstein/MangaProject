@@ -5,64 +5,64 @@
     ViewData["Title"] = "Edit";
 }
 
-<h3>Settings</h3>
+<h3 class="page-title">Settings</h3>
 
 <hr />
-<div class="row">
-    <div class="col-md-2">
-        <input class="btn" value="Profile" />
-        <input class="btn" value="Account" />
+<div class="row edit-position">
+    @*<div class="col-md-2">
+        <input class="btn custom-link" value="Profile" />
+        <input class="btn custom-link" value="Account" />
 
-    </div>
+        </div>*@
     <div class="col-md-10">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Nickname" class="control-label"></label>
-                <input asp-for="Nickname" class="form-control" />
+                <input asp-for="Nickname" class="form-control etb-nick" />
                 <span asp-validation-for="Nickname" class="text-danger"></span>
             </div>
             <div class="form-group py-3">
                 <label asp-for="About" class="control-label"></label>
-                <textarea asp-for="About" class="form-control" rows="3"></textarea>
+                <textarea asp-for="About" class="form-control edit-textbox" rows="3"></textarea>
                 <span asp-validation-for="About" class="text-danger"></span>
             </div>
 
             <div class="row">
-                <h4>Icon image:</h4>
-                <div class="form-group col-md-6">
-                    <input asp-for="AvatarImageFileLocation" type="file" name="fileA" accept="image/png" class="custom-file-input" id="inputGroupFile01">
-                    <label class="custom-file-label" for="inputGroupFile01"></label>
-                    <span asp-validation-for="AvatarImageFileLocation" class="text-danger"></span>
+                <div class="edit-img-title">
+                    <h4>Icon image:</h4>
+                    <div class="form-group edit-images-input">
+                        <input asp-for="AvatarImageFileLocation" type="file" name="fileA" accept="image/png" class="custom-file-input" id="inputGroupFile01">
+                        <label class="custom-file-label" for="inputGroupFile01"></label>
+                        <span asp-validation-for="AvatarImageFileLocation" class="text-danger"></span>
 
+                    </div>
+                    <div class="edit-images">
+                        <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="img-thumbnail" width="230" />
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="img-thumbnail" width="230" />
-                </div>
-
-
-                <div class="form-group col-md-6">
-                    <h4>Cover Image:</h4>
-                    <input asp-for="CoverImageFileLocation" type="file" name="fileC" accept="image/png" class="custom-file-input" id="inputGroupFile01">
-                    <label class="custom-file-label" for="inputGroupFile01"></label>
-                    <span asp-validation-for="CoverImageFileLocation" class="text-danger"></span>
-
-                </div>
-                <div class="col-md-6">
-                    <img src="~/covers/@{@Model.CoverImageFileLocation}" class="img-thumbnail" width="230" />
+                <div class="edit-img-title">
+                    <div class="form-group edit-images-input">
+                        <h4>Cover Image:</h4>
+                        <input asp-for="CoverImageFileLocation" type="file" name="fileC" accept="image/png" class="custom-file-input" id="inputGroupFile01">
+                        <label class="custom-file-label" for="inputGroupFile01"></label>
+                        <span asp-validation-for="CoverImageFileLocation" class="text-danger"></span>
+                    </div>
+                    <div class="edit-images">
+                        <img src="~/covers/@{@Model.CoverImageFileLocation}" class="img-thumbnail" width="230" />
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group py-3">
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="edit-btl">
+    <a asp-action="Index"class="custom-link">Back to List</a>
 </div>
 
 @section Scripts {

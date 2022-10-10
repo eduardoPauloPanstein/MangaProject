@@ -327,6 +327,20 @@ abbr[title] {
 .align-about-us {
     justify-content: center;
 }
+
+.page-title{
+    display:flex;
+    justify-content:center;
+}
+
+.pt-config{
+    margin-top: 2%;
+}
+
+.va-config {
+    display: flex;
+    justify-content: center;
+}
 /*#endregion */
 
 /*#region Profile */
@@ -363,7 +377,7 @@ abbr[title] {
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
 }
 
-.msg-btn, .follow-btn {
+.msg-btn, .follow-btn, .edit-btn {
     background: #212D40;
     border: 1px solid #03bfbc;
     padding: 10px 25px;
@@ -1076,11 +1090,11 @@ abbr[title] {
 }
 
 .banner-image {
-    height: 11%;
+    height: 8%;
     position: absolute;
     opacity: 80%;
-    margin-left: -1.4%;
-    margin-top: -1%;
+    margin-left: -0.5%;
+    margin-top: 0.3%;
 }
 
 .section-title {
@@ -1119,3 +1133,35 @@ abbr[title] {
 }
 
 /*#endregion */
+
+/*#region ProfileEdit*/
+.edit-textbox{
+    width:85%;
+}
+
+.etb-nick {
+    width: 20%;
+}
+
+.edit-img-title{
+    margin-top:3%;
+}
+
+.edit-position {
+    margin-left: 20%;
+}
+
+.edit-images-input {
+    margin: 1% 0 1% 0;
+}
+
+.edit-images{
+    margin: 1% 0 3% 0;
+}
+
+.edit-btl {
+    width: 7%;
+    margin: 4% 0 0 20.2%;
+}
+
+/*#endregion*/
