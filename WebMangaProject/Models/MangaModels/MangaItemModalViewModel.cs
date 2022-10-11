@@ -4,5 +4,6 @@
     {
         public UserFavoriteMangaViewModel UserMangaItem { get; set; }
         public MangaOnPageViewModel Manga { get; set; }
+        public MangaComentaryViewModel MangaComentary { get; set; }
     }
 }

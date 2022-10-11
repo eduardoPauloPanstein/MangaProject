@@ -6,5 +6,6 @@ namespace MvcPresentationLayer.Models.AnimeModel
     {
         public UserFavoriteAnimeViewModel UserAnimeItem { get; set; }
         public AnimeOnpageViewModel Anime { get; set; }
+        public AnimeComentaryViewModel AnimeComentary { get; set; }
     }
 }

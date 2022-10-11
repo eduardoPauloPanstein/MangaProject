@@ -95,7 +95,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.AnimeComentary
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 string serialized = JsonConvert.SerializeObject(item);
-                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("Anime", serialized);
+                using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("AnimeComentary", serialized);
 
                 var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
 

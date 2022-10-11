@@ -5,6 +5,8 @@ using Entities.MangaS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.AnimeComentary;
+using MvcPresentationLayer.Models.AnimeModel;
+using MvcPresentationLayer.Utilities;
 using Shared.Responses;
 
 namespace MvcPresentationLayer.Controllers.Comentary
@@ -19,14 +21,20 @@ namespace MvcPresentationLayer.Controllers.Comentary
             this._mapper = mapper;
         }
         [HttpPost, Authorize]
-        public async Task<IActionResult> Insert(AnimeComentary fav)
+        public async Task<IActionResult> Insert(AnimeItemModalViewModel fav)
         {
-            Response Response = await _AnimeComentary.Insert(fav,null);
+            fav.AnimeComentary.AnimeId = fav.Anime.Id;
+            AnimeComentary item = this._mapper.Map<AnimeComentary>(fav.AnimeComentary);
+
+            item.UserId = UserService.GetId(HttpContext);
+            item.DataComentary = DateTime.Now;
+
+            Response Response = await _AnimeComentary.Insert(item, null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
             }
-            return RedirectToAction("AnimeOnPage", "Anime", new { id = fav.Id });
+            return RedirectToAction("AnimeOnPage", "Anime", new { id = fav.Anime.Id });
         }
         [HttpPost, Authorize]
         public async Task<IActionResult> Update(AnimeComentary fav)

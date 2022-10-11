@@ -26,8 +26,6 @@ namespace MvcPresentationLayer.Controllers.UserItem
             UserAnimeItem item = this._mapper.Map<UserAnimeItem>(fav.UserAnimeItem);
 
             item.UserId = UserService.GetId(HttpContext);
-            //item.AnimeId = item.Id;
-            //item.Id = 0;
             Response Response = await _AnimeApiItem.Insert(item,null);
             if (!Response.HasSuccess)
             {

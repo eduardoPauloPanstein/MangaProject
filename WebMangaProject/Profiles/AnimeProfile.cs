@@ -17,6 +17,11 @@ namespace MvcPresentationLayer.Profiles
 
             CreateMap<AnimeOnpageViewModel, Anime>();
             CreateMap<Anime, AnimeOnpageViewModel>();
+
+            CreateMap<AnimeComentaryViewModel, AnimeComentary>();
+            CreateMap<AnimeComentary, AnimeComentaryViewModel>();
+
+            
         }
     }
 }
