@@ -16,7 +16,7 @@ namespace DataAccessLayer.Implementations.UserItemDAL
         }
         public async Task<Response> Delete(int id)
         {
- 
+
             try
             {
                 UserAnimeItem? MangaDB = await _db.UserAnime.FindAsync(id);
@@ -195,7 +195,8 @@ namespace DataAccessLayer.Implementations.UserItemDAL
                     break;
             }
             _db.AnimeRating.Update(selec);
-
+            try
+            {
                 _db.UserAnime.Add(Item);
                 User? user = await _db.Users.FindAsync(Item.UserId);
                 user.FavoritesCount += 1;
@@ -208,10 +209,8 @@ namespace DataAccessLayer.Implementations.UserItemDAL
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
-
         public async Task<Response> Update(UserAnimeItem Item)
         {
-
             try
             {
                 UserAnimeItem? MangaDB = await _db.UserAnime.FindAsync(Item.Id);
@@ -225,5 +224,9 @@ namespace DataAccessLayer.Implementations.UserItemDAL
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
     }
 }
+
+
+

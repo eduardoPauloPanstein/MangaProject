@@ -164,8 +164,7 @@ namespace DataAccessLayer.Implementations.UserItemDAL
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(ex);
             }
         }
-
-        public async Task<Response> Insert(UserMangaItem Item,int score)
+        public async Task<Response> Insert(UserMangaItem Item, int score)
         {
             UserMangaItem? Response = _db.UserManga.FirstOrDefault(m => m.UserId == Item.UserId && m.MangaId == Item.MangaId);
             if (Response != null)
@@ -193,7 +192,8 @@ namespace DataAccessLayer.Implementations.UserItemDAL
                     break;
             }
             _db.MangaRating.Update(selec);
-
+            try
+            {
                 _db.UserManga.Add(Item);
                 User? user = await _db.Users.FindAsync(Item.UserId);
                 user.FavoritesCount += 1;
@@ -205,6 +205,7 @@ namespace DataAccessLayer.Implementations.UserItemDAL
             {
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
+
         }
         public async Task<Response> Update(UserMangaItem Item)
         {
@@ -221,5 +222,9 @@ namespace DataAccessLayer.Implementations.UserItemDAL
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
         }
+
     }
+
 }
+
+

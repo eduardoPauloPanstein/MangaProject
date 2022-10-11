@@ -161,12 +161,6 @@ namespace DataAccessLayer.Implementations
                                    .Take(take)
                                    .Select(AnimeCatalog.Projection)
                                    .ToListAsync();
-                    .OrderByDescending(m => m.favoritesCount)
-                    .AsNoTracking()
-                    .Skip(skip)
-                    .Take(take)
-                    .Select(AnimeCatalog.Projection)
-                    .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<AnimeCatalog>(animes);
 
             }
@@ -176,13 +170,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animes);
-            }
-            catch (Exception ex)
-            {
-                return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeCatalog>(ex);
-            }
-        }
+             
         public async Task<DataResponse<AnimeCatalog>> GetByRating(int skip, int take)
         {
             try
