@@ -2,35 +2,41 @@
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserAnimeItem;
+using MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserMangaItem;
+using MvcPresentationLayer.Models.MangaModels;
+using MvcPresentationLayer.Utilities;
 using Shared.Responses;
-
 namespace MvcPresentationLayer.Controllers.UserItem
 {
-    public class UserItemAnime : Controller
+    public class UserItemMangaController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IMangaProjectApiAnimeItem _AnimeApiItem;
-     
-        public UserItemAnime(IMapper mapper, IMangaProjectApiAnimeItem Animeitem)
+        private readonly IMangaProjectApiMangaItem _MangaApiItem;
+        public UserItemMangaController(IMapper mapper, IMangaProjectApiMangaItem Mangaitem)
         {
-            this._AnimeApiItem = Animeitem;
+            this._MangaApiItem = Mangaitem;
             this._mapper = mapper;
         }
         [HttpPost, Authorize]
-        public async Task<IActionResult> Insert(UserAnimeItem fav)
+        public async Task<IActionResult> Insert(MangaItemModalViewModel fav)
         {
-            Response Response = await _AnimeApiItem.Insert(fav, null);
+            fav.UserMangaItem.MangaId = fav.Manga.Id;
+            UserMangaItem item = this._mapper.Map<UserMangaItem>(fav.UserMangaItem);
+
+            item.UserId = UserService.GetId(HttpContext);
+            item.Id = 0;
+
+            Response Response = await _MangaApiItem.Insert(item, null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
             }
-            return RedirectToAction("AnimeOnPage", "Anime", new { id = fav.Id });
+            return RedirectToAction("MangaOnPage", "Manga", new { id = fav.Manga.Id });
         }
         [HttpPost, Authorize]
-        public async Task<IActionResult> Update(UserAnimeItem fav)
+        public async Task<IActionResult> Update(UserMangaItem fav)
         {
-            Response Response = await _AnimeApiItem.Update(fav, null);
+            Response Response = await _MangaApiItem.Update(fav, null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
@@ -40,7 +46,7 @@ namespace MvcPresentationLayer.Controllers.UserItem
         [HttpPost, Authorize]
         public async Task<IActionResult> Get(int id)
         {
-            SingleResponse<UserAnimeItem> Response = await _AnimeApiItem.Get(id, null);
+            SingleResponse<UserMangaItem> Response = await _MangaApiItem.Get(id, null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
@@ -50,7 +56,7 @@ namespace MvcPresentationLayer.Controllers.UserItem
         [HttpPost, Authorize]
         public async Task<IActionResult> Get(int skp, int take)
         {
-            DataResponse<UserAnimeItem> Response = await _AnimeApiItem.Get(skp, take,null);
+            DataResponse<UserMangaItem> Response = await _MangaApiItem.Get(skp, take,null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
@@ -59,7 +65,7 @@ namespace MvcPresentationLayer.Controllers.UserItem
         }
         public async Task<IActionResult> Delete(int id)
         {
-            Response Response = await _AnimeApiItem.Delete(id, null);
+            Response Response = await _MangaApiItem.Delete(id, null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);
@@ -68,7 +74,7 @@ namespace MvcPresentationLayer.Controllers.UserItem
         }
         public async Task<IActionResult> GetByUser(int id)
         {
-            Response Response = await _AnimeApiItem.GetByUser(id,null);
+            Response Response = await _MangaApiItem.GetByUser(id,null);
             if (!Response.HasSuccess)
             {
                 return BadRequest(Response);

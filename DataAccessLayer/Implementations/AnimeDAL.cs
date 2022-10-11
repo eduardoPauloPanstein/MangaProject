@@ -164,6 +164,14 @@ namespace DataAccessLayer.Implementations
                     .Take(take)
                     .Select(AnimeCatalog.Projection)
                     .ToListAsync();
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<AnimeCatalog>(animes);
+
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeCatalog>(ex);
+            }
+        }
 
         public async Task<DataResponse<AnimeCatalog>> GetByRating(int skip, int take)
         {
@@ -185,6 +193,7 @@ namespace DataAccessLayer.Implementations
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeCatalog>(ex);
             }
         }
+
 
         public async Task<DataResponse<AnimeCatalog>> GetByUserCount(int skip, int take)
         {
@@ -240,3 +249,4 @@ namespace DataAccessLayer.Implementations
         }
     }
 }
+

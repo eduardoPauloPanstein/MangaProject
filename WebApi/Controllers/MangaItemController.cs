@@ -63,8 +63,7 @@ namespace WebApi.Controllers
 
             var manga = JsonConvert.DeserializeObject<UserMangaItem>(value);
             int score = ((int)manga.Score);
-
-            var response = await _MangaItem.Insert(manga,score);
+            var response = await _MangaItem.Insert(manga, score);
             if (!response.HasSuccess)
             {
                 return BadRequest(response);

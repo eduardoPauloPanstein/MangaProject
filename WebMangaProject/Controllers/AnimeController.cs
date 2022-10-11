@@ -48,7 +48,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
-            SingleResponse<Anime> responseAnime = await _animeApiService.Get(id, null);
+            SingleResponse<Anime> responseAnime = await _animeApiService.GetComplete(id);
             if (responseAnime.NotFound)
             {
                 return NotFound();
@@ -139,25 +139,6 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public IActionResult AllByUserCount() => RedirectToAction("All", new { by = "ByUserCount" });
         #endregion
-
-        [HttpPost, Authorize]
-        public async Task<IActionResult> UserFavorite(AnimeItemModalViewModel fav)
-        {
-            fav.UserAnimeItem.AnimeId = fav.Anime.Id;
-            UserAnimeItem item = this._mapper.Map<UserAnimeItem>(fav.UserAnimeItem);
-
-            item.UserId = UserService.GetId(HttpContext);
-            //item.AnimeId = item.Id;
-            //item.Id = 0;
-            int score = ((int)item.Score);
-            Response Response = await _userAnimeItem.Insert(item,score);
-            if (!Response.HasSuccess)
-            {
-                return BadRequest(Response);
-            }
-            return RedirectToAction("AnimeOnPage", "Anime", new { id = fav.Anime.Id });
-        }
-
         public async Task<IActionResult> Index()
         {
             DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);

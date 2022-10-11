@@ -140,7 +140,7 @@
     <!-- Modal content -->
     <div class="modalAdd-Content">
         <span class="close">&times;</span>
-        <form method="post" action="/Manga/UserFavorite/">
+        <form method="post" action="/UserItemManga/Insert/">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.Manga.Id" />
             <div class="form-group">

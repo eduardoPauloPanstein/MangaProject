@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
 using BusinessLogicalLayer.Interfaces.IUserItemService;
 using Entities.MangaS;
 using Entities.UserS;
@@ -113,7 +112,7 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> MangaOnPage(int id)
         {
-            SingleResponse<Manga> responseManga = await _mangaApiService.Get(id, null);
+            SingleResponse<Manga> responseManga = await _mangaApiService.GetComplete(id);
             if (responseManga.NotFound)
             {
                 return NotFound();
@@ -163,23 +162,5 @@ namespace MvcPresentationLayer.Controllers
             DataResponse<Manga> response = await _mangaApiService.Get(title);
             return Json(new { resultado = response.Data });
         }
-        [HttpPost, Authorize]
-        public async Task<IActionResult> UserFavorite(MangaItemModalViewModel fav)
-        {
-            fav.UserMangaItem.MangaId = fav.Manga.Id;
-            UserMangaItem item = this._mapper.Map<UserMangaItem>(fav.UserMangaItem);
-
-            item.UserId = UserService.GetId(HttpContext);
-            //item.MangaId = item.Id;
-            //item.Id = 0;
-
-            //Response Response = await _userApiService.AddUserMangaItem(item, UserService.GetToken(HttpContext));
-            //if (!Response.HasSuccess)
-            //{
-            //    return BadRequest(Response);
-            //}
-            return RedirectToAction("MangaOnPage", "Manga", new { id = fav.Manga.Id });
-        }
     }
-
 }

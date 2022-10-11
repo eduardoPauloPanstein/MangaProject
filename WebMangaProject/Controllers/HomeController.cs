@@ -23,17 +23,13 @@ namespace MvcPresentationLayer.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiAnimeService _animeApiService;
-        private readonly IAnimeService _AnimeService;
         private readonly IMangaProjectApiMangaService _mangaApiService;
-        private readonly IMangaService _mangaService;
 
-        public HomeController(IAnimeService AnimeService, IMapper mapper, IMangaProjectApiAnimeService animeApiService, IMangaProjectApiMangaService mangaApiService, IMangaService mangaService)
+        public HomeController(IMapper mapper, IMangaProjectApiAnimeService animeApiService, IMangaProjectApiMangaService mangaApiService)
         {
             this._animeApiService = animeApiService;
-            this._AnimeService = AnimeService;
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
-            this._mangaService = mangaService;
         }
         public async Task<IActionResult> Index()
         {

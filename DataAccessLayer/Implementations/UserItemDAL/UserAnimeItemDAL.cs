@@ -169,6 +169,12 @@ namespace DataAccessLayer.Implementations.UserItemDAL
 
         public async Task<Response> Insert(UserAnimeItem Item, int score)
         {
+            UserAnimeItem? Response = _db.UserAnime.FirstOrDefault(m => m.UserId == Item.UserId && m.AnimeId == Item.AnimeId);
+            if (Response != null)
+            {
+                return ResponseFactory.CreateInstance().CreateSuccessResponse();
+            }
+
             AnimeRatingFrequencies selec = _db.AnimeRating.Find(Item.AnimeId);
             switch (score)
             {
