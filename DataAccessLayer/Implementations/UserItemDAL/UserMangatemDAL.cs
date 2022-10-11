@@ -22,7 +22,6 @@ namespace DataAccessLayer.Implementations.UserItemDAL
             try
             {
                 _db.UserManga.Remove(MangaDB);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -168,35 +167,35 @@ namespace DataAccessLayer.Implementations.UserItemDAL
 
         public async Task<Response> Insert(UserMangaItem Item,int score)
         {
-            RatingFrequencies selec = _db.MangaRating.Find(Item.MangaId);
-            switch (score)
-            {
-                case 1:
-                    selec._1++;
-                    break;
-                case 2:
-                    selec._2++;
-                    break;
-                case 3:
-                    selec._3++;
-                    break;
-                case 4:
-                    selec._4++;
-                    break;
-                case 5:
-                    selec._5++;
-                    break;
-            }
-            _db.MangaRating.Update(selec);
 
-            _db.UserManga.Add(Item);
-            User? user = await _db.Users.FindAsync(Item.UserId);
-            user.FavoritesCount += 1;
-
-            _db.Users.Update(user);
             try
             {
-                await _db.SaveChangesAsync();
+                RatingFrequencies selec = _db.MangaRating.Find(Item.MangaId);
+                switch (score)
+                {
+                    case 1:
+                        selec._1++;
+                        break;
+                    case 2:
+                        selec._2++;
+                        break;
+                    case 3:
+                        selec._3++;
+                        break;
+                    case 4:
+                        selec._4++;
+                        break;
+                    case 5:
+                        selec._5++;
+                        break;
+                }
+                _db.MangaRating.Update(selec);
+
+                _db.UserManga.Add(Item);
+                User? user = await _db.Users.FindAsync(Item.UserId);
+                user.FavoritesCount += 1;
+
+                _db.Users.Update(user);
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -206,13 +205,12 @@ namespace DataAccessLayer.Implementations.UserItemDAL
         }
         public async Task<Response> Update(UserMangaItem Item)
         {
-            UserMangaItem? MangaDB = await _db.UserManga.FindAsync(Item.Id);
-            if (MangaDB == null)
-                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             try
             {
+                UserMangaItem? MangaDB = await _db.UserManga.FindAsync(Item.Id);
+                if (MangaDB == null)
+                    return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
                 _db.UserManga.Update(Item);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)

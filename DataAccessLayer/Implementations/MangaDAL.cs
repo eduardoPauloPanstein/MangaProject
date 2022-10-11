@@ -28,7 +28,6 @@ namespace DataAccessLayer.Implementations
                 }
                 manga.Genres = Cate;
                 _db.Mangas.Add(manga);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -45,7 +44,6 @@ namespace DataAccessLayer.Implementations
             try
             {
                 _db.Mangas.Update(Item);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -62,7 +60,6 @@ namespace DataAccessLayer.Implementations
             try
             {
                 _db.Mangas.Remove(MangaDB);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -159,7 +156,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 _db.Categories.Add(id);
-                await _db.SaveChangesAsync();
+                //await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)

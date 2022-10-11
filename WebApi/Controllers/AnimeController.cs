@@ -55,13 +55,13 @@ namespace WebApi.Controllers
             {
                 return BadRequest("take < 100");
             }
-            var responseUsers = await _animeService.GetByRating(skip, take);
-            if (!responseUsers.HasSuccess)
+            var response = await _animeService.GetByRating(skip, take);
+            if (!response.HasSuccess)
             {
-                return BadRequest(responseUsers);
+                return BadRequest(response);
             }
 
-            return Ok(responseUsers);
+            return Ok(response);
         }
 
         [HttpGet(template: "ByUserCount/skip/{skip}/take/{take}"), AllowAnonymous]

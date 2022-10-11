@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Models.Anime;
 using Shared.Responses;
-
+using System.Linq;
 
 namespace DataAccessLayer.Implementations
 {
@@ -27,7 +27,6 @@ namespace DataAccessLayer.Implementations
                 }
                 Anime.Categories = Cate;
                 _db.Animes.Add(Anime);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -44,7 +43,6 @@ namespace DataAccessLayer.Implementations
             try
             {
                 _db.Animes.Update(Item);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -74,7 +72,6 @@ namespace DataAccessLayer.Implementations
             try
             {
                 _db.Animes.Remove(AnimeDB);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -158,13 +155,20 @@ namespace DataAccessLayer.Implementations
             {
 
                 List<AnimeCatalog> animes = await _db.Animes
-                    .OrderByDescending(m => m.favoritesCount)
-                    .AsNoTracking()
-                    .Skip(skip)
-                    .Take(take)
-                    .Select(AnimeCatalog.Projection)
-                    .ToListAsync();
+                                   .OrderByDescending(m => m.favoritesCount)
+                                   .AsNoTracking()
+                                   .Skip(skip)
+                                   .Take(take)
+                                   .Select(AnimeCatalog.Projection)
+                                   .ToListAsync();
 
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animes);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeCatalog>(ex);
+            }
+        }
         public async Task<DataResponse<AnimeCatalog>> GetByRating(int skip, int take)
         {
             try
@@ -175,7 +179,6 @@ namespace DataAccessLayer.Implementations
                     .Skip(skip)
                     .Take(take)
                     .Select(AnimeCatalog.Projection)
-
                     .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animes);
 
