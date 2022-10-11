@@ -43,7 +43,7 @@ namespace WebApi.Controllers
             return Ok(responseUsers);
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}"), AllowAnonymous]
         public async Task<IActionResult> GetAsync(int id)
         {
             var responseUsers = await _userService.Get(id);

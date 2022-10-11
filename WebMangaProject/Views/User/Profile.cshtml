@@ -6,8 +6,12 @@
 @*<h1>@ViewData["Title"]</h1>*@
 
 <div class="profile-images">
-    <img src="~/covers/@{@Model.CoverImageFileLocation}" class="cover-photo" />
-    <img src="~/avatars/@{@Model.AvatarImageFileLocation}" class="profile-icon" />
+    <img src="~/covers/@{
+        @Model.CoverImageFileLocation
+}" class="cover-photo" />
+    <img src="~/avatars/@{
+        @Model.AvatarImageFileLocation
+}" class="profile-icon" />
 </div>
 
 <div class="follow-btn-config">
@@ -40,8 +44,8 @@
                 @{
                     foreach (var item in Model.MangaList)
                     {
-                        <div>
-                            <a class="" href="/Manga/MangaOnPage/@item.Manga.Id">
+                        <div class="card-item">
+                            <a class="custom-link" href="/Manga/MangaOnPage/@item.">
                                 <li>
                                     <img src=@item.Manga.PosterImageLink alt="@item.Manga.Titles?.Ja_jp" />
                                     <span>@item.Manga.CanonicalTitle</span>
@@ -164,23 +168,23 @@
 </script>
 
 @*   mangabtn.onclick = function () {
-        if (sidebar.classList.contains('active')) {
-        mangashow.classList.toggle('active')
-        submenumanga.classList.toggle('rotate')
-        }
-        else{
-        sidebar.classList.toggle('active')
-        mangashow.classList.toggle('active')
-        submenumanga.classList.toggle('rotate')
-        }
-        }
-        animebtn.onclick = function () {
-        if (sidebar.classList.contains('active')) {
-        animeshow.classList.toggle('active')
-        submenuanime.classList.toggle('rotate')
-        } else {
-        sidebar.classList.toggle('active')
-        animeshow.classList.toggle('active')
-        submenuanime.classList.toggle('rotate')
-        }
-        }*@
+    if (sidebar.classList.contains('active')) {
+    mangashow.classList.toggle('active')
+    submenumanga.classList.toggle('rotate')
+    }
+    else{
+    sidebar.classList.toggle('active')
+    mangashow.classList.toggle('active')
+    submenumanga.classList.toggle('rotate')
+    }
+    }
+    animebtn.onclick = function () {
+    if (sidebar.classList.contains('active')) {
+    animeshow.classList.toggle('active')
+    submenuanime.classList.toggle('rotate')
+    } else {
+    sidebar.classList.toggle('active')
+    animeshow.classList.toggle('active')
+    submenuanime.classList.toggle('rotate')
+    }
+    }*@

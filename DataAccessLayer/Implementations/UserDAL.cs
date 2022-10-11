@@ -128,7 +128,13 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                User? user = await _db.Users.FindAsync(id);
+                User? user = await _db.Users
+                    .Include(u => u.MangaList).ThenInclude(m => m.Manga)
+                    .Include(u => u.AnimeList).ThenInclude(a => a.Anime)
+                    .AsSplitQuery() // -> fazer selects separados para evitar explosão cartesiana
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.Id == id);
+                
                 if (user == null)
                 {
                     return ResponseFactory.CreateInstance().CreateFailedSingleResponseNotFoundItem<User>();
