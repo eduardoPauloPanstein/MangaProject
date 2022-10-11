@@ -1,5 +1,6 @@
 ﻿using BusinessLogicalLayer.Interfaces.IUserComentaryService;
 using DataAccessLayer.Interfaces.IUserComentary;
+using DataAccessLayer.UnitOfWork;
 using Entities.MangaS;
 using Shared.Responses;
 
@@ -7,40 +8,44 @@ namespace BusinessLogicalLayer.Implementations.UserComentaryService
 {
     public class MangaComentaryService : IMangaComentary
     {
-        private readonly IMangaComentaryDAL _MangaComentaryDAL;
-        public MangaComentaryService(IMangaComentaryDAL MangaComentaryDAL)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public MangaComentaryService(IUnitOfWork unitOfWork)
         {
-            this._MangaComentaryDAL = MangaComentaryDAL;
+            this._unitOfWork = unitOfWork;
         }
         public async Task<Response> Delete(int id)
         {
-            return await _MangaComentaryDAL.Delete(id);
+            await _unitOfWork.MangaComentaryRepository.Delete(id);
+            return await _unitOfWork.Commit();
         }
 
         public async Task<SingleResponse<MangaComentary>> Get(int id)
         {
-            return await _MangaComentaryDAL.Get(id);
+            return await _unitOfWork.MangaComentaryRepository.Get(id);
         }
 
         public async Task<DataResponse<MangaComentary>> Get(int skip, int take)
         {
-            return await _MangaComentaryDAL.Get(skip,take);
+            return await _unitOfWork.MangaComentaryRepository.Get(skip,take);
         }
 
         public async Task<DataResponse<MangaComentary>> GetByUser(int userid)
         {
-            return await _MangaComentaryDAL.GetByUser(userid);
+            return await _unitOfWork.MangaComentaryRepository.GetByUser(userid);
 
         }
 
-        public async Task<Response> Insert(MangaComentary Item)
+        public async Task<Response> Insert(MangaComentary mangaComentary)
         {
-            return await _MangaComentaryDAL.Insert(Item);
+            await _unitOfWork.MangaComentaryRepository.Insert(mangaComentary);
+            return await _unitOfWork.Commit();
         }
 
-        public async Task<Response> Update(MangaComentary Item)
+        public async Task<Response> Update(MangaComentary mangaComentary)
         {
-            return await _MangaComentaryDAL.Update(Item);
+            await _unitOfWork.MangaComentaryRepository.Update(mangaComentary);
+            return await _unitOfWork.Commit();
         }
     }
 }

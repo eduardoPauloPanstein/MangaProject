@@ -15,13 +15,12 @@ namespace DataAccessLayer.Implementations.UserComentaryDAL
         }
         public async Task<Response> Delete(int id)
         {
-            AnimeComentary? MangaDB = await _db.AnimeComentaries.FindAsync(id);
-            if (MangaDB == null)
-                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             try
             {
+                AnimeComentary? MangaDB = await _db.AnimeComentaries.FindAsync(id);
+                if (MangaDB == null)
+                    return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
                 _db.AnimeComentaries.Remove(MangaDB);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -79,7 +78,6 @@ namespace DataAccessLayer.Implementations.UserComentaryDAL
             try
             {
                 _db.AnimeComentaries.Add(Item);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)
@@ -90,13 +88,12 @@ namespace DataAccessLayer.Implementations.UserComentaryDAL
 
         public async Task<Response> Update(AnimeComentary Item)
         {
-            AnimeComentary? MangaDB = await _db.AnimeComentaries.FindAsync(Item.Id);
-            if (MangaDB == null)
-                return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
             try
             {
+                AnimeComentary? MangaDB = await _db.AnimeComentaries.FindAsync(Item.Id);
+                if (MangaDB == null)
+                    return ResponseFactory.CreateInstance().CreateFailedResponseNotFoundId();
                 _db.AnimeComentaries.Update(Item);
-                await _db.SaveChangesAsync();
                 return ResponseFactory.CreateInstance().CreateSuccessResponse();
             }
             catch (Exception ex)

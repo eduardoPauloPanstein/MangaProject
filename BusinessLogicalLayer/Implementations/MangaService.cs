@@ -1,5 +1,5 @@
 ﻿using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using DataAccessLayer.Interfaces.IMangaInterfaces;
+using DataAccessLayer.UnitOfWork;
 using Entities;
 using Entities.MangaS;
 using Shared.Models.Manga;
@@ -9,10 +9,11 @@ namespace BusinessLogicalLayer.Implementations
 {
     public class MangaService : IMangaService
     {
-        private readonly IMangaDAL _mangaDAL;
-        public MangaService(IMangaDAL mangaDAL)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public MangaService(IUnitOfWork unitOfWork)
         {
-            this._mangaDAL = mangaDAL;
+            this._unitOfWork = unitOfWork;
         }
         public async Task<Response> Insert(Manga manga)
         {
@@ -20,77 +21,80 @@ namespace BusinessLogicalLayer.Implementations
             //if (!response.HasSuccess)
             //    return response;
             manga.EnableEntity();
-            return await _mangaDAL.Insert(manga);
+            await _unitOfWork.MangaRepository.Insert(manga);
+            return await _unitOfWork.Commit();
         }
 
-        public async Task<Response> Update(Manga Item)
-        {
-            return await _mangaDAL.Update(Item);
+        public async Task<Response> Update(Manga manga)
+        { 
+            await _unitOfWork.MangaRepository.Update(manga);
+            return await _unitOfWork.Commit();
         }
 
         public async Task<Response> Delete(int id)
         {
-            return await _mangaDAL.Delete(id);
+            await _unitOfWork.MangaRepository.Delete(id);
+            return await _unitOfWork.Commit();
         }
 
         public async Task<SingleResponse<Manga>> Get(int id)
         {
-            return await _mangaDAL.Get(id);
+            return await _unitOfWork.MangaRepository.Get(id);
         }
 
         public async Task<DataResponse<Manga>> Get(int skip, int take)
         {
             //politica de cache!
-            return await _mangaDAL.Get(skip,take);
+            return await _unitOfWork.MangaRepository.Get(skip,take);
         }
-
 
         public async Task<DataResponse<Manga>> Get(string name)
         {
-            return await _mangaDAL.Get(name);
+            return await _unitOfWork.MangaRepository.Get(name);
         }
 
         public async Task<Response> InsertCategory(Category id)
         {
-            return await _mangaDAL.InsertCategory(id);
+            await _unitOfWork.MangaRepository.InsertCategory(id);
+            return await _unitOfWork.Commit();
         }
         public async Task<int> GetLastIndexCategory()
         {
-            return await _mangaDAL.GetLastIndexCategory();
+            return await _unitOfWork.MangaRepository.GetLastIndexCategory();
         }
 
         public async Task<int> GetLastIndex()
         {
-            return await _mangaDAL.GetLastIndex();
+            return await _unitOfWork.MangaRepository.GetLastIndex();
         }
 
         public async Task<SingleResponse<Manga>> GetComplete(int ID)
         {
-            return await _mangaDAL.GetComplete(ID);
+            return await _unitOfWork.MangaRepository.GetComplete(ID);
         }
         public async Task<DataResponse<MangaCatalog>> GetByFavorites(int skip, int take)
         {
-            return await _mangaDAL.GetByFavorites(skip, take);
+            return await _unitOfWork.MangaRepository.GetByFavorites(skip, take);
         }
 
         public async Task<DataResponse<MangaCatalog>> GetByUserCount(int skip, int take)
         {
-            return await _mangaDAL.GetByUserCount(skip, take);
+            return await _unitOfWork.MangaRepository.GetByUserCount(skip, take);
         }
 
         public async Task<DataResponse<MangaCatalog>> GetByRating(int skip, int take)
         {
-            return await _mangaDAL.GetByRating(skip, take);
+            return await _unitOfWork.MangaRepository.GetByRating(skip, take);
         }
 
         public async Task<DataResponse<Manga>> GetByCategory(int ID)
         {
-            return await _mangaDAL.GetByCategory(ID);
+            return await _unitOfWork.MangaRepository.GetByCategory(ID);
         }
 
         public async Task<DataResponse<MangaCatalog>> GetByPopularity(int skip, int take)
         {
-            return await _mangaDAL.GetByPopularity(skip, take);
+            return await _unitOfWork.MangaRepository.GetByPopularity(skip, take);
         }
     }
 }
