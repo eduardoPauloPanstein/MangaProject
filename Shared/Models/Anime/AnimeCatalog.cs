@@ -1,9 +1,8 @@
-﻿using Entities.AnimeS;
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Shared.Models.Anime
 {
+    //https://benjii.me/2018/01/expression-projection-magic-entity-framework-core/
     public class AnimeCatalog
     {
         public int Id { get; set; }
