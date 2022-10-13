@@ -1,5 +1,6 @@
 ﻿using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using Entities.UserS;
+using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
@@ -14,6 +15,7 @@ namespace WebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType); //typeof(UserController) 
 
         public UserController(IUserService userService)
         {
@@ -22,7 +24,7 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// Pegar usuarios atravez da paginação
+        /// Take users
         /// </summary>
         /// <param name="skip"></param>
         /// <param name="take"></param>
@@ -32,11 +34,13 @@ namespace WebApi.Controllers
         {
             if (take >= 100)
             {
+                log.Warn("Bad request, try to take more than 100 datas");
                 return BadRequest("take < 100");
             }
             DataResponse<User> responseUsers = await _userService.Get(skip, take);
             if (!responseUsers.HasSuccess)
             {
+                log.Error(responseUsers.Message);
                 return BadRequest(responseUsers);
             }
 
@@ -133,7 +137,7 @@ namespace WebApi.Controllers
             }
 
             var token = TokenService.GenerateToken(response.Item);
-
+            log.Info($"User {response.Item.Id} has been authenticated.");
             return Ok(ResponseFactory.CreateInstance().CreateSuccessSingleResponseWToken(token, response.Item));
         }
 
