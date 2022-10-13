@@ -32,9 +32,9 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            DataResponse<MangaCatalog> responseFavorites = await _mangaApiService.GetByFavorites(0, 5);
-            DataResponse<MangaCatalog> responseCount = await _mangaApiService.GetByUserCount(0, 5);
-            DataResponse<MangaCatalog> responserating = await _mangaApiService.GetByRating(0, 5);
+            DataResponse<MangaCatalog> responseFavorites = await _mangaApiService.GetByFavorites(0, 7);
+            DataResponse<MangaCatalog> responseCount = await _mangaApiService.GetByUserCount(0, 7);
+            DataResponse<MangaCatalog> responserating = await _mangaApiService.GetByRating(0, 7);
 
             if (!responseFavorites.HasSuccess || !responseCount.HasSuccess || !responserating.HasSuccess)
             {

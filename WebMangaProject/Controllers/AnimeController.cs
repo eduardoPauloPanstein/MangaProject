@@ -28,23 +28,6 @@ namespace MvcPresentationLayer.Controllers
             this._userAnimeItem = userAnimeItem;
         }
 
-        [HttpGet, AllowAnonymous]
-        public async Task<IActionResult> AllFavorites()
-        {
-            DataResponse<AnimeCatalog> responseAnimes = await _animeApiService.GetByFavorites(0, 100);
-
-            if (!responseAnimes.HasSuccess)
-            {
-                ViewBag.Errors = responseAnimes.Message;
-                return View();
-            }
-
-            List<AnimeShortViewModel> Animes =
-                _mapper.Map<List<AnimeShortViewModel>>(responseAnimes.Data);
-
-            return View(Animes);
-        }
-
         [HttpGet]
         public async Task<IActionResult> AnimeOnPage(int id)
         {
@@ -141,9 +124,9 @@ namespace MvcPresentationLayer.Controllers
         #endregion
         public async Task<IActionResult> Index()
         {
-            DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
-            DataResponse<AnimeCatalog> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
-            DataResponse<AnimeCatalog> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
+            DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 7);
+            DataResponse<AnimeCatalog> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 7);
+            DataResponse<AnimeCatalog> responseAnimesByRating = await _animeApiService.GetByRating(0, 7);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {

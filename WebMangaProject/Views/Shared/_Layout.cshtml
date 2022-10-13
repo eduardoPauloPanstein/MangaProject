@@ -30,14 +30,30 @@
                     <i class="uil uil-caret-right sub-menu-manga"></i>
                 </a>
                 <ul class="manga-show">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a asp-area="" asp-controller="MangaDb" asp-action="Index">
+                                <span class="sub-title">Database</span>
+                            </a>    
+                        </li>
+                    }
                     <li>
                         <a asp-area="" asp-controller="Manga" asp-action="Index">
-                            <span class="sub-title">All Favorites</span>
+                            <span class="sub-title">Manga Home</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="MangaDb" asp-action="Index">
-                            <span class="sub-title">Database</span>
+                        <a asp-area="" asp-controller="Manga" asp-action="AllByFavorites">
+                            <span class="sub-title">Favorites</span>
+                        </a>
+                    </li><li>
+                        <a asp-area="" asp-controller="Manga" asp-action="AllByCount">
+                            <span class="sub-title">Popular</span>
+                        </a>
+                    </li><li>
+                        <a asp-area="" asp-controller="Manga" asp-action="AllByRating">
+                            <span class="sub-title">Rating</span>
                         </a>
                     </li>
                 </ul>
@@ -51,12 +67,20 @@
                 <ul class="anime-show">
                     <li>
                         <a asp-area="" asp-controller="Anime" asp-action="Index">
-                            <span class="sub-title">Anime Index</span>
+                            <span class="sub-title">Anime Home</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="#" asp-action="#">
-                            <span class="sub-title">Teste</span>
+                        <a asp-area="" asp-controller="Anime" asp-action="AllByFavorites">
+                            <span class="sub-title">Favorites</span>
+                        </a>
+                    </li><li>
+                        <a asp-area="" asp-controller="Anime" asp-action="AllByCount">
+                            <span class="sub-title">Popular</span>
+                        </a>
+                    </li><li>
+                        <a asp-area="" asp-controller="Anime" asp-action="AllByRating">
+                            <span class="sub-title">Rating</span>
                         </a>
                     </li>
                 </ul>

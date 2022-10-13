@@ -16,68 +16,71 @@
 <body>
 
     <div class="homepage-div">
-        <div class="homepage-banner">
-            <div class="banner-title"><h1>AniMa List</h1></div>
-            <div class="banner-phrase"><p>alguma mini frase impactante</p></div>
-            <div class="banner-grid">
-                <div class="banner-info col-3">
-                    <div class="infos">
-                        <div>
-                            <img src="~/covers/mancha.png" class="banner-image">
-                            <i class="uil uil-mobile-android-alt banner-icon"></i>
-                        </div>
-                        <div class="info-title">
-                            <h5>Connect anywhere</h5>
-                            <div class="description">Connect your account on any device and continue tracking your favorites animes and manga</div>
-                        </div>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="homepage-banner">
+                <div class="banner-title"><h1>AniMa List</h1></div>
+                <div class="banner-phrase"><p>alguma mini frase impactante</p></div>
+                <div class="banner-grid">
+                    <div class="banner-info col-3">
+                        <div class="infos">
+                            <div>
+                                <img src="~/covers/mancha.png" class="banner-image">
+                                <i class="uil uil-mobile-android-alt banner-icon"></i>
+                            </div>
+                            <div class="info-title">
+                                <h5>Connect anywhere</h5>
+                                <div class="description">Connect your account on any device and continue tracking your favorites animes and manga</div>
+                            </div>
 
+                        </div>
                     </div>
-                </div>
-                <div class="banner-info col-3">
-                    <div class="infos">
-                        <div>
-                            <img src="~/covers/mancha.png" class="banner-image rotate-90">
-                            <i class="uil uil-comment-alt-dots banner-icon"></i>
-                        </div>
-                        <div class="info-title">
-                            <h5>Give your Opinion</h5>
-                            <div class="description">You can comment about every manga and anime you want to!</div>
-                        </div>
+                    <div class="banner-info col-3">
+                        <div class="infos">
+                            <div>
+                                <img src="~/covers/mancha.png" class="banner-image rotate-90">
+                                <i class="uil uil-comment-alt-dots banner-icon"></i>
+                            </div>
+                            <div class="info-title">
+                                <h5>Give your Opinion</h5>
+                                <div class="description">You can comment about every manga and anime you want to!</div>
+                            </div>
 
-                    </div>
-                </div><div class="banner-info col-3">
-                    <div class="infos">
-                        <div>
-                            <img src="~/covers/mancha.png" class="banner-image rotate-180">
-                            <i class="uil uil-mobile-android-alt banner-icon"></i>
                         </div>
-                        <div class="info-title">
-                            <h5>Título da info 1</h5>
-                            <div class="description">primeira info blablabla muitas coisas escritas aqui porque eu nao sei mais a a a a a a a a a a</div>
-                        </div>
+                    </div><div class="banner-info col-3">
+                        <div class="infos">
+                            <div>
+                                <img src="~/covers/mancha.png" class="banner-image rotate-180">
+                                <i class="uil uil-mobile-android-alt banner-icon"></i>
+                            </div>
+                            <div class="info-title">
+                                <h5>Título da info 1</h5>
+                                <div class="description">primeira info blablabla muitas coisas escritas aqui porque eu nao sei mais a a a a a a a a a a</div>
+                            </div>
 
-                    </div>
-                </div><div class="banner-info col-3">
-                    <div class="infos">
-                        <div>
-                            <img src="~/covers/mancha.png" class="banner-image rotate-270">
-                            <i class="uil uil-mobile-android-alt banner-icon"></i>
                         </div>
-                        <div class="info-title">
-                            <h5>Título da info 1</h5>
-                            <div class="description">primeira info blablabla muitas coisas escritas aqui porque eu nao sei mais a a a a a a a a a a</div>
-                        </div>
+                    </div><div class="banner-info col-3">
+                        <div class="infos">
+                            <div>
+                                <img src="~/covers/mancha.png" class="banner-image rotate-270">
+                                <i class="uil uil-mobile-android-alt banner-icon"></i>
+                            </div>
+                            <div class="info-title">
+                                <h5>Título da info 1</h5>
+                                <div class="description">primeira info blablabla muitas coisas escritas aqui porque eu nao sei mais a a a a a a a a a a</div>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 
     <div class="alh-div">
-        <div class="alh-aam">
+        <div>
             <div class="catalog alh-grid" id="catalog">
-                <h3 class=" section-title">Favorite Manga</h3>
+                <h3 class=" section-title">All Time Favorite Manga</h3>
                 <a class="custom-link alh-va" asp-area="" asp-action="AllByFavorites" asp-controller="Manga">View All</a>
                 <hr />
                 <div class="alh-grid-config">
@@ -89,6 +92,7 @@
                                     <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
                                         <img src=@item.PosterImageLink />
                                         <div class="card-content">
+
                                             <h5>@item.CanonicalTitle</h5>
                                         </div>
                                     </a>
@@ -99,8 +103,8 @@
                 </div>
             </div>
             <div class="catalog alh-grid" id="catalog">
-                <h3 class=" section-title">Favorite Animes</h3>
-                <a class="custom-link alh-va" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+                <h3 class=" section-title">All Time Favorite Animes</h3>
+                <a class="custom-link alh-va" asp-area="" asp-action="AllByFavorites" asp-controller="Anime">View All</a>
                 <hr />
                 <div class="card-wrapper">
                     @{
@@ -110,6 +114,7 @@
                                 <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
                                     <img src=@item.AnimePosterImage />
                                     <div class="card-content">
+
                                         <h5>@item.canonicalTitle</h5>
                                     </div>
                                 </a>
@@ -119,17 +124,18 @@
                 </div>
             </div>
             <div class="catalog alh-grid" id="catalog">
-                <h3 class=" section-title">Manga by Rating</h3>
-                <a class="custom-link alh-va" asp-area="" asp-action="AllByRating" asp-controller="Manga">View All</a>
+                <h3 class=" section-title">Most Popular Manga</h3>
+                <a class="custom-link alh-va" asp-area="" asp-action="AllByUserCount" asp-controller="Manga">View All</a>
                 <hr />
                 <div class="card-wrapper">
                     @{
-                        foreach (var item in Model.MangasByRating)
+                        foreach (var item in Model.MangasByCount)
                         {
                             <div class="card-item">
                                 <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
                                     <img src=@item.PosterImageLink />
                                     <div class="card-content">
+
                                         <h5>@item.CanonicalTitle</h5>
                                     </div>
                                 </a>
@@ -139,17 +145,18 @@
                 </div>
             </div>
             <div class="catalog alh-grid" id="catalog">
-                <h3 class=" section-title">Animes by Rating</h3>
-                <a class="custom-link alh-va" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+                <h3 class=" section-title">Most Popular Animes</h3>
+                <a class="custom-link alh-va" asp-area="" asp-action="AllByUserCount" asp-controller="Anime">View All</a>
                 <hr />
                 <div class="card-wrapper">
                     @{
-                        foreach (var item in Model.AnimesByRating)
+                        foreach (var item in Model.AnimesByCount)
                         {
                             <div class="card-item">
                                 <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
                                     <img src=@item.AnimePosterImage />
                                     <div class="card-content">
+
                                         <h5>@item.canonicalTitle</h5>
                                     </div>
                                 </a>

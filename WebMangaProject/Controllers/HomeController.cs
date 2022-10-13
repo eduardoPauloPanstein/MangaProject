@@ -33,9 +33,9 @@ namespace MvcPresentationLayer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 5);
-            DataResponse<AnimeCatalog> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 5);
-            DataResponse<AnimeCatalog> responseAnimesByRating = await _animeApiService.GetByRating(0, 5);
+            DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 7);
+            DataResponse<AnimeCatalog> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 7);
+            DataResponse<AnimeCatalog> responseAnimesByRating = await _animeApiService.GetByRating(0, 7);
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
@@ -51,9 +51,9 @@ namespace MvcPresentationLayer.Controllers
             List<AnimeShortViewModel> animesByRating = _mapper.Map<List<AnimeShortViewModel>>(responseAnimesByRating.Data);
 
 
-            DataResponse<MangaCatalog> responseMangaFavorites = await _mangaApiService.GetByFavorites(0, 5);
-            DataResponse<MangaCatalog> responseMangaCount = await _mangaApiService.GetByUserCount(0, 5);
-            DataResponse<MangaCatalog> responseMangaRating = await _mangaApiService.GetByRating(0, 5);
+            DataResponse<MangaCatalog> responseMangaFavorites = await _mangaApiService.GetByFavorites(0, 7);
+            DataResponse<MangaCatalog> responseMangaCount = await _mangaApiService.GetByUserCount(0, 7);
+            DataResponse<MangaCatalog> responseMangaRating = await _mangaApiService.GetByRating(0, 7);
 
             if (!responseMangaFavorites.HasSuccess || !responseMangaCount.HasSuccess || !responseMangaRating.HasSuccess)
             {

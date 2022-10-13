@@ -31,7 +31,7 @@
                         <div class="mop-actions">
                             <div class="mop-list">
                                 <!-- Trigger/Open The Modal -->
-                                <div class="addList" id="addList">Add to List</div>
+                            <div class="addList" id="addList">Add to List</div>
                                 <div class="dropdown el-dropdown">
                                     <span class="el-dropdown-link el-dropdown-selfdefine">
                                         <i class="uil uil-angle-down"></i>
@@ -47,7 +47,7 @@
                 }
             </div>
         </div>
-        <div class="mop-content">
+        <div class="mop-desc-content">
             <h1>@Model.Manga.CanonicalTitle</h1>
 
             @if (Synopsys.Length > 700)
@@ -75,7 +75,6 @@
 </div>
 
 <!-- Page Content -->
-
 <div class="mop-div-info">
     <div class="div-manga-info">
         <div class="manga-info-items">
@@ -130,24 +129,32 @@
             </div>
         </div>
     </div>
+
+    <div class="mop-div-comment">
+        <div class="mop-comment">
+            <form method="post" action="/MangaComentary/Insert">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- <input type="text" placeholder="Leave a comment here..."> -->
+                <div class="form-group">
+                    <input asp-for="@Model.MangaComentary.Comentary" class="form-control" placeholder="Leave a comment here..." />
+                    <span asp-validation-for="@Model.MangaComentary.Comentary" class="text-danger"></span>
+                    <input type="hidden" asp-for="@Model.Manga.Id" />
+                </div>
+                <div class="form-group mop-btn">
+                    <input type="submit" value="Confirm" class="custom-btn" />
+                </div>
+            </form>
+            <hr />
+        </div>
+    </div>
+
+    <div class="mop-div-suggestions">
+        <p>abulele</p>
+    </div>
 </div>
 
-<div class="mop-div-comment">
-    <form method="post" action="/MangaComentary/Insert">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <input type="text" placeholder="Leave a comment here...">
-        <div class="form-group">
-            <label asp-for="@Model.MangaComentary.Comentary" class="control-label"></label>
-            <input asp-for="@Model.MangaComentary.Comentary" class="form-control" />
-            <span asp-validation-for="@Model.MangaComentary.Comentary" class="text-danger"></span>
-            <input type="hidden" asp-for="@Model.Manga.Id" />
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Confirm" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
 <!-- The Modal -->
 <div id="modalAdd" class="modalAdd">
     <!-- Modal content -->

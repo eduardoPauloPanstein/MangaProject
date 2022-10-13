@@ -274,15 +274,27 @@ abbr[title] {
     border-radius: 12px;
 }
 
+
     .custom-link:hover {
         color: #222;
         padding: 8px;
         background: #fff;
     }
-
-.custom-link-nav {
-    font-size: 16px;
+.custom-btn {
+    color: #222;
+    background-color:red;
+    padding: 8px;
+    transition: all 0.5s ease;
+    border-radius: 12px;
+    border:none;
 }
+    .custom-btn:hover {
+        color: red;
+        background-color: #222;
+    }
+    .custom-link-nav {
+        font-size: 16px;
+    }
 
 .custom-table {
     color: #fff;
@@ -328,19 +340,33 @@ abbr[title] {
     justify-content: center;
 }
 
-.page-title{
-    display:flex;
-    justify-content:center;
+.page-title {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pt-config{
     margin-top: 2%;
 }
 
-.va-config {
+.idiv-config {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.va-width{
+    width: 7%;
+}
+
+.va-div {
     display: flex;
     justify-content: center;
 }
+
+
 /*#endregion */
 
 /*#region Profile */
@@ -704,7 +730,7 @@ abbr[title] {
 }
 /*#endregion */
 
-/*#region MangaOnPage */
+/*#region AnimeMangaOnPage */
 .mop-banner {
     background-position: 50% 35%;
     background-repeat: no-repeat;
@@ -732,8 +758,9 @@ abbr[title] {
     min-height: 250px;
     margin: 0 auto;
     min-width: 320px;
-    padding-left: 20px;
-    padding-right: 20px;
+    max-width: 1530px;
+    padding-left: 50px;
+    padding-right: 50px;
     width: 100%;
 }
 
@@ -833,14 +860,14 @@ abbr[title] {
     padding: 0 14px;
 }
 
-.mop-content {
+.mop-desc-content {
     display: inline-grid;
     grid-template-rows: -webkit-min-content -webkit-min-content auto;
     grid-template-rows: min-content min-content auto;
     padding-top: 25px;
 }
 
-    .mop-content h1 {
+    .mop-desc-content h1 {
         margin: 0;
         padding: 0;
         font-size: 1.9rem;
@@ -925,16 +952,20 @@ abbr[title] {
         background: linear-gradient(0deg,rgb(var(--color-foreground)) 30%,rgba(var(--color-foreground),.4));
     }
 
+
+.mop-div-info {
+    display: grid;
+    grid-gap: 70px 60px;
+    grid-template-columns: 20% 30% 20%;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
 .div-manga-info {
-    background: rgb(var(--color-foreground));
+    background-color: rgba(0,0,0,.3);
+    box-shadow: 0 10px 20px -10px rgb(0 0 0 / 75%);
     border-radius: 8px;
     padding: 18px;
-    background-color: #212D40;
-    margin-left: 160px;
-    width: 17%;
 }
-
-
 
 .div-anime-info {
     background: rgb(var(--color-foreground));
@@ -945,12 +976,9 @@ abbr[title] {
     width: 240px;
 }
 
-
-
 .anime-info-items {
     padding-bottom: 14px;
 }
-
 
 .info-type {
     font-size: 1.3rem;
@@ -965,6 +993,20 @@ abbr[title] {
     margin-bottom:1rem;
 }
 
+.mop-div-comment {
+    background-color: rgba(0,0,0,.3);
+    box-shadow: 0 10px 20px -10px rgb(0 0 0 / 75%);
+    border-radius: 10px;
+    padding: 18px;
+}
+.mop-comment{
+    
+}
+.mop-btn {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
 .manga-info {
     margin-left: 175px;
 }
@@ -979,8 +1021,8 @@ abbr[title] {
         text-decoration: none;
         color: #fff;
     }
-/*#endregion */
 
+/*#endregion */
 /*#region ModalAddToList */
 .modalAdd {
     display: none; /* Hidden by default */
@@ -1098,8 +1140,8 @@ abbr[title] {
 }
 
 .section-title {
-    margin-top: 5%;
     margin-left: 5%;
+    padding-top: 2%;
 }
 
 
@@ -1108,7 +1150,7 @@ abbr[title] {
 }
 
 .alh-div{
-
+    
 }
 
 .alh-aam {
@@ -1121,8 +1163,9 @@ abbr[title] {
 }
 
 .alh-grid {
-    border-radius: 5px;
-    background-color: rgba(0,0,0,.50);
+    margin-top: 3%;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,.3);
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
 }
 
@@ -1165,3 +1208,12 @@ abbr[title] {
 }
 
 /*#endregion*/
+
+/*#region AMHome */
+.cw-config {
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+}
+
+/*#endregion */

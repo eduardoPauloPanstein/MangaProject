@@ -8,9 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="Models\AnimeModel\MangaItemModalViewModel.cs" />
+    <Compile Remove="Views\Anime\All.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Anime\AllFavorites.cshtml" />
     <Content Remove="Views\MangaDb\UserFavorite.cshtml" />
     <Content Remove="wwwroot\avatars\Edu123Avatar11.png" />
   </ItemGroup>

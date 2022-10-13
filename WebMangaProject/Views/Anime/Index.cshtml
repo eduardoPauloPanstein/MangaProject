@@ -17,10 +17,14 @@
 </head>
 <body>
     <section class="catalog" id="catalog">
-        <h3>Favorites</h3>
-        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+        <div class="idiv-config">
+            <h3 class="page-title">All Time Favorites</h3>
+            <div class="va-div">
+                <a class="custom-link va-width" asp-area="" asp-action="AllByFavorites" asp-controller="Anime">View All</a>
+            </div>
+        </div>
         <hr />
-        <div class="card-wrapper">
+        <div class="card-wrapper cw-config">
             @{
                 foreach (var item in Model.AnimesFavorites)
                 {
@@ -36,11 +40,15 @@
             }
         </div>
     </section>
-     <section class="catalog" id="catalog">
-        <h3>Most Popular</h3>
-        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+    <section class="catalog" id="catalog">
+        <div class="idiv-config">
+            <h3 class="page-title pt-config">Most Popular</h3>
+            <div class="va-div">
+                <a class="custom-link va-width" asp-area="" asp-action="AllByUserCount" asp-controller="Anime">View All</a>
+            </div>
+        </div>
         <hr />
-        <div class="card-wrapper">
+        <div class="card-wrapper cw-config">
             @{
                 foreach (var item in Model.AnimesByCount)
                 {
@@ -56,11 +64,15 @@
             }
         </div>
     </section>
-     <section class="catalog" id="catalog">
-        <h3>Rating</h3>
-        <a class="custom-link" asp-area="" asp-action="AllFavorites" asp-controller="Anime">View All</a>
+    <section class="catalog" id="catalog">
+        <div class="idiv-config">
+            <h3 class="page-title pt-config">Rating</h3>
+            <div class="va-div">
+            <a class="custom-link va-width" asp-area="" asp-action="AllByRating" asp-controller="Anime">View All</a>
+            </div>
+        </div>
         <hr />
-        <div class="card-wrapper">
+        <div class="card-wrapper cw-config">
             @{
                 foreach (var item in Model.AnimesByRating)
                 {
