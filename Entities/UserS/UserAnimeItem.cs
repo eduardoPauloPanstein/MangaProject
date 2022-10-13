@@ -25,7 +25,7 @@ namespace Entities.UserS
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public MangaScore? Score { get; set; }
-        public int? TotalRewachtes { get; set; }
+        public int? TotalRewatches { get; set; }
         public int? Episode { get; set; }
         public string? PrivateNotes { get; set; }
         public string? PublicNotes { get; set; }
