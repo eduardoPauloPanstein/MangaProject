@@ -214,7 +214,7 @@ namespace DataAccessLayer.Implementations
         {
             try
             {
-                Manga? Select = _db.Mangas.Include(c => c.Genres).Include(t => t.Titles).Include(r => r.RatingFrequencies).FirstOrDefault(m => m.Id == ID);
+                Manga? Select = _db.Mangas.Include(c => c.Genres).Include(c=> c.Comentaries).Include(t => t.Titles).Include(r => r.RatingFrequencies).FirstOrDefault(m => m.Id == ID);
                 return ResponseFactory.CreateInstance().CreateSuccessSingleResponse<Manga>(Select);
             }
             catch (Exception ex)

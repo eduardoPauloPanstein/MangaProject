@@ -22,8 +22,7 @@ namespace MvcPresentationLayer.Models.AnimeModel
         public MangaScore? Score { get; set; }
         [DisplayName("Total Rereads")]
         public int? TotalRereads{ get; set; }
-        public int? Volume { get; set; }
-        public int? Chapter{ get; set; }
+        public int? Episode { get; set; }
         [DisplayName("Private Notes")]
         public string? PrivateNotes { get; set; }
         [DisplayName("Public Notes")]
