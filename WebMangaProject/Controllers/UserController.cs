@@ -185,12 +185,12 @@ namespace MvcPresentationLayer.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
-        public async Task<IActionResult> Login(UserLoginViewModel userLoginView)
+        public async Task<IActionResult> Login(UserLoginPageViewModel userLoginView)
         {
             UserLogin login = new()
             {
-                EmailOrNickname = userLoginView.EmailOrNickname,
-                Password = userLoginView.Password
+                EmailOrNickname = userLoginView.UserLogin.EmailOrNickname,
+                Password = userLoginView.UserLogin.Password
             };
             var response = await _userApiService.Login(login);
 
@@ -274,11 +274,18 @@ namespace MvcPresentationLayer.Controllers
             return View();
         }
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
-        public async Task<IActionResult> Create(UserCreate userCreate)
+        public async Task<IActionResult> Create(UserLoginPageViewModel userCreate)
         {
             //User user = _mapper.Map<User>(viewModel);
 
-            var response = await _userApiService.Insert(userCreate, UserService.GetToken(HttpContext));
+            UserCreate create = new()
+            {
+                Nickname = userCreate.UserInsert.Nickname,
+                Email = userCreate.UserInsert.Email,
+                Password = userCreate.UserInsert.Password,
+                ConfirmPassword = userCreate.UserInsert.ConfirmPassword
+            };
+            var response = await _userApiService.Insert(create, UserService.GetToken(HttpContext));
 
             if (response.HasSuccess)
                 return RedirectToAction("Index");
