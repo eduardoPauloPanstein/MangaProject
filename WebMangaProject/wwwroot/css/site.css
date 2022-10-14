@@ -999,14 +999,17 @@ abbr[title] {
     border-radius: 10px;
     padding: 18px;
 }
+
 .mop-comment{
     
 }
+
 .mop-btn {
     display: flex;
     padding: 10px;
-    justify-content: center;
+    justify-content: end;
 }
+
 .manga-info {
     margin-left: 175px;
 }
@@ -1022,7 +1025,24 @@ abbr[title] {
         color: #fff;
     }
 
+.mop-div-suggestions {
+    background-color: rgba(0,0,0,.3);
+    box-shadow: 0 10px 20px -10px rgb(0 0 0 / 75%);
+    border-radius: 8px;
+    padding: 18px;
+    display:flex;
+    align-content:start;
+}
+
+.mop-sug-title {
+    display: flex;
+    justify-content: start;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
 /*#endregion */
+
 /*#region ModalAddToList */
 .modalAdd {
     display: none; /* Hidden by default */
@@ -1068,6 +1088,16 @@ abbr[title] {
     display: flex;
     justify-content: center;
 }
+
+/*@media (min-width: 360px) and (max-width:414px) {
+    .homepage-banner {
+        background-color: #fff;
+        border-radius: 20px;
+        width: 95%;
+        height: 700px;
+        margin-top: 1.5%;
+    }
+}*/
 
 .homepage-banner {
     background-color: #fff;
@@ -1140,13 +1170,15 @@ abbr[title] {
 }
 
 .section-title {
-    margin-left: 5%;
-    padding-top: 2%;
+    display:flex;
+    justify-content:center;
+    padding-top: 1%;
 }
 
 
 .alh-va {
-    margin-left:5%;
+    display: flex;
+    justify-content: center;
 }
 
 .alh-div{
@@ -1204,7 +1236,7 @@ abbr[title] {
 
 .edit-btl {
     width: 7%;
-    margin: 4% 0 0 20.2%;
+    margin: 4% 0 0 19.6%;
 }
 
 /*#endregion*/
@@ -1214,6 +1246,18 @@ abbr[title] {
     border-radius: 10px;
     background-color: rgba(0,0,0,0.3);
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+}
+
+/*#endregion */
+
+/*#region Edit */
+
+.e-title{
+    font-size:20px;
+}
+
+.e-padding{
+    padding-top:40px;
 }
 
 /*#endregion */

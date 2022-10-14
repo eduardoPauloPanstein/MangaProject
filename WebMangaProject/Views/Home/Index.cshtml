@@ -51,11 +51,11 @@
                         <div class="infos">
                             <div>
                                 <img src="~/covers/mancha.png" class="banner-image rotate-180">
-                                <i class="uil uil-mobile-android-alt banner-icon"></i>
+                                <i class="uil uil-star banner-icon"></i>
                             </div>
                             <div class="info-title">
-                                <h5>Título da info 1</h5>
-                                <div class="description">primeira info blablabla muitas coisas escritas aqui porque eu nao sei mais a a a a a a a a a a</div>
+                                <h5>Customized Recommendation</h5>
+                                <div class="description">Our sistem recommends you new titles basead in your readings</div>
                             </div>
 
                         </div>
@@ -80,8 +80,12 @@
     <div class="alh-div">
         <div>
             <div class="catalog alh-grid" id="catalog">
-                <h3 class=" section-title">All Time Favorite Manga</h3>
-                <a class="custom-link alh-va" asp-area="" asp-action="AllByFavorites" asp-controller="Manga">View All</a>
+                <div class="idiv-config">
+                    <h3 class=" section-title">All Time Favorite Manga</h3>
+                    <div class="va-div">
+                        <a class="custom-link va-config" asp-area="" asp-action="AllByFavorites" asp-controller="Manga">View All</a>
+                    </div>
+                </div>
                 <hr />
                 <div class="alh-grid-config">
                     <div class="card-wrapper">
@@ -103,10 +107,14 @@
                 </div>
             </div>
             <div class="catalog alh-grid" id="catalog">
-                <h3 class=" section-title">All Time Favorite Animes</h3>
-                <a class="custom-link alh-va" asp-area="" asp-action="AllByFavorites" asp-controller="Anime">View All</a>
+                <div class="idiv-config">
+                    <h3 class="section-title">All Time Favorite Animes</h3>
+                    <div class="va-div">
+                        <a class="custom-link va-config" asp-area="" asp-action="AllByFavorites" asp-controller="Anime">View All</a>
+                    </div>
+                </div>
                 <hr />
-                <div class="card-wrapper">
+                <div class="card-wrapper cw-config">
                     @{
                         foreach (var item in Model.AnimesFavorites)
                         {
@@ -124,8 +132,12 @@
                 </div>
             </div>
             <div class="catalog alh-grid" id="catalog">
-                <h3 class=" section-title">Most Popular Manga</h3>
-                <a class="custom-link alh-va" asp-area="" asp-action="AllByUserCount" asp-controller="Manga">View All</a>
+                <div class="idiv-config">
+                    <h3 class=" section-title">Most Popular Manga</h3>
+                    <div class="va-div">
+                        <a class="custom-link va-config" asp-area="" asp-action="AllByUserCount" asp-controller="Manga">View All</a>
+                    </div>
+                </div>
                 <hr />
                 <div class="card-wrapper">
                     @{
@@ -145,8 +157,12 @@
                 </div>
             </div>
             <div class="catalog alh-grid" id="catalog">
+                <div class="idiv-config">
                 <h3 class=" section-title">Most Popular Animes</h3>
-                <a class="custom-link alh-va" asp-area="" asp-action="AllByUserCount" asp-controller="Anime">View All</a>
+                <div class="va-div">
+                <a class="custom-link va-config" asp-area="" asp-action="AllByUserCount" asp-controller="Anime">View All</a>
+                    </div>
+                </div>
                 <hr />
                 <div class="card-wrapper">
                     @{
