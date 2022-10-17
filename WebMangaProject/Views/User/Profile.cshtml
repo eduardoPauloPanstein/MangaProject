@@ -1,0 +1,191 @@
+﻿@model MvcPresentationLayer.Models.UserModel.UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+@*<h1>@ViewData["Title"]</h1>*@
+
+<div class="profile-images">
+    <img src="~/covers/@{
+        @Model.CoverImageFileLocation
+}" class="cover-photo" />
+    <img src="~/avatars/@{
+        @Model.AvatarImageFileLocation
+}" class="profile-icon" />
+</div>
+
+<div class="follow-btn-config">
+    <button class="follow-btn">Follow</button> @*IMPLEMENTAR*@
+</div>
+<div class="profile-container">
+
+    <div class="profile-info">
+        <div class="profile-name">@Model.Nickname</div>
+
+        <div class="profile-about">
+            <h5>About me:</h5>
+            <hr />
+            <p class="about">@Model.About</p>
+        </div>
+    </div>
+
+    @*<button class="msg-btn">Message</button>*@
+
+    <div class="profile-favorites">
+
+        <div class="btn-config">
+            <button class="alternate-btn profile-manga-btn">Manga</button>
+            <button class="alternate-btn profile-anime-btn">Anime</button>
+            <button class="alternate-btn profile-favorites-btn">Favorites</button>
+        </div>
+        <div class="show">
+
+            <div class="profile-manga-show">
+                @{
+                    foreach (var item in Model.MangaList)
+                    {
+                        <div class="card-item">
+                            <a class="custom-link" href="/Manga/MangaOnPage/@item.">
+                                <li>
+                                    <img src=@item.Manga.PosterImageLink alt="@item.Manga.Titles?.Ja_jp" />
+                                    <span>@item.Manga.CanonicalTitle</span>
+                                </li>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="profile-anime-show"></div>
+            <div class="profile-favorites-show"></div>
+        </div>
+    </div>
+
+    <div class="profile-geral-list">
+        <div class="display-list">
+            <div>
+                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+                    <li>
+                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+                        <span>One Piece</span>
+                    </li>
+                </a>
+            </div>
+            <div>
+                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+                    <li>
+                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+                        <span>One Piece</span>
+                    </li>
+                </a>
+            </div>
+            <div>
+                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+                    <li>
+                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+                        <span>One Piece</span>
+                    </li>
+                </a>
+            </div><div>
+                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+                    <li>
+                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+                        <span>One Piece</span>
+                    </li>
+                </a>
+            </div>
+        </div>
+        <div class="display-list">
+            <div>
+                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+                    <li>
+                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+                        <span>One Piece</span>
+                    </li>
+                </a>
+            </div>
+        </div>
+        <div class="display-list">
+            <div>
+                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+                    <li>
+                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+                        <span>One Piece</span>
+                    </li>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let profileMangaShow = document.querySelector('.profile-manga-show');
+    let profileAnimeShow = document.querySelector('.profile-anime-show');
+    let profileFavoritesShow = document.querySelector('.profile-favorites-show');
+
+    let profileMangaBtn = document.querySelector('.profile-manga-btn');
+    let profileAnimeBtn = document.querySelector('.profile-anime-btn');
+    let profileFavoritesBtn = document.querySelector('.profile-favorites-btn');
+
+    profileMangaBtn.onclick = function () {
+        if (profileAnimeShow.classList.contains('active')) {
+            profileMangaShow.classList.toggle('active')
+            profileAnimeShow.classList.toggle('active')
+        }
+        else if (profileFavoritesShow.classList.contains('active')) {
+            profileFavoritesShow.classList.toggle('active')
+            profileMangaShow.classList.toggle('active')
+        }
+        else {
+            profileMangaShow.classList.toggle('active')
+        }
+    }
+    profileAnimeBtn.onclick = function () {
+        if (profileMangaShow.classList.contains('active')) {
+            profileMangaShow.classList.toggle('active')
+            profileAnimeShow.classList.toggle('active')
+        }
+        else if (profileFavoritesShow.classList.contains('active')) {
+            profileFavoritesShow.classList.toggle('active')
+            profileAnimeShow.classList.toggle('active')
+        }
+        else {
+            profileAnimeShow.classList.toggle('active')
+        }
+    }
+    profileFavoritesBtn.onclick = function () {
+        if (profileAnimeShow.classList.contains('active')) {
+            profileFavoritesShow.classList.toggle('active')
+            profileAnimeShow.classList.toggle('active')
+        }
+        else if (profileMangaShow.classList.contains('active')) {
+            profileMangaShow.classList.toggle('active')
+            profileFavoritesShow.classList.toggle('active')
+        }
+        else {
+            profileFavoritesShow.classList.toggle('active')
+        }
+    }
+
+</script>
+
+@*   mangabtn.onclick = function () {
+    if (
+    .classList.contains('active')) {
+    mangashow.classList.toggle('active')
+    submenumanga.classList.toggle('rotate')
+    }
+    else{
+    sidebar.classList.toggle('active')
+    mangashow.classList.toggle('active')
+    submenumanga.classList.toggle('rotate')
+    }
+    }
+    animebtn.onclick = function () {
+    if (sidebar.classList.contains('active')) {
+    animeshow.classList.toggle('active')
+    submenuanime.classList.toggle('rotate')
+    } else {
+    sidebar.classList.toggle('active')
+    animeshow.classList.toggle('active')
+    submenuanime.classList.toggle('rotate')
+    }
+    }*@
