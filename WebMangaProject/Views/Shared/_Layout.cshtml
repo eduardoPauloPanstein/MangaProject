@@ -48,7 +48,7 @@
                     <i class="uil uil-caret-right sub-menu-manga"></i>
                 </a>
                 <ul class="manga-show">
-                    @if(role == "BigBoss")
+                    @if(role == "BigBoss" || role == "Admin")
                     {
                     <li>
                         <a asp-area="" asp-controller="MangaDb" asp-action="Index">
