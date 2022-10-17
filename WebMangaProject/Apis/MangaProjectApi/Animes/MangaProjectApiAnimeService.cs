@@ -1,4 +1,5 @@
 ﻿using Entities.AnimeS;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Shared;
 using Shared.Models.Anime;
@@ -9,6 +10,13 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
 {
     public class MangaProjectApiAnimeService : MangaProjectApiBase, IMangaProjectApiAnimeService
     {
+        private readonly IDistributedCache _distributedCache;
+
+        public MangaProjectApiAnimeService(IDistributedCache distributedCache)
+        {
+            this._distributedCache = distributedCache;
+        }
+
         public async Task<Response> Delete(int? id, string token)
         {
             try
@@ -62,7 +70,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
                 }
                 var data = await responseHttp.Content.ReadAsStringAsync();
                 var dataResponse = JsonConvert.DeserializeObject<DataResponse<Anime>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Anime>(dataResponse.Data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
             }
             catch (Exception ex)
             {
@@ -139,19 +147,34 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
         {
             try
             {
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Anime/ByFavorites/skip/{skip}/take/{take}");
-                if (!responseHttp.IsSuccessStatusCode)
+                var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.GetAnimeByFavorite);
+                if (json != null)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeCatalog>(null);
+                    var animeCatalog = JsonConvert.DeserializeObject<List<AnimeCatalog>>(json);
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animeCatalog);
                 }
-                var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<AnimeCatalog>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                else
+                {
+
+                    using HttpResponseMessage responseHttp = await client.GetAsync($"Anime/ByFavorites/skip/{skip}/take/{take}");
+                    if (!responseHttp.IsSuccessStatusCode)
+                    {
+                        return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeCatalog>(null);
+                    }
+                    var data = await responseHttp.Content.ReadAsStringAsync();
+                    var dataResponse = JsonConvert.DeserializeObject<DataResponse<AnimeCatalog>>(data);
+
+                    json = JsonConvert.SerializeObject(dataResponse.Data);
+                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.GetAnimeByFavorite, json);
+
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                }
             }
             catch (Exception ex)
             {
                 return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeCatalog>(ex);
             }
+
         }
 
         public async Task<DataResponse<AnimeCatalog>> GetByUserCount(int skip = 0, int take = 25)

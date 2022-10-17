@@ -15,11 +15,12 @@ namespace WebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType); //typeof(UserController) 
+        private readonly ILog _log; 
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ILog log)
         {
             this._userService = userService;
+            this._log = log;
             _userService.CreateAdmin();
         }
 
@@ -34,13 +35,13 @@ namespace WebApi.Controllers
         {
             if (take >= 100)
             {
-                log.Warn("Bad request, try to take more than 100 datas");
+                _log.Warn("Bad request, try to take more than 100 datas");
                 return BadRequest("take < 100");
             }
             DataResponse<User> responseUsers = await _userService.Get(skip, take);
             if (!responseUsers.HasSuccess)
             {
-                log.Error(responseUsers.Message);
+                _log.Error(responseUsers.Message);
                 return BadRequest(responseUsers);
             }
 
@@ -118,16 +119,19 @@ namespace WebApi.Controllers
         public async Task<IActionResult> AuthenticateAsync(UserLogin user)
         {
             //mvc need a SingleResponseWToken return 
+            _log.Debug("Trying to authenticate.");
 
             if (UserService.IsAuthenticated(HttpContext))
-                return BadRequest("User is authenticated");
-
-            //var user = JsonConvert.DeserializeObject<UserLogin>(value);
+            {
+                _log.Warn("User is already authenticated.");
+                return BadRequest("User is authenticated.");
+            }
 
             var response = await _userService.Login(user);
 
             if (!response.HasSuccess)
             {
+                _log.Warn("Login failed.");
 
                 if (response.IsInfrastructureError)
                     return BadRequest(response.Exception);
@@ -136,8 +140,9 @@ namespace WebApi.Controllers
                     return Unauthorized();
             }
 
+            _log.Debug("Generate token.");
             var token = TokenService.GenerateToken(response.Item);
-            log.Info($"User {response.Item.Id} has been authenticated.");
+            _log.Info($"User {response.Item.Id} has been authenticated.");
             return Ok(ResponseFactory.CreateInstance().CreateSuccessSingleResponseWToken(token, response.Item));
         }
 

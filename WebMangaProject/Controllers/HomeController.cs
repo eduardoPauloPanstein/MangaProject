@@ -16,7 +16,8 @@ using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Models.HomePage;
 using Shared.Models.Anime;
 using Shared.Models.Manga;
-using System.Security.Claims;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 namespace MvcPresentationLayer.Controllers
 {
@@ -25,12 +26,14 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiAnimeService _animeApiService;
         private readonly IMangaProjectApiMangaService _mangaApiService;
+        private readonly IDistributedCache _distributedCache;
 
-        public HomeController(IMapper mapper, IMangaProjectApiAnimeService animeApiService, IMangaProjectApiMangaService mangaApiService)
+        public HomeController(IMapper mapper, IMangaProjectApiAnimeService animeApiService, IMangaProjectApiMangaService mangaApiService, IDistributedCache distributedCache)
         {
             this._animeApiService = animeApiService;
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
+            this._distributedCache = distributedCache;
         }
         public async Task<IActionResult> Index()
         {
@@ -38,7 +41,6 @@ namespace MvcPresentationLayer.Controllers
             //List<Claim> claims = this.User.Claims.ToList();
             //int idCliente = int.Parse(claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.PrimarySid).Value);
             //string role = claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role).Value;
-
 
             DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 7);
             DataResponse<AnimeCatalog> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 7);

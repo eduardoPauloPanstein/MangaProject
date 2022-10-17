@@ -16,6 +16,7 @@ using DataAccessLayer.Interfaces.IUserComentary;
 using DataAccessLayer.Interfaces.IUSerInterfaces;
 using DataAccessLayer.Interfaces.IUserItem;
 using DataAccessLayer.UnitOfWork;
+using log4net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -47,7 +48,7 @@ builder.Services.AddTransient<IAnimeComentaryDAL, AnimeComentaryDAL>();
 builder.Services.AddTransient<IUserAnimeItemDAL, UserAnimeItemDAL>();
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddSingleton<ILog>(LogManager.GetLogger(typeof(object)));
 
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));
 

@@ -83,6 +83,11 @@ builder.Services.AddTransient<IAnimeApiConnect, AnimeApi>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<MangaProjectDbContext>(options => options.UseSqlServer("name=ConnectionStrings:SqlServerMangaProjectConnection"));
 
+builder.Services.AddDistributedRedisCache(opt =>
+{
+    opt.Configuration = builder.Configuration.GetConnectionString("AzureRedisCacheConnection");
+});
+
 builder.Services.AddAuthentication("CookieSerieAuth")
     .AddCookie("CookieSerieAuth", opt =>
     {

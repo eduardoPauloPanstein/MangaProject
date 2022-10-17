@@ -1,18 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shared
+﻿namespace Shared
 {
     public class LocationConstants
     {
         public static readonly string IdNotNullMessage = "ID deve ser informado.";
         public static NicknameConstants Nickname = new NicknameConstants(); //nickname?
         public static PasswordConstants Password = new PasswordConstants(); //password?
+        public static CacheKey CacheKey  = new CacheKey(); //password?
+
 
         public const int EmailMaxLength = 256; // RFC 5321
+
+    }
+    public class CacheKey
+    {
+        public readonly string GetAnimeByFavorite;
+
+
+        public CacheKey()
+        {
+            GetAnimeByFavorite = "GetAnimeByFavorite";
+        }
 
     }
     public class NicknameConstants
