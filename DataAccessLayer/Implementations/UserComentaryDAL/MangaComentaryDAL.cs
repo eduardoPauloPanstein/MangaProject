@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Interfaces.IUserComentary;
+using Entities.AnimeS;
 using Entities.MangaS;
 using Microsoft.EntityFrameworkCore;
 using Shared;
@@ -52,6 +53,20 @@ namespace DataAccessLayer.Implementations.UserComentaryDAL
                     .Take(take)
                     .ToListAsync();
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(mangas);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaComentary>(ex);
+            }
+        }
+
+        public async Task<DataResponse<MangaComentary>> GetByManga(int MangaID)
+        {
+            try
+            {
+                List<MangaComentary> user = await _db.MangaComentaries.Where(u => u.MangaId == MangaID).ToListAsync();
+
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(user);
             }
             catch (Exception ex)
             {

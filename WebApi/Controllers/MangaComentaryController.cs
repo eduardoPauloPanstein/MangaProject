@@ -55,7 +55,18 @@ namespace WebApi.Controllers
 
             return Ok(responseUsers);
         }
+        [HttpGet("ByMAnga/{id}"), AllowAnonymous]
+        public async Task<IActionResult> GetByMangaAsync(int id)
+        {
+            var responseUsers = await _MangaComentary.GetByManga(id);
+            if (!responseUsers.HasSuccess)
+            {
+                return BadRequest(responseUsers);
+            }
 
+            return Ok(responseUsers);
+        }
+    
         [HttpPost, AllowAnonymous]
         public async Task<IActionResult> PostAsync([FromBody] string value)
         {

@@ -59,6 +59,20 @@ namespace DataAccessLayer.Implementations.UserComentaryDAL
             }
         }
 
+        public async Task<DataResponse<AnimeComentary>> GetByAnime(int animeID)
+        {
+            try
+            {
+                List<AnimeComentary> user = await _db.AnimeComentaries.Where(u => u.AnimeId == animeID).ToListAsync();
+
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(user);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<AnimeComentary>(ex);
+            }
+        }
+
         public async Task<DataResponse<AnimeComentary>> GetByUser(int userid)
         {
             try

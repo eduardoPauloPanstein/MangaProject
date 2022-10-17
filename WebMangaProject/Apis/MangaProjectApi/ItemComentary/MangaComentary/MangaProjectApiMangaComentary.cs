@@ -68,6 +68,27 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.MangaComentary
             }
         }
 
+        public async Task<DataResponse<Entities.MangaS.MangaComentary>> GetByManga(int MangaID)
+        {
+            try
+            {
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                using HttpResponseMessage responseHttp = await client.GetAsync($"MangaComentary/ByMAnga/{MangaID}");
+
+                if (!responseHttp.IsSuccessStatusCode)
+                {
+                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.MangaS.MangaComentary>();
+                }
+                var data = await responseHttp.Content.ReadAsStringAsync();
+                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Entities.MangaS.MangaComentary>>(data);
+                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Entities.MangaS.MangaComentary>(dataResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory.CreateInstance().CreateFailedDataResponse<Entities.MangaS.MangaComentary>(ex);
+            }
+        }
+
         public async Task<DataResponse<Entities.MangaS.MangaComentary>> GetByUser(int userid)
         {
             try
