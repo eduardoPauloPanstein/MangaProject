@@ -30,10 +30,14 @@ namespace BusinessLogicalLayer.Implementations.UserComentaryService
             return await _unitOfWork.AnimeComentaryRepository.Get(skip,take);
         }
 
+        public async Task<DataResponse<AnimeComentary>> GetByAnime(int animeID)
+        {
+            return await _unitOfWork.AnimeComentaryRepository.GetByAnime(animeID);
+        }
+
         public async Task<DataResponse<AnimeComentary>> GetByUser(int userid)
         {
             return await _unitOfWork.AnimeComentaryRepository.GetByUser(userid);
-
         }
 
         public async Task<Response> Insert(AnimeComentary animeComentary)

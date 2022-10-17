@@ -151,8 +151,20 @@
 
     <div class="mop-div-suggestions">
         <p class="mop-sug-title">Suggestions:</p>
-        <div>
-       
+       <div class="card-wrapper cw-config">
+            @{
+                foreach (var item in Model.Recommendations)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Manga/MangaOnPage/@item.Id">
+                            <img src=@item.PosterImageLink />
+                            <div class="card-content">
+                                <h5>@item.CanonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
         </div>
     </div>
 </div>

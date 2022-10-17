@@ -30,6 +30,11 @@ namespace BusinessLogicalLayer.Implementations.UserComentaryService
             return await _unitOfWork.MangaComentaryRepository.Get(skip,take);
         }
 
+        public async Task<DataResponse<MangaComentary>> GetByManga(int MangaID)
+        {
+            return await _unitOfWork.MangaComentaryRepository.GetByManga(MangaID);
+        }
+
         public async Task<DataResponse<MangaComentary>> GetByUser(int userid)
         {
             return await _unitOfWork.MangaComentaryRepository.GetByUser(userid);

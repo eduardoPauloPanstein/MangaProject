@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,10 +10,27 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebMangaProject.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
-
-
 </head>
+
+@{
+    //BigBoss,
+    //    Admin,
+    //    User
+
+    string role = "";
+    if (this.User.Identity.IsAuthenticated)
+    {
+        List<Claim> claims = this.User.Claims.ToList();
+        int idCliente = int.Parse(claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.PrimarySid).Value);
+        role = claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role).Value;
+    }
+    else
+    {
+        role = "NãoLogado";
+    }
+
+}
+
 <body>
     <div class="sidebar">
         <div class="toggle"></div>
@@ -30,13 +48,13 @@
                     <i class="uil uil-caret-right sub-menu-manga"></i>
                 </a>
                 <ul class="manga-show">
-                    @if (User.Identity.IsAuthenticated)
+                    @if(role == "BigBoss" || role == "Admin")
                     {
-                        <li>
-                            <a asp-area="" asp-controller="MangaDb" asp-action="Index">
-                                <span class="sub-title">Database</span>
-                            </a>    
-                        </li>
+                    <li>
+                        <a asp-area="" asp-controller="MangaDb" asp-action="Index">
+                            <span class="sub-title">Database</span>
+                        </a>
+                    </li>
                     }
                     <li>
                         <a asp-area="" asp-controller="Manga" asp-action="Index">
@@ -47,11 +65,13 @@
                         <a asp-area="" asp-controller="Manga" asp-action="AllByFavorites">
                             <span class="sub-title">Favorites</span>
                         </a>
-                    </li><li>
+                    </li>
+                    <li>
                         <a asp-area="" asp-controller="Manga" asp-action="AllByCount">
                             <span class="sub-title">Popular</span>
                         </a>
-                    </li><li>
+                    </li>
+                    <li>
                         <a asp-area="" asp-controller="Manga" asp-action="AllByRating">
                             <span class="sub-title">Rating</span>
                         </a>
@@ -74,11 +94,13 @@
                         <a asp-area="" asp-controller="Anime" asp-action="AllByFavorites">
                             <span class="sub-title">Favorites</span>
                         </a>
-                    </li><li>
+                    </li>
+                    <li>
                         <a asp-area="" asp-controller="Anime" asp-action="AllByCount">
                             <span class="sub-title">Popular</span>
                         </a>
-                    </li><li>
+                    </li>
+                    <li>
                         <a asp-area="" asp-controller="Anime" asp-action="AllByRating">
                             <span class="sub-title">Rating</span>
                         </a>
@@ -158,13 +180,13 @@
     <script>
         let sidebar = document.querySelector('.sidebar');
         let toggle = document.querySelector('.toggle');
-        toggle.onclick = function() {
+        toggle.onclick = function () {
             sidebar.classList.toggle('active')
             if (mangashow.classList.contains('active')) {
                 mangashow.classList.toggle('active')
                 submenumanga.classList.toggle('rotate')
             }
-            if(animeshow.classList.contains('active')){
+            if (animeshow.classList.contains('active')) {
                 animeshow.classList.toggle('active')
                 submenuanime.classList.toggle('rotate')
             }
@@ -184,7 +206,7 @@
                 mangashow.classList.toggle('active')
                 submenumanga.classList.toggle('rotate')
             }
-            else{
+            else {
                 sidebar.classList.toggle('active')
                 mangashow.classList.toggle('active')
                 submenumanga.classList.toggle('rotate')

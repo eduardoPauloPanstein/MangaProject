@@ -140,6 +140,14 @@ namespace MvcPresentationLayer.Controllers
                 }
             }
 
+            DataResponse<Manga> responseSugg = new();
+            if (User.Identity.IsAuthenticated)
+            {
+                responseSugg = await _userMangaItem.GetUserRecommendations(responseUser.Item.Id);
+            }
+            List<MangaShortViewModel> mangaSugg = _mapper.Map<List<MangaShortViewModel>>(responseSugg.Data);
+
+            //var responseComentary = _mangaApiComentary.GetByUser(IdUsuario);
 
             if (!hasItem)
             {
@@ -150,7 +158,8 @@ namespace MvcPresentationLayer.Controllers
             MangaItemModalViewModel mangaItemModalViewModel = new()
             {
                 UserMangaItem = userMangaItem,
-                Manga = manga
+                Manga = manga,
+                Recommendations = mangaSugg
             };
 
             return View(mangaItemModalViewModel);
