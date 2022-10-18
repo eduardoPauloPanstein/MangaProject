@@ -48,13 +48,13 @@
                     <i class="uil uil-caret-right sub-menu-manga"></i>
                 </a>
                 <ul class="manga-show">
-                    @if(role == "BigBoss" || role == "Admin")
+                    @if (role == "BigBoss" || role == "Admin")
                     {
-                    <li>
-                        <a asp-area="" asp-controller="MangaDb" asp-action="Index">
-                            <span class="sub-title">Database</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a asp-area="" asp-controller="MangaDb" asp-action="Index">
+                                <span class="sub-title">Database</span>
+                            </a>
+                        </li>
                     }
                     <li>
                         <a asp-area="" asp-controller="Manga" asp-action="Index">
@@ -124,50 +124,41 @@
     </div>
     <div class="home_content">
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
-                <div class="container-fluid custom-navbar">
-                    <a class="navbar-brand custom-link" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/avatars/Logo.png" class="custom-logo" />
-                        <span class="title-logo">Anima List</span>
-                    </a>
-                    <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav  ">
-                            <li class="nav-item custom-link-nav">
-                                <a class="nav-link custom-link " asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                            </li>
+            <nav class="custom-navbar">
 
-                            @{
-                                if (User.Identity.IsAuthenticated)
-                                {
-                                    <li class="nav-item ">
-                                        <a class="nav-link custom-link " asp-area="" asp-controller="User" asp-action="Profile">Hi @User.Identity.Name!</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="nav-item custom-link-nav">
-                                        <a class="nav-link custom-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                                    </li>
-                                }
-                            }
-                            <div class="wrapper">
-                                <div class="search-input">
-                                    <input type="text" placeholder="Search...">
-                                    <div class="autocom-box">
-                                    </div>
-                                    <div class="icon">
-                                        <i class="uil uil-search search-icon"></i>
-                                    </div>
-                                </div>
+                <a class="Logo custom-link" style="margin-left: 10px;" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/avatars/Logo.png" class="custom-logo" />
+                    <span class="title-logo">Anima List</span>
+                </a>
+                <ul class="navbar-ul">
+                    <li class="custom-link-nav">
+                        <a class="custom-link " asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                    </li>
+
+                    @if (role == "BigBoss" || role == "Admin")
+                    {
+                        <li class="nav-item ">
+                            <a class="custom-link " asp-area="" asp-controller="User" asp-action="Profile">Hi @User.Identity.Name!</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class=" custom-link-nav">
+                            <a class=" custom-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                        </li>
+                    }
+                    <div class="wrapper">
+                        <div class="search-input">
+                            <input type="text" placeholder="Search...">
+                            <div class="autocom-box">
                             </div>
-
-                        </ul>
+                            <div class="icon">
+                                <i class="uil uil-search search-icon"></i>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </ul>
+
             </nav>
         </header>
         <div class="">
