@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces.IUserItemService;
 using Entities.AnimeS;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using MvcPresentationLayer.Models.AnimeModel;
+using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
 using Shared.Models.Anime;
 using Shared.Responses;
@@ -59,6 +61,18 @@ namespace MvcPresentationLayer.Controllers
                 }
             }
 
+            DataResponse<Anime> responseSugg = new();
+            if (User.Identity.IsAuthenticated)
+            {
+                responseSugg = await _userAnimeItem.GetUserRecommendations(responseUser.Item.Id);
+            }
+            List<AnimeShortViewModel> animeSugg = _mapper.Map<List<AnimeShortViewModel>>(responseSugg.Data);
+
+            //DataResponse<MangaComentary> responseComentary = new();
+            //responseComentary = await _mangaComentary.GetByManga(manga.Id);
+
+            //List<MangaComentaryViewModel> comments = _mapper.Map<List<MangaComentaryViewModel>>(responseComentary);
+
             if (!hasItem)
             {
                 userAnimeItem.StartDate = DateTime.Now.Date;
@@ -68,7 +82,8 @@ namespace MvcPresentationLayer.Controllers
             AnimeItemModalViewModel animeItemModalViewModel = new()
             {
                 UserAnimeItem = userAnimeItem,
-                Anime = anime
+                Anime = anime,
+                Recommendations = animeSugg
             };
             return View(animeItemModalViewModel);
         }

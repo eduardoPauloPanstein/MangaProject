@@ -76,83 +76,105 @@
     </div>
 </div>
 
-
-<div class="div-anime-info">
-    <div class="anime-info-items">
-        <div class="info-type">Format:</div>
-        <div class="info-result">@Model.Anime.Subtype</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">Episodes:</div>
-        <div class="info-result">@Model.Anime.EpisodeCount</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">Episode Duration:</div>
-        <div class="info-result">@Model.Anime.EpisodeLength</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">Status:</div>
-        <div class="info-result">@Model.Anime.Status.ToString()</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">Start Date:</div>
-        <div class="info-result">@Model.Anime.StartDate</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">End Date:</div>
-        <div class="info-result">@Model.Anime.EndDate</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">Average Score:</div>
-        <div class="info-result">@Model.Anime.AverageRating</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">Popularity:</div>
-        <div class="info-result">@Model.Anime.PopularityRank</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">Favorites:</div>
-        <div class="info-result">@Model.Anime.FavoritesCount</div>
-    </div>
-    <div class="anime-info-items">
-        <div class="info-type">Genres:</div>
-        <div class="info-result">
-            <ul>
-                @{
-                    foreach (var item in @Model.Anime.Categories)
-                    {
-                        <li>
-                            <p>@item.Name</p>
-                        </li>
+<div class="mop-div-info">
+    <div class="div-anime-info">
+        <div class="anime-info-items">
+            <div class="info-type">Format:</div>
+            <div class="info-result">@Model.Anime.Subtype</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">Episodes:</div>
+            <div class="info-result">@Model.Anime.EpisodeCount</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">Episode Duration:</div>
+            <div class="info-result">@Model.Anime.EpisodeLength</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">Status:</div>
+            <div class="info-result">@Model.Anime.Status.ToString()</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">Start Date:</div>
+            <div class="info-result">@Model.Anime.StartDate</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">End Date:</div>
+            <div class="info-result">@Model.Anime.EndDate</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">Average Score:</div>
+            <div class="info-result">@Model.Anime.AverageRating</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">Popularity:</div>
+            <div class="info-result">@Model.Anime.PopularityRank</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">Favorites:</div>
+            <div class="info-result">@Model.Anime.FavoritesCount</div>
+        </div>
+        <div class="anime-info-items">
+            <div class="info-type">Genres:</div>
+            <div class="info-result">
+                <ul>
+                    @{
+                        foreach (var item in @Model.Anime.Categories)
+                        {
+                            <li>
+                                <p>@item.Name</p>
+                            </li>
+                        }
                     }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="mop-div-comment">
+        <div class="mop-comment">
+            <form method="post" action="/AnimeComentary/Insert">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- <input type="text" placeholder="Leave a comment here..."> -->
+                <div class="form-group">
+                    <input asp-for="@Model.AnimeComentary.Comentary" class="form-control" placeholder="Leave a comment here..." />
+                    <span asp-validation-for="@Model.AnimeComentary.Comentary" class="text-danger"></span>
+                    <input type="hidden" asp-for="@Model.Anime.Id" />
+                </div>
+                <div class="form-group mop-btn">
+                    <input type="submit" value="Confirm" class="custom-btn" />
+                </div>
+            </form>
+            <hr />
+        </div>
+    </div>
+
+    <div class="mop-div-suggestions">
+        <p class="mop-sug-title">Suggestions:</p>
+        <div class="card-wrapper cw-config">
+            @{
+                foreach (var item in Model.Recommendations)
+                {
+                    <div class="card-item">
+                        <a class="custom-link" href="/Anime/AnimeOnPage/@item.Id">
+                            <img src=@item.AnimePosterImage />
+                            <div class="card-content">
+                                <h5>@item.canonicalTitle</h5>
+                            </div>
+                        </a>
+                    </div>
                 }
-            </ul>
+            }
         </div>
     </div>
 </div>
-<div class="mop-div-comment">
-    <form method="post" action="/AnimeComentary/Insert">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <input type="text" placeholder="Leave a comment here...">
-        <div class="form-group">
-            <label asp-for="@Model.AnimeComentary.Comentary" class="control-label"></label>
-            <input asp-for="@Model.AnimeComentary.Comentary" class="form-control" />
-            <span asp-validation-for="@Model.AnimeComentary.Comentary" class="text-danger"></span>
-            <input type="hidden" asp-for="@Model.Anime.Id" />
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Confirm" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
-
 <!-- The Modal -->
 <div id="modalAdd" class="modalAdd">
     <!-- Modal content -->
     <div class="modalAdd-Content">
         <span class="close">&times;</span>
-       <form method="post" action="/UserItemAnime/Insert/">
+        <form method="post" action="/UserItemAnime/Insert/">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.Anime.Id" />
             <div class="form-group">

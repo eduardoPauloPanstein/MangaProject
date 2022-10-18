@@ -131,11 +131,13 @@
                     <span class="title-logo">Anima List</span>
                 </a>
                 <ul class="navbar-ul">
+                    @if (role == "BigBoss" || role == "Admin")
+                    {
                     <li class="custom-link-nav">
                         <a class="custom-link " asp-area="" asp-controller="User" asp-action="Index">Users</a>
                     </li>
-
-                    @if (role == "BigBoss" || role == "Admin")
+                    }
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item ">
                             <a class="custom-link " asp-area="" asp-controller="User" asp-action="Profile">Hi @User.Identity.Name!</a>
@@ -149,7 +151,7 @@
                     }
                     <div class="wrapper">
                         <div class="search-input">
-                            <input type="text" placeholder="Search...">
+                            <input type="text" placeholder="Search Manga...">
                             <div class="autocom-box">
                             </div>
                             <div class="icon">

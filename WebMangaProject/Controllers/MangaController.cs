@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using BusinessLogicalLayer.Implementations.UserComentaryService;
 using BusinessLogicalLayer.Interfaces.IUserItemService;
 using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
+using MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.MangaComentary;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
@@ -20,6 +22,7 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserMangaItemService _userMangaItem;
+        private readonly MangaComentaryService _mangaComentary;
 
         public MangaController(IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService, IUserMangaItemService userMangaItem)
         {
@@ -147,7 +150,10 @@ namespace MvcPresentationLayer.Controllers
             }
             List<MangaShortViewModel> mangaSugg = _mapper.Map<List<MangaShortViewModel>>(responseSugg.Data);
 
-            //var responseComentary = _mangaApiComentary.GetByUser(IdUsuario);
+            //DataResponse<MangaComentary> responseComentary = new();
+            //responseComentary = await _mangaComentary.GetByManga(manga.Id);
+
+            //List<MangaComentaryViewModel> comments = _mapper.Map<List<MangaComentaryViewModel>>(responseComentary);
 
             if (!hasItem)
             {
@@ -159,7 +165,8 @@ namespace MvcPresentationLayer.Controllers
             {
                 UserMangaItem = userMangaItem,
                 Manga = manga,
-                Recommendations = mangaSugg
+                Recommendations = mangaSugg,
+                //Comments = comments
             };
 
             return View(mangaItemModalViewModel);
