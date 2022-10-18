@@ -233,8 +233,8 @@ namespace MvcPresentationLayer.Controllers
             await HttpContext.SignOutAsync("CookieSerieAuth");
         }
 
-        [HttpPost, ValidateAntiForgeryToken, Authorize] //Why not HttpDelete? 
-        public async Task<IActionResult> logout()
+        [HttpGet, Authorize] //Why not HttpDelete? 
+        public async Task<IActionResult> Logout()
         {
             await LogoutAuthenticationAsync();
             return RedirectToAction("Index", "Home");

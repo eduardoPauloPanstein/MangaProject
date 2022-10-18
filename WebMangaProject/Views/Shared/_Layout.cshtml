@@ -18,10 +18,11 @@
     //    User
 
     string role = "";
+    int idCliente = 0;
     if (this.User.Identity.IsAuthenticated)
     {
         List<Claim> claims = this.User.Claims.ToList();
-        int idCliente = int.Parse(claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.PrimarySid).Value);
+        idCliente = int.Parse(claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.PrimarySid).Value);
         role = claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role).Value;
     }
     else
@@ -113,12 +114,15 @@
                     <span class="title">AboutUs</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class="uil uil-cog"></i>
-                    <span class="title">Settings</span>
-                </a>
-            </li>
+            @if (role != "NãoLogado")
+            {
+                <li>
+                    <a href="/User/Edit/@idCliente">
+                        <i class="uil uil-cog"></i>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+            }
 
         </ul>
     </div>
@@ -133,14 +137,18 @@
                 <ul class="navbar-ul">
                     @if (role == "BigBoss" || role == "Admin")
                     {
-                    <li class="custom-link-nav">
-                        <a class="custom-link " asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                    </li>
+                        <li class="custom-link-nav">
+                            <a class="custom-link " asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                        </li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item ">
                             <a class="custom-link " asp-area="" asp-controller="User" asp-action="Profile">Hi @User.Identity.Name!</a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="custom-link " asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
                         </li>
                     }
                     else
