@@ -3,25 +3,38 @@
     public class LocationConstants
     {
         public static readonly string IdNotNullMessage = "ID deve ser informado.";
-        public static NicknameConstants Nickname = new NicknameConstants(); //nickname?
-        public static PasswordConstants Password = new PasswordConstants(); //password?
-        public static CacheKey CacheKey  = new CacheKey(); //password?
-
+        public static NicknameConstants Nickname = new(); 
+        public static PasswordConstants Password = new(); 
+        public static CacheKey CacheKey  = new(); 
 
         public const int EmailMaxLength = 256; // RFC 5321
 
     }
     public class CacheKey
     {
-        public readonly string GetAnimeByFavorite;
+        public AnimeCacheKey Anime = new();
 
+    }
+    public class AnimeCacheKey
+    {
+        public readonly string GetByUserCount;
+        public readonly string GetByFavorites;
+        public readonly string GetByRating;
+        public readonly string GetByPopularity;
+        public readonly string GetByCategory;
 
-        public CacheKey()
+        public AnimeCacheKey()
         {
-            GetAnimeByFavorite = "GetAnimeByFavorite";
+            GetByUserCount = "GetAnimeByUserCount";
+            GetByFavorites = "GetAnimeByFavorite";
+            GetByRating = "GetAnimeByRating";
+            GetByPopularity = "GetAnimeByPopularity";
+            GetByCategory = "GetAnimeByCategory";
         }
 
     }
+
+
     public class NicknameConstants
     {
         public readonly int MaxLength;
