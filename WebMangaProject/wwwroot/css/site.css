@@ -545,31 +545,175 @@ abbr[title] {
 }
 
 .profile-manga-show {
+    padding: 10px 8px;
+    display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
+}
+
+    .profile-manga-show.active {
+        max-height: 280px;
+        display: block;
+    }
+
+        .profile-manga-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-manga-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-manga-show a {
+        text-decoration: none;
+    }
+
+        .profile-manga-show a li span {
+            padding-left: 8px;
+            color:#fff;
+        }
+
+        .profile-manga-show a li img {
+            border-radius: 5px;
+            height: 80px;
+            width: 65px;
+        }
+
+        .profile-manga-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+
+
+.profile-anime-show {
+    padding: 10px 8px;
+    display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
+}
+
+    .profile-anime-show.active {
+        max-height: 280px;
+        display: block;
+    }
+
+        .profile-anime-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-anime-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-anime-show a {
+        text-decoration: none;
+    }
+
+        .profile-anime-show a li span {
+            padding-left: 8px;
+            color: #fff;
+        }
+
+        .profile-anime-show a li img {
+            border-radius: 5px;
+            height: 80px;
+            width: 65px;
+        }
+
+        .profile-anime-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+
+/*
+.profile-manga-show {
+    list-style: none;
+    color: #222;
+    padding: 8px 12px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 3px;
     display: none;
 }
 
     .profile-manga-show.active {
+        padding: 10px 8px;
+        align-items: center;
         display: block;
-        height: 100%;
-        border-radius: 5px;
+        pointer-events: auto;
+        transition: all 0.8s ease;
     }
 
+    .profile-manga-show a {
+        text-decoration: none;
+    }
+
+        .profile-manga-show a li {
+            display: none;
+        }
+
+    .profile-manga-show.active a li {
+        display: block;
+        align-items: center;
+    }
+    .profile-manga-show a li img {
+        border-radius: 5px;
+        height: 80px;
+        width: 65px;
+    }
+    .profile-manga-show a li span {
+        padding-left: 8px;
+    }*/
 .profile-anime-show {
+    transition: all 0.8s ease;
     display: none;
 }
 
     .profile-anime-show.active {
+        padding: 10px 8px;
         display: block;
-        height: 100%;
-        border-radius: 5px;
+        pointer-events: auto;
+        transition: all 0.8s ease;
     }
 
 
 .profile-card-item {
-    border-radius: 5px;
-    height: 80px;
-    width: 65px;
+    display: flex;
+    grid-template-rows: -webkit-min-content auto;
+    grid-template-rows: min-content auto;
+    position: relative;
+    width: 200px;
+    background: border-box;
 }
+
+    .profile-card-item img {
+        border-radius: 5px;
+        height: 100px;
+        width: 85px;
+    }
+
 
 .profile-geral-list {
     background-color: rgba(0,0,0,.50);
