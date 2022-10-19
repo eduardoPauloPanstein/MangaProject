@@ -7,15 +7,15 @@
 
 <div class="profile-images">
     <img src="~/covers/@{
-        @Model.CoverImageFileLocation
+                            @Model.CoverImageFileLocation
 }" class="cover-photo" />
     <img src="~/avatars/@{
-        @Model.AvatarImageFileLocation
+                            @Model.AvatarImageFileLocation
 }" class="profile-icon" />
 </div>
 
 @*<div class="follow-btn-config">
-    <button class="follow-btn">Follow</button> 
+    <button class="follow-btn">Follow</button>
 </div>*@
 <div class="profile-container">
 
@@ -36,27 +36,43 @@
         <div class="btn-config">
             <button class="alternate-btn profile-manga-btn">Manga</button>
             <button class="alternate-btn profile-anime-btn">Anime</button>
-            <button class="alternate-btn profile-favorites-btn">Favorites</button>
         </div>
         <div class="show">
 
-            <div class="profile-manga-show">
-                @{
-                    foreach (var item in Model.MangaList)
-                    {
-                        <div class="card-item">
-                            <a class="custom-link" href="/Manga/MangaOnPage/@item.Manga.Id">
-                                <li>
+            <div class="profile-manga-show active">
+                <div class="card-wrapper cw-config">
+                    @{
+                        foreach (var item in Model.MangaList)
+                        {
+                            <div class="profile-card-item">
+                                <a class="custom-link" href="/Manga/MangaOnPage/@item.Manga.Id">
                                     <img src=@item.Manga.PosterImageLink alt="@item.Manga.Titles?.Ja_jp" />
-                                    <span>@item.Manga.CanonicalTitle</span>
-                                </li>
-                            </a>
-                        </div>
+                                    <div class="card-content">
+                                        <h5>@item.Manga.CanonicalTitle</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        }
                     }
-                }
+                </div>
             </div>
-            <div class="profile-anime-show"></div>
-            <div class="profile-favorites-show"></div>
+            <div class="profile-anime-show">
+                <div class="card-wrapper cw-config">
+                    @{
+                        foreach (var item in Model.AnimeList)
+                        {
+                            <div class="card-item">
+                                <a class="custom-link" href="/Manga/MangaOnPage/@item.Anime.Id">
+                                    <img src=@item.Anime.AnimePosterImage alt="@item.Anime.AnimeTitles?.Ja_jp" />
+                                    <div class="card-content">
+                                        <h5>@item.Anime.canonicalTitle</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
         </div>
     </div>
 
@@ -119,20 +135,14 @@
 <script>
     let profileMangaShow = document.querySelector('.profile-manga-show');
     let profileAnimeShow = document.querySelector('.profile-anime-show');
-    let profileFavoritesShow = document.querySelector('.profile-favorites-show');
 
     let profileMangaBtn = document.querySelector('.profile-manga-btn');
     let profileAnimeBtn = document.querySelector('.profile-anime-btn');
-    let profileFavoritesBtn = document.querySelector('.profile-favorites-btn');
 
     profileMangaBtn.onclick = function () {
         if (profileAnimeShow.classList.contains('active')) {
             profileMangaShow.classList.toggle('active')
             profileAnimeShow.classList.toggle('active')
-        }
-        else if (profileFavoritesShow.classList.contains('active')) {
-            profileFavoritesShow.classList.toggle('active')
-            profileMangaShow.classList.toggle('active')
         }
         else {
             profileMangaShow.classList.toggle('active')
@@ -143,49 +153,10 @@
             profileMangaShow.classList.toggle('active')
             profileAnimeShow.classList.toggle('active')
         }
-        else if (profileFavoritesShow.classList.contains('active')) {
-            profileFavoritesShow.classList.toggle('active')
-            profileAnimeShow.classList.toggle('active')
-        }
         else {
             profileAnimeShow.classList.toggle('active')
         }
     }
-    profileFavoritesBtn.onclick = function () {
-        if (profileAnimeShow.classList.contains('active')) {
-            profileFavoritesShow.classList.toggle('active')
-            profileAnimeShow.classList.toggle('active')
-        }
-        else if (profileMangaShow.classList.contains('active')) {
-            profileMangaShow.classList.toggle('active')
-            profileFavoritesShow.classList.toggle('active')
-        }
-        else {
-            profileFavoritesShow.classList.toggle('active')
-        }
-    }
+
 
 </script>
-
-@*   mangabtn.onclick = function () {
-    if (
-    .classList.contains('active')) {
-    mangashow.classList.toggle('active')
-    submenumanga.classList.toggle('rotate')
-    }
-    else{
-    sidebar.classList.toggle('active')
-    mangashow.classList.toggle('active')
-    submenumanga.classList.toggle('rotate')
-    }
-    }
-    animebtn.onclick = function () {
-    if (sidebar.classList.contains('active')) {
-    animeshow.classList.toggle('active')
-    submenuanime.classList.toggle('rotate')
-    } else {
-    sidebar.classList.toggle('active')
-    animeshow.classList.toggle('active')
-    submenuanime.classList.toggle('rotate')
-    }
-    }*@

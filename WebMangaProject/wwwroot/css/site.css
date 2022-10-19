@@ -545,31 +545,31 @@ abbr[title] {
 }
 
 .profile-manga-show {
+    display: none;
 }
 
     .profile-manga-show.active {
-        background-color: white;
+        display: block;
         height: 100%;
         border-radius: 5px;
     }
 
 .profile-anime-show {
+    display: none;
 }
 
     .profile-anime-show.active {
-        background-color: red;
+        display: block;
         height: 100%;
         border-radius: 5px;
     }
 
-.profile-favorites-show {
+
+.profile-card-item {
+    border-radius: 5px;
+    height: 80px;
+    width: 65px;
 }
-
-    .profile-favorites-show.active {
-        background-color: darkgreen;
-        height: 100%;
-        border-radius: 5px;
-    }
 
 .profile-geral-list {
     background-color: rgba(0,0,0,.50);
@@ -1443,11 +1443,10 @@ abbr[title] {
 .login-form .login-signup {
     margin-top: 30px;
     text-align: center;
-
 }
 
-.login-space{
-    margin-top:10%;
+.login-space {
+    margin-top: 10%;
 }
 
 
