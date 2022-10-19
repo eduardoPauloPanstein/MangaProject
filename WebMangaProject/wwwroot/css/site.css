@@ -575,13 +575,12 @@ abbr[title] {
     background-color: rgba(0,0,0,.50);
     width: 90%;
     margin-top: 3%;
-    display: flex;
+    display: grid;
     border-radius: 5px;
     max-height: 500px;
     box-shadow: 0 10px 20px -10px rgb(0 0 0 / 75%);
     overflow: auto;
-    justify-content: space-between;
-    flex-direction: row;
+    grid-template-columns: auto auto auto;
 }
 
     .profile-geral-list .display-list {
