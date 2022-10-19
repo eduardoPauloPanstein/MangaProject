@@ -181,7 +181,7 @@
 
                 <label asp-for="@Model.UserAnimeItem.Status" class="control-label"></label>
                 @{
-                    string[] valores = Enum.GetNames<UserMangaStatus>();
+                    string[] valores = Enum.GetNames<UserAnimeStatus>();
                 }
                 <select class="form-control" asp-for="@Model.UserAnimeItem.Status">
                     @for (int i = 0; i < valores.Length; i++)

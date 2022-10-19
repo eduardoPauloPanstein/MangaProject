@@ -12,7 +12,7 @@ namespace MvcPresentationLayer.Models.AnimeModel
         public int AnimeId { get; set; }
         public int UserId { get; set; }
         public Entities.UserS.User User { get; set; }
-        public UserMangaStatus Status { get; set; }
+        public UserAnimeStatus Status { get; set; }
         [DataType(DataType.Date)]
         [DisplayName("Start Date")]
         public DateTime StartDate { get; set; }
