@@ -27,6 +27,7 @@ namespace MvcPresentationLayer.Models.MangaModels
         public string? CoverImageLink { get; set; }
         public string? PosterImageLink { get; set; }
         public ICollection<Category> Genres { get; set; }
+        public ICollection<MangaComentary> Comentaries { get; set; }
         public string? Subtype { get; set; }
     }
 }

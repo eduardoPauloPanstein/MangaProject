@@ -34,5 +34,6 @@ namespace MvcPresentationLayer.Models.AnimeModel
         public string? YoutubeVideoId { get; set; }
         public string? ShowType { get; set; }
         public ICollection<Category> Categories { get; set; }
+        public ICollection<AnimeComentary> Comentaries { get; set; }
     }
 }
