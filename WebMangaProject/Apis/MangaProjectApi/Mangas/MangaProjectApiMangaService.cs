@@ -1,4 +1,5 @@
 ﻿using Entities.MangaS;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Shared;
 using Shared.Models.Manga;
@@ -9,6 +10,12 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 {
     public class MangaProjectApiMangaService : MangaProjectApiBase, IMangaProjectApiMangaService
     {
+        private readonly IDistributedCache _distributedCache;
+
+        public MangaProjectApiMangaService(IDistributedCache distributedCache)
+        {
+            this._distributedCache = distributedCache;
+        }
         public async Task<Response> Delete(int? id, string token)
         {
             try
@@ -116,14 +123,27 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         {
             try
             {
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByFavorites/skip/{skip}/take/{take}");
-                if (!responseHttp.IsSuccessStatusCode)
+                var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Manga.GetByFavorites   );
+                if (json != null)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>();
+                    var animeCatalog = JsonConvert.DeserializeObject<List<MangaCatalog>>(json);
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animeCatalog);
                 }
-                var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                else
+                {
+                    using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByFavorites/skip/{skip}/take/{take}");
+                    if (!responseHttp.IsSuccessStatusCode)
+                    {
+                        return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(null);
+                    }
+                    var data = await responseHttp.Content.ReadAsStringAsync();
+                    var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
+
+                    json = JsonConvert.SerializeObject(dataResponse.Data);
+                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.Manga.GetByFavorites, json);
+
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                }
             }
             catch (Exception ex)
             {
@@ -135,14 +155,27 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         {
             try
             {
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByUserCount/skip/{skip}/take/{take}");
-                if (!responseHttp.IsSuccessStatusCode)
+                var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Manga.GetByUserCount);
+                if (json != null)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(null);
+                    var animeCatalog = JsonConvert.DeserializeObject<List<MangaCatalog>>(json);
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animeCatalog);
                 }
-                var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                else
+                {
+                    using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByUserCount/skip/{skip}/take/{take}");
+                    if (!responseHttp.IsSuccessStatusCode)
+                    {
+                        return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(null);
+                    }
+                    var data = await responseHttp.Content.ReadAsStringAsync();
+                    var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
+
+                    json = JsonConvert.SerializeObject(dataResponse.Data);
+                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.Manga.GetByUserCount, json);
+
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                }
             }
             catch (Exception ex)
             {
@@ -177,14 +210,27 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         {
             try
             {
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByRating/skip/{skip}/take/{take}");
-                if (!responseHttp.IsSuccessStatusCode)
+                var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Manga.GetByRating);
+                if (json != null)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(null);
+                    var animeCatalog = JsonConvert.DeserializeObject<List<MangaCatalog>>(json);
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animeCatalog);
                 }
-                var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                else
+                {
+                    using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByRating/skip/{skip}/take/{take}");
+                    if (!responseHttp.IsSuccessStatusCode)
+                    {
+                        return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(null);
+                    }
+                    var data = await responseHttp.Content.ReadAsStringAsync();
+                    var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
+
+                    json = JsonConvert.SerializeObject(dataResponse.Data);
+                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.Manga.GetByRating, json);
+
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                }
             }
             catch (Exception ex)
             {
@@ -194,16 +240,30 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 
         public async Task<DataResponse<MangaCatalog>> GetByPopularity(int skip, int take)
         {
+
             try
             {
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByPopularity/skip/{skip}/take/{take}");
-                if (!responseHttp.IsSuccessStatusCode)
+                var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Manga.GetByPopularity);
+                if (json != null)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>();
+                    var animeCatalog = JsonConvert.DeserializeObject<List<MangaCatalog>>(json);
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animeCatalog);
                 }
-                var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                else
+                {
+                    using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByPopularity/skip/{skip}/take/{take}");
+                    if (!responseHttp.IsSuccessStatusCode)
+                    {
+                        return ResponseFactory.CreateInstance().CreateFailedDataResponse<MangaCatalog>(null);
+                    }
+                    var data = await responseHttp.Content.ReadAsStringAsync();
+                    var dataResponse = JsonConvert.DeserializeObject<DataResponse<MangaCatalog>>(data);
+
+                    json = JsonConvert.SerializeObject(dataResponse.Data);
+                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.Manga.GetByPopularity, json);
+
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                }
             }
             catch (Exception ex)
             {
@@ -215,16 +275,27 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         {
             try
             {
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByCategory/{ID}");
-
-                if (!responseHttp.IsSuccessStatusCode)
+                var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Manga.GetByCategory);
+                if (json != null)
                 {
-                    return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>();
+                    var anime = JsonConvert.DeserializeObject<List<Manga>>(json);
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(anime);
                 }
-                var data = await responseHttp.Content.ReadAsStringAsync();
-                var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData<Manga>(dataResponse.Data);
+                else
+                {
+                    using HttpResponseMessage responseHttp = await client.GetAsync($"Manga/ByCategory/{ID}");
+                    if (!responseHttp.IsSuccessStatusCode)
+                    {
+                        return ResponseFactory.CreateInstance().CreateFailedDataResponse<Manga>(null);
+                    }
+                    var data = await responseHttp.Content.ReadAsStringAsync();
+                    var dataResponse = JsonConvert.DeserializeObject<DataResponse<Manga>>(data);
+
+                    json = JsonConvert.SerializeObject(dataResponse.Data);
+                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.Manga.GetByCategory, json);
+
+                    return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(dataResponse.Data);
+                }
             }
             catch (Exception ex)
             {

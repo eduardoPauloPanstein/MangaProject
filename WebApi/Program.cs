@@ -79,7 +79,7 @@ builder.Services.AddAuthentication(x =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Logging.AddLog4Net();
+//builder.Logging.AddLog4Net();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

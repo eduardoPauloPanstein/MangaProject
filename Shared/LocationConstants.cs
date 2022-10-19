@@ -13,6 +13,7 @@
     public class CacheKey
     {
         public AnimeCacheKey Anime = new();
+        public MangaCacheKey Manga = new();
 
     }
     public class AnimeCacheKey
@@ -30,6 +31,24 @@
             GetByRating = "GetAnimeByRating";
             GetByPopularity = "GetAnimeByPopularity";
             GetByCategory = "GetAnimeByCategory";
+        }
+
+    }
+    public class MangaCacheKey
+    {
+        public readonly string GetByUserCount;
+        public readonly string GetByFavorites;
+        public readonly string GetByRating;
+        public readonly string GetByPopularity;
+        public readonly string GetByCategory;
+
+        public MangaCacheKey()
+        {
+            GetByUserCount = "GetMangaByUserCount";
+            GetByFavorites = "GetMangaByFavorite";
+            GetByRating = "GetMangaByRating";
+            GetByPopularity = "GetMangaByPopularity";
+            GetByCategory = "GetMangaByCategory";
         }
 
     }

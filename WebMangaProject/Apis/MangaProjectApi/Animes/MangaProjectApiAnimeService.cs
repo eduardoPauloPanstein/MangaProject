@@ -44,7 +44,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
 
                 string serialized = JsonConvert.SerializeObject(item);
                 using HttpResponseMessage responseHttp = await client.PostAsJsonAsync("Anime", serialized);
-
+                
                 var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
 
                 if (responseHttp.IsSuccessStatusCode)
