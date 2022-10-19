@@ -45,7 +45,7 @@
                     foreach (var item in Model.MangaList)
                     {
                         <div class="card-item">
-                            <a class="custom-link" href="/Manga/MangaOnPage/@item.">
+                            <a class="custom-link" href="/Manga/MangaOnPage/@item.Manga.Id">
                                 <li>
                                     <img src=@item.Manga.PosterImageLink alt="@item.Manga.Titles?.Ja_jp" />
                                     <span>@item.Manga.CanonicalTitle</span>

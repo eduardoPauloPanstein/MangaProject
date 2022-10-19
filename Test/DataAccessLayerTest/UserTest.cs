@@ -38,7 +38,7 @@ namespace Test.DataAccessLayerTest
                 UserDAL u = new(context);
 
                 // Act  
-                var response = u.Get(1);
+                var response = u.Get(5);
                 var user = response.Result.Item;
                 var mangaList = user.MangaList;
 
