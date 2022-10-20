@@ -1,10 +1,16 @@
 ﻿using AutoMapper;
+using Entities.AnimeS;
 using Entities.Enums;
+using Entities.MangaS;
 using Entities.UserS;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
+using MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserAnimeItem;
+using MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserMangaItem;
+using MvcPresentationLayer.Models.AnimeModel;
+using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Models.User;
 using MvcPresentationLayer.Models.UserModel;
 using MvcPresentationLayer.Utilities;
@@ -20,13 +26,18 @@ namespace MvcPresentationLayer.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiUserService _userApiService;
+        private readonly IMangaProjectApiAnimeItem _userItemApiAnimeService;
+        private readonly IMangaProjectApiMangaItem _userItemApiMangaService;
+
         private string _filePath;
 
-        public UserController(IMapper mapper, IWebHostEnvironment env, IMangaProjectApiUserService userApiService)
+        public UserController(IMapper mapper, IWebHostEnvironment env, IMangaProjectApiUserService userApiService, IMangaProjectApiAnimeItem userItemApiAnimeService, IMangaProjectApiMangaItem userItemApiMangaService)
         {
             this._filePath = env.WebRootPath;
             this._mapper = mapper;
             this._userApiService = userApiService;
+            this._userItemApiMangaService = userItemApiMangaService;
+            this._userItemApiAnimeService = userItemApiAnimeService;
         }
 
         [HttpGet, Authorize(Policy = "Admin")]
@@ -72,7 +83,7 @@ namespace MvcPresentationLayer.Controllers
 
             return ResponseFactory.CreateInstance().CreateSuccessResponse();
         }
-      
+
         public void DeleteAvatarImage(string folder, string fileName)
         {
             string filePath = $"{_filePath}{folder}\\{fileName}";
@@ -108,7 +119,7 @@ namespace MvcPresentationLayer.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            user.CoverImageFileLocation= name;
+            user.CoverImageFileLocation = name;
 
             return ResponseFactory.CreateInstance().CreateSuccessResponse();
         }
@@ -235,7 +246,7 @@ namespace MvcPresentationLayer.Controllers
             await HttpContext.SignOutAsync("CookieSerieAuth");
         }
 
-        [HttpGet, Authorize]  
+        [HttpGet, Authorize]
         public async Task<IActionResult> Logout()
         {
             await LogoutAuthenticationAsync();
@@ -245,29 +256,39 @@ namespace MvcPresentationLayer.Controllers
         #endregion
 
         [HttpGet, Authorize]
-		public async Task<IActionResult> Profile()
-		{
+        public async Task<IActionResult> Profile()
+        {
             var ctx = HttpContext;
             int id = UserService.GetId(ctx);
 
-			if (!IsAmMyself(id))
-				return RedirectIfImNotMe();
+            if (!IsAmMyself(id))
+                return RedirectIfImNotMe();
 
-			SingleResponse<User> response = await _userApiService.Get(id, UserService.GetToken(ctx));
+            SingleResponse<User> response = await _userApiService.Get(id, UserService.GetToken(ctx));
+            var responseMangaFavorites = await _userItemApiMangaService.GetUserFavorites(id, null);
+            var responseAnimeFavorites = await _userItemApiAnimeService.GetUserFavorites(id, UserService.GetToken(ctx));
 
-			var user = _mapper.Map<UserProfileViewModel>(response.Item);
+            var user = _mapper.Map<UserProfileViewModel>(response.Item);
+            var animeFavorite = _mapper.Map<List<AnimeShortViewModel>>(responseAnimeFavorites.Data);
+            var mangaFavorite = _mapper.Map<List<MangaShortViewModel>>(responseMangaFavorites.Data);
 
+            UserProfileItemViewModel userProfileViewModel = new()
+            {
+               User = user,
+                FavoriteAnimeList = animeFavorite,
+                FavoriteMangaList = mangaFavorite
+            };
 
-			if (!response.HasSuccess)
+            if (!response.HasSuccess)
             {
                 return BadRequest(response);
             }
 
-			return View(user);
-		}
+            return View(userProfileViewModel);
+        }
 
 
-		[HttpGet, AllowAnonymous]
+        [HttpGet, AllowAnonymous]
         public IActionResult Create()
         {
             if (IsAuthenticated())
@@ -325,7 +346,7 @@ namespace MvcPresentationLayer.Controllers
                 return NotFound();
             }
 
-            UserProfileUpdate user = _mapper.Map<UserProfileUpdate>(userUpdate);
+            User user = _mapper.Map<User>(userUpdate);
             
             if (fileA != null)
             {

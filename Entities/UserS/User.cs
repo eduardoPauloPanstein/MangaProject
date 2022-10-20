@@ -22,6 +22,7 @@ namespace Entities.UserS
         public ICollection<UserMangaItem> MangaList { get; set; }
         public ICollection<UserAnimeItem> AnimeList { get; set; }
 
+
         public override void EnableEntity()
         {
             base.EnableEntity();

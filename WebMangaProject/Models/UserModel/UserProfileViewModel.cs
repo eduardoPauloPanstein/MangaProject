@@ -27,6 +27,5 @@ namespace MvcPresentationLayer.Models.UserModel
 
 		public ICollection<UserMangaItem> MangaList { get; set; }
         public ICollection<UserAnimeItem> AnimeList { get; set; }
-
-    }
+	}
 }

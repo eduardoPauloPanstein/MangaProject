@@ -1,4 +1,4 @@
-﻿@model MvcPresentationLayer.Models.UserModel.UserProfileViewModel
+﻿@model MvcPresentationLayer.Models.UserModel.UserProfileItemViewModel
 
 @{
     ViewData["Title"] = "Profile";
@@ -7,10 +7,10 @@
 
 <div class="profile-images">
     <img src="~/covers/@{
-                                @Model.CoverImageFileLocation
+                                @Model.User.CoverImageFileLocation
 }" class="cover-photo" />
     <img src="~/avatars/@{
-                                    @Model.AvatarImageFileLocation
+                                    @Model.User.AvatarImageFileLocation
 }" class="profile-icon" />
 </div>
 
@@ -20,12 +20,12 @@
 <div class="profile-container">
 
     <div class="profile-info">
-        <div class="profile-name">@Model.Nickname</div>
+        <div class="profile-name">@Model.User.Nickname</div>
 
         <div class="profile-about">
             <h5>About me:</h5>
             <hr />
-            <p class="about">@Model.About</p>
+            <p class="about">@Model.User.About</p>
         </div>
     </div>
 
@@ -41,12 +41,12 @@
 
             <div class="profile-manga-show active">
                 @{
-                    foreach (var item in Model.MangaList)
+                    foreach (var item in Model.FavoriteMangaList)
                     {
-                        <a href="/Manga/MangaOnPage/@item.Manga.Id">
+                        <a href="/Manga/MangaOnPage/@item.Id">
                             <li>
-                                <img src="@item.Manga.PosterImageLink">
-                                <span class="Profile-manga-name">@item.Manga.CanonicalTitle</span>
+                                <img src="@item.PosterImageLink">
+                                <span class="Profile-manga-name">@item.CanonicalTitle</span>
                             </li>
                         </a>
 
@@ -55,12 +55,12 @@
             </div>
             <div class="profile-anime-show">
                 @{
-                    foreach (var item in Model.AnimeList)
+                    foreach (var item in Model.FavoriteAnimeList)
                     {
-                        <a href="/Anime/MangaOnPage/@item.Anime.Id">
+                        <a href="/Anime/MangaOnPage/@item.Id">
                             <li>
-                                <img src="@item.Anime.AnimePosterImage">
-                                <span class="Profile-manga-name">@item.Anime.canonicalTitle</span>
+                                <img src="@item.AnimePosterImage">
+                                <span class="Profile-manga-name">@item.canonicalTitle</span>
                             </li>
                         </a>
 
@@ -73,7 +73,7 @@
     <div class="profile-geral-list">
         <div class="display-list">
             @{
-                foreach (var item in Model.MangaList)
+                foreach (var item in Model.User.MangaList)
                 {
                     <div>
                     <a class="dp-list-card" href="/Manga/MangaOnPage/@item.Manga.Id">
@@ -84,7 +84,7 @@
                     </a>
                     </div>
                 }
-                foreach (var item in Model.AnimeList)
+                foreach (var item in Model.User.AnimeList)
                 {
                     <div>
                         <a class="dp-list-card" href="/Anime/MangaOnPage/@item.Anime.Id">
@@ -159,16 +159,10 @@
             profileMangaShow.classList.toggle('active')
             profileAnimeShow.classList.toggle('active')
         }
-        else {
-            profileMangaShow.classList.toggle('active')
-        }
     }
     profileAnimeBtn.onclick = function () {
         if (profileMangaShow.classList.contains('active')) {
             profileMangaShow.classList.toggle('active')
-            profileAnimeShow.classList.toggle('active')
-        }
-        else {
             profileAnimeShow.classList.toggle('active')
         }
     }

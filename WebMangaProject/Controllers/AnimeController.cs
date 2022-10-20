@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
+using MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.AnimeComentary;
 using MvcPresentationLayer.Models.AnimeModel;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Utilities;
@@ -21,13 +22,14 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserAnimeItemService _userAnimeItem;
-
-        public AnimeController(IMapper mapper, IMangaProjectApiUserService userApiService, IMangaProjectApiAnimeService animeApiService, IUserAnimeItemService userAnimeItem)
+        private readonly IMangaProjectApiAnimeComentary _animeComentary;
+        public AnimeController(IMapper mapper, IMangaProjectApiUserService userApiService, IMangaProjectApiAnimeService animeApiService, IUserAnimeItemService userAnimeItem, IMangaProjectApiAnimeComentary animeComentary)
         {
             this._animeApiService = animeApiService;
             this._userApiService = userApiService;
             this._mapper = mapper;
             this._userAnimeItem = userAnimeItem;
+            this._animeComentary = animeComentary;
         }
 
         [HttpGet]
@@ -68,10 +70,9 @@ namespace MvcPresentationLayer.Controllers
             }
             List<AnimeShortViewModel> animeSugg = _mapper.Map<List<AnimeShortViewModel>>(responseSugg.Data);
 
-            //DataResponse<MangaComentary> responseComentary = new();
-            //responseComentary = await _mangaComentary.GetByManga(manga.Id);
+            DataResponse<AnimeComentary> responseComentary = await _animeComentary.GetByAnime(anime.Id);
 
-            //List<MangaComentaryViewModel> comments = _mapper.Map<List<MangaComentaryViewModel>>(responseComentary);
+            List<AnimeComentaryViewModel> comments = _mapper.Map<List<AnimeComentaryViewModel>>(responseComentary.Data);
 
             if (!hasItem)
             {
@@ -83,7 +84,8 @@ namespace MvcPresentationLayer.Controllers
             {
                 UserAnimeItem = userAnimeItem,
                 Anime = anime,
-                Recommendations = animeSugg
+                Recommendations = animeSugg,
+                Comments = comments
             };
             return View(animeItemModalViewModel);
         }

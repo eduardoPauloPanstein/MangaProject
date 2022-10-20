@@ -123,7 +123,7 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
         {
             try
             {
-                var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Manga.GetByFavorites   );
+                var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Manga.GetByFavorites);
                 if (json != null)
                 {
                     var animeCatalog = JsonConvert.DeserializeObject<List<MangaCatalog>>(json);

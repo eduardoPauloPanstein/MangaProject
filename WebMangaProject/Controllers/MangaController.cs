@@ -22,14 +22,15 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserMangaItemService _userMangaItem;
-        private readonly MangaComentaryService _mangaComentary;
+        private readonly IMangaProjectApiMangaComentary _mangaComentary;
 
-        public MangaController(IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService, IUserMangaItemService userMangaItem)
+        public MangaController(IMapper mapper, IMangaProjectApiMangaService mangaApiService, IMangaProjectApiUserService userService, IUserMangaItemService userMangaItem, IMangaProjectApiMangaComentary mangaComentary)
         {
             this._userMangaItem = userMangaItem;
             this._userApiService = userService;
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
+            this._mangaComentary = mangaComentary;
         }
 
         [HttpGet, AllowAnonymous]
@@ -150,10 +151,9 @@ namespace MvcPresentationLayer.Controllers
             }
             List<MangaShortViewModel> mangaSugg = _mapper.Map<List<MangaShortViewModel>>(responseSugg.Data);
 
-            //DataResponse<MangaComentary> responseComentary = new();
-            //responseComentary = await _mangaComentary.GetByManga(manga.Id);
+            DataResponse<MangaComentary> responseComentary = await _mangaComentary.GetByManga(manga.Id);
 
-            //List<MangaComentaryViewModel> comments = _mapper.Map<List<MangaComentaryViewModel>>(responseComentary);
+            List<MangaComentaryViewModel> comments = _mapper.Map<List<MangaComentaryViewModel>>(responseComentary.Data);
 
             if (!hasItem)
             {
@@ -166,7 +166,7 @@ namespace MvcPresentationLayer.Controllers
                 UserMangaItem = userMangaItem,
                 Manga = manga,
                 Recommendations = mangaSugg,
-                //Comments = comments
+                Comments = comments
             };
 
             return View(mangaItemModalViewModel);
