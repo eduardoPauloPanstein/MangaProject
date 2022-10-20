@@ -2,19 +2,19 @@
 
 namespace Entities.Enums
 {
-    public enum UserMangaStatus
+    public enum UserAnimeStatus
     {
-        [Display(Name = "Reading.")]
-        Reading,
+        [Display(Name = "Watching.")]
+        Watching,
 
-        [Display(Name = "Plan to read.")]
-        PlanToRead,
+        [Display(Name = "Plan to watch.")]
+        PlanToWatch,
 
         [Display(Name = "Completed.")]
         Completed,
 
         [Display(Name = "Rereading.")]
-        Rereading, 
+        ReWatching,
 
         [Display(Name = "Paused.")]
         Paused,

@@ -21,7 +21,7 @@ namespace Entities.UserS
         public int UserId { get; set; }
         public User User { get; set; }
 
-        public UserMangaStatus Status { get; set; }
+        public UserAnimeStatus Status { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public MangaScore? Score { get; set; }
