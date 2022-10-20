@@ -4,6 +4,7 @@ using MvcPresentationLayer.Models.AnimeModel;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Models.User;
 using MvcPresentationLayer.Models.UserModel;
+using Shared.Models.User;
 
 namespace MvcPresentationLayer.Profiles
 {
@@ -38,6 +39,13 @@ namespace MvcPresentationLayer.Profiles
 
             CreateMap<UserFavoriteAnimeViewModel, UserAnimeItem>();
             CreateMap<UserAnimeItem, UserFavoriteAnimeViewModel>();
+
+            CreateMap<User, UserProfileUpdate>();
+            CreateMap<UserProfileUpdate, User>();
+
+            CreateMap<UserProfileUpdate, UserUpdateViewModel>();
+            CreateMap<UserUpdateViewModel, UserProfileUpdate>();
+
         }
     }
 }

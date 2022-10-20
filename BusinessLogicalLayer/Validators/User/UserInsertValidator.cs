@@ -17,8 +17,8 @@
         {
             base.ValidateNickname();
             base.ValidateId();
-            base.ValidateEmail();
-            base.ValidatePassword();
+            //base.ValidateEmail();
+            //base.ValidatePassword();
             //validate about?
         }
     }

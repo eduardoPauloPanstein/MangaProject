@@ -86,6 +86,45 @@ namespace BusinessLogicalLayer.Implementations
             return await _unitOfWork.UserRepository.Get(skip, take);
         }
 
+        public async Task<Response> Update(UserProfileUpdate userProfile)
+        {
+            User userForValidate = new()
+            {
+                Id = userProfile.Id,
+                Nickname = userProfile.Nickname,
+                About = userProfile.About,
+                AvatarImageFileLocation = userProfile.AvatarImageFileLocation,
+                CoverImageFileLocation = userProfile.CoverImageFileLocation
+            };
+
+            Response response = new UserUpdateValidator().Validate(userForValidate).ConvertToResponse();
+            if (!response.HasSuccess)
+                return response;
+
+            var responseGetUser = await _unitOfWork.UserRepository.Get(userProfile.Id);
+            if (!responseGetUser.HasSuccess)
+                return responseGetUser;
+
+            User userDb = responseGetUser.Item;
+            userDb.AccessEntity();
+
+            userDb.Nickname = userProfile.Nickname;
+            userDb.About = userProfile.About;
+
+            if (userProfile.AvatarImageFileLocation != null)
+                userDb.AvatarImageFileLocation = userProfile.AvatarImageFileLocation;
+            if (userProfile.CoverImageFileLocation != null)
+                userDb.CoverImageFileLocation = userProfile.CoverImageFileLocation;
+            await _unitOfWork.UserRepository.Update(userDb);
+            return await _unitOfWork.CommitForUser();
+        }
+
+        public async Task<SingleResponse<User>> Login(UserLogin user)
+        {
+            user.Password = HashGenerator.ComputeSha256Hash(user.Password);
+            return await _unitOfWork.UserRepository.Login(user);
+        }
+
         public async Task<Response> Update(User user)
         {
             Response response = new UserUpdateValidator().Validate(user).ConvertToResponse();
@@ -107,15 +146,8 @@ namespace BusinessLogicalLayer.Implementations
                 userDb.AvatarImageFileLocation = user.AvatarImageFileLocation;
             if (user.CoverImageFileLocation != null)
                 userDb.CoverImageFileLocation = user.CoverImageFileLocation;
-
+            await _unitOfWork.UserRepository.Update(user);
             return await _unitOfWork.CommitForUser();
         }
-
-        public async Task<SingleResponse<User>> Login(UserLogin user)
-        {
-            user.Password = HashGenerator.ComputeSha256Hash(user.Password);
-            return await _unitOfWork.UserRepository.Login(user);
-        }
-
     }
 }

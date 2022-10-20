@@ -42,21 +42,9 @@ namespace MvcPresentationLayer.Controllers
             return View(users);
         }
 
-        public Response ImageFileValidator(IFormFile file)
-        {
-            switch (file.ContentType)
-            {
-                case "image/jpeg": return ResponseFactory.CreateInstance().CreateSuccessResponse();
-                case "image/bmp": return ResponseFactory.CreateInstance().CreateSuccessResponse();
-                case "image/gif": return ResponseFactory.CreateInstance().CreateSuccessResponse();
-                case "image/png": return ResponseFactory.CreateInstance().CreateSuccessResponse();
 
-                default:
-                    return ResponseFactory.CreateInstance().CreateFailedResponse(null);
-            }
-        }
         #region Avatar
-        public async Task<Response> SaveAvatarFileAsync(IFormFile file, User user)
+        public async Task<Response> SaveAvatarFileAsync(IFormFile file, UserProfileUpdate user)
         {
             var response = ImageFileValidator(file);
             if (!response.HasSuccess)
@@ -96,7 +84,7 @@ namespace MvcPresentationLayer.Controllers
         #endregion
 
         #region Cover
-        public async Task<Response> SaveCoverFileAsync(IFormFile file, User user)
+        public async Task<Response> SaveCoverFileAsync(IFormFile file, UserProfileUpdate user)
         {
             var response = ImageFileValidator(file);
             if (!response.HasSuccess)
@@ -166,6 +154,20 @@ namespace MvcPresentationLayer.Controllers
         {
             var userSelectResponse = await _userApiService.Get(id, UserService.GetToken(HttpContext));
             return userSelectResponse.HasSuccess;
+        }
+
+        public Response ImageFileValidator(IFormFile file)
+        {
+            switch (file.ContentType)
+            {
+                case "image/jpeg": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/bmp": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/gif": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+                case "image/png": return ResponseFactory.CreateInstance().CreateSuccessResponse();
+
+                default:
+                    return ResponseFactory.CreateInstance().CreateFailedResponse(null);
+            }
         }
 
         [Authorize]
@@ -273,7 +275,7 @@ namespace MvcPresentationLayer.Controllers
 
             return View();
         }
-        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
+        [HttpPost, AllowAnonymous]
         public async Task<IActionResult> Create(UserLoginPageViewModel userCreate)
         {
             //User user = _mapper.Map<User>(viewModel);
@@ -313,7 +315,7 @@ namespace MvcPresentationLayer.Controllers
             return View(userUpdate);
         }
         
-        [HttpPost, ValidateAntiForgeryToken, Authorize]
+        [HttpPost, Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,About,AvatarImage,CoverImage")] UserUpdateViewModel userUpdate, IFormFile fileA, IFormFile fileC)
         {
             Response response;
@@ -323,7 +325,7 @@ namespace MvcPresentationLayer.Controllers
                 return NotFound();
             }
 
-            User user = _mapper.Map<User>(userUpdate);
+            UserProfileUpdate user = _mapper.Map<UserProfileUpdate>(userUpdate);
             
             if (fileA != null)
             {
@@ -345,7 +347,7 @@ namespace MvcPresentationLayer.Controllers
         }
 
 
-        [HttpPost, ValidateAntiForgeryToken, Authorize]
+        [HttpPost, Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             //only admin or the logged in user

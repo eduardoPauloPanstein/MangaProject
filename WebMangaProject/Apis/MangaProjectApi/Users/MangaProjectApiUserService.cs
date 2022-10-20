@@ -117,12 +117,21 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
 
         public async Task<Response> Update(User user, string token)
         {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response> Insert(User item, string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response> Update(UserProfileUpdate userProfileUpdate, string token)
+        {
             try
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                //string serialized = JsonConvert.SerializeObject(user);
-                using HttpResponseMessage responseHttp = await client.PutAsJsonAsync($"User/{user.Id}", user);
+                using HttpResponseMessage responseHttp = await client.PutAsJsonAsync($"User/{userProfileUpdate.Id}", userProfileUpdate);
 
                 var response = JsonConvert.DeserializeObject<Response>(responseHttp.Content.ReadAsStringAsync().Result);
 
@@ -136,11 +145,6 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
             {
                 return ResponseFactory.CreateInstance().CreateFailedResponse(ex);
             }
-        }
-
-        public Task<Response> Insert(User item, string token)
-        {
-            throw new NotImplementedException();
         }
     }
 }

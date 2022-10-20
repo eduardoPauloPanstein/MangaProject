@@ -3,6 +3,7 @@ using Entities.UserS;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Shared;
 using Shared.Models.User;
 using Shared.Responses;
@@ -76,7 +77,7 @@ namespace WebApi.Controllers
             return Ok(response);
         }
         [HttpPut("{id}"), Authorize]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] User user)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] UserProfileUpdate user) 
         {
             if (!UserService.IsAdmin(HttpContext))
             {
