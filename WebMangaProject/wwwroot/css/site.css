@@ -730,6 +730,9 @@ abbr[title] {
     .profile-geral-list .display-list {
         margin: 1%;
         width: 50%;
+        display: grid;
+        grid-template-columns: 85% 85% 85%;
+        grid-gap: 40px;
     }
 
         .profile-geral-list .display-list div {

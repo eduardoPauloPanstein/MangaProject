@@ -7,10 +7,10 @@
 
 <div class="profile-images">
     <img src="~/covers/@{
-                        @Model.CoverImageFileLocation
+                                @Model.CoverImageFileLocation
 }" class="cover-photo" />
     <img src="~/avatars/@{
-                            @Model.AvatarImageFileLocation
+                                    @Model.AvatarImageFileLocation
 }" class="profile-icon" />
 </div>
 
@@ -72,53 +72,78 @@
 
     <div class="profile-geral-list">
         <div class="display-list">
+            @{
+                foreach (var item in Model.MangaList)
+                {
+                    <div>
+                    <a class="dp-list-card" href="/Manga/MangaOnPage/@item.Manga.Id">
+                        <li>
+                            <img src="@item.Manga.PosterImageLink">
+                            <span class="Profile-manga-name">@item.Manga.CanonicalTitle</span>
+                        </li>
+                    </a>
+                    </div>
+                }
+                foreach (var item in Model.AnimeList)
+                {
+                    <div>
+                        <a class="dp-list-card" href="/Anime/MangaOnPage/@item.Anime.Id">
+                            <li>
+                                <img src="@item.Anime.AnimePosterImage">
+                                <span class="Profile-manga-name">@item.Anime.canonicalTitle</span>
+                            </li>
+                        </a>
+                    </div>
+                }
+            }
+            @*
             <div>
-                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
-                    <li>
-                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
-                        <span>One Piece</span>
-                    </li>
-                </a>
+            <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+            <li>
+            <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+            <span>One Piece</span>
+            </li>
+            </a>
             </div>
             <div>
-                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
-                    <li>
-                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
-                        <span>One Piece</span>
-                    </li>
-                </a>
+            <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+            <li>
+            <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+            <span>One Piece</span>
+            </li>
+            </a>
             </div>
             <div>
-                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
-                    <li>
-                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
-                        <span>One Piece</span>
-                    </li>
-                </a>
+            <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+            <li>
+            <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+            <span>One Piece</span>
+            </li>
+            </a>
             </div><div>
-                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
-                    <li>
-                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
-                        <span>One Piece</span>
-                    </li>
-                </a>
+            <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+            <li>
+            <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+            <span>One Piece</span>
+            </li>
+            </a>
             </div>
             <div>
-                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
-                    <li>
-                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
-                        <span>One Piece</span>
-                    </li>
-                </a>
+            <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+            <li>
+            <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+            <span>One Piece</span>
+            </li>
+            </a>
             </div>
             <div>
-                <a class="dp-list-card" href="/Manga/MangaOnPage/38">
-                    <li>
-                        <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
-                        <span>One Piece</span>
-                    </li>
-                </a>
-            </div>
+            <a class="dp-list-card" href="/Manga/MangaOnPage/38">
+            <li>
+            <img src="https://media.kitsu.io/manga/38/poster_image/cf836629b0dde8c350666fdde6ed15cf.jpg " />
+            <span>One Piece</span>
+            </li>
+            </a>
+            </div>*@
         </div>
     </div>
 </div>
