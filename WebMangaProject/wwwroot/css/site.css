@@ -493,6 +493,7 @@ abbr[title] {
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
     max-height: 300px;
     overflow: auto;
+    align-content: flex-start;
 }
 
 .profile-name {
@@ -581,8 +582,8 @@ abbr[title] {
 
         .profile-manga-show a li img {
             border-radius: 5px;
-            height: 80px;
-            width: 65px;
+            height: 100px;
+            width: 85px;
         }
 
         .profile-manga-show a li {
@@ -633,8 +634,8 @@ abbr[title] {
 
         .profile-anime-show a li img {
             border-radius: 5px;
-            height: 80px;
-            width: 65px;
+            height: 100px;
+            width: 85px;
         }
 
         .profile-anime-show a li {
@@ -733,6 +734,7 @@ abbr[title] {
         display: grid;
         grid-template-columns: 85% 85% 85%;
         grid-gap: 40px;
+        column-gap: 80px;
     }
 
         .profile-geral-list .display-list div {
@@ -759,8 +761,8 @@ abbr[title] {
 
         .dp-list-card li img {
             border-radius: 5px;
-            height: 80px;
-            width: 65px;
+            height: 100px;
+            width: 85px;
         }
 /*#endregion */
 

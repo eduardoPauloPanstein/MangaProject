@@ -11,7 +11,10 @@ namespace MvcPresentationLayer.Profiles
         public ComentProfile()
         {
             CreateMap<MangaComentaryViewModel, MangaComentary>();
+            CreateMap<MangaComentary, MangaComentaryViewModel>();
+
             CreateMap<AnimeComentaryViewModel, MangaComentary>();
+            CreateMap<MangaComentary, AnimeComentaryViewModel>();
 
         }
     }
