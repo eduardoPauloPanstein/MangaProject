@@ -18,19 +18,18 @@
     }
     public class AnimeCacheKey
     {
-        public readonly string GetByUserCount;
-        public readonly string GetByFavorites;
-        public readonly string GetByRating;
+        public readonly string GetTop7AnimesCatalogByUserCount;
+        public readonly string GetTop7AnimesCatalogByFavorites;
+        public readonly string GetTop7AnimesCatalogByRating;
         public readonly string GetByPopularity;
-        public readonly string GetByCategory;
+
 
         public AnimeCacheKey()
         {
-            GetByUserCount = "GetAnimeByUserCount";
-            GetByFavorites = "GetAnimeByFavorite";
-            GetByRating = "GetAnimeByRating";
+            GetTop7AnimesCatalogByUserCount = "GetTop7AnimesCatalogByUserCount";
+            GetTop7AnimesCatalogByFavorites = "GetTop7AnimesCatalogByFavorites";
+            GetTop7AnimesCatalogByRating = "GetTop7AnimesCatalogByRating";
             GetByPopularity = "GetAnimeByPopularity";
-            GetByCategory = "GetAnimeByCategory";
         }
 
     }
@@ -40,7 +39,6 @@
         public readonly string GetByFavorites;
         public readonly string GetByRating;
         public readonly string GetByPopularity;
-        public readonly string GetByCategory;
 
         public MangaCacheKey()
         {
@@ -48,7 +46,6 @@
             GetByFavorites = "GetMangaByFavorite";
             GetByRating = "GetMangaByRating";
             GetByPopularity = "GetMangaByPopularity";
-            GetByCategory = "GetMangaByCategory";
         }
 
     }
