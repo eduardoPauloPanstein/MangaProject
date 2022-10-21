@@ -346,7 +346,7 @@ namespace MvcPresentationLayer.Controllers
                 return NotFound();
             }
 
-            User user = _mapper.Map<User>(userUpdate);
+            UserProfileUpdate user = _mapper.Map<UserProfileUpdate>(userUpdate);
             
             if (fileA != null)
             {

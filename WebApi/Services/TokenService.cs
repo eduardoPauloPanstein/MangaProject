@@ -16,9 +16,9 @@ namespace WebApi.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new Claim(ClaimTypes.PrimarySid, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Nickname),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
-
                 }),
 
                 Expires = DateTime.UtcNow.AddHours(2),

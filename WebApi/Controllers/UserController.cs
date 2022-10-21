@@ -122,11 +122,11 @@ namespace WebApi.Controllers
             //mvc need a SingleResponseWToken return 
             _log.Debug("Trying to authenticate.");
 
-            if (UserService.IsAuthenticated(HttpContext))
-            {
-                _log.Warn("User is already authenticated.");
-                return BadRequest("User is authenticated.");
-            }
+            //if (UserService.IsAuthenticated(HttpContext))
+            //{
+            //    _log.Warn("User is already authenticated.");
+            //    return BadRequest("User is authenticated.");
+            //}
 
             var response = await _userService.Login(user);
 
