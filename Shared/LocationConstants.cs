@@ -35,16 +35,16 @@
     }
     public class MangaCacheKey
     {
-        public readonly string GetByUserCount;
-        public readonly string GetByFavorites;
-        public readonly string GetByRating;
+        public readonly string GetTop7MangasCatalogByUserCount;
+        public readonly string GetTop7MangasCatalogByFavorites;
+        public readonly string GetTop7MangasCatalogByRating;
         public readonly string GetByPopularity;
 
         public MangaCacheKey()
         {
-            GetByUserCount = "GetMangaByUserCount";
-            GetByFavorites = "GetMangaByFavorite";
-            GetByRating = "GetMangaByRating";
+            GetTop7MangasCatalogByUserCount = "GetTop7MangasCatalogByUserCount";
+            GetTop7MangasCatalogByFavorites = "GetTop7MangasCatalogByFavorites";
+            GetTop7MangasCatalogByRating = "GetTop7MangasCatalogByRating";
             GetByPopularity = "GetMangaByPopularity";
         }
 

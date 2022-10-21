@@ -23,13 +23,17 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMangaProjectApiUserService _userApiService;
         private readonly IUserAnimeItemService _userAnimeItem;
         private readonly IMangaProjectApiAnimeComentary _animeComentary;
-        public AnimeController(IMapper mapper, IMangaProjectApiUserService userApiService, IMangaProjectApiAnimeService animeApiService, IUserAnimeItemService userAnimeItem, IMangaProjectApiAnimeComentary animeComentary)
+        private readonly ICacheService _cacheService;
+
+        public AnimeController(IMapper mapper, IMangaProjectApiUserService userApiService, IMangaProjectApiAnimeService animeApiService, IUserAnimeItemService userAnimeItem, IMangaProjectApiAnimeComentary animeComentary, ICacheService cacheService)
         {
             this._animeApiService = animeApiService;
             this._userApiService = userApiService;
             this._mapper = mapper;
             this._userAnimeItem = userAnimeItem;
             this._animeComentary = animeComentary;
+
+            this._cacheService = cacheService;
         }
 
         [HttpGet]
@@ -139,11 +143,12 @@ namespace MvcPresentationLayer.Controllers
         [HttpGet, AllowAnonymous]
         public IActionResult AllByUserCount() => RedirectToAction("All", new { by = "ByUserCount" });
         #endregion
+
         public async Task<IActionResult> Index()
         {
-            DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 7);
-            DataResponse<AnimeCatalog> responseAnimesByCount = await _animeApiService.GetByUserCount(0, 7);
-            DataResponse<AnimeCatalog> responseAnimesByRating = await _animeApiService.GetByRating(0, 7);
+            DataResponse<AnimeCatalog> responseAnimesFavorites = await _cacheService.GetTop7AnimesCatalogByFavorites();
+            DataResponse<AnimeCatalog> responseAnimesByCount = await _cacheService.GetTop7AnimesCatalogByUserCount();
+            DataResponse<AnimeCatalog> responseAnimesByRating = await _cacheService.GetTop7AnimesCatalogByRating();
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
@@ -165,9 +170,9 @@ namespace MvcPresentationLayer.Controllers
                 AnimesByRating = animeesbyrating
             };
 
-         
-
             return View(animesForHomeViewModel);
         }
+
+
     }
 }

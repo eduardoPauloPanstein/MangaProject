@@ -1,24 +1,15 @@
 ﻿using AutoMapper;
-using BusinessLogicalLayer.Interfaces.IAnimeInterfaces;
-using Entities.AnimeS;
 using Microsoft.AspNetCore.Mvc;
 using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
-using MvcPresentationLayer.Apis.MangaProjectApi;
 using Shared.Responses;
 using System.Diagnostics;
 using WebMangaProject.Models;
-using BusinessLogicalLayer.Interfaces.IUserInterfaces;
 using MvcPresentationLayer.Models.AnimeModel;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
-using BusinessLogicalLayer.Interfaces.IMangaInterfaces;
-using Entities.MangaS;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Models.HomePage;
-using Shared.Models.Anime;
 using Shared.Models.Manga;
-using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
-using Shared;
+using MvcPresentationLayer.Utilities;
 
 namespace MvcPresentationLayer.Controllers
 {
@@ -27,24 +18,21 @@ namespace MvcPresentationLayer.Controllers
         private readonly IMapper _mapper;
         private readonly IMangaProjectApiAnimeService _animeApiService;
         private readonly IMangaProjectApiMangaService _mangaApiService;
-        private readonly IDistributedCache _distributedCache;
+        private readonly ICacheService _cacheService;
 
-        public HomeController(IMapper mapper, IMangaProjectApiAnimeService animeApiService, IMangaProjectApiMangaService mangaApiService, IDistributedCache distributedCache)
+        public HomeController(IMapper mapper, IMangaProjectApiAnimeService animeApiService, IMangaProjectApiMangaService mangaApiService, ICacheService cacheService)
         {
             this._animeApiService = animeApiService;
             this._mapper = mapper;
             this._mangaApiService = mangaApiService;
-            this._distributedCache = distributedCache;
+            this._cacheService = cacheService;
         }
 
         public async Task<IActionResult> Index()
         {
-
-
-            //DataResponse<AnimeCatalog> responseAnimesFavorites = await _animeApiService.GetByFavorites(0, 7);
-            var responseAnimesFavorites = await GetTop7AnimesCatalogByFavorites();
-            var responseAnimesByCount = await GetTop7AnimesCatalogByUserCount();
-            var responseAnimesByRating = await GetTop7AnimesCatalogByRating();
+            var responseAnimesFavorites = await _cacheService.GetTop7AnimesCatalogByFavorites();
+            var responseAnimesByCount = await _cacheService.GetTop7AnimesCatalogByUserCount();
+            var responseAnimesByRating = await _cacheService.GetTop7AnimesCatalogByRating();
 
             if (!responseAnimesFavorites.HasSuccess || !responseAnimesByCount.HasSuccess || !responseAnimesByRating.HasSuccess)
             {
@@ -59,10 +47,9 @@ namespace MvcPresentationLayer.Controllers
 
             List<AnimeShortViewModel> animesByRating = _mapper.Map<List<AnimeShortViewModel>>(responseAnimesByRating.Data);
 
-
-            DataResponse<MangaCatalog> responseMangaFavorites = await _mangaApiService.GetByFavorites(0, 7);
-            DataResponse<MangaCatalog> responseMangaCount = await _mangaApiService.GetByUserCount(0, 7);
-            DataResponse<MangaCatalog> responseMangaRating = await _mangaApiService.GetByRating(0, 7);
+            DataResponse<MangaCatalog> responseMangaFavorites = await _cacheService.GetTop7MangasCatalogByFavorites();
+            DataResponse<MangaCatalog> responseMangaCount = await _cacheService.GetTop7MangasCatalogByUserCount();
+            DataResponse<MangaCatalog> responseMangaRating = await _cacheService.GetTop7MangasCatalogByRating();
 
             if (!responseMangaFavorites.HasSuccess || !responseMangaCount.HasSuccess || !responseMangaRating.HasSuccess)
             {
@@ -98,64 +85,5 @@ namespace MvcPresentationLayer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        #region Utilites
-        private async Task<DataResponse<AnimeCatalog>> GetTop7AnimesCatalogByFavorites()
-        {
-            var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Anime.GetTop7AnimesCatalogByFavorites);
-            if (json != null)
-            {
-                var animeCatalog = JsonConvert.DeserializeObject<List<AnimeCatalog>>(json);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animeCatalog);
-            }
-            else
-            {
-                DataResponse<AnimeCatalog> response = await _animeApiService.GetByFavorites(0, 7);
-                if (response.HasSuccess)
-                {
-                    json = JsonConvert.SerializeObject(response.Data);
-                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.Manga.GetByFavorites, json);
-                }
-                return response;
-            }
-        }
-        private async Task<DataResponse<AnimeCatalog>> GetTop7AnimesCatalogByUserCount()
-        {
-            var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Anime.GetTop7AnimesCatalogByUserCount);
-            if (json != null)
-            {
-                var animeCatalog = JsonConvert.DeserializeObject<List<AnimeCatalog>>(json);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animeCatalog);
-            }
-            else
-            {
-                DataResponse<AnimeCatalog> response = await _animeApiService.GetByUserCount(0, 7);
-                if (response.HasSuccess)
-                {
-                    json = JsonConvert.SerializeObject(response.Data);
-                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.Manga.GetByFavorites, json);
-                }
-                return response;
-            }
-        }
-        private async Task<DataResponse<AnimeCatalog>> GetTop7AnimesCatalogByRating()
-        {
-            var json = await _distributedCache.GetStringAsync(LocationConstants.CacheKey.Anime.GetTop7AnimesCatalogByRating);
-            if (json != null)
-            {
-                var animeCatalog = JsonConvert.DeserializeObject<List<AnimeCatalog>>(json);
-                return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(animeCatalog);
-            }
-            else
-            {
-                DataResponse<AnimeCatalog> response = await _animeApiService.GetByRating(0, 7);
-                if (response.HasSuccess)
-                {
-                    json = JsonConvert.SerializeObject(response.Data);
-                    await _distributedCache.SetStringAsync(LocationConstants.CacheKey.Manga.GetByFavorites, json);
-                }
-                return response;
-            }
-        }
-        #endregion
     }
 }

@@ -64,7 +64,7 @@ namespace DataAccessLayer.Implementations.UserComentaryDAL
         {
             try
             {
-                List<MangaComentary> user = await _db.MangaComentaries.Where(u => u.MangaId == MangaID).ToListAsync();
+                List<MangaComentary> user = await _db.MangaComentaries.Where(u => u.MangaId == MangaID).Include(u => u.User).ToListAsync();
 
                 return ResponseFactory.CreateInstance().CreateResponseBasedOnCollectionData(user);
             }

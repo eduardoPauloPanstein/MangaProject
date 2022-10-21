@@ -30,6 +30,7 @@ using MvcPresentationLayer.Apis.MangaProjectApi.ItemComentary.MangaComentary;
 using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserAnimeItem;
 using MvcPresentationLayer.Apis.MangaProjectApi.UserItem.UserMangaItem;
+using MvcPresentationLayer.Utilities;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,13 +43,15 @@ builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Re
 
 #region Services
 
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IUserService, BusinessLogicalLayer.Implementations.UserService>();
 builder.Services.AddTransient<IMangaService, MangaService>();
 builder.Services.AddTransient<IAnimeService, AnimeService>();
 builder.Services.AddTransient<IUserMangaItemService, UserMangaItemService>();
 builder.Services.AddTransient<IUserAnimeItemService, UserAnimeItemService>();
 builder.Services.AddTransient<IMangaComentary, MangaComentaryService>();
 builder.Services.AddTransient<IAnimeComentary, AnimeComentaryService>();
+
+builder.Services.AddTransient<ICacheService, CacheService>();
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 

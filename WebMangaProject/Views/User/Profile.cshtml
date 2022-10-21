@@ -41,15 +41,18 @@
 
             <div class="profile-manga-show active">
                 @{
-                    foreach (var item in Model.FavoriteMangaList)
+                    foreach (var item in Model.User.MangaList)
                     {
+                        if(item.Favorite){
+
                         <a href="/Manga/MangaOnPage/@item.Id">
                             <li>
-                                <img src="@item.PosterImageLink">
-                                <span class="Profile-manga-name">@item.CanonicalTitle</span>
+                                <img src="@item.Manga.PosterImageLink">
+                                <span class="Profile-manga-name">@item.Manga.CanonicalTitle</span>
                             </li>
                         </a>
 
+                        }
                     }
                 }
             </div>
