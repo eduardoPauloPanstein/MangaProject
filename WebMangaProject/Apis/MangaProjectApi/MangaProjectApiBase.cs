@@ -6,9 +6,11 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi
     {
         public HttpClient client = new();
 
+        //socket exaustation - HttpClient -> DI
+
         public MangaProjectApiBase()
         {
-            client.BaseAddress = new Uri("https://localhost:7164/api/");   //https://animalistwebapiservice.azurewebsites.net/api/ //https://localhost:7164/api/
+            client.BaseAddress = new Uri("https://animalistwebapiservice.azurewebsites.net/api/");   //https://animalistwebapiservice.azurewebsites.net/api/ //https://localhost:7164/api/
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
