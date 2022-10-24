@@ -10,12 +10,6 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Animes
 {
     public class MangaProjectApiAnimeService : MangaProjectApiBase, IMangaProjectApiAnimeService
     {
-        private readonly IDistributedCache _distributedCache;
-
-        public MangaProjectApiAnimeService(IDistributedCache distributedCache)
-        {
-            this._distributedCache = distributedCache;
-        }
 
         public async Task<Response> Delete(int? id, string token)
         {

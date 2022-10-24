@@ -265,18 +265,18 @@ namespace MvcPresentationLayer.Controllers
                 return RedirectIfImNotMe();
 
             SingleResponse<User> response = await _userApiService.Get(id, UserService.GetToken(ctx));
-            var responseMangaFavorites = await _userItemApiMangaService.GetUserFavorites(id, null);
-            var responseAnimeFavorites = await _userItemApiAnimeService.GetUserFavorites(id, UserService.GetToken(ctx));
+            //var responseMangaFavorites = await _userItemApiMangaService.GetUserFavorites(id, null);
+            //var responseAnimeFavorites = await _userItemApiAnimeService.GetUserFavorites(id, UserService.GetToken(ctx));
 
             var user = _mapper.Map<UserProfileViewModel>(response.Item);
-            var animeFavorite = _mapper.Map<List<AnimeShortViewModel>>(responseAnimeFavorites.Data);
-            var mangaFavorite = _mapper.Map<List<MangaShortViewModel>>(responseMangaFavorites.Data);
+            //var animeFavorite = _mapper.Map<List<AnimeShortViewModel>>(responseAnimeFavorites.Data);
+            //var mangaFavorite = _mapper.Map<List<MangaShortViewModel>>(responseMangaFavorites.Data);
 
             UserProfileItemViewModel userProfileViewModel = new()
             {
-               User = user,
-                FavoriteAnimeList = animeFavorite,
-                FavoriteMangaList = mangaFavorite
+               User = user
+                //FavoriteAnimeList = animeFavorite,
+                //FavoriteMangaList = mangaFavorite
             };
 
             if (!response.HasSuccess)

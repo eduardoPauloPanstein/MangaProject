@@ -1,5 +1,4 @@
 ﻿using Entities.MangaS;
-using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Shared;
 using Shared.Models.Manga;
@@ -10,12 +9,6 @@ namespace MvcPresentationLayer.Apis.MangaProjectApi.Mangas
 {
     public class MangaProjectApiMangaService : MangaProjectApiBase, IMangaProjectApiMangaService
     {
-        private readonly IDistributedCache _distributedCache;
-
-        public MangaProjectApiMangaService(IDistributedCache distributedCache)
-        {
-            this._distributedCache = distributedCache;
-        }
         public async Task<Response> Delete(int? id, string token)
         {
             try

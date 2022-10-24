@@ -152,9 +152,8 @@
                     foreach (var item in Model.Comments)
                     {
                         <div>
-                            <img src="@item.User.AvatarImageFileLocation" />
-                            <h5>@item.User.Nickname</h5>
-                            <span>@item.Comentary</span>
+                            <img src="~/avatars/@item.User.AvatarImageFileLocation" width="90" height="90"/>
+                            <span> <b>@item.User.Nickname:</b> @item.Comentary </span>
                         </div>
                     }
                 }

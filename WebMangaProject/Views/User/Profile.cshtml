@@ -7,10 +7,10 @@
 
 <div class="profile-images">
     <img src="~/covers/@{
-                                @Model.User.CoverImageFileLocation
+                                            @Model.User.CoverImageFileLocation
 }" class="cover-photo" />
     <img src="~/avatars/@{
-                                    @Model.User.AvatarImageFileLocation
+                                                @Model.User.AvatarImageFileLocation
 }" class="profile-icon" />
 </div>
 
@@ -45,12 +45,12 @@
                     {
                         if(item.Favorite){
 
-                        <a href="/Manga/MangaOnPage/@item.Id">
-                            <li>
-                                <img src="@item.Manga.PosterImageLink">
-                                <span class="Profile-manga-name">@item.Manga.CanonicalTitle</span>
-                            </li>
-                        </a>
+                                    <a href="/Manga/MangaOnPage/@item.Id">
+                                        <li>
+                                            <img src="@item.Manga.PosterImageLink">
+                                            <span class="Profile-manga-name">@item.Manga.CanonicalTitle</span>
+                                        </li>
+                                    </a>
 
                         }
                     }
@@ -58,15 +58,17 @@
             </div>
             <div class="profile-anime-show">
                 @{
-                    foreach (var item in Model.FavoriteAnimeList)
+                    foreach (var item in Model.User.AnimeList)
                     {
-                        <a href="/Anime/MangaOnPage/@item.Id">
-                            <li>
-                                <img src="@item.AnimePosterImage">
-                                <span class="Profile-manga-name">@item.canonicalTitle</span>
-                            </li>
-                        </a>
-
+                        if (item.Favorite)
+                        {
+                                        <a href="/Anime/MangaOnPage/@item.Id">
+                                            <li>
+                                                <img src="@item.Anime.AnimePosterImage">
+                                                <span class="Profile-manga-name">@item.Anime.canonicalTitle</span>
+                                            </li>
+                                        </a>
+                        }
                     }
                 }
             </div>
@@ -78,25 +80,45 @@
             @{
                 foreach (var item in Model.User.MangaList)
                 {
-                    <div>
-                    <a class="dp-list-card" href="/Manga/MangaOnPage/@item.Manga.Id">
-                        <li>
-                            <img src="@item.Manga.PosterImageLink">
-                            <span class="Profile-manga-name">@item.Manga.CanonicalTitle</span>
-                        </li>
-                    </a>
-                    </div>
+                                <div>
+                                <a class="dp-list-card" href="/Manga/MangaOnPage/@item.Manga.Id">
+                                    <li>
+                                        <img src="@item.Manga.PosterImageLink">
+                                        <span class="Profile-manga-name">@item.Manga.CanonicalTitle</span>
+                                        <span> | </span>
+                                        <span class="Profile-manga-name">@item.Status</span>
+                                @{
+
+                                    int score = Convert.ToInt32(@item.Score);
+                                    if (score > 0)
+                                    {
+                                        <span> | </span>
+                                        for (int i = 0; i < score; i++)
+                                        {
+                                            <span>&#11088;</span>
+                                        }
+                                    }
+                                    if (@item.Favorite)
+                                    {
+                                        <span> | </span>
+                                        <span>&#10084;</span>
+                                    }
+                                }
+                                
+                                    </li>
+                                </a>
+                                </div>
                 }
                 foreach (var item in Model.User.AnimeList)
                 {
-                    <div>
-                        <a class="dp-list-card" href="/Anime/MangaOnPage/@item.Anime.Id">
-                            <li>
-                                <img src="@item.Anime.AnimePosterImage">
-                                <span class="Profile-manga-name">@item.Anime.canonicalTitle</span>
-                            </li>
-                        </a>
-                    </div>
+                                <div>
+                                    <a class="dp-list-card" href="/Anime/MangaOnPage/@item.Anime.Id">
+                                        <li>
+                                            <img src="@item.Anime.AnimePosterImage">
+                                            <span class="Profile-manga-name">@item.Anime.canonicalTitle</span>
+                                        </li>
+                                    </a>
+                                </div>
                 }
             }
             @*
