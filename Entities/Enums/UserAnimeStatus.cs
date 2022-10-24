@@ -13,7 +13,7 @@ namespace Entities.Enums
         [Display(Name = "Completed.")]
         Completed,
 
-        [Display(Name = "Rereading.")]
+        [Display(Name = "Rewatching.")]
         ReWatching,
 
         [Display(Name = "Paused.")]
