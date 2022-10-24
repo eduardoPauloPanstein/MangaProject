@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using MvcPresentationLayer.Apis.MangaProjectApi.Animes;
 using Shared.Responses;
 using System.Diagnostics;
 using WebMangaProject.Models;
 using MvcPresentationLayer.Models.AnimeModel;
-using MvcPresentationLayer.Apis.MangaProjectApi.Mangas;
 using MvcPresentationLayer.Models.MangaModels;
 using MvcPresentationLayer.Models.HomePage;
 using Shared.Models.Manga;
@@ -16,15 +14,11 @@ namespace MvcPresentationLayer.Controllers
     public class HomeController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IMangaProjectApiAnimeService _animeApiService;
-        private readonly IMangaProjectApiMangaService _mangaApiService;
         private readonly ICacheService _cacheService;
 
-        public HomeController(IMapper mapper, IMangaProjectApiAnimeService animeApiService, IMangaProjectApiMangaService mangaApiService, ICacheService cacheService)
+        public HomeController(IMapper mapper, ICacheService cacheService)
         {
-            this._animeApiService = animeApiService;
             this._mapper = mapper;
-            this._mangaApiService = mangaApiService;
             this._cacheService = cacheService;
         }
 
