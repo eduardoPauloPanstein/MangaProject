@@ -531,7 +531,7 @@ abbr[title] {
 }
 
 .btn-config {
-    width: 25%;
+    width: 15%;
     margin: 15px;
     display: flex;
     flex-direction: column;
@@ -544,7 +544,8 @@ abbr[title] {
     width: 100%;
     margin: 15px;
 }
-
+/*#region show */
+/*#region mangashow */
 .profile-manga-show {
     padding: 10px 8px;
     display: none;
@@ -577,7 +578,7 @@ abbr[title] {
 
         .profile-manga-show a li span {
             padding-left: 8px;
-            color:#fff;
+            color: #fff;
         }
 
         .profile-manga-show a li img {
@@ -595,8 +596,9 @@ abbr[title] {
             border-radius: 3px;
             display: none;
         }
+/*#endregion */
 
-
+/*#region animeshow */
 .profile-anime-show {
     padding: 10px 8px;
     display: none;
@@ -647,58 +649,373 @@ abbr[title] {
             border-radius: 3px;
             display: none;
         }
+/*#endregion */
 
-/*
-.profile-manga-show {
-    list-style: none;
-    color: #222;
-    padding: 8px 12px;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 3px;
+/*#region allshow */
+.profile-list-all-show {
+    padding: 10px 8px;
     display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
 }
 
-    .profile-manga-show.active {
-        padding: 10px 8px;
-        align-items: center;
+    .profile-list-all-show.active {
         display: block;
-        pointer-events: auto;
-        transition: all 0.8s ease;
     }
 
-    .profile-manga-show a {
+        .profile-list-all-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-list-all-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-list-all-show a {
         text-decoration: none;
     }
 
-        .profile-manga-show a li {
-            display: none;
+        .profile-list-all-show a li span {
+            padding-left: 8px;
+            color: #fff;
         }
 
-    .profile-manga-show.active a li {
-        display: block;
-        align-items: center;
-    }
-    .profile-manga-show a li img {
-        border-radius: 5px;
-        height: 80px;
-        width: 65px;
-    }
-    .profile-manga-show a li span {
-        padding-left: 8px;
-    }*/
-.profile-anime-show {
-    transition: all 0.8s ease;
+        .profile-list-all-show a li img {
+            border-radius: 5px;
+            height: 100px;
+            width: 85px;
+        }
+
+        .profile-list-all-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+/*#endregion */
+
+/*#region readingshow */
+
+.profile-list-reading-show {
+    padding: 10px 8px;
     display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
 }
 
-    .profile-anime-show.active {
-        padding: 10px 8px;
+    .profile-list-reading-show.active {
         display: block;
-        pointer-events: auto;
-        transition: all 0.8s ease;
     }
 
+        .profile-list-reading-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-list-reading-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-list-reading-show a {
+        text-decoration: none;
+    }
+
+        .profile-list-reading-show a li span {
+            padding-left: 8px;
+            color: #fff;
+        }
+
+        .profile-list-reading-show a li img {
+            border-radius: 5px;
+            height: 100px;
+            width: 85px;
+        }
+
+        .profile-list-reading-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+/*#endregion */
+
+/*#region planshow */
+.profile-list-plantoread-show {
+    padding: 10px 8px;
+    display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
+}
+
+    .profile-list-plantoread-show.active {
+        display: block;
+    }
+
+        .profile-list-plantoread-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-list-plantoread-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-list-plantoread-show a {
+        text-decoration: none;
+    }
+
+        .profile-list-plantoread-show a li span {
+            padding-left: 8px;
+            color: #fff;
+        }
+
+        .profile-list-plantoread-show a li img {
+            border-radius: 5px;
+            height: 100px;
+            width: 85px;
+        }
+
+        .profile-list-plantoread-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+/*#endregion */
+
+/*#region completedshow */
+.profile-list-completed-show {
+    padding: 10px 8px;
+    display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
+}
+
+    .profile-list-completed-show.active {
+        display: block;
+    }
+
+        .profile-list-completed-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-list-completed-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-list-completed-show a {
+        text-decoration: none;
+    }
+
+        .profile-list-completed-show a li span {
+            padding-left: 8px;
+            color: #fff;
+        }
+
+        .profile-list-completed-show a li img {
+            border-radius: 5px;
+            height: 100px;
+            width: 85px;
+        }
+
+        .profile-list-completed-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+/*#endregion */
+
+/*#region rereadingshow */
+.profile-list-rereading-show {
+    padding: 10px 8px;
+    display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
+}
+
+    .profile-list-rereading-show.active {
+        display: block;
+    }
+
+        .profile-list-rereading-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-list-rereading-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-list-rereading-show a {
+        text-decoration: none;
+    }
+
+        .profile-list-rereading-show a li span {
+            padding-left: 8px;
+            color: #fff;
+        }
+
+        .profile-list-rereading-show a li img {
+            border-radius: 5px;
+            height: 100px;
+            width: 85px;
+        }
+
+        .profile-list-rereading-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+/*#endregion */
+
+/*#region pausedshow */
+.profile-list-paused-show {
+    padding: 10px 8px;
+    display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
+}
+
+    .profile-list-paused-show.active {
+        display: block;
+    }
+
+        .profile-list-paused-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-list-paused-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-list-paused-show a {
+        text-decoration: none;
+    }
+
+        .profile-list-paused-show a li span {
+            padding-left: 8px;
+            color: #fff;
+        }
+
+        .profile-list-paused-show a li img {
+            border-radius: 5px;
+            height: 100px;
+            width: 85px;
+        }
+
+        .profile-list-paused-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+/*#endregion */
+
+/*#region droppedshow */
+.profile-list-dropped-show {
+    padding: 10px 8px;
+    display: none;
+    pointer-events: auto;
+    transition: all 0.8s ease;
+}
+
+    .profile-list-dropped-show.active {
+        display: block;
+    }
+
+        .profile-list-dropped-show.active li {
+            list-style: none;
+            padding: 8px 12px;
+            width: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+            .profile-list-dropped-show.active li:hover {
+                background-color: #0f7564;
+                color: #fff;
+            }
+
+    .profile-list-dropped-show a {
+        text-decoration: none;
+    }
+
+        .profile-list-dropped-show a li span {
+            padding-left: 8px;
+            color: #fff;
+        }
+
+        .profile-list-dropped-show a li img {
+            border-radius: 5px;
+            height: 100px;
+            width: 85px;
+        }
+
+        .profile-list-dropped-show a li {
+            list-style: none;
+            color: #222;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+            display: none;
+        }
+/*#endregion */
+/*#endregion */
 
 .profile-card-item {
     display: flex;
@@ -720,26 +1037,22 @@ abbr[title] {
     background-color: rgba(0,0,0,.50);
     width: 90%;
     margin-top: 3%;
-    display: grid;
+    display: flex;
     border-radius: 5px;
     max-height: 500px;
     box-shadow: 0 10px 20px -10px rgb(0 0 0 / 75%);
     overflow: auto;
-    grid-template-columns: auto auto auto;
 }
 
     .profile-geral-list .display-list {
         margin: 1%;
         width: 50%;
-        display: grid;
-        grid-template-columns: 85% 85% 85%;
-        grid-gap: 40px;
-        column-gap: 80px;
     }
 
         .profile-geral-list .display-list div {
             margin: 1%;
             padding: 2%;
+          
         }
 
 .dp-list-card {
@@ -764,6 +1077,7 @@ abbr[title] {
             height: 100px;
             width: 85px;
         }
+
 /*#endregion */
 
 /*#region Search Bar */
