@@ -7,10 +7,10 @@
 
 <div class="profile-images">
     <img src="~/covers/@{
-                                                                        @Model.User.CoverImageFileLocation
+                                                                                @Model.User.CoverImageFileLocation
 }" class="cover-photo" />
     <img src="~/avatars/@{
-                                                                            @Model.User.AvatarImageFileLocation
+                                                                                    @Model.User.AvatarImageFileLocation
 }" class="profile-icon" />
 </div>
 
@@ -32,7 +32,6 @@
     @*<button class="msg-btn">Message</button>*@
 
     <div class="profile-favorites">
-
         <div class="btn-config">
             <button class="alternate-btn profile-manga-btn">Manga</button>
             <button class="alternate-btn profile-anime-btn">Anime</button>
@@ -82,7 +81,7 @@
             <button class="alternate-btn profile-list-reading-btn">Reading</button>
             <button class="alternate-btn profile-list-plantoread-btn">Plan to Read // Watch</button>
             <button class="alternate-btn profile-list-completed-btn">Completed</button>
-            <button class="alternate-btn profile-list-rereading-btn">Rereading//Rewatching</button>
+            <button class="alternate-btn profile-list-rereading-btn">Rereading // Rewatching</button>
             <button class="alternate-btn profile-list-paused-btn">Paused</button>
             <button class="alternate-btn profile-list-dropped-btn">Dropped</button>
         </div>
@@ -596,80 +595,190 @@
         if (profileReadingShow.classList.contains('active')) {
             profileAllShow.classList.toggle('active')
             profileReadingShow.classList.toggle('active')
+        }
+        else if (profilePlanShow.classList.contains('active')) {
+            profileAllShow.classList.toggle('active')
             profilePlanShow.classList.toggle('active')
+        }
+        else if (profileCompletedShow.classList.contains('active')) {
+            profileAllShow.classList.toggle('active')
             profileCompletedShow.classList.toggle('active')
+        }
+        else if (profileRereadingShow.classList.contains('active')) {
+            profileAllShow.classList.toggle('active')
             profileRereadingShow.classList.toggle('active')
+        }
+        else if (profilePausedShow.classList.contains('active')) {
+            profileAllShow.classList.toggle('active')
             profilePausedShow.classList.toggle('active')
+        }
+        else if (profileDroppedShow.classList.contains('active')) {
+            profileAllShow.classList.toggle('active')
             profileDroppedShow.classList.toggle('active')
         }
     }
+
     profileReadingBtn.onclick = function () {
         if (profileAllShow.classList.contains('active')) {
+            profileReadingShow.classList.toggle('active')
             profileAllShow.classList.toggle('active')
+        }
+        else if (profilePlanShow.classList.contains('active')) {
             profileReadingShow.classList.toggle('active')
             profilePlanShow.classList.toggle('active')
+        }
+        else if (profileCompletedShow.classList.contains('active')) {
+            profileReadingShow.classList.toggle('active')
+            profileCompletedShow.classList.toggle('active')
+        }
+        else if (profileRereadingShow.classList.contains('active')) {
+            profileReadingShow.classList.toggle('active')
+            profileRereadingShow.classList.toggle('active')
+        }
+        else if (profilePausedShow.classList.contains('active')) {
+            profileReadingShow.classList.toggle('active')
+            profilePausedShow.classList.toggle('active')
+        }
+        else if (profileDroppedShow.classList.contains('active')) {
+            profileReadingShow.classList.toggle('active')
+            profileDroppedShow.classList.toggle('active')
+        }
+    }
+
+    profilePlanBtn.onclick = function () {
+        if (profileAllShow.classList.contains('active')) {
+            profilePlanShow.classList.toggle('active')
+            profileAllShow.classList.toggle('active')
+        }
+        else if (profileReadingShow.classList.contains('active')) {
+            profilePlanShow.classList.toggle('active')
+            profileReadingShow.classList.toggle('active')
+        }
+        else if (profileCompletedShow.classList.contains('active')) {
+            profilePlanShow.classList.toggle('active')
+            profileCompletedShow.classList.toggle('active')
+        }
+        else if (profileRereadingShow.classList.contains('active')) {
+            profilePlanShow.classList.toggle('active')
+            profileRereadingShow.classList.toggle('active')
+        }
+        else if (profilePausedShow.classList.contains('active')) {
+            profilePlanShow.classList.toggle('active')
+            profilePausedShow.classList.toggle('active')
+        }
+        else if (profileDroppedShow.classList.contains('active')) {
+            profilePlanShow.classList.toggle('active')
+            profileDroppedShow.classList.toggle('active')
+        }
+    }
+
+    profileCompletedBtn.onclick = function () {
+        if (profileAllShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profileAllShow.classList.toggle('active')
+        }
+        else if (profileReadingShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profileReadingShow.classList.toggle('active')
+        }
+        else if (profilePlanShow.classList.contains('active')) {
+            profileCompletedShow.classList.toggle('active')
+            profilePlanShow.classList.toggle('active')
+        }
+        else if (profileRereadingShow.classList.contains('active')) {
             profileCompletedShow.classList.toggle('active')
             profileRereadingShow.classList.toggle('active')
+        }
+        else if (profilePausedShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profilePausedShow.classList.toggle('active')
+        }
+        else if (profileDroppedShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profileDroppedShow.classList.toggle('active')
+        }
+    }
+
+    profileRereadingBtn.onclick = function () {
+        if (profileAllShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profileAllShow.classList.toggle('active')
+        }
+        else if (profilePlanShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profilePlanShow.classList.toggle('active')
+        }
+        else if (profileCompletedShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profileCompletedShow.classList.toggle('active')
+        }
+        else if (profileReadingShow.classList.contains('active')) {
+            profileReadingShow.classList.toggle('active')
+            profileRereadingShow.classList.toggle('active')
+        }
+        else if (profilePausedShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profilePausedShow.classList.toggle('active')
+        }
+        else if (profileDroppedShow.classList.contains('active')) {
+            profileRereadingShow.classList.toggle('active')
+            profileDroppedShow.classList.toggle('active')
+        }
+    }
+
+    profilePausedBtn.onclick = function () {
+        if (profileAllShow.classList.contains('active')) {
+            profilePausedShow.classList.toggle('active')
+            profileAllShow.classList.toggle('active')
+        }
+        else if (profilePlanShow.classList.contains('active')) {
+            profilePausedShow.classList.toggle('active')
+            profilePlanShow.classList.toggle('active')
+        }
+        else if (profileCompletedShow.classList.contains('active')) {
+            profilePausedShow.classList.toggle('active')
+            profileCompletedShow.classList.toggle('active')
+        }
+        else if (profileRereadingShow.classList.contains('active')) {
+            profilePausedShow.classList.toggle('active')
+            profileRereadingShow.classList.toggle('active')
+        }
+        else if (profileReadingShow.classList.contains('active')) {
+            profilePausedShow.classList.toggle('active')
+            profileReadingShow.classList.toggle('active')
+        }
+        else if (profileDroppedShow.classList.contains('active')) {
             profilePausedShow.classList.toggle('active')
             profileDroppedShow.classList.toggle('active')
         }
     }
 
-    //profilePlanBtn.onclick = function () {
-    //    if (profileReadingBtn.classList.contains('active')) {
-    //        profileAllShow.classList.toggle('active')
-    //        profileReadingShow.classList.toggle('active')
-    //        profilePlanShow.classList.toggle('active')
-    //        profileCompletedShow.classList.toggle('active')
-    //        profileRereadingShow.classList.toggle('active')
-    //        profilePausedShow.classList.toggle('active')
-    //        profileDroppedShow.classList.toggle('active')
-    //    }
-    //}
-    //profileCompletedBtn.onclick = function () {
-    //    if (profileReadingBtn.classList.contains('active')) {
-    //        profileAllShow.classList.toggle('active')
-    //        profileReadingShow.classList.toggle('active')
-    //        profilePlanShow.classList.toggle('active')
-    //        profileCompletedShow.classList.toggle('active')
-    //        profileRereadingShow.classList.toggle('active')
-    //        profilePausedShow.classList.toggle('active')
-    //        profileDroppedShow.classList.toggle('active')
-    //    }
-    //}
-    //profileRereadingBtn.onclick = function () {
-    //    if (profileReadingBtn.classList.contains('active')) {
-    //        profileAllShow.classList.toggle('active')
-    //        profileReadingShow.classList.toggle('active')
-    //        profilePlanShow.classList.toggle('active')
-    //        profileCompletedShow.classList.toggle('active')
-    //        profileRereadingShow.classList.toggle('active')
-    //        profilePausedShow.classList.toggle('active')
-    //        profileDroppedShow.classList.toggle('active')
-    //    }
-    //}
-    //profilePausedBtn.onclick = function () {
-    //    if (profileReadingBtn.classList.contains('active')) {
-    //        profileAllShow.classList.toggle('active')
-    //        profileReadingShow.classList.toggle('active')
-    //        profilePlanShow.classList.toggle('active')
-    //        profileCompletedShow.classList.toggle('active')
-    //        profileRereadingShow.classList.toggle('active')
-    //        profilePausedShow.classList.toggle('active')
-    //        profileDroppedShow.classList.toggle('active')
-    //    }
-    //}
-    //profileDroppedBtn.onclick = function () {
-    //    if (profileReadingBtn.classList.contains('active')) {
-    //        profileAllShow.classList.toggle('active')
-    //        profileReadingShow.classList.toggle('active')
-    //        profilePlanShow.classList.toggle('active')
-    //        profileCompletedShow.classList.toggle('active')
-    //        profileRereadingShow.classList.toggle('active')
-    //        profilePausedShow.classList.toggle('active')
-    //        profileDroppedShow.classList.toggle('active')
-    //    }
-    //}
+    profileDroppedBtn.onclick = function () {
+        if (profileAllShow.classList.contains('active')) {
+            profileDroppedShow.classList.toggle('active')
+            profileAllShow.classList.toggle('active')
+        }
+        else if (profilePlanShow.classList.contains('active')) {
+            profileDroppedShow.classList.toggle('active')
+            profilePlanShow.classList.toggle('active')
+        }
+        else if (profileCompletedShow.classList.contains('active')) {
+            profileDroppedShow.classList.toggle('active')
+            profileCompletedShow.classList.toggle('active')
+        }
+        else if (profileRereadingShow.classList.contains('active')) {
+            profileDroppedShow.classList.toggle('active')
+            profileRereadingShow.classList.toggle('active')
+        }
+        else if (profilePausedShow.classList.contains('active')) {
+            profileDroppedShow.classList.toggle('active')
+            profilePausedShow.classList.toggle('active')
+        }
+        else if (profileReadingShow.classList.contains('active')) {
+            profileDroppedShow.classList.toggle('active')
+            profileReadingShow.classList.toggle('active')
+        }
+    }
 
 
 </script>
