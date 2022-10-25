@@ -222,8 +222,7 @@
                 <select class="form-control" asp-for="@Model.UserMangaItem.Score">
                     @for (int i = 0; i < valoresScore.Length; i++)
                     {
-                        int j = i + 1;
-                        <option value="@j">@valoresScore[i].Replace("_"," ")</option>
+                        <option value="@i">@valoresScore[i].Replace("_"," ")</option>
                     }
                 </select>
                 <span asp-validation-for="@Model.UserMangaItem.Score" class="text-danger"></span>
